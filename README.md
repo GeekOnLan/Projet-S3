@@ -5,6 +5,8 @@ Syntaxe à respecter :
 - commenter son code (fonction, classes, et code un peu fat)
 - Typer les objets (pas les primitifs) : function test(Member $member, ...) { ...
 - Bien indenter =)
+- nom fichier class : NomDeLaClass.class.php
+- fichier css et javascript dans des fichiers a part
 
 Exemple :
 - class {   (passer une ligne)
