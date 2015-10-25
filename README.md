@@ -12,6 +12,6 @@ Exemple :
 - etc pour les blocs de code
 - variable = 10 + variable2 (mettre les espaces entre les opérateurs)
 - if(...) (passer une ligne) (indenter une fois) : uniquement pour les blocs avec 1 instruction.
-- 
+
 But du sprint 1 :
 - Avoir une page d'accueil et permettre à l'utilisateur de s'inscrire, de se connecter et de naviguer grâce à une session
