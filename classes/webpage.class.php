@@ -25,21 +25,22 @@ class webpage {
 
     /**
      * Constructeur
+     * @param string $title Le titre de la page
      */
-    public function __construct() {
-        $this->title= "GeekOnLAN";
+    public function __construct($title) {
+        $this->title= $title;
         $this->header= <<<HTML
         <header>
             <div id="baniere">
             </div>
             <menu id="menu">
                 <ul>
-                    <li>Accueil</li>
-                    <li>LAN</li>
-                    <li>Actualites</li>
-                    <li>A propos</li>
-                    <li>Connexion</li>
-                    <li>S'inscrire</li>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">LAN</a></li>
+                    <li><a href="#">Actualites</a></li>
+                    <li><a href="#">A propos</a></li>
+                    <li><a href="#">Connexion</a></li>
+                    <li><a href="#">S'inscrire</a></li>
                 </ul>
             </menu>
             <form id="recherche"  method="GET">
