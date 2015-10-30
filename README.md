@@ -13,6 +13,8 @@ Modifiez le README de votre branche de développement si vous avez des messages 
 - Bien indenter =)
 - nom fichier class : nomdelaclass.class.php (lower case)
 - fichiers css et javascript dans des fichiers a part
+- nom des fichier classe php = NomDeLaClasse.class.php
+- le nom des classe avec des Majuscule 
 
 <h3>Les fichiers suivant iront respectivement dans :</h3>
 - classes       --> Fichier php (Classes)
