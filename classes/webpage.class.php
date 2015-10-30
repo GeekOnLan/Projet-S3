@@ -35,17 +35,12 @@ class webpage {
             </div>
             <menu id="menu">
                 <ul>
-                    <li><a href="#">Accueil</a></li>
+                    <li><a href="index.php">Accueil</a></li>
                     <li><a href="#">LAN</a></li>
-                    <li><a href="#">Actualites</a></li>
-                    <li><a href="#">A propos</a></li>
-                    <li><a href="#">Connexion</a></li>
+                    <li><a href="connection.php">Connexion</a></li>
                     <li><a href="#">S'inscrire</a></li>
                 </ul>
-            </menu>
-            <form id="recherche"  method="GET">
-                <input type="text" name="recherche" placeholder="Rechercher une LAN">
-            </form>
+            </menu>           
         </header>
 HTML;
     }
