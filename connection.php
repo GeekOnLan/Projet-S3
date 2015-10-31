@@ -3,7 +3,7 @@
 require_once("includes/autoload.inc.php");
 
 
-$page = new WebPage("Connexion");
+$page = new Webpage("Connexion");
 
 
 $err ='';

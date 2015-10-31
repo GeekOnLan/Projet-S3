@@ -1,6 +1,6 @@
 <?php
 
-class webpage {
+class Webpage {
     /**
      * @var string Texte compris entre <head> et </head>
      */
@@ -37,7 +37,7 @@ class webpage {
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="#">LAN</a></li>
-                    <li><a href="connection.php">Connexion</a></li>
+                    <li><a href="connection.php">Connection</a></li>
                     <li><a href="#">S'inscrire</a></li>
                 </ul>
             </menu>           
