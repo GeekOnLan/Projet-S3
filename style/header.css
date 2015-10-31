@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: AgencyRegular;
+    src: url('../resources/fonts/AgencyBold.ttf');
+}
+
+img[alt="GeekOnLanLogo"] {
+    display: block;
+    margin: 0 auto;
+
+    width: 240px;
+    height: auto;
+    position: relative;
+    top: -1px;
+    z-index: 1;
+}
+
+header {
+    background-color: #383838;
+    height: 45px;
+}
+
+header > hr {
+    position: relative;
+    width: 400px;
+    top: 20px;
+    margin: 0 auto;
+}
+
+nav ul:first-child {
+    list-style: none;
+    background-color: #D84508;
+    box-shadow: 2px 2px 2px 0 #333;
+    text-align: center;
+
+    display: inline-block;
+    position: relative;
+    float: left;
+
+    left: 50%;
+    margin-left: -590px;
+    z-index: 0;
+}
+
+nav ul:last-child {
+    list-style: none;
+    background-color: #489FC7;
+    box-shadow: 2px 2px 2px 0 #333;
+    text-align: center;
+
+    display: inline-block;
+    position: relative;
+    float: right;
+
+    right: 50%;
+    margin-right: -590px;
+    z-index: 0;
+}
+
+nav > ul > li {
+    display: inline-block;
+    margin: 0 -1px;
+}
+
+nav ul:first-child li {
+    background-color: #FF5B00;
+}
+
+nav ul:last-child li {
+    background-color: #40CFF6;
+}
+
+nav > ul > li > a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: AgencyRegular, serif;
+
+    width: 250px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
