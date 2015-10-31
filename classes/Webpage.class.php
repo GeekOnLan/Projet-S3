@@ -29,20 +29,21 @@ class Webpage {
      */
     public function __construct($title) {
         $this->title= $title;
-        $auth='';
-        if(!Member::isConnected())$auth="<li><a href=\"connexion.php\">Connexion</a></li>";
-        else $auth="<li><a href=\"deconnexion.php\">Deconnexion</a></li>";
         $this->header= <<<HTML
         <header>
-            <div id="baniere">
-            </div>
             <menu id="menu">
                 <ul>
                     <li><a href="index.php">Accueil</a></li>
-                    <li><a href="#">LAN</a></li>
-        			{$auth}
-                    <li><a href="#">S'inscrire</a></li>
-                </ul>
+                    <li><a href="lan.php">LAN</a></li>
+HTML;
+        if(Member::isConnected()){
+            $this->header.='<li><a href="authentification.php">Se Deconnecter</a></li>';
+        }
+        else{
+            $this->header.= '<li><a href="authentification.php">Connexion</a></li><li><a href="#">S\'inscrire</a></li>';
+        }
+         $this->header.= <<<HTML
+                        </ul>
             </menu>           
         </header>
 HTML;

@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 
 require_once("includes/autoload.inc.php");
 require_once("includes/myPDO.inc.php");
@@ -85,8 +85,8 @@ class Member{
 		$pdo = myPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
-			FROM Member
-			WHERE pseudo = ? AND pass = ?;
+			FROM Membre
+			WHERE pseudo = ? AND password = ?;
 SQL
 		);
 		$stmt->execute(array($pseudo,SHA1($mdp)));
