@@ -5,5 +5,7 @@
  * @param string $name
  */
 function __autoload($name) {
-    include('classes/' . strtolower($name) . '.class.php');
+	$fichier = '../classes/'.$name.'.class.php';
+    if(file_exists($fichier)) include $fichier;
+    else throw new Exception("la classe ".$name." est n'existe pas dans ../classes/");
 }

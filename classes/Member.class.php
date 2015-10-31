@@ -1,5 +1,7 @@
 <?php 
 
+include '../includes/myPDO.include.php';
+
 class Member{
 
 	/*
@@ -79,7 +81,6 @@ class Member{
 	 * Les données sont issues de la base de données
 	 */
 	public static function createFromAuth($pseudo,$mdp) {
-		myPDO::setConfiguration('mysql:host=localhost;dbname=geekOnLAN;charset=utf8', 'root', '');
 		$pdo = myPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
