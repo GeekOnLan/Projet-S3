@@ -1,6 +1,7 @@
 <?php 
 
-include '../includes/myPDO.include.php';
+require_once("includes/autoload.inc.php");
+require_once("includes/myPDO.inc.php");
 
 class Member{
 
@@ -115,7 +116,7 @@ SQL
 	*/
 	public static function isConnected(){
 		self::startSession();
-		if(isset($_SESSION['Member']) && !empty($_SESSION['Member'])){
+		if(isset($_SESSION['Member']) && !empty($_SESSION['Member']) && $_SESSION['Member']!=null){
 			return true;
 		}
 		else return false;
