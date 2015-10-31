@@ -11,8 +11,6 @@ Modifiez le README de votre branche de développement si vous avez des messages 
 - commenter son code (fonction, classes, et code un peu fat)
 - Typer les objets (pas les primitifs) : function test(Member $member, ...) { ...
 - Bien indenter =)
-- nom fichier class : nomdelaclass.class.php (lower case)
-- fichiers css et javascript dans des fichiers a part
 - nom des fichiers classe php = NomDeLaClasse.class.php
 - le nom des classes avec des Majuscules 
 
