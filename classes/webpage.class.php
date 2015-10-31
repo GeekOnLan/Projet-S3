@@ -31,22 +31,19 @@ class webpage {
         $this->title= $title;
         $this->header= <<<HTML
         <header>
-            <div id="baniere">
-            </div>
-            <menu id="menu">
-                <ul>
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">LAN</a></li>
-                    <li><a href="#">Actualites</a></li>
-                    <li><a href="#">A propos</a></li>
-                    <li><a href="#">Connexion</a></li>
-                    <li><a href="#">S'inscrire</a></li>
-                </ul>
-            </menu>
-            <form id="recherche"  method="GET">
-                <input type="text" name="recherche" placeholder="Rechercher une LAN">
-            </form>
+            <hr/>
+            <img alt="GeekOnLanLogo" src="resources/img/logo.png" />
         </header>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">LAN</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Connexion</a></li>
+                <li><a href="#">S'inscrire</a></li>
+            </ul>
+        </nav>
 HTML;
     }
 
