@@ -102,7 +102,7 @@ class Member{
 			WHERE pseudo = ? AND password = ?;
 SQL
 		);
-		$stmt->execute(array($pseudo,SHA1($mdp)));
+		$stmt->execute(array($pseudo,$mdp));
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$member = $stmt->fetch();
 		if($member!==false){

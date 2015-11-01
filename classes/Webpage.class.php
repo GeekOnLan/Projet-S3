@@ -37,7 +37,7 @@ class Webpage {
         if(!Member::isConnected())
             $auth=<<<HTML
                 <li><a href="authentification.php">Connexion</a></li>
-                <li><a href="#">S\'inscrire</a></li>
+                <li><a href="#">S'inscrire</a></li>
 HTML;
         else 
             $auth=<<<HTML

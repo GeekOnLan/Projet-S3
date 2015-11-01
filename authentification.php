@@ -14,9 +14,9 @@ $err ='';
 if(!Member::isConnected()){
 
 	// Authentifie le membre et le redirige sur index.php ( si les données sont valides)
-	if(isset($_REQUEST['login']) && isset($_REQUEST['pass'])){
+	if(isset($_REQUEST['hiddenlogin']) && isset($_REQUEST['hiddenpass']) && !empty($_REQUEST['hiddenlogin']) && !empty($_REQUEST['hiddenpass'])){
 		try{
-	   		$member = Member::createFromAuth($_REQUEST['login'],$_REQUEST['pass']);
+	   		$member = Member::createFromAuth($_REQUEST['hiddenlogin'],$_REQUEST['hiddenpass']);
 	   	   	$member->saveIntoSession();
 			header('Location: index.php');
 			exit();
@@ -26,11 +26,14 @@ if(!Member::isConnected()){
 		}
 	}
 
+	//ajeute le script de cryptage de pseudo et mot de passe
+	$form->appendJsUrl("js/cryptage.js");
+
 	//Affichage du formulaire 
 	$form->appendContent(<<<HTML
 		    {$err}
 			<article>
-				<form action="authentification.php" method="post">
+				<form name="connexion" action="authentification.php" method="post">
 					<table>
 						<tr>
 							<td>Identifiant :</td>
@@ -41,7 +44,13 @@ if(!Member::isConnected()){
 							<td><input type="password" required="required" name="pass"></td>
 						</tr>
 						<tr>
-							<td colspan='2'><button type="submit" value="submit">Confirmer</button></td>
+							<td><input type="text" required="required" name="hiddenlogin" style="display:none"></td>
+						</tr>
+						<tr>
+							<td><input type="password" required="required" name="hiddenpass" style="display:none"></td>
+						</tr>
+						<tr>
+							<td colspan='2'><button type="button" value="submit" onclick="test();">Confirmer</button></td>
 						</tr>
 					</table>
 				</form>
