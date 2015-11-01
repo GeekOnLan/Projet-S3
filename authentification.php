@@ -3,7 +3,7 @@
 require_once("includes/autoload.inc.php");
 
 
-$form = new Webpage("Connexion");
+$form = new Webpage("GeekOnLan - Connexion");
 $form->appendCssUrl("style/header.css");
 $form->appendCssUrl("style/accueil.css");
 

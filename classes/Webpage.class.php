@@ -1,18 +1,22 @@
 <?php
 
 class Webpage {
+
     /**
      * @var string Texte compris entre <head> et </head>
      */
     private $head  = null ;
+
     /**
      * @var string Texte compris entre <title> et </title>
      */
     private $title = null ;
+
     /**
      * @var string Texte compris entre <body> et </body>
      */
     private $body  = null ;
+
     /**
      * @var string Header du site compris au debut de la balise <body>
      */
@@ -27,13 +31,19 @@ class Webpage {
      * Constructeur
      * @param string $title Le titre de la page
      */
-    public function __construct($title) {
+    public function __construct($title="GeekOnLan") {
         $this->title= $title;
         $auth='';
         if(!Member::isConnected())
-            $auth='<li><a href="authentification.php">Connexion</a></li><li><a href="#">S\'inscrire</a></li>';
+            $auth=<<<HTML
+                <li><a href="authentification.php">Connexion</a></li>
+                <li><a href="#">S\'inscrire</a></li>
+HTML;
         else 
-            $auth='<li><a href="authentification.php">Deconnexion</a></li>';
+            $auth=<<<HTML
+            '<li><a href="authentification.php">Deconnexion</a></li>
+            <li><a href="#">Profile</a></li>
+HTML;
 
         $this->header= <<<HTML
         <header>
@@ -55,7 +65,6 @@ HTML;
     /**
      * Protéger les caractères spéciaux pouvant dégrader la page Web
      * @param string $string La chaîne à protéger
-     *
      * @return string La chaîne protégée
      */
     public function escapeString($string) {
@@ -73,8 +82,6 @@ HTML;
     /**
      * Ajouter l'URL d'un script CSS dans head
      * @param string $url L'URL du script CSS
-     *
-     * @return void
      */
     public function appendCssUrl($url) {
         $this->appendToHead(<<<HTML
@@ -87,8 +94,6 @@ HTML
     /**
      * Ajouter l'URL d'un script JavaScript dans head
      * @param string $url L'URL du script JavaScript
-     *
-     * @return void
      */
     public function appendJsUrl($url) {
         $this->appendToHead(<<<HTML
@@ -101,8 +106,6 @@ HTML
     /**
      * Ajouter un contenu dans body
      * @param string $content Le contenu à ajouter
-     *
-     * @return void
      */
     public function appendContent($content) {
         $this->body .= $content ;
@@ -110,9 +113,7 @@ HTML
 
     /**
      * Produire la page Web complète
-     *
      * @return string
-     * @throws Exception si title n'est pas défini
      */
     public function toHTML() {
         return <<<HTML

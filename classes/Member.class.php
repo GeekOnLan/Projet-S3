@@ -35,7 +35,10 @@ class Member{
 	*/
 	private $dateNais = null;
 
-	// getter
+	/*
+	* savoir si le membre est banni
+	*/
+	private $estBanni = null;
 
 	/*
 	* retourne l'id du membre
@@ -73,13 +76,23 @@ class Member{
 	}
 
 	/*
-	* pour ne pas cree d`instance de membre sans id
+	* retourne letat du membre, banni ou non
 	*/
+	public function getBan(){
+		return $this->estBanni;
+	}
+
+	/**
+	 * pour ne pas cree d'instance de Member
+	 */
 	private function __construct(){}
 
-	 /**
-	 * Usine pour fabriquer une instance à partir d'un pseudo et un mot de passe
-	 * Les données sont issues de la base de données
+	/**
+	 * cree une instance de Member
+	 * @param $pseudo pseudo du membre
+	 * @param $mdp mot de passe du membre
+	 * @return Member instance du membre
+	 * @throws Exception si le pseudo ou mot de passe est invalide
 	 */
 	public static function createFromAuth($pseudo,$mdp) {
 		$pdo = myPDO::GetInstance();
@@ -100,10 +113,11 @@ SQL
 			throw new Exception("Pseudo ou mot de passe invalide");
 		}		  
 	}
-		
-	/*
-	* demarre une session si elle n'est pas deja demarrer
-	*/
+
+	/**
+	 * demmare une session si celle si ne les pas
+	 * @throws Exception si une erreur de lancement survient
+	 */
 	private static function startSession(){
 		if(session_status()==PHP_SESSION_NONE){
 			if(session_status()==PHP_SESSION_ACTIVE)throw new Exception('erreur lancement de session');
@@ -111,9 +125,11 @@ SQL
 		}
 	}
 
-	/*
-	* return true si le membre et connecter false sinon
-	*/
+	/**
+	 * indique si le l'utilisateur et connecter
+	 * @return bool
+	 * @throws Exception
+	 */
 	public static function isConnected(){
 		self::startSession();
 		if(isset($_SESSION['Member']) && !empty($_SESSION['Member']) && $_SESSION['Member']!=null){
@@ -122,19 +138,29 @@ SQL
 		else return false;
 	}
 
-	/*
-	* stock le membre dans la session
-	*/
+	/**
+	 * stock l'instance du membre dans une variable de session
+	 * @throws Exception si la session a un probleme de lancement
+	 */
 	public function saveIntoSession(){
 		self::startSession();
 		$_SESSION['Member']=$this;
 	}
 
+	/**
+	 * deconnect le membre
+	 * @throws Exception si la session a un probleme de lancement
+	 */
 	public static function disconnect(){
 		self::startSession();
 		$_SESSION['Member']=null;
 	}
 
+	/**
+	 * renvoit l'instance du membre stocker dans la session
+	 * @return Membre
+	 * @throws Exception si la session a un probleme de lancement
+	 */
 	public static function GetInstance(){
 		self::startSession();
 		if(self::isConnected())

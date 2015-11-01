@@ -1,6 +1,7 @@
 <?php
 
 final class MyPDO {
+
     /**
      * myPDO $_PDOInstance Instance unique.
      */
@@ -10,14 +11,17 @@ final class MyPDO {
      * string $_DSN DSN pour la connexion BD.
      */
     private static $_DSN = null ;
+
     /**
      * string $_username Nom d'utilisateur pour la connexion BD.
      */
     private static $_username = null ;
+
     /**
      * string $_password Mot de passe pour la connexion BD.
      */
     private static $_password = null ;
+
     /**
      * array $_driverOptions Options du pilote BD.
      */
