@@ -4,8 +4,7 @@ require_once("includes/autoload.inc.php");
 
 
 $form = new Webpage("GeekOnLan - Connexion");
-$form->appendCssUrl("style/header.css");
-$form->appendCssUrl("style/accueil.css");
+$form->appendBasicCSSAndJS();
 
 
 $err ='';
@@ -26,35 +25,35 @@ if(!Member::isConnected()){
 		}
 	}
 
-	//ajeute le script de cryptage de pseudo et mot de passe
+	//ajoute le script de cryptage de pseudo et mot de passe
 	$form->appendJsUrl("js/cryptage.js");
 
 	//Affichage du formulaire 
 	$form->appendContent(<<<HTML
-		    {$err}
-			<article>
-				<form name="connexion" action="authentification.php" method="post">
-					<table>
-						<tr>
-							<td>Identifiant :</td>
-							<td><input type="text" required="required" name="login"></td>
-						</tr>
-						<tr>
-							<td>Mot de Passe :</td>
-							<td><input type="password" required="required" name="pass"></td>
-						</tr>
-						<tr>
-							<td><input type="text" required="required" name="hiddenlogin" style="display:none"></td>
-						</tr>
-						<tr>
-							<td><input type="password" required="required" name="hiddenpass" style="display:none"></td>
-						</tr>
-						<tr>
-							<td colspan='2'><button type="button" value="submit" onclick="test();">Confirmer</button></td>
-						</tr>
-					</table>
-				</form>
-			</article>
+	{$err}
+	<article>
+		<form name="connexion" action="authentification.php" method="post">
+			<table>
+				<tr>
+					<td>Identifiant :</td>
+					<td><input type="text" required="required" name="login"></td>
+				</tr>
+				<tr>
+					<td>Mot de Passe :</td>
+					<td><input type="password" required="required" name="pass"></td>
+				</tr>
+				<tr>
+					<td><input type="text" required="required" name="hiddenlogin" style="display:none"></td>
+				</tr>
+				<tr>
+					<td><input type="password" required="required" name="hiddenpass" style="display:none"></td>
+				</tr>
+				<tr>
+					<td colspan='2'><button type="button" value="submit" onclick="crypt();">Confirmer</button></td>
+				</tr>
+			</table>
+		</form>
+	</article>
 HTML
 	);
 }

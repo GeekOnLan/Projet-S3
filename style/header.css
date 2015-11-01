@@ -24,7 +24,7 @@ header {
     height: 45px;
 }
 
-nav {
+#menu {
     margin-bottom: 60px;
 }
 
@@ -35,7 +35,7 @@ header > hr {
     margin: 0 auto;
 }
 
-nav ul:first-child {
+#menu ul:first-child {
     list-style: none;
     background-color: #D84508;
     box-shadow: 2px 2px 2px 0 #333;
@@ -50,7 +50,7 @@ nav ul:first-child {
     z-index: 0;
 }
 
-nav ul:last-child {
+#menu ul:last-child {
     list-style: none;
     background-color: #489FC7;
     box-shadow: 2px 2px 2px 0 #333;
@@ -65,20 +65,20 @@ nav ul:last-child {
     z-index: 0;
 }
 
-nav > ul > li {
+#menu > ul > li {
     display: inline-block;
     margin: 0 -1px;
 }
 
-nav ul:first-child li {
+#menu ul:first-child li {
     background-color: #FF5B00;
 }
 
-nav ul:last-child li {
+#menu ul:last-child li {
     background-color: #40CFF6;
 }
 
-nav > ul > li > a {
+#menu > ul > li > a {
     display: inline-block;
     color: white;
     text-decoration: none;

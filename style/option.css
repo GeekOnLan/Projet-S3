@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#option{
+    position: fixed;
+    background-color: #40CFF6;
+    box-shadow: 2px 2px 2px 0 #333;
+    height: 100%;
+    width: 100px;
+}

@@ -28,29 +28,33 @@ class Webpage {
     private $footer = null;
 
     /**
+     * @var string Option afficher en mode connecter
+     */
+    private $option = null;
+
+    /**
      * Constructeur
      * @param string $title Le titre de la page
      */
     public function __construct($title="GeekOnLan") {
         $this->title= $title;
-        $auth='';
         if(!Member::isConnected())
             $auth=<<<HTML
-                <li><a href="authentification.php">Connexion</a></li>
-                <li><a href="#">S'inscrire</a></li>
+<li><a href="authentification.php">Connexion</a></li>
+<li><a href="#">S'inscrire</a></li>
 HTML;
         else 
             $auth=<<<HTML
-            '<li><a href="authentification.php">Deconnexion</a></li>
-            <li><a href="#">Profile</a></li>
+<li><a href="authentification.php">Deconnexion</a></li>
+<li><a href="#">Profile</a></li>
 HTML;
 
-        $this->header= <<<HTML
+        $this->header=<<<HTML
         <header>
             <hr/>
             <img alt="GeekOnLanLogo" src="resources/img/logo.png" />
         </header>
-        <nav>
+        <nav id="menu">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="lan.php">LAN</a></li>
@@ -60,6 +64,17 @@ HTML;
             </ul>
         </nav>
 HTML;
+        if(Member::isConnected()) {
+            $this->option = <<<HTML
+<nav id="option">
+    <ul>
+        <li><a id="test" href="#">Profil</a></li>
+        <li><a href="#">LAN</a></li>
+        <li><a href="#">Participations</a></li>
+    </ul>
+</nav>
+HTML;
+        }
     }
 
     /**
@@ -112,6 +127,17 @@ HTML
     }
 
     /**
+     * ajoute le css et le javascript de base
+     */
+    public function appendBasicCSSAndJS(){
+        $this->appendCssUrl("style/header.css");
+        if(Member::isConnected()) {
+            $this->appendCssUrl("style/option.css");
+            $this->appendJsUrl("js/option.js");
+        }
+    }
+
+    /**
      * Produire la page Web complète
      * @return string
      */
@@ -126,6 +152,7 @@ HTML
     </head>
     <body>
 {$this->header}
+{$this->option}
 {$this->body}
 {$this->footer}
     </body>
