@@ -24,9 +24,13 @@ header {
     height: 45px;
 }
 
+nav {
+    margin-bottom: 60px;
+}
+
 header > hr {
     position: relative;
-    width: 400px;
+    width: 900px;
     top: 20px;
     margin: 0 auto;
 }
