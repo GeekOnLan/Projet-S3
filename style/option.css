@@ -4,11 +4,7 @@
 }
 
 #optionmenu{
-    position: fixed;
-    background-color: #40CFF6;
-    box-shadow: 2px 2px 2px 0 #333;
-    height: 100%;
-    width: 200px;
+    display: none;
 }
 
 #optionimage{
