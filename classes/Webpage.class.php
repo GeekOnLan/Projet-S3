@@ -131,6 +131,7 @@ HTML
      */
     public function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/header.css");
+        $this->appendJsUrl("js/header.js");
         if(Member::isConnected()) {
             $this->appendCssUrl("style/option.css");
             $this->appendJsUrl("js/option.js");
