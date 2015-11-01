@@ -1,12 +1,18 @@
-var affiche = function(even){
-    if(even.clientX>100){
-        document.getElementById('option').style.display="none";
+var vue = false
+
+function afficher(){
+    if(vue) {
+        document.getElementById('optionmenu').style.display = "none";
+        document.getElementById('optionimage').style.display = "block";
+        vue = !vue;
     }
     else{
-        document.getElementById('option').style.display="block";
+        document.getElementById('optionmenu').style.display = "block";
+        document.getElementById('optionimage').style.display = "none";
+        vue = !vue;
     }
 }
 
-Window.onload=affiche;
-document.addEventListener('mousemove',affiche);
-
+document.onclick = function(){
+    afficher();
+}
