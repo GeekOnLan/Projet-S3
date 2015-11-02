@@ -67,11 +67,15 @@ HTML;
         if(Member::isConnected()) {
             $this->option = <<<HTML
 <nav id="option">
-    <img id="optionimage" alt="OptionMenu" src="resources/img/engrenage.png" />
     <ul id="optionmenu">
-        <li><a href="#">Profil</a></li>
-        <li><a href="#">LAN</a></li>
-        <li><a href="#">Participations</a></li>
+        <li>
+            <li><a href="#">Menu</a>
+            <ul>
+                <li><a href="#">Profil</a></li>
+                <li><a href="#">LAN</a></li>
+                <li><a href="#">Participations</a></li>
+            </ul>
+        </li>
     </ul>
 </nav>
 HTML;
