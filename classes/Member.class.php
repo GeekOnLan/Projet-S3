@@ -119,10 +119,10 @@ SQL
 	 * @throws Exception si une erreur de lancement survient
 	 */
 	private static function startSession(){
-		if(session_status()==PHP_SESSION_NONE){
-			if(session_status()==PHP_SESSION_ACTIVE)throw new Exception('erreur lancement de session');
-			else session_start();
-		}
+		if(session_status()==PHP_SESSION_NONE)
+			 session_start();
+		elseif(session_status()==PHP_SESSION_DISABLED)
+			throw new Exception('erreur lancement de session du a php les session ne sont pas activer');
 	}
 
 	/**

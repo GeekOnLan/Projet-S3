@@ -15,20 +15,22 @@ if(!Member::isConnected()){
 	// Authentifie le membre et le redirige sur index.php ( si les données sont valides)
 	if(isset($_REQUEST['hiddenlogin']) && isset($_REQUEST['hiddenpass']) && !empty($_REQUEST['hiddenlogin']) && !empty($_REQUEST['hiddenpass'])){
 		try{
-	   		$member = Member::createFromAuth($_REQUEST['hiddenlogin'],$_REQUEST['hiddenpass']);
-	   	   	$member->saveIntoSession();
+			$member = Member::createFromAuth($_REQUEST['hiddenlogin'],$_REQUEST['hiddenpass']);
+			$member->saveIntoSession();
 			header('Location: index.php');
 			exit();
 		}
 		catch (Exception $e) {
-		    $err ='<div>Un problème est survenu &nbsp;:'.$e->getMessage().'</div>';
+			$err ='<div>Un problème est survenu &nbsp; :'.$e->getMessage().'</div>';
 		}
 	}
 
 	//ajoute le script de cryptage de pseudo et mot de passe
 	$form->appendJsUrl("js/cryptage.js");
+	//script de hashage en sha256
+	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
 
-	//Affichage du formulaire 
+	//Affichage du formulaire
 	$form->appendContent(<<<HTML
 	{$err}
 	<article>
@@ -49,7 +51,7 @@ if(!Member::isConnected()){
 					<td><input type="password" required="required" name="hiddenpass" style="display:none"></td>
 				</tr>
 				<tr>
-					<td colspan='2'><button type="button" value="submit" onclick="crypt();">Confirmer</button></td>
+					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
 				</tr>
 			</table>
 		</form>
@@ -59,7 +61,7 @@ HTML
 }
 
 //Si le membre est connecté, le deconnecte
-else{	
+else{
 	Member::disconnect();
 	header('Location: index.php');
 	exit();
