@@ -94,17 +94,19 @@ class Member{
 	 * @return Member instance du membre
 	 * @throws Exception si le pseudo ou mot de passe est invalide
 	 */
-	public static function createFromAuth($pseudo,$mdp) {
+	public static function createFromAuth($crypt){
+		self::startSession();
 		$pdo = myPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
-			WHERE pseudo = ? AND password = ?;
+			WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt;
 SQL
 		);
-		$stmt->execute(array($pseudo,$mdp));
+		$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$member = $stmt->fetch();
+		unset($_SESSION['salt']);
 		if($member!==false){
 			self::startSession();
 			return $member;
@@ -167,5 +169,26 @@ SQL
 			return $_SESSION['Member'];
 		else
 			return null;
+	}
+
+	public static function SaltGrain(){
+		$res = '';
+		for($i=0;$i<256;$i++){
+			$char = rand(0,2);
+			switch($char){
+				case 0:
+					$res.=chr(rand(65,90));
+					break;
+				case 1:
+					$res.=chr(rand(97,122));
+					break;
+				case 2:
+					$res.=chr(rand(48,57));
+					break;
+			}
+		}
+		self::startSession();
+		$_SESSION['salt'] = $res;
+		return $res;
 	}
 }

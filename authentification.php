@@ -13,15 +13,15 @@ $err ='';
 if(!Member::isConnected()){
 
 	// Authentifie le membre et le redirige sur index.php ( si les données sont valides)
-	if(isset($_REQUEST['hiddenlogin']) && isset($_REQUEST['hiddenpass']) && !empty($_REQUEST['hiddenlogin']) && !empty($_REQUEST['hiddenpass'])){
+	if(isset($_REQUEST['hidden']) && !empty($_REQUEST['hidden'])){
 		try{
-			$member = Member::createFromAuth($_REQUEST['hiddenlogin'],$_REQUEST['hiddenpass']);
+			$member = Member::createFromAuth($_REQUEST['hidden']);
 			$member->saveIntoSession();
 			header('Location: index.php'.SID);
 			exit();
 		}
 		catch (Exception $e) {
-			$err ='<div>Un problème est survenu &nbsp; :'.$e->getMessage().'</div>';
+			$err ='<div>Un problème est survenu &nbsp; : '.$e->getMessage().'</div>';
 		}
 	}
 
@@ -29,29 +29,31 @@ if(!Member::isConnected()){
 	$form->appendJsUrl("js/cryptageAuthentification.js");
 	//script de hashage en sha256
 	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+	//script de hashage en sha1
+	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+
+	//grain de sel
+	$salt = Member::SaltGrain();
 
 	//Affichage du formulaire
 	$form->appendContent(<<<HTML
 	{$err}
 	<article>
-		<form name="connexion" action="authentification.php" method="post"  onsubmit="sha256()">
+		<form name="connexion" action="authentification.php" method="post">
 			<table>
 				<tr>
 					<td>Identifiant :</td>
-					<td><input type="text" name="login"></td>
+					<td><input type="text" name="login" onfocus="resetLogin()"></td>
 				</tr>
 				<tr>
 					<td>Mot de Passe :</td>
-					<td><input type="password" name="pass"></td>
+					<td><input type="password" name="pass" onfocus="resetPass()"></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="hiddenlogin" style="display:none"></td>
+					<td><input type="password" name="hidden" style="display:none" value="{$salt}"></td>
 				</tr>
 				<tr>
-					<td><input type="password" name="hiddenpass" style="display:none"></td>
-				</tr>
-				<tr>
-					<td colspan='2'><button type="submit" value="submit">Confirmer</button></td>
+					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
 				</tr>
 			</table>
 		</form>
