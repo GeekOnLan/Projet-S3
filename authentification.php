@@ -17,7 +17,7 @@ if(!Member::isConnected()){
 		try{
 			$member = Member::createFromAuth($_REQUEST['hiddenlogin'],$_REQUEST['hiddenpass']);
 			$member->saveIntoSession();
-			header('Location: index.php');
+			header('Location: index.php'.SID);
 			exit();
 		}
 		catch (Exception $e) {
@@ -26,7 +26,7 @@ if(!Member::isConnected()){
 	}
 
 	//ajoute le script de cryptage de pseudo et mot de passe
-	$form->appendJsUrl("js/cryptage.js");
+	$form->appendJsUrl("js/cryptageAuthentification.js");
 	//script de hashage en sha256
 	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
 
@@ -34,24 +34,24 @@ if(!Member::isConnected()){
 	$form->appendContent(<<<HTML
 	{$err}
 	<article>
-		<form name="connexion" action="authentification.php" method="post">
+		<form name="connexion" action="authentification.php" method="post"  onsubmit="sha256()">
 			<table>
 				<tr>
 					<td>Identifiant :</td>
-					<td><input type="text" required="required" name="login"></td>
+					<td><input type="text" name="login"></td>
 				</tr>
 				<tr>
 					<td>Mot de Passe :</td>
-					<td><input type="password" required="required" name="pass"></td>
+					<td><input type="password" name="pass"></td>
 				</tr>
 				<tr>
-					<td><input type="text" required="required" name="hiddenlogin" style="display:none"></td>
+					<td><input type="text" name="hiddenlogin" style="display:none"></td>
 				</tr>
 				<tr>
-					<td><input type="password" required="required" name="hiddenpass" style="display:none"></td>
+					<td><input type="password" name="hiddenpass" style="display:none"></td>
 				</tr>
 				<tr>
-					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
+					<td colspan='2'><button type="submit" value="submit">Confirmer</button></td>
 				</tr>
 			</table>
 		</form>

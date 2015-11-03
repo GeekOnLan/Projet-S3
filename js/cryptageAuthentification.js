@@ -6,5 +6,4 @@ function sha256(){
 
     document.getElementsByName('hiddenlogin')[0].value=document.getElementsByName('login')[0].value;
     document.getElementsByName('login')[0].value="";
-    document.forms['connexion'].submit();
 }
