@@ -32,43 +32,38 @@ header {
 
 header > hr {
     position: relative;
-    width: 900px;
+    width: 60%;
     top: 20px;
     margin: 0 auto;
 }
 
 #menu ul:first-child {
-    list-style: none;
     background-color: #D84508;
-    box-shadow: 2px 2px 2px 0 #333;
-    text-align: center;
-
-    display: inline-block;
-    position: relative;
-    float: left;
-
-    left: 50%;
-    margin-left: -590px;
-    z-index: 0;
+    margin-right: 110px;
+    right: 50%;
 }
 
 #menu ul:last-child {
-    list-style: none;
     background-color: #489FC7;
-    box-shadow: 2px 2px 2px 0 #333;
+    margin-left: 110px;
+    left: 50%;
+}
+
+#menu > ul {
+    display: table;
+    table-layout: fixed;
+
+    list-style: none;
     text-align: center;
+    box-shadow: 2px 2px 2px 0 #333;
 
-    display: inline-block;
-    position: relative;
-    float: right;
-
-    right: 50%;
-    margin-right: -590px;
+    position: absolute;
+    width: 30%;
     z-index: 0;
 }
 
 #menu > ul > li {
-    display: inline-block;
+    display: table-cell;
     margin: 0 -1px;
 
     perspective: 10000px;
@@ -85,13 +80,14 @@ header > hr {
 }
 
 #menu > ul > li > a {
-    display: inline-block;
+    display: block;
     color: white;
     text-decoration: none;
     font-size: 24px;
     font-family: AgencyRegular, serif;
 
-    width: 250px;
+    padding-top: 6px;
+    padding-bottom: 6px;
 
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
