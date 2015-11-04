@@ -138,7 +138,7 @@ HTML
         $this->appendCssUrl("style/header.css");
         $this->appendJsUrl("js/header.js");
         if(Member::isConnected()) {
-            $this->appendCssUrl("style/option.css");
+            $this->appendCssUrl("style/optionMenu.css");
             $this->appendJsUrl("js/option.js");
         }
     }

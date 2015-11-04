@@ -35,7 +35,7 @@ function verifyPass(){
 	if(pass1 != ''){
 		if(pass1 != pass2 && pass2 != ''){
 			setInput('pwdVerif');
-			setError('erreurpass', 'mot de passe differant');
+			setError('erreurpass', 'mot de passe different');
 		}
 		else{
 			resetInput('pwdVerif')
@@ -70,7 +70,7 @@ function verifyMail(){
 	}
 	else{
 		resetInput('mail');
-		resetError('erreurmail', 'mail non valide');
+		resetError('erreurmail');
 	}
 }
 
@@ -93,20 +93,21 @@ function verifyPseudo(){
 	return true;
 }
 
+//verifier le pseudo avec ajax
 function verififyPseudoForm(){
 	pseudo = document.getElementsByName('pseudo')[0].value;
 	if(pseudo != '') {
 		xhr = new XMLHttpRequest();
 		xhr.addEventListener('readystatechange', function () {
 			if (xhr.readyState === 2) {
-				alert("send");
+				console.log("send");
 			}
-			if (xhr.readyState === 4) {
-				cels = xhr.responseXML;
+			if (xhr.readyState === 4){
+				cels = xhr.responseXML.documentElement;
 				alert(cels);
 			}
 		}, true);
-		xhr.open('GET', 'pseudoValide.php');
+		xhr.open('POST', 'pseudoValide.php');
 		xhr.send(null);
 	}
 }

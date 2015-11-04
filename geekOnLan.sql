@@ -36872,7 +36872,7 @@ CREATE TABLE IF NOT EXISTS `Membre` (
   `pseudo` char(31) NOT NULL,
   `mail` char(63) NOT NULL,
   `dateNais` date DEFAULT NULL,
-  `password` char(31) NOT NULL,
+  `password` char(64) NOT NULL,
   `estBanni` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
