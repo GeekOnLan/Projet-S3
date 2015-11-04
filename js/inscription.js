@@ -1,7 +1,9 @@
 function verifyInscription(){
 	mail = document.getElementsByName('mail')[0].value;
 	//si tout est bon on envoit
-	if(verifyPassword() && validateEmail(email) && verifyPseudo()){
+	mailvalid = validateEmail(mail);
+	pseudoValid = verifyPseudo();
+	if(verifyPassword() && mailvalid && pseudoValid){
 		document.getElementsByName('hidden')[0].value = CryptoJS.SHA256(pass1);
 		document.getElementsByName('pwd')[0].value = '';
 		document.getElementsByName('pwdVerif')[0].value ='';
@@ -53,6 +55,9 @@ function verifyPassword(){
 	pass2 = document.getElementsByName('pwdVerif')[0].value;
 	if(pass1 != '' && pass1 == pass2)
 		return true;
+	else
+		setInput('pwdVerif');
+		setInput('pwd');
 	return false;
 }
 
@@ -69,14 +74,21 @@ function verifyMail(){
 	}
 }
 
-function validateEmail(email) {
+function validateEmail(email){
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-    return re.test(email);
+    if(!re.test(email)){
+    	setInput('mail');
+    	return false;
+    }
+    else
+    	return true;
 }
 
 function verifyPseudo(){
 	pseudo = document.getElementsByName('pseudo')[0].value;
-	if(pseudo == '')
+	if(pseudo == ''){
+		setInput('pseudo');
 		return false;
+	}
 	return true;
 }
