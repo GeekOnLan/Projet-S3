@@ -18,10 +18,6 @@ function sha256(){
     }
 }
 
-function resetPass(){
-    document.getElementsByName('pass')[0].style.borderColor = 'white';
-}
-
-function resetLogin(){
-    document.getElementsByName('login')[0].style.borderColor = 'white';
+function resetInput(name){
+    document.getElementsByName(name)[0].style.borderColor = 'white';
 }

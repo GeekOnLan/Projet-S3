@@ -1,7 +1,7 @@
 <?php
 
 require_once("includes/autoload.inc.php");
-
+require_once("includes/utility.inc.php");
 
 $form = new Webpage("GeekOnLan - Connexion");
 $form->appendBasicCSSAndJS();
@@ -13,9 +13,9 @@ $err ='';
 if(!Member::isConnected()){
 
 	// Authentifie le membre et le redirige sur index.php ( si les données sont valides)
-	if(isset($_REQUEST['hidden']) && !empty($_REQUEST['hidden'])){
+	if(verify($_POST,'hidden')){
 		try{
-			$member = Member::createFromAuth($_REQUEST['hidden']);
+			$member = Member::createFromAuth($_POST['hidden']);
 			$member->saveIntoSession();
 			header('Location: index.php'.SID);
 			exit();
@@ -43,14 +43,14 @@ if(!Member::isConnected()){
 			<table>
 				<tr>
 					<td>Identifiant :</td>
-					<td><input type="text" name="login" onfocus="resetLogin()"></td>
+					<td><input type="text" name="login" onfocus="resetInput('login')"></td>
 				</tr>
 				<tr>
 					<td>Mot de Passe :</td>
-					<td><input type="password" name="pass" onfocus="resetPass()"></td>
+					<td><input type="password" name="pass" onfocus="resetInput('pass')"></td>
 				</tr>
 				<tr>
-					<td><input type="password" name="hidden" style="display:none" value="{$salt}"></td>
+					<td><input type="text" name="hidden" style="display:none" value="{$salt}"></td>
 				</tr>
 				<tr>
 					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>

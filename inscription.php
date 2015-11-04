@@ -2,22 +2,23 @@
 
 require_once("includes/autoload.inc.php");
 require_once("includes/myPDO.inc.php");
-require_once("includes/verify.inc.php");
+require_once("includes/utility.inc.php");
 
 $form = new Webpage("GeekOnLan - Inscription");
 $form->appendBasicCSSAndJS();
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
-if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"pwd")){
+if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden")){
     $pseudo = $_POST['pseudo'];
     $mail = $_POST['mail'];
-    $password = $_POST['pwd'];
-    $passwordVerif = $_POST['pwdVerif'];
-
+    $password = $_POST['hidden'];
+    $fN = null;
+    $lN = null;
+    $bD = null;
     //Test des champs non obligatoire
-    if(verify($_POST,"firstName"))$fN = $_POST['firstName']; else $fN = null;
-    if(verify($_POST,"lastName"))$lN = $_POST['lastName']; else $lN = null;
-    if(verify($_POST,"birthday"))$lN = $_POST['birthday']; else $bD = null;
+    if(verify($_POST,"firstName"))$fN = $_POST['firstName']; 
+    if(verify($_POST,"lastName"))$lN = $_POST['lastName']; 
+    if(verify($_POST,"birthday"))$bD = $_POST['birthday'];
     //Connexion � la BdD
     $pdo = myPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
@@ -32,11 +33,8 @@ SQL
     if ($pFound != null) {
         $form->appendContent("<p>Le pseudonyme existe d&#233;j&#224;</p>".formulaire());
     } else {
-        // On v�rifie que les deux mots de passes sont �gaux
-        if ($password == $passwordVerif) {
-            $password = sha1($password);
             $stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
+			INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
 			VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
 SQL
             );
@@ -47,13 +45,12 @@ SQL
                                  "mail"=>$mail,
                                  "birthday"=>$bD));
             $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation</p>");
-        } else {
-            $form->appendContent("<p>Les deux mots de passe ne coresspondent pas !</p>". formulaire());
-        }
     }
 }
 
 else{
+	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+	$form->appendJsUrl("js/inscription.js");
 	$form->appendContent(formulaire());
 }
 echo $form->toHTML();
@@ -63,15 +60,16 @@ echo $form->toHTML();
 function formulaire(){
 
 	$html= <<<HTML
-	<form method="POST">
-		<div>Pseudonyme  <input name="pseudo" type="text" required></div>
-		<div>Email   <input name="mail" type="email" required></div>
+	<form method="POST" name="inscription" action="inscription.php">
+		<div>Pseudonyme  <input name="pseudo" type="text" onfocus="resetInput('pseudo')"></div>
+		<div>Email   <input name="mail" type="email" onfocus="resetInput('mail')"></div>
 		<div>Pr&#233;nom  <input name="firstName" type="text"></div>
 		<div>Nom  <input name="lastName" type="text"></div>
 		<div>Date de naissance  <input name="birthday" type="text"></div>	
-		<div> Mot de passe   <input name="pwd" type="password" required></div>
-		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" required></div>
-		<button type="submit"> Envoyer </button>
+		<div> Mot de passe   <input name="pwd" type="password" onfocus="resetInput('pwd')"></div>
+		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="resetInput('pwdVerif')" onchange="verifyPass()"></div>
+		<div><input name="hidden" type="hidden"></div>
+		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 		</form>
 HTML;
 	return $html;
