@@ -1,4 +1,4 @@
-﻿<?php 
+﻿﻿<?php 
 
 require_once("includes/autoload.inc.php");
 require_once("includes/myPDO.inc.php");
