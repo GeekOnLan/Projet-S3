@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once("includes/autoload.inc.php");
 
@@ -70,5 +70,3 @@ else{
 }
 
 echo $form->toHTML();
-
-

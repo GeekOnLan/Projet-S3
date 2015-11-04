@@ -2,12 +2,12 @@
 
 require_once("includes/autoload.inc.php");
 require_once("includes/myPDO.inc.php");
-require_once("includes/testFormulaire.inc.php");
+require_once("includes/verify.inc.php");
 
 $form = new Webpage("GeekOnLan - Inscription");
 $form->appendBasicCSSAndJS();
 
-//On regarde si l'utilisateur à déjà exécuté le formulaire
+//On regarde si l'utilisateur ï¿½ dï¿½jï¿½ exï¿½cutï¿½ le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"pwd")){
     $pseudo = $_POST['pseudo'];
     $mail = $_POST['mail'];
@@ -18,7 +18,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"pwd")){
     if(verify($_POST,"firstName"))$fN = $_POST['firstName']; else $fN = null;
     if(verify($_POST,"lastName"))$lN = $_POST['lastName']; else $lN = null;
     if(verify($_POST,"birthday"))$lN = $_POST['birthday']; else $bD = null;
-    //Connexion à la BdD
+    //Connexion ï¿½ la BdD
     $pdo = myPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
 			SELECT pseudo
@@ -26,13 +26,13 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"pwd")){
 			WHERE pseudo = :pseudo;
 SQL
     );
-    //On vérifie que le pseudonyme du futur membre n'est pas déjà utilisé
+    //On vï¿½rifie que le pseudonyme du futur membre n'est pas dï¿½jï¿½ utilisï¿½
     $stmt->execute(array("pseudo"=>$pseudo));
     $pFound = $stmt->fetch();
     if ($pFound != null) {
         $form->appendContent("<p>Le pseudonyme existe d&#233;j&#224;</p>".formulaire());
     } else {
-        // On vérifie que les deux mots de passes sont égaux
+        // On vï¿½rifie que les deux mots de passes sont ï¿½gaux
         if ($password == $passwordVerif) {
             $password = sha1($password);
             $stmt = $pdo->prepare(<<<SQL
@@ -59,7 +59,7 @@ else{
 echo $form->toHTML();
 
 
-// Fonction utilisé pour crée le formulaire d'inscription au sein de la page.
+// Fonction utilisï¿½ pour crï¿½e le formulaire d'inscription au sein de la page.
 function formulaire(){
 
 	$html= <<<HTML
