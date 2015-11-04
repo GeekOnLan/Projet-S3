@@ -102,12 +102,12 @@ function verififyPseudoForm(){
 			if (xhr.readyState === 2) {
 				console.log("send");
 			}
-			if (xhr.readyState === 4){
+			if (xhr.readyState === 4  && xhr . status ===  200 ){
 				cels = xhr.responseXML.documentElement;
 				alert(cels);
 			}
 		}, true);
-		xhr.open('POST', 'pseudoValide.php');
+		xhr.open('GET','pseudoValide.php?pseudo='+pseudo);
 		xhr.send(null);
 	}
 }

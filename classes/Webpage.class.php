@@ -139,7 +139,7 @@ HTML
         $this->appendJsUrl("js/header.js");
         if(Member::isConnected()) {
             $this->appendCssUrl("style/optionMenu.css");
-            $this->appendJsUrl("js/option.js");
+            $this->appendJsUrl("js/optionMenu.js");
         }
     }
 
