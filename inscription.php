@@ -61,13 +61,13 @@ function formulaire(){
 
 	$html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
-		<div>Pseudonyme  <input name="pseudo" type="text" onfocus="resetInput('pseudo')"></div>
-		<div>Email   <input name="mail" type="email" onfocus="resetInput('mail')"></div>
+		<div>Pseudonyme  <input name="pseudo" type="text"></div>
+		<div>Email   <input name="mail" type="text" onfocus="verifyMail()" onblur="verifyMail()"><span id="erreurmail"></span></div>
 		<div>Pr&#233;nom  <input name="firstName" type="text"></div>
 		<div>Nom  <input name="lastName" type="text"></div>
 		<div>Date de naissance  <input name="birthday" type="text"></div>	
-		<div> Mot de passe   <input name="pwd" type="password" onfocus="resetInput('pwd')"></div>
-		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="resetInput('pwdVerif')" onchange="verifyPass()"></div>
+		<div> Mot de passe   <input name="pwd" type="password" onfocus="verifyPass()" onblur="verifyPass()"></div>
+		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="verifyPass()" onblur="verifyPass()"><span id="erreurpass"></span></div>
 		<div><input name="hidden" type="hidden"></div>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 		</form>
