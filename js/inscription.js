@@ -92,3 +92,21 @@ function verifyPseudo(){
 	}
 	return true;
 }
+
+function verififyPseudoForm(){
+	pseudo = document.getElementsByName('pseudo')[0].value;
+	if(pseudo != '') {
+		xhr = new XMLHttpRequest();
+		xhr.addEventListener('readystatechange', function () {
+			if (xhr.readyState === 2) {
+				alert("send");
+			}
+			if (xhr.readyState === 4) {
+				cels = xhr.responseXML;
+				alert(cels);
+			}
+		}, true);
+		xhr.open('GET', 'pseudoValide.php');
+		xhr.send(null);
+	}
+}

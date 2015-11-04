@@ -61,7 +61,7 @@ function formulaire(){
 
 	$html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
-		<div>Pseudonyme  <input name="pseudo" type="text"  onfocus="resetInput('pseudo')"></div>
+		<div>Pseudonyme  <input name="pseudo" type="text"  onfocus="resetInput('pseudo')" onblur="verififyPseudoForm()"></div>
 		<div>Email   <input name="mail" type="text"  onfocus="resetInput('mail')" onfocus="verifyMail()" onblur="verifyMail()"><span id="erreurmail"></span></div>
 		<div>Pr&#233;nom  <input name="firstName" type="text"></div>
 		<div>Nom  <input name="lastName" type="text"></div>
