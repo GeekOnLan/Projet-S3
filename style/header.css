@@ -70,6 +70,10 @@ header > hr {
 #menu > ul > li {
     display: inline-block;
     margin: 0 -1px;
+
+    perspective: 10000px;
+    -webkit-perspective: 10000px;
+    -moz-perspective: 10000px;
 }
 
 #menu ul:first-child li {
@@ -88,12 +92,18 @@ header > hr {
     font-family: AgencyRegular, serif;
 
     width: 250px;
-    padding-top: 6px;
-    padding-bottom: 6px;
 
     transition: all 0.3s;
-    transform-origin: 50% 0%; /* TODO ajouter le support des autres navigateurs dissidents */
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+
+    transform-origin: 50% 0%;
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
+
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
 }
 
 #menu > ul > li > a::before {
@@ -103,15 +113,27 @@ header > hr {
     width: 100%;
     padding-top: 6px;
     padding-bottom: 6px;
-
     content: attr(title);
+
     transition: all 0.3s;
-    transform: rotateX(-90deg); /* TODO ajouter le support des autres navigateurs dissidents */
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+
+    transform: rotateX(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+
     transform-origin: 50% 0%;
+    -webkit-transform-origin: 50% 0;
+    -moz-transform-origin: 50% 0;
 }
 
 #menu > ul > li > a:hover, #menu > ul > li:hover a {
-    transform: rotateX(90deg) translateY(-35px); /* TODO ajouter le support des autres navigateurs dissidents */
+    transform: rotateX(90deg) translateY(-45px);
+    -webkit-transform: rotateX(90deg) translateY(-45px);
+    -moz-transform: rotateX(90deg) translateY(-45px);
+    -ms-transform: none;
 }
 
 #menu > ul:last-child > li:hover > a::before, #menu > ul:last-child > li > a:hover::before {
