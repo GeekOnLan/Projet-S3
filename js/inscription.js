@@ -15,7 +15,7 @@ function setInput(name){
 
 //remet les coutours pas default
 function resetInput(name){
-		document.getElementsByName(name)[0].style.borderColor = 'white';
+	document.getElementsByName(name)[0].style.borderColor = '';
 }
 
 function setError(name,error){
@@ -76,7 +76,7 @@ function validateEmail(email) {
 
 function verifyPseudo(){
 	pseudo = document.getElementsByName('pseudo')[0].value;
-	if(pseudo == ''){
+	if(pseudo == '')
 		return false;
 	return true;
 }
