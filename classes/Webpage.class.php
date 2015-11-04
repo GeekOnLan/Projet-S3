@@ -66,16 +66,12 @@ HTML;
 HTML;
         if(Member::isConnected()) {
             $this->option = <<<HTML
-<nav id="option">
-    <ul id="optionmenu">
-        <li>
-            <li><a href="#">Menu</a>
-            <ul>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">LAN</a></li>
-                <li><a href="#">Participations</a></li>
-            </ul>
-        </li>
+<nav id="options">
+    <button type="button">Insert something here</button>
+    <ul>
+        <li><a href="#">Profil</a></li>
+        <li><a href="#">LAN</a></li>
+        <li><a href="#">Participations</a></li>
     </ul>
 </nav>
 HTML;
@@ -136,6 +132,7 @@ HTML
      */
     public function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/header.css");
+        $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/header.js");
         if(Member::isConnected()) {
             $this->appendCssUrl("style/optionMenu.css");
