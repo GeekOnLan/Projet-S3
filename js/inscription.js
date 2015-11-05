@@ -107,7 +107,7 @@ function verififyPseudoForm(){
 				alert(cels);
 			}
 		}, true);
-		xhr.open('GET','pseudoValide.php?pseudo='+pseudo);
+		xhr.open('GET','scriptPHP/seudoValide.php?pseudo='+pseudo);
 		xhr.send(null);
 	}
 }
