@@ -26,13 +26,13 @@ function verifyInscription(){
 								setError('erreurbirth', 'date de naissance au format : JJ/MM/AAAA');
 								ok = false;
 							}
-							nom = document.getElementsByName('lastname')[0].value;
+							nom = document.getElementsByName('lastName')[0].value;
 							if (nom != '' && !name(nom)) {
 								setInput('lastname');
 								setError('erreurlast', 'pas de caractere sepciaux');
 								ok = false;
 							}
-							prenom = document.getElementsByName('firstname')[0].value;
+							prenom = document.getElementsByName('firstName')[0].value;
 							if (prenom != '' && !name(prenom)) {
 								setInput('firstname');
 								setError('erreurfirst', 'pas de caractere sepciaux');
@@ -42,8 +42,7 @@ function verifyInscription(){
 								document.getElementsByName('hidden')[0].value = CryptoJS.SHA256(pass1);
 								document.getElementsByName('pwd')[0].value = '';
 								document.getElementsByName('pwdVerif')[0].value = '';
-								alert('ok');
-								//document.inscription.submit();
+								document.inscription.submit();
 							}
 						}
 					}
