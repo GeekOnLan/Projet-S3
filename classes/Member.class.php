@@ -96,7 +96,7 @@ class Member {
 	 */
 	public static function createFromAuth($crypt){
 		self::startSession();
-		$pdo = myPDO::GetInstance();
+		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre

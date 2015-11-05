@@ -1,9 +1,14 @@
 <?php
+header('Content-Type: text/xml');
+header('Content-Type: application/xml');
+require_once("../includes/utility.inc.php");
+require_once("../includes/myPDO.inc.php");
+require_once("../includes/autoload.inc.php");
 
-require_once("includes/utility.inc.php");
+$xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 
 if(verify($_GET,'pseudo')){
-    $pdo = myPDO::GetInstance();
+    $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
                 SELECT *
                 FROM Membre
@@ -13,10 +18,10 @@ SQL
     $stmt->execute(array("pseudo" => $_GET['pseudo']));
     $member = $stmt->fetch();
     if($member==false){
-        echo "<div id=\"valide\">true</div>";
+        echo $xml."<response>true</response>";
     }
     else
-        echo "<div id=\"valide\">false</div>";
+        echo $xml."<response>false</response>";
 }
 else
-    echo "<div id=\"valide\"Exception</div>";
+    echo $xml."<response>Exception</response>";

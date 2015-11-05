@@ -9,5 +9,7 @@ function __autoload($name){
 	$fichier = 'classes/'.$name.'.class.php';
     if(file_exists($fichier))
         require_once($fichier);
+    elseif(file_exists("../".$fichier))
+        require_once("../".$fichier);
     else throw new Exception("la classe ".$name.".class.php n'existe pas dans ../classes/");
 }

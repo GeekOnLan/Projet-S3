@@ -27,25 +27,18 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 			WHERE pseudo = :pseudo;
 SQL
     );
-    //On v�rifie que le pseudonyme du futur membre n'est pas d�j� utilis�
-    $stmt->execute(array("pseudo"=>$pseudo));
-    $pFound = $stmt->fetch();
-    if ($pFound != null) {
-        $form->appendContent("<p>Le pseudonyme existe d&#233;j&#224;</p>".formulaire());
-    } else {
-            $stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
-			VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
+    $stmt = $pdo->prepare(<<<SQL
+	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
+	VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
 SQL
-            );
-            $stmt->execute(array("ln"=>$lN,
-                                 "fn"=>$fN,
-                                 "pseudo"=>$pseudo,
-                                 "password"=>$password,
-                                 "mail"=>$mail,
-                                 "birthday"=>$bD));
-            $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation</p>");
-    }
+    );
+    $stmt->execute(array("ln"=>$lN,
+        "fn"=>$fN,
+        "pseudo"=>$pseudo,
+        "password"=>$password,
+        "mail"=>$mail,
+        "birthday"=>$bD));
+    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation</p>");
 }
 
 else{
@@ -61,13 +54,13 @@ function formulaire(){
 
 	$html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
-		<div>Pseudonyme  <input name="pseudo" type="text"  onfocus="resetInput('pseudo')" onblur="verififyPseudoForm()"></div>
-		<div>Email   <input name="mail" type="text"  onfocus="resetInput('mail')" onfocus="verifyMail()" onblur="verifyMail()"><span id="erreurmail"></span></div>
-		<div>Pr&#233;nom  <input name="firstName" type="text"></div>
-		<div>Nom  <input name="lastName" type="text"></div>
-		<div>Date de naissance  <input name="birthday" type="text"></div>	
-		<div> Mot de passe   <input name="pwd" type="password" onfocus="resetInput('pwd')" onfocus="verifyPass()" onblur="verifyPass()"></div>
-		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="verifyPass()" onblur="verifyPass()"><span id="erreurpass"></span></div>
+		<div>Pseudonyme  <input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></div>
+		<div>Email   <input name="mail" type="text"  onfocus="resetMail()" onblur="verifyMail()"><span id="erreurmail"></span></div>
+		<div>Pr&#233;nom  <input name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()"><span id="erreurfirst"></div>
+		<div>Nom  <input name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()"><span id="erreurlast"></div>
+		<div>Date de naissance  <input name="birthday" onfocus="resetBirth()" onblur="verifyBirth()" type="text"><span id="erreurbirth"></span></div>
+		<div> Mot de passe   <input name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass1"></span></div>
+		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass"></span></div>
 		<div><input name="hidden" type="hidden"></div>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 		</form>
