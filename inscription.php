@@ -20,8 +20,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 		//Test des champs non obligatoire
 		if (verify($_POST, "firstName") && mb_ereg("", "") == 1) $fN = $_POST['firstName'];
 		if (verify($_POST, "lastName")) $lN = $_POST['lastName'];
-		if (verify($_POST, "birthday") && mb_ereg("(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))
-	", $_POST['birthday']))
+		if (verify($_POST, "birthday") && mb_ereg("(?:(?:0[1-9]|1[0-2])[\/\\-. ]?(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:19|20)[0-9]{2}", $_POST['birthday']))
 		{
 			//Connexion � la BdD
 			$bD = $_POST['birthday'];
