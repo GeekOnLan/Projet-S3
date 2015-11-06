@@ -90,9 +90,10 @@ function verififyPseudoForm() {
 		xhr.addEventListener('readystatechange', function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				$xml = xhr.responseXML.documentElement.textContent;
+				console.log($xml);
 				if ($xml == "false") {
 					setInput('pseudo');
-					setError('erreurpseudo', 'ce pseudo est deja pris');
+					setError('erreurpseudo', 'ce pseudo est déjà pris');
 				}
 				else if(!pseudo(pseu)){
 					setInput('pseudo');
@@ -102,7 +103,7 @@ function verififyPseudoForm() {
 					resetPseudo();
 			}
 		}, true);
-		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseudo);
+		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
 		xhr.send(null);
 	}
 }
