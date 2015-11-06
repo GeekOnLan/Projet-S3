@@ -90,7 +90,6 @@ function verififyPseudoForm() {
 		xhr.addEventListener('readystatechange', function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				$xml = xhr.responseXML.documentElement.textContent;
-				console.log($xml);
 				if ($xml == "false") {
 					setInput('pseudo');
 					setError('erreurpseudo', 'ce pseudo est déjà pris');

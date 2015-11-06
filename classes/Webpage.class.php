@@ -46,7 +46,7 @@ HTML;
         else 
             $auth=<<<HTML
 <li><a href="authentification.php">Deconnexion</a></li>
-<li><a href="#">Profile</a></li>
+<li><a href="profile.php">Profile</a></li>
 HTML;
 
         $this->header=<<<HTML
