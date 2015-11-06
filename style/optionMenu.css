@@ -12,17 +12,10 @@
     position: fixed;
     top: 50%;
     
-    font-family: AgencyRegular;
+    font-family: AgencyRegular, Arial, sans-serif;
 }
 
-#options > ul {
-	position: fixed;
-	top: 50%;
-	
-    visibility: hidden;
-    opacity: 0;
-    left: -12%;
-}
+/** Animation de départ du bouton **/
 
 #options > button {
 	position: fixed;
@@ -41,27 +34,33 @@
     box-shadow: 2px 2px 2px 0 #333;
 }
 
-#options > .activeNav {
+#options > .hiddenButton {
+	opacity: 0;
+	left: -12%;
+	visibility: hidden;
+}
+
+/** Animation de l'arrivée du menu **/
+
+#options > ul > li {
 	transition: all 0.3s;
+	position: relative;
+	background: #383838;
+	visibility: hidden;
+
+	left: -12%;
+	opacity: 0;
+	width: 200px;
+	box-shadow: 2px 2px 2px 0 #333;
+}
+
+#options > ul > .activeNav {
 	visibility: visible;
 	opacity: 1;
 	left: 0;
 }
 
-#options > .hiddenButton {
-	opacity: 0;
-	left: -12%;
-	visibity: hidden;
-}
-
-#options > ul > li {
-	height: 20px;
-	background: #383838;
-	
-	width: 200px;
-	height: 100%;
-	box-shadow: 2px 2px 2px 0 #333;
-}
+/** Animation au survole **/
 
 #options > ul > li > a:hover {
 	border-left: 50px solid #FF5B00;
