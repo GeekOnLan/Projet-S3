@@ -88,32 +88,33 @@ function resetError(name){
 function verififyPseudoForm() {
 	pseu = document.getElementsByName('pseudo')[0].value;
 	if (pseu != '') {
-		xhr = new XMLHttpRequest();
-		xhr.addEventListener('readystatechange', function () {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				$xml = xhr.responseXML.documentElement.textContent;
-				if ($xml == "false") {
-					setInput('pseudo');
-					setError('erreurpseudo', 'ce pseudo est déjà pris');
+		if(!pseudo(pseu)){
+			setInput('pseudo');
+			setError('erreurpseudo', 'pas de caractere sepciaux');
+		}
+		else{
+			xhr = new XMLHttpRequest();
+			xhr.addEventListener('readystatechange', function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					$xml = xhr.responseXML.documentElement.textContent;
+					if ($xml == "false") {
+						setInput('pseudo');
+						setError('erreurpseudo', 'ce pseudo est déjà pris');
+					}
+					else
+						resetPseudo();
 				}
-				else if(!pseudo(pseu)){
-					setInput('pseudo');
-					setError('erreurpseudo', 'les caracteres autoriser sont : ');
-				}
-				else
-					resetPseudo();
-			}
-		}, true);
-		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
-		xhr.send(null);
+			}, true);
+			xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
+			xhr.send(null);
+		}
 	}
 }
 
 //teste pseudo et nom
 function pseudo(name){
-	//re = /^/;
-	//return re.test(name);
-	return true;
+	re = /^[a-zA-Z][a-zA-Z0-9-_\.@]{1,20}$/;
+	return re.test(name);
 }
 
 //----------------------------------------------------------//
@@ -165,7 +166,7 @@ function resetFirst(){
 
 //teste prenom et nom
 function name(name){
-	re = /^[a-zA-Z\-]+$/;
+	re = /^[a-zA-Z]{0,20}$/;
 	return re.test(name);
 }
 
