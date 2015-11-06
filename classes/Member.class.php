@@ -107,13 +107,26 @@ SQL
 		$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$member = $stmt->fetch();
-		unset($_SESSION['salt']);
 		if($member!==false){
-			self::startSession();
+			self::SaltGrain();
 			return $member;
 		}
 		else{
-			throw new Exception("Pseudo ou mot de passe invalide");
+			$pdo = MyPDO::GetInstance();
+			$stmt = $pdo->prepare(<<<SQL
+				SELECT *
+				FROM Membre
+				WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt
+					AND estValide = 0;
+SQL
+			);
+			$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
+			$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+			$member = $stmt->fetch();
+			if($member!==false)
+				throw new Exception('Vous n\'avez pas valider votre adresse mail');
+			else
+				throw new Exception('Pseudo ou mot de passe invalide');
 		}		  
 	}
 
