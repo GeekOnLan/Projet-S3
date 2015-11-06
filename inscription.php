@@ -75,7 +75,7 @@ function envoieMailValide($login,$email){
 	$key = md5(microtime(TRUE)*100000);
 
 	// Insertion de la clé dans la base de données
-	$stmt = myPDO::GetInstance();
+	$dbh = myPDO::GetInstance();
 	$stmt = $dbh->prepare("UPDATE Membre SET cleMail=:key WHERE pseudo like :login");
 	$stmt->bindParam(':key', $key);
 	$stmt->bindParam(':login', $login);

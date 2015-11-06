@@ -100,7 +100,8 @@ class Member {
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
-			WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt;
+			WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt
+				AND estValide = 1;
 SQL
 		);
 		$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
