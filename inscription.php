@@ -7,39 +7,59 @@ require_once("includes/utility.inc.php");
 $form = new Webpage("GeekOnLan - Inscription");
 $form->appendBasicCSSAndJS();
 
+
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
-if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden")){
-    $pseudo = $_POST['pseudo'];
-    $mail = $_POST['mail'];
-    $password = $_POST['hidden'];
-    $fN = null;
-    $lN = null;
-    $bD = null;
-    //Test des champs non obligatoire
-    if(verify($_POST,"firstName"))$fN = $_POST['firstName']; 
-    if(verify($_POST,"lastName"))$lN = $_POST['lastName']; 
-    if(verify($_POST,"birthday"))$bD = $_POST['birthday'];
-    //Connexion � la BdD
-    $pdo = myPDO::GetInstance();
-    $stmt = $pdo->prepare(<<<SQL
+if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden")) {
+	$pseudo = $_POST['pseudo'];
+	$mail = $_POST['mail'];
+	$password = $_POST['hidden'];
+	$fN = null;
+	$lN = null;
+	$bD = null;
+	if(mb_ereg("^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$",$_POST['pseudo']) == 1){
+		//Test des champs non obligatoire
+		if (verify($_POST, "firstName") && mb_ereg("", "") == 1) $fN = $_POST['firstName'];
+		if (verify($_POST, "lastName")) $lN = $_POST['lastName'];
+		if (verify($_POST, "birthday") && mb_ereg("(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))
+	", $_POST['birthday']))
+		{
+			//Connexion � la BdD
+			$bD = $_POST['birthday'];
+			$pdo = myPDO::GetInstance();
+			$stmt = $pdo->prepare(<<<SQL
 			SELECT pseudo
 			FROM Membre
 			WHERE pseudo = :pseudo;
 SQL
-    );
-    $stmt = $pdo->prepare(<<<SQL
+			);
+			$stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
 	VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
 SQL
-    );
-    $stmt->execute(array("ln"=>$lN,
-        "fn"=>$fN,
-        "pseudo"=>$pseudo,
-        "password"=>$password,
-        "mail"=>$mail,
-        "birthday"=>$bD));
-    envoieMailValide($pseudo,$mail);
-    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+			);
+			$stmt->execute(array("ln" => $lN,
+				"fn" => $fN,
+				"pseudo" => $pseudo,
+				"password" => $password,
+				"mail" => $mail,
+				"birthday" => $bD));
+			envoieMailValide($pseudo, $mail);
+			$form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+		}
+		else{
+			$form->appendContent("<p>Date de naissance non valide !</p><br>");
+			$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+			$form->appendJsUrl("js/inscription.js");
+			$form->appendContent(formulaire());
+		}
+	}
+	else{
+		$form->appendContent("<p>Pseudonyme non valide !</p><br>");
+		$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+		$form->appendJsUrl("js/inscription.js");
+		$form->appendContent(formulaire());
+	}
+
 }
 
 else{
@@ -57,7 +77,7 @@ function formulaire(){
 
 	<form method="POST" name="inscription" action="inscription.php">
 		<table>
-			<tr><td>Pseudonyme</td><td><input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></td></tr>
+			<tr><td>Pseudonyme</td><td><input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></span></td></tr>
 			<tr><td>Email</td><td><input name="mail" type="text"  onfocus="resetMail()" onblur="verifyMail()"><span id="erreurmail"></span></td></tr>
 			<tr><td>Pr&#233;nom  </td><td><input name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()"><span id="erreurfirst"></td></tr>
 			<tr><td>Nom  </td><td><input name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()"><span id="erreurlast"></td></tr>
@@ -65,6 +85,7 @@ function formulaire(){
 			<tr><td>Mot de passe </td><td><input name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass1"></span></td></tr>
 			<tr><td>Retappez votre mot de passe</td><td><input name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass"></span></td></tr>
 			<div><input name="hidden" type="hidden"></div>
+			<div><input name="hiddenPseudo" type="hidden"></div>
 		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 	</form>
