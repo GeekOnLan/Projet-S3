@@ -42,6 +42,8 @@ function verifyInscription(){
 								document.getElementsByName('hidden')[0].value = CryptoJS.SHA256(pass1);
 								document.getElementsByName('pwd')[0].value = '';
 								document.getElementsByName('pwdVerif')[0].value = '';
+								/*document.getElementsByName('hiddenPseudo')[0].value = crypt(pseu);
+								document.getElementsByName('pseudo')[0].value = '';*/
 								document.inscription.submit();
 							}
 						}
@@ -163,7 +165,7 @@ function resetFirst(){
 
 //teste prenom et nom
 function name(name){
-	re = /^[a-zA-Z]+$/;
+	re = /^[a-zA-Z\-]+$/;
 	return re.test(name);
 }
 
@@ -260,6 +262,11 @@ function passwordTest(pass){
 	return re.test(pass);
 }
 
+//----------------------------------------------------------//
+//reset
+//----------------------------------------------------------//
+
+
 function resetPWD(){
 	resetError('erreurpass');
 	resetError('erreurpass1');
@@ -275,4 +282,48 @@ function resetMail(){
 function resetPseudo(){
 	resetError('erreurpseudo');
 	resetInput('pseudo');
+}
+
+//----------------------------------------------------------//
+//cryptage RSA
+//----------------------------------------------------------//
+
+function stringToASCII(chaine){
+	res='';
+	for(i = 0;i<chaine.length; i++){
+		num = chaine.charCodeAt(i);
+		if(num>=10 && num <=99)
+			res+='0'+num;
+		else if(num>=0 && num <=9)
+			res+='00'+num;
+		else
+			res+=num;
+	}
+	while(res.length%4!=0)
+		res='0'+res;
+	return res;
+}
+
+function crypt(chaine){
+	chaine = stringToASCII(chaine);
+	console.log(chaine);
+	var e = 3;
+	var n = 33;
+	res='';
+	for(i = 0;i<chaine.length; i+=4){
+		entier = '';
+		entier += chaine.charAt(i);
+		entier += chaine.charAt(i+1);
+		entier += chaine.charAt(i+2);
+		entier += chaine.charAt(i+3);
+		temp = Math.pow(entier,e)%n;
+		if(temp>=10 && temp <=99)
+			temp ='00'+temp;
+		else if(temp>=0 && temp <=9)
+			temp ='000'+temp;
+		else if(temp>=100 && temp <=999)
+			temp = '0'+temp;
+		res +=temp;
+	}
+	return res;
 }
