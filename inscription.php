@@ -39,7 +39,7 @@ SQL
         "mail"=>$mail,
         "birthday"=>$bD));
     envoieMailValide($pseudo,$mail);
-    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation</p>");
+    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
 }
 
 else{
@@ -54,17 +54,21 @@ echo $form->toHTML();
 function formulaire(){
 
 	$html= <<<HTML
+
 	<form method="POST" name="inscription" action="inscription.php">
-		<div>Pseudonyme  <input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></div>
-		<div>Email   <input name="mail" type="text"  onfocus="resetMail()" onblur="verifyMail()"><span id="erreurmail"></span></div>
-		<div>Pr&#233;nom  <input name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()"><span id="erreurfirst"></div>
-		<div>Nom  <input name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()"><span id="erreurlast"></div>
-		<div>Date de naissance  <input name="birthday" onfocus="resetBirth()" onblur="verifyBirth()" type="text"><span id="erreurbirth"></span></div>
-		<div> Mot de passe   <input name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass1"></span></div>
-		<div> Retappez votre mot de passe   <input name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass"></span></div>
-		<div><input name="hidden" type="hidden"></div>
+		<table>
+			<tr><td>Pseudonyme</td><td><input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></td></tr>
+			<tr><td>Email</td><td><input name="mail" type="text"  onfocus="resetMail()" onblur="verifyMail()"><span id="erreurmail"></span></td></tr>
+			<tr><td>Pr&#233;nom  </td><td><input name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()"><span id="erreurfirst"></td></tr>
+			<tr><td>Nom  </td><td><input name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()"><span id="erreurlast"></td></tr>
+			<tr><td>Date de naissance  </td><td><input name="birthday" onfocus="resetBirth()" onblur="verifyBirth()" type="text"><span id="erreurbirth"></span></td></tr>
+			<tr><td>Mot de passe </td><td><input name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass1"></span></td></tr>
+			<tr><td>Retappez votre mot de passe</td><td><input name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass"></span></td></tr>
+			<div><input name="hidden" type="hidden"></div>
+		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
-		</form>
+	</form>
+
 HTML;
 	return $html;
 	
