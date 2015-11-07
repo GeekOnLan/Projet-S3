@@ -30,7 +30,7 @@ class Webpage {
     /**
      * @var string Option afficher en mode connecter
      */
-    private $option = null;
+    private $sidebar = null;
 
     /**
      * Constructeur
@@ -64,10 +64,9 @@ HTML;
             </ul>
         </nav>
 HTML;
-        if(Member::isConnected()) {
-            $this->option = <<<HTML
-<nav id="options">
-    <button type="button">Insert something here</button>
+        /*if(Member::isConnected()) {*/
+            $this->sidebar = <<<HTML
+<nav id="sidebar">
     <ul>
         <li><a href="#">Profil</a></li>
         <li><a href="#">LAN</a></li>
@@ -75,7 +74,7 @@ HTML;
     </ul>
 </nav>
 HTML;
-        }
+        /*}*/
     }
 
     /**
@@ -99,9 +98,10 @@ HTML;
      * Ajouter l'URL d'un script CSS dans head
      * @param string $url L'URL du script CSS
      */
-    public function appendCssUrl($url) {
+    public function appendCssUrl($url, $media = null) {
+        $media = ($media === null) ? "" : "media=\"" . $media . "\"";
         $this->appendToHead(<<<HTML
-    <link rel="stylesheet" type="text/css" href="{$url}">
+    <link rel="stylesheet" type="text/css" $media href="{$url}">
 
 HTML
         ) ;
@@ -131,13 +131,11 @@ HTML
      * ajoute le css et le javascript de base
      */
     public function appendBasicCSSAndJS(){
-        $this->appendCssUrl("style/header.css");
+        $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
+        $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
+
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
-        $this->appendJsUrl("js/header.js");
-        if(Member::isConnected()) {
-            $this->appendCssUrl("style/optionMenu.css");
-            $this->appendJsUrl("js/optionMenu.js");
-        }
+        $this->appendJsUrl("js/base.js");
     }
 
     /**
@@ -154,10 +152,14 @@ HTML
 {$this->head}
     </head>
     <body>
+{$this->sidebar}
+        <div id="mainframe">
+            <button id="sidebarButton" type="button">Insert something here</button>
 {$this->header}
-{$this->option}
 {$this->body}
 {$this->footer}
+        </div>
+        <div id="layer"></div>
     </body>
 </html>
 HTML;
