@@ -252,9 +252,9 @@ body {
 }
 
 #mainframe.pushedMainframe {
-    transform: perspective(100px) translateX(250px) translateZ(-10px);
-    -webkit-transform: perspective(100px) translateX(250px) translateZ(-10px);
-    -moz-transform: perspective(100px) translateX(250px) translateZ(-10px);
+    transform: perspective(100px) translateX(250px);
+    -webkit-transform: perspective(100px) translateX(250px);
+    -moz-transform: perspective(100px) translateX(250px);
 }
 
 /** Animation au survole **/
