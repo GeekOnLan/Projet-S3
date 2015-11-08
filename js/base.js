@@ -15,6 +15,25 @@ $(document).ready(function() {
         }
     }
 
+    var toggleLayer = function() {
+        if($("body > div[id='layer']").hasClass("foregroundLayer")) {
+            toggleSidebar();
+        } else if($("body > div[id='layer']").hasClass("backgroundLayer")) {
+            toggleConnexionForm();
+        }
+    }
+
+    var toggleConnexionForm = function() {
+        if($("#connexionForm").hasClass("open")) {
+            $("#connexionForm").removeAttr("class");
+            $("body > div[id='layer']").removeAttr("class");
+        } else {
+            $("#connexionForm").addClass("open");
+            $("body > div[id='layer']").addClass("backgroundLayer");
+        }
+    }
+
     $("#sidebarButton").click(toggleSidebar);
-    $("#layer").click(toggleSidebar);
+    $("#layer").click(toggleLayer);
+    $("#connexionButton").click(toggleConnexionForm);
 });

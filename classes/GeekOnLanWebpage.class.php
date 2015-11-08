@@ -19,11 +19,13 @@ class GeekOnLanWebpage extends Webpage {
     public function __construct($title) {
         parent::__construct($title);
 
-        $connected = true;
+        //$connected = Member::isConnected();
+        $connected = false;
 
         $this->appendBasicCSSAndJS();
+        $this->insertConnexionForm();
         $this->insertGeekOnLanHeader($connected);
-        $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'>Insert something here</button>" : "";
+        $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
 
         if($connected)
             $this->insertGeekOnLanSidebar();
@@ -46,6 +48,34 @@ class GeekOnLanWebpage extends Webpage {
 
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
+        $this->appendJsUrl("js/cryptageAuthentification.js");
+        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+    }
+
+    private function insertConnexionForm() {
+        $salt = Member::SaltGrain();
+
+        $this->sidebar .= <<<HTML
+        <form id="connexionForm" name="connexion" action="authentification.php" method="post">
+			<table>
+				<tr>
+					<td>Identifiant :</td>
+					<td><input type="text" name="login" onfocus="resetInput('login')"></td>
+				</tr>
+				<tr>
+					<td>Mot de Passe :</td>
+					<td><input type="password" name="pass" onfocus="resetInput('pass')"></td>
+				</tr>
+				<tr>
+					<td><input type="text" name="hidden" style="display:none" value="{$salt}"></td>
+				</tr>
+				<tr>
+					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
+				</tr>
+			</table>
+		</form>
+HTML;
     }
 
     /**
@@ -71,7 +101,7 @@ HTML;
     private function insertGeekOnLanHeader($memberConnected) {
         if(!$memberConnected)
             $auth=<<<HTML
-<li><a href="authentification.php">Connexion</a></li>
+<li><a href="#" id="connexionButton">Connexion</a></li>
 <li><a href="inscription.php">S'inscrire</a></li>
 HTML;
         else

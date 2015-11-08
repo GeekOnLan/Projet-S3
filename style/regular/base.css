@@ -5,11 +5,45 @@
 
 body {
     background-color: #313131;
+    font-family: AgencyRegular, serif;
 }
 
 @font-face {
     font-family: AgencyRegular;
     src: url('../../resources/fonts/AgencyBold.ttf');
+}
+
+/** ================================= **/
+/** ==== Formulaire de connexion ==== **/
+/** ================================= **/
+
+#connexionForm {
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin-left: -15%;
+    margin-top: -15%;
+
+    width: 30%;
+    height: 60%;
+
+    background: #DDDDDD;
+    box-shadow: 2px 2px 2px 0 #333;
+
+    transition: transform 0.3s;
+
+    transform-origin: 50% 50%;
+    transform: scale3d(0, 0, 0) rotateZ(360deg);
+}
+
+#connexionForm.open {
+    transform: scale3d(1, 1, 1) rotateZ(0deg);
+}
+
+#layer.backgroundLayer {
+    visibility: visible;
+    opacity: 0.5;
 }
 
 /** ======================================== **/
@@ -92,7 +126,6 @@ header > hr {
     color: white;
     text-decoration: none;
     font-size: 24px;
-    font-family: AgencyRegular, serif;
 
     padding-top: 6px;
     padding-bottom: 6px;
@@ -161,14 +194,15 @@ header > hr {
 #sidebar > ul {
     position: relative;
     margin-top: -50%;
-    top: 50%
+    top: 50%;
 }
 
 #sidebarButton {
     position: fixed;
+    background: #DDD url("../../resources/img/option.png") no-repeat center;
 
     top: 50%;
-    width: 100px;
+    width: 50px;
     height: 100px;
     margin-top: -50px;
 }
@@ -223,7 +257,6 @@ header > hr {
 
     background-color: #555555;
 
-    font-family: AgencyRegular, Arial, sans-serif;
     list-style: none;
 
     transition: transform 0.5s,visibility 0.5s;

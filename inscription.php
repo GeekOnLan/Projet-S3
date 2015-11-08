@@ -4,7 +4,8 @@ require_once("includes/autoload.inc.php");
 require_once("includes/myPDO.inc.php");
 require_once("includes/utility.inc.php");
 
-$form = new geekOnLanWebpage("GeekOnLan - Inscription");
+$form = new GeekOnLanWebpage("GeekOnLan - Inscription");
+
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden")) {

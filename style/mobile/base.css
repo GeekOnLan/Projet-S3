@@ -105,11 +105,14 @@ header > hr {
 
 #sidebarButton {
     position: fixed;
+    background: #DDD url("../../resources/img/option.png") no-repeat center;
 
-    top: 50%;
-    width: 100px;
-    height: 100px;
+    top: 50px;
+    right: 0;
+    width: 45px;
+    height: 45px;
     margin-top: -50px;
+    z-index: 10;
 }
 
 #layer {
