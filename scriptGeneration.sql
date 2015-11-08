@@ -36889,7 +36889,7 @@ CREATE TABLE IF NOT EXISTS `Membre` (
   `pseudo` char(31) NOT NULL,
   `mail` char(63) NOT NULL,
   `dateNais` date DEFAULT NULL,
-  `password` char(41) NOT NULL,
+  `password` char(64) NOT NULL,
   `cleMail` char(41) NOT NULL,
   `estValide` tinyint(1) NOT NULL DEFAULT '0',
   `estBanni` tinyint(1) NOT NULL DEFAULT '0'

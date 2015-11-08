@@ -19,7 +19,7 @@ class GeekOnLanWebpage extends Webpage {
     public function __construct($title) {
         parent::__construct($title);
 
-        $connected = Member::isConnected();
+        $connected = true;
 
         $this->appendBasicCSSAndJS();
         $this->insertGeekOnLanHeader($connected);
@@ -56,8 +56,9 @@ class GeekOnLanWebpage extends Webpage {
 <nav id="sidebar">
     <ul>
         <li><a href="#">Profil</a></li>
-        <li><a href="#">LAN</a></li>
         <li><a href="#">Participations</a></li>
+        <li><a href="#">Cree une LAN</a></li>
+        <li><a href="#">Mes LAN</a></li>
     </ul>
 </nav>
 HTML;

@@ -100,15 +100,15 @@ class Member {
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
-			WHERE SHA1(concat(pseudo, :salt, password))=:crypt
+			WHERE SHA1(concat(pseudo, :challenge, password))=:crypt
 				AND estValide = 1;
 SQL
 		);
-		$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
+		$stmt->execute(array("challenge" => $_SESSION['challenge'], "crypt" => $crypt));
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$member = $stmt->fetch();
 		if($member!==false){
-			self::SaltGrain();
+			self::challenge();
 			return $member;
 		}
 		else{
@@ -116,11 +116,11 @@ SQL
 			$stmt = $pdo->prepare(<<<SQL
 				SELECT *
 				FROM Membre
-				WHERE SHA1(concat(pseudo, :salt, password))=:crypt
+				WHERE SHA1(concat(pseudo, :challenge, password))=:crypt
 					AND estValide = 0;
 SQL
 			);
-			$stmt->execute(array("salt" => $_SESSION['salt'], "crypt" => $crypt));
+			$stmt->execute(array("challenge" => $_SESSION['challenge'], "crypt" => $crypt));
 			$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 			$member = $stmt->fetch();
 			if($member!==false)
@@ -185,7 +185,7 @@ SQL
 			return null;
 	}
 
-	public static function SaltGrain(){
+	public static function Challenge(){
 		$res = '';
 		for($i=0;$i<256;$i++){
 			$char = rand(0,2);
@@ -202,7 +202,7 @@ SQL
 			}
 		}
 		self::startSession();
-		$_SESSION['salt'] = $res;
+		$_SESSION['challenge'] = $res;
 		return $res;
 	}
 }
