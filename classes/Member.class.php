@@ -100,26 +100,27 @@ class Member {
         $stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
-			WHERE SHA1(concat(SHA1(pseudo), password))=:crypt
+			WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
 				AND estValide = 0;
 SQL
         );
-        $stmt->execute(array("crypt" => $crypt));
+        $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $member = $stmt->fetch();
         if($member!==false){
             return $member;
         }
         else{
+
             $pdo = MyPDO::GetInstance();
             $stmt = $pdo->prepare(<<<SQL
 				SELECT *
 				FROM Membre
-				WHERE SHA1(concat(SHA1(pseudo), password))=:crypt
+				WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
 					AND estValide = 0;
 SQL
             );
-            $stmt->execute(array("crypt" => $crypt));
+            $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
             $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
             $member = $stmt->fetch();
             if($member!==false)

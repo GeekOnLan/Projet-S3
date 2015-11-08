@@ -3,8 +3,6 @@
 require_once("includes/autoload.inc.php");
 require_once("includes/utility.inc.php");
 
-$form = new GeekOnLanWebpage("GeekOnLan - Connexion");
-
 // Si le membre n'est pas connecté
 if(!Member::isConnected()) {
 
