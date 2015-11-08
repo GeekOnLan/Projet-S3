@@ -10,7 +10,7 @@ $(document).ready(function() {
             $("body > div[id='layer']").removeAttr("class");
         } else {
             $("body > nav[id='sidebar']").addClass("sidebarOpen");
-            $("body > div[id='mainframe']").addClass("pushedMainframe");
+            $("body > div[id='mainframe']").addClass("pushedMainframe blur");
             $("body > div[id='layer']").addClass("foregroundLayer");
         }
     }
@@ -27,9 +27,11 @@ $(document).ready(function() {
         if($("#connexionForm").hasClass("open")) {
             $("#connexionForm").removeAttr("class");
             $("body > div[id='layer']").removeAttr("class");
+            $("body > div[id='mainframe']").removeAttr("class");
         } else {
             $("#connexionForm").addClass("open");
             $("body > div[id='layer']").addClass("backgroundLayer");
+            $("body > div[id='mainframe']").addClass("blur");
         }
     }
 

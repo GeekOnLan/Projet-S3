@@ -17,16 +17,33 @@ body {
 /** ==== Formulaire de connexion ==== **/
 /** ================================= **/
 
+#connexionForm label {
+    font-size: 32px;
+    margin: auto;
+}
+
+#connexionForm input {
+    display: block;
+
+    background: #EEE;
+    border-radius: 5px;
+    font-size: 32px;
+
+    position: relative;
+    margin: auto;
+}
+
 #connexionForm {
     position: fixed;
     z-index: 20;
     top: 50%;
     left: 50%;
     margin-left: -15%;
-    margin-top: -15%;
+    margin-top: -150px;
 
     width: 30%;
-    height: 60%;
+    height: 300px;
+    text-align: center;
 
     background: #DDDDDD;
     box-shadow: 2px 2px 2px 0 #333;
@@ -34,11 +51,11 @@ body {
     transition: transform 0.3s;
 
     transform-origin: 50% 50%;
-    transform: scale3d(0, 0, 0) rotateZ(360deg);
+    transform: scale3d(0, 0, 0);
 }
 
 #connexionForm.open {
-    transform: scale3d(1, 1, 1) rotateZ(0deg);
+    transform: scale3d(1, 1, 1);
 }
 
 #layer.backgroundLayer {
@@ -235,10 +252,10 @@ header > hr {
 
     background-color: white;
 
-    transition: transform 0.5s;
-    -webkit-transition: transform 0.5s;
-    -moz-transition: transform 0.5s;
-    -o-transition: transform 0.5s;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
 
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
@@ -284,6 +301,11 @@ header > hr {
     transform: perspective(100px) translateX(250px);
     -webkit-transform: perspective(800px) translateX(250px) translateZ(-100px) rotateY(-5deg); /** Meilleure animation pour Chrome, et oui messieurs ! **/
     -moz-transform: perspective(100px) translateX(250px);
+}
+
+#mainframe.blur {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
 }
 
 #layer.foregroundLayer {

@@ -58,22 +58,15 @@ class GeekOnLanWebpage extends Webpage {
 
         $this->sidebar .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
-			<table>
-				<tr>
-					<td>Identifiant :</td>
-					<td><input type="text" name="login" onfocus="resetInput('login')"></td>
-				</tr>
-				<tr>
-					<td>Mot de Passe :</td>
-					<td><input type="password" name="pass" onfocus="resetInput('pass')"></td>
-				</tr>
-				<tr>
-					<td><input type="text" name="hidden" style="display:none" value="{$salt}"></td>
-				</tr>
-				<tr>
-					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
-				</tr>
-			</table>
+            <label for="login">Identifiant :</label>
+            <input id="login" type="text" name="login" onfocus="resetInput('login')">
+
+            <label for="pass">Mot de Passe :</label>
+            <input id="pass" type="password" name="pass" onfocus="resetInput('pass')">
+
+            <input type="text" name="hidden" style="display:none" value="{$salt}">
+
+            <button type="button" value="submit" onclick="sha256()">Confirmer</button>
 		</form>
 HTML;
     }
