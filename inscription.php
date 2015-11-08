@@ -6,10 +6,6 @@ require_once("includes/utility.inc.php");
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 
-echo verify($_POST,"pseudo")." pseudo  ";
-echo verify($_POST,"mail").' mail  ';
-echo verify($_POST,"hiddenPass").' hidden  ';
-
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
     $pseudo = $_POST['pseudo'];

@@ -64,9 +64,9 @@ class GeekOnLanWebpage extends Webpage {
             <label for="pass">Mot de Passe :</label>
             <input id="pass" type="password" name="pass" onfocus="resetInput('pass')">
 
-            <input type="text" name="hidden" style="display:none" value="{$salt}">
+            <input type="hidden" name="hiddenCrypt" value="{$salt}">
 
-            <button type="button" value="submit" onclick="sha256()">Confirmer</button>
+            <button type="button" onclick="sha256()">Confirmer</button>
 		</form>
 HTML;
     }

@@ -39,7 +39,7 @@ function verifyInscription(){
 								ok = false;
 							}
 							if (ok){
-								document.getElementsByName('hidden')[0].value = CryptoJS.SHA256(pass1);
+								document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
 								document.getElementsByName('pwd')[0].value = '';
 								document.getElementsByName('pwdVerif')[0].value = '';
 								/*document.getElementsByName('hiddenPseudo')[0].value = crypt(pseu);

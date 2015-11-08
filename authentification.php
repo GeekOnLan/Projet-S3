@@ -24,13 +24,6 @@ if(!Member::isConnected()){
 		}
 	}
 
-	//ajoute le script de cryptage de pseudo et mot de passe
-	$form->appendJsUrl("js/cryptageAuthentification.js");
-	//script de hashage en sha256
-	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-	//script de hashage en sha1
-	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
-
 	//grain de sel
 	$challenge = Member::challenge();
 
@@ -49,10 +42,10 @@ if(!Member::isConnected()){
 					<td><input type="password" name="pass" onfocus="resetInput('pass')"></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="hidden" style="display:none" value="{$challenge}"></td>
+					<td><input type="text" name="hiddenCrypt" value="{$challenge}"></td>
 				</tr>
 				<tr>
-					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
+					<td colspan='2'><button type="button" onclick="sha256()">Confirmer</button></td>
 				</tr>
 			</table>
 		</form>
