@@ -24,6 +24,7 @@ class GeekOnLanWebpage extends Webpage {
 
         $this->appendBasicCSSAndJS();
         $this->insertConnexionForm();
+        $this->appendToHead("<link rel=\"icon\" type=\image/png\" href=\"resources/img/icon.png\"/>");
         $this->insertGeekOnLanHeader($connected);
         $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
 
