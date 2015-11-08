@@ -54,7 +54,7 @@ class GeekOnLanWebpage extends Webpage {
     }
 
     private function insertConnexionForm() {
-        $salt = Member::SaltGrain();
+        $salt = Member::Challenge();
 
         $this->sidebar .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
