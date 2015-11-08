@@ -18,6 +18,9 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPas
     //Test sur les champs non obligatoire :
     $cNO = verifyForm($_POST,"birthday","firstName","lastName");
     if($cNO==4){
+        $fN = $_POST['firstName'];
+        $lN = $_POST['lastName'];
+        $bD = $_POST['birthday'];
         // On vérifie la validité du pseudonyme
         if(mb_ereg("^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$",$_POST['pseudo']) == 1) {
             //Connexion � la BdD
