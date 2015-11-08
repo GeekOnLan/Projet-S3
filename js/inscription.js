@@ -1,43 +1,43 @@
 window.addEventListener("keypress",function(even){
 	if(even.keyCode === 13)
 		verifyInscription();
-})
+});
 
 function verifyInscription(){
 	//si tout est bon on envoit
-	mailvalid = verifyMail();
-	passvalid = verifyPassword()
-	pseu = document.getElementsByName('pseudo')[0].value;
-	if (pseu != '') {
+	var mailvalid = verifyMail();
+	var passvalid = verifyPassword();
+	var pseu = document.getElementsByName('pseudo')[0].value;
+	if (pseu != ''){
 		if(!pseudo(pseu)){
 			setInput('pseudo');
 			setError('erreurpseudo', 'les caracteres autoriser sont : ');
 		}
-		else {
-			xhr = new XMLHttpRequest();
+		else{
+			var xhr = new XMLHttpRequest();
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					$xml = xhr.responseXML.documentElement.textContent;
+					var $xml = xhr.responseXML.documentElement.textContent;
 					if ($xml == "false") {
 						setInput('pseudo');
 						setError('erreurpseudo', 'ce pseudo est deja pris');
 					}
 					else {
 						if (passvalid && mailvalid) {
-							ok = true;
-							birth = document.getElementsByName('birthday')[0].value;
+							var ok = true;
+							var birth = document.getElementsByName('birthday')[0].value;
 							if (birth != '' && !birthdayTest(birth)) {
 								setInput('birthday');
 								setError('erreurbirth', 'date de naissance au format : JJ/MM/AAAA');
 								ok = false;
 							}
-							nom = document.getElementsByName('lastName')[0].value;
+							var nom = document.getElementsByName('lastName')[0].value;
 							if (nom != '' && !name(nom)) {
 								setInput('lastname');
 								setError('erreurlast', 'pas de caractere sepciaux');
 								ok = false;
 							}
-							prenom = document.getElementsByName('firstName')[0].value;
+							var prenom = document.getElementsByName('firstName')[0].value;
 							if (prenom != '' && !name(prenom)) {
 								setInput('firstname');
 								setError('erreurfirst', 'pas de caractere sepciaux');
@@ -91,17 +91,17 @@ function resetError(name){
 
 //verifier le pseudo avec ajax pour le formulaire
 function verififyPseudoForm() {
-	pseu = document.getElementsByName('pseudo')[0].value;
+	var pseu = document.getElementsByName('pseudo')[0].value;
 	if (pseu != '') {
 		if(!pseudo(pseu)){
 			setInput('pseudo');
 			setError('erreurpseudo', 'pas de caractere speciaux');
 		}
 		else{
-			xhr = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					$xml = xhr.responseXML.documentElement.textContent;
+					var $xml = xhr.responseXML.documentElement.textContent;
 					if ($xml == "false") {
 						setInput('pseudo');
 						setError('erreurpseudo', 'ce pseudo est déjà pris');
@@ -118,7 +118,7 @@ function verififyPseudoForm() {
 
 //teste pseudo
 function pseudo(name){
-	re = /^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$/;
+	var re = /^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$/;
 	return re.test(name);
 }
 
@@ -128,7 +128,7 @@ function pseudo(name){
 
 //verifier le mail pour le formulaire
 function verifyMailForm(){
-	mail = document.getElementsByName('mail')[0].value;
+	var mail = document.getElementsByName('mail')[0].value;
 	if(mail != '' && !validateEmail(mail)){
 		setInput('mail');
 		setError('erreurmail', 'mail non valide');
@@ -138,7 +138,7 @@ function verifyMailForm(){
 }
 
 function verifyMail(){
-	mail = document.getElementsByName('mail')[0].value;
+	var mail = document.getElementsByName('mail')[0].value;
 	if(mail == ''){
 		setInput('mail');
 		return false;
@@ -157,11 +157,10 @@ function verifyMail(){
 
 //valide un email en paramettre
 function validateEmail(){
-	mail = document.getElementsByName('mail')[0].value;
-	re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-	if(!re.test(mail)){
+	var mail = document.getElementsByName('mail')[0].value;
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	if(!re.test(mail))
 		return false;
-	}
 	else
 		return true;
 }
@@ -171,7 +170,7 @@ function validateEmail(){
 //----------------------------------------------------------//
 
 function verifyFirst(){
-	first = document.getElementsByName('firstName')[0].value
+	var first = document.getElementsByName('firstName')[0].value
 	if(first != '' && !name(first)){
 		setInput('firstName');
 		setError('erreurfirst','Prénom incorrect');
@@ -187,7 +186,7 @@ function resetFirst(){
 
 //teste prenom et nom
 function name(name){
-	re = /^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$/;
+	var re = /^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$/;
 	return re.test(name);
 }
 
@@ -196,7 +195,7 @@ function name(name){
 //----------------------------------------------------------//
 
 function verifyLast(){
-	last = document.getElementsByName('lastName')[0].value
+	var last = document.getElementsByName('lastName')[0].value
 	if(last != '' && !name(last)){
 		setInput('lastName');
 		setError('erreurlast','Nom incorrect');
@@ -216,19 +215,19 @@ function resetLast(){
 
 //verify la date de naissance dans le formulaire
 function verifyBirthForm(){
-			d = document.getElementsByName('birthday')[0].value
+			var d = document.getElementsByName('birthday')[0].value
 			if(d != '' && !birthdayTest(d)){
 				setInput('birthday');
 				setError('erreurbirth','date de naissance au format : JJ/MM/AAAA');
 			}
 			else if(d != ''){
-				j=(d.substring(0,2));
-				m=(d.substring(3,5));
-				a=(d.substring(6));
-				d2=new Date(a,m-1,j);
-				j2=d2.getDate();
-				m2=d2.getMonth()+1;
-				a2=d2.getFullYear();
+				var j=(d.substring(0,2));
+				var m=(d.substring(3,5));
+				var a=(d.substring(6));
+				var d2=new Date(a,m-1,j);
+				var j2=d2.getDate();
+				var m2=d2.getMonth()+1;
+				var a2=d2.getFullYear();
 				if (a2<=100) {a2=1900+a2}
 				if ( (j!=j2)||(m!=m2)||(a!=a2)){
 					setInput('birthday');
@@ -246,7 +245,7 @@ function resetBirth(){
 
 //teste une date de naissance
 function birthdayTest(dateBirth){
-	re = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
+	var re = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
 	return re.test(dateBirth);
 }
 
@@ -256,8 +255,8 @@ function birthdayTest(dateBirth){
 
 //verifie les mots de passe pour le formulaire
 function verifyPass(){
-	pass1 = document.getElementsByName('pwd')[0].value;
-	pass2 = document.getElementsByName('pwdVerif')[0].value;
+	var pass1 = document.getElementsByName('pwd')[0].value;
+	var pass2 = document.getElementsByName('pwdVerif')[0].value;
 
 	if(pass1 != ''){
 		if(pass1 != pass2 && pass2 != ''){
@@ -282,8 +281,8 @@ function verifyPass(){
 
 //verifier les mots de passe
 function verifyPassword(){
-	pass1 = document.getElementsByName('pwd')[0].value;
-	pass2 = document.getElementsByName('pwdVerif')[0].value;
+	var pass1 = document.getElementsByName('pwd')[0].value;
+	var pass2 = document.getElementsByName('pwdVerif')[0].value;
 	if(pass1 != '' && pass1 == pass2 && passwordTest(pass1))
 		return true;
 	else
@@ -294,7 +293,7 @@ function verifyPassword(){
 
 //test un mot de passe
 function passwordTest(pass){
-	re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+	var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 	return re.test(pass);
 }
 
@@ -325,9 +324,9 @@ function resetPseudo(){
 //----------------------------------------------------------//
 
 function stringToASCII(chaine){
-	res='';
+	var res='';
 	for(i = 0;i<chaine.length; i++){
-		num = chaine.charCodeAt(i);
+		var num = chaine.charCodeAt(i);
 		if(num>=10 && num <=99)
 			res+='0'+num;
 		else if(num>=0 && num <=9)
@@ -342,17 +341,16 @@ function stringToASCII(chaine){
 
 function crypt(chaine){
 	chaine = stringToASCII(chaine);
-	console.log(chaine);
 	var e = 3;
 	var n = 33;
-	res='';
+	var res='';
 	for(i = 0;i<chaine.length; i+=4){
-		entier = '';
+		var entier = '';
 		entier += chaine.charAt(i);
 		entier += chaine.charAt(i+1);
 		entier += chaine.charAt(i+2);
 		entier += chaine.charAt(i+3);
-		temp = Math.pow(entier,e)%n;
+		var temp = Math.pow(entier,e)%n;
 		if(temp>=10 && temp <=99)
 			temp ='00'+temp;
 		else if(temp>=0 && temp <=9)
