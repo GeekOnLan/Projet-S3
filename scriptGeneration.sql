@@ -1,6 +1,23 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.12
+-- http://www.phpmyadmin.net
+--
+-- Client :  mysql
+-- Généré le :  Ven 23 Octobre 2015 à 16:37
+-- Version du serveur :  5.5.32-MariaDB
+-- Version de PHP :  5.3.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `geekOnLan`
+-- Base de données :  `pelis004`
 --
 
 -- --------------------------------------------------------
@@ -36872,7 +36889,9 @@ CREATE TABLE IF NOT EXISTS `Membre` (
   `pseudo` char(31) NOT NULL,
   `mail` char(63) NOT NULL,
   `dateNais` date DEFAULT NULL,
-  `password` char(64) NOT NULL,
+  `password` char(41) NOT NULL,
+  `cleMail` char(41) NOT NULL,
+  `estValide` tinyint(1) NOT NULL DEFAULT '0',
   `estBanni` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
