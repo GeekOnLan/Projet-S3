@@ -21,9 +21,9 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 		//Test de validité des champs non obligatoire
 		if (verify($_POST, "birthday")&& mb_ereg("(?:(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:0[1-9]|1[0-2])[\/\\-. ]?(?:19|20)[0-9]{2}", $_POST['birthday'])==1) {
 			$bD = $_POST['birthday'];
-			if (verify($_POST, "firstName") && mb_ereg("^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$",$_POST['firstName']) == 1) {
+			if (verify($_POST, "firstName") && mb_ereg("^[a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['firstName']) == 1) {
 				$fN = $_POST['firstName'];
-				if (verify($_POST, "lastName")&& mb_ereg("^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$",$_POST['lastName']) == 1) {
+				if (verify($_POST, "lastName")&& mb_ereg("^[a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['lastName']) == 1) {
 					$lN = $_POST['lastName'];
 
 					//Connexion � la BdD
@@ -35,7 +35,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 			WHERE pseudo = :pseudo;
 SQL
 					);
-                    $pseudoVerif = $stmt->execute(array("pseudo"),$pseudo);
+                    $pseudoVerif = $stmt->execute(array("pseudo",$pseudo));
                     if($pseudoVerif!=$pseudo){
                         $stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)

@@ -113,7 +113,7 @@ function verififyPseudoForm() {
 
 //teste pseudo et nom
 function pseudo(name){
-	re = /^[a-zA-Z][a-zA-Z0-9-_\.@]{1,20}$/;
+	re = /^[a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$/;
 	return re.test(name);
 }
 
