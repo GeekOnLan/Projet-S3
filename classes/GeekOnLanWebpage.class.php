@@ -19,8 +19,8 @@ class GeekOnLanWebpage extends Webpage {
     public function __construct($title) {
         parent::__construct($title);
 
-        //$connected = Member::isConnected();
-        $connected = false;
+        $connected = Member::isConnected();
+        //$connected = false;
 
         $this->appendBasicCSSAndJS();
         $this->insertConnexionForm();
