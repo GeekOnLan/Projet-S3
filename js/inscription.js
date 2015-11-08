@@ -1,3 +1,8 @@
+window.addEventListener("keypress",function(even){
+	if(even.keyCode === 13)
+		verifyInscription();
+})
+
 function verifyInscription(){
 	//si tout est bon on envoit
 	mailvalid = verifyMail();
@@ -128,22 +133,8 @@ function verifyMailForm(){
 		setInput('mail');
 		setError('erreurmail', 'mail non valide');
 	}
-	else {
-		j=(d.substring(0,2));
-		m=(d.substring(3,5));
-		a=(d.substring(6));
-		d2=new Date(a,m-1,j);
-		j2=d2.getDate();
-		m2=d2.getMonth()+1;
-		a2=d2.getFullYear();
-		if (a2<=100) {a2=1900+a2}
-		if ( (j!=j2)||(m!=m2)||(a!=a2) ) {
-			setInput('mail');
-			setError('erreurmail', 'cette date n\'existe pas');
-		}
-		else
-			resetMail();
-	}
+	else
+		resetMail();
 }
 
 function verifyMail(){

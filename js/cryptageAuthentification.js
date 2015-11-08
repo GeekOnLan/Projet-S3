@@ -15,6 +15,11 @@ function sha256(){
     }
 }
 
+window.addEventListener("keypress",function(even){
+    if(even.keyCode === 13)
+        sha256();
+})
+
 function resetInput(name){
     document.getElementsByName(name)[0].style.borderColor = '';
 }
