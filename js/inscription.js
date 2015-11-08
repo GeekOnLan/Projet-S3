@@ -1,6 +1,6 @@
 function verifyInscription(){
 	//si tout est bon on envoit
-	mailvalid = validateEmail();
+	mailvalid = verifyMail();
 	passvalid = verifyPassword()
 	pseu = document.getElementsByName('pseudo')[0].value;
 	if (pseu != '') {
@@ -38,7 +38,7 @@ function verifyInscription(){
 								setError('erreurfirst', 'pas de caractere sepciaux');
 								ok = false;
 							}
-							if (ok) {
+							if (ok){
 								document.getElementsByName('hidden')[0].value = CryptoJS.SHA256(pass1);
 								document.getElementsByName('pwd')[0].value = '';
 								document.getElementsByName('pwdVerif')[0].value = '';
@@ -122,14 +122,46 @@ function pseudo(name){
 //----------------------------------------------------------//
 
 //verifier le mail pour le formulaire
-function verifyMail(){
+function verifyMailForm(){
 	mail = document.getElementsByName('mail')[0].value;
 	if(mail != '' && !validateEmail(mail)){
 		setInput('mail');
 		setError('erreurmail', 'mail non valide');
 	}
-	else
-		resetMail();
+	else {
+		j=(d.substring(0,2));
+		m=(d.substring(3,5));
+		a=(d.substring(6));
+		d2=new Date(a,m-1,j);
+		j2=d2.getDate();
+		m2=d2.getMonth()+1;
+		a2=d2.getFullYear();
+		if (a2<=100) {a2=1900+a2}
+		if ( (j!=j2)||(m!=m2)||(a!=a2) ) {
+			setInput('mail');
+			setError('erreurmail', 'cette date n\'existe pas');
+		}
+		else
+			resetMail();
+	}
+}
+
+function verifyMail(){
+	mail = document.getElementsByName('mail')[0].value;
+	if(mail == ''){
+		setInput('mail');
+		return false;
+	}
+	else {
+		if (validateEmail()) {
+			resetMail();
+			return true;
+		}
+		else {
+			setInput('mail');
+			return false;
+		}
+	}
 }
 
 //valide un email en paramettre
@@ -137,8 +169,6 @@ function validateEmail(){
 	mail = document.getElementsByName('mail')[0].value;
 	re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	if(!re.test(mail)){
-		setInput('mail');
-		setError('erreurmail', 'mail non valide');
 		return false;
 	}
 	else
@@ -194,14 +224,28 @@ function resetLast(){
 //----------------------------------------------------------//
 
 //verify la date de naissance dans le formulaire
-function verifyBirth(){
-	birth = document.getElementsByName('birthday')[0].value
-	if(birth != '' && !birthdayTest(birth)){
-		setInput('birthday');
-		setError('erreurbirth','date de naissance au format : JJ/MM/AAAA');
+function verifyBirthForm(){
+			d = document.getElementsByName('birthday')[0].value
+			if(d != '' && !birthdayTest(d)){
+				setInput('birthday');
+				setError('erreurbirth','date de naissance au format : JJ/MM/AAAA');
+			}
+			else if(d != ''){
+				j=(d.substring(0,2));
+				m=(d.substring(3,5));
+				a=(d.substring(6));
+				d2=new Date(a,m-1,j);
+				j2=d2.getDate();
+				m2=d2.getMonth()+1;
+				a2=d2.getFullYear();
+				if (a2<=100) {a2=1900+a2}
+				if ( (j!=j2)||(m!=m2)||(a!=a2)){
+					setInput('birthday');
+					setError('erreurbirth','cette date n\'existe pas');
+				}
+			else
+				resetBirth();
 	}
-	else
-		resetBirth();
 }
 
 function resetBirth(){
@@ -211,7 +255,7 @@ function resetBirth(){
 
 //teste une date de naissance
 function birthdayTest(dateBirth){
-	re = /(?:(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\-\. ]?30)|(?:(?:0[13578]|1[02])[\/\-\. ]?31))[\/\-\. ]?(?:0[1-9]|1[0-2])[\/\-\. ]?(?:19|20)[0-9]{2}/;
+	re = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
 	return re.test(dateBirth);
 }
 

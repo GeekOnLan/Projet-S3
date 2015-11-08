@@ -32,7 +32,7 @@ if(!Member::isConnected()){
 	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
 
 	//grain de sel
-	$salt = Member::SaltGrain();
+	$challenge = Member::challenge();
 
 	//Affichage du formulaire
 	$form->appendContent(<<<HTML
@@ -49,7 +49,7 @@ if(!Member::isConnected()){
 					<td><input type="password" name="pass" onfocus="resetInput('pass')"></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="hidden" style="display:none" value="{$salt}"></td>
+					<td><input type="text" name="hidden" style="display:none" value="{$challenge}"></td>
 				</tr>
 				<tr>
 					<td colspan='2'><button type="button" value="submit" onclick="sha256()">Confirmer</button></td>
