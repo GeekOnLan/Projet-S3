@@ -16,34 +16,61 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 	$fN = null;
 	$lN = null;
 	$bD = null;
-	if(mb_ereg("^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$",$_POST['pseudo']) == 1){
-		//Test des champs non obligatoire
-		if (verify($_POST, "firstName") && mb_ereg("", "") == 1) $fN = $_POST['firstName'];
-		if (verify($_POST, "lastName")) $lN = $_POST['lastName'];
-		if (verify($_POST, "birthday") && mb_ereg("(?:(?:0[1-9]|1[0-2])[\/\\-. ]?(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:19|20)[0-9]{2}", $_POST['birthday']))
-		{
-			//Connexion � la BdD
+	// On vérifie la validité du pseudonyme
+	if(mb_ereg("^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$",$_POST['pseudo']) == 1) {
+		//Test de validité des champs non obligatoire
+		if (verify($_POST, "birthday")&& mb_ereg("(?:(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:0[1-9]|1[0-2])[\/\\-. ]?(?:19|20)[0-9]{2}", $_POST['birthday'])==1) {
 			$bD = $_POST['birthday'];
-			$pdo = myPDO::GetInstance();
-			$stmt = $pdo->prepare(<<<SQL
+			if (verify($_POST, "firstName") && mb_ereg("^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$",$_POST['firstName']) == 1) {
+				$fN = $_POST['firstName'];
+				if (verify($_POST, "lastName")&& mb_ereg("^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$",$_POST['lastName']) == 1) {
+					$lN = $_POST['lastName'];
+
+					//Connexion � la BdD
+					$pdo = myPDO::GetInstance();
+                    //Test pour vérifier si le pseudo n'est pas déjà utilisé
+					$stmt = $pdo->prepare(<<<SQL
 			SELECT pseudo
 			FROM Membre
 			WHERE pseudo = :pseudo;
 SQL
-			);
-			$stmt = $pdo->prepare(<<<SQL
+					);
+                    $pseudoVerif = $stmt->execute(array("pseudo"),$pseudo);
+                    if($pseudoVerif!=$pseudo){
+                        $stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
 	VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
 SQL
-			);
-			$stmt->execute(array("ln" => $lN,
-				"fn" => $fN,
-				"pseudo" => $pseudo,
-				"password" => $password,
-				"mail" => $mail,
-				"birthday" => $bD));
-			envoieMailValide($pseudo, $mail);
-			$form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+                        );
+                        $stmt->execute(array("ln" => $lN,
+                            "fn" => $fN,
+                            "pseudo" => $pseudo,
+                            "password" => $password,
+                            "mail" => $mail,
+                            "birthday" => $bD));
+                        envoieMailValide($pseudo, $mail);
+                        $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+                    }
+                    else{
+                        $form->appendContent("<p>Pseudonyme déjà utilisé</p><br>");
+                        $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+                        $form->appendJsUrl("js/inscription.js");
+                        $form->appendContent(formulaire());
+                    }
+				}
+				else{
+					$form->appendContent("<p>Nom incorrect</p><br>");
+					$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+					$form->appendJsUrl("js/inscription.js");
+					$form->appendContent(formulaire());
+				}
+			}
+			else{
+				$form->appendContent("<p>Prénom incorrect</p><br>");
+				$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+				$form->appendJsUrl("js/inscription.js");
+				$form->appendContent(formulaire());
+			}
 		}
 		else{
 			$form->appendContent("<p>Date de naissance non valide !</p><br>");
@@ -58,9 +85,7 @@ SQL
 		$form->appendJsUrl("js/inscription.js");
 		$form->appendContent(formulaire());
 	}
-
 }
-
 else{
 	$form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
 	$form->appendJsUrl("js/inscription.js");

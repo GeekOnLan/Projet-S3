@@ -153,7 +153,7 @@ function verifyFirst(){
 	first = document.getElementsByName('firstName')[0].value
 	if(first != '' && !name(first)){
 		setInput('firstName');
-		setError('erreurfirst','pas de caractere sepciaux');
+		setError('erreurfirst','Prénom incorrect');
 	}
 	else
 		resetLast();
@@ -166,7 +166,7 @@ function resetFirst(){
 
 //teste prenom et nom
 function name(name){
-	re = /^[a-zA-Z]{0,20}$/;
+	re = /^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$/;
 	return re.test(name);
 }
 
@@ -178,7 +178,7 @@ function verifyLast(){
 	last = document.getElementsByName('lastName')[0].value
 	if(last != '' && !name(last)){
 		setInput('lastName');
-		setError('erreurlast','pas de caractere sepciaux');
+		setError('erreurlast','Nom incorrect');
 	}
 	else
 		resetLast();
@@ -211,7 +211,7 @@ function resetBirth(){
 
 //teste une date de naissance
 function birthdayTest(dateBirth){
-	re = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
+	re = /(?:(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\-\. ]?30)|(?:(?:0[13578]|1[02])[\/\-\. ]?31))[\/\-\. ]?(?:0[1-9]|1[0-2])[\/\-\. ]?(?:19|20)[0-9]{2}/;
 	return re.test(dateBirth);
 }
 
