@@ -13,6 +13,70 @@ body {
     src: url('../../resources/fonts/AgencyBold.ttf');
 }
 
+/** ================================= **/
+/** ==== Formulaire de connexion ==== **/
+/** ================================= **/
+
+#connexionForm label {
+    font-size: 32px;
+    margin: auto;
+    color: #b9b9b9;
+}
+
+#connexionForm input {
+    display: block;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    border: none;
+    font-size: 24px;
+    width: 80%;
+    padding: 5px 15px;
+
+    position: relative;
+    margin: auto;
+}
+
+#connexionForm button:active {
+    background: #585858;
+}
+
+#connexionForm button {
+    width: 80%;
+    height: 45px;
+    margin: 30px auto;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    border: none;
+    font-size: 32px;
+}
+
+#connexionForm {
+    border-top: solid 10px #FF5B00;
+    position: fixed;
+    z-index: 20;
+    background: #313131;
+    text-align: center;
+
+    top: 0;
+    height: 250px;
+    width: 100%;
+
+    transition: transform 0.3s;
+    transform: translateY(-270px);
+}
+
+#connexionForm.open {
+    transform: translateY(0px);
+}
+
+#layer.backgroundLayer {
+    visibility: visible;
+    opacity: 0.5;
+}
+
 /** ======================================== **/
 /** ==== Barre de navigation et en-tête ==== **/
 /** ======================================== **/
