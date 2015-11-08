@@ -3,8 +3,7 @@
 require_once("includes/autoload.inc.php");
 require_once("includes/utility.inc.php");
 
-$form = new Webpage("GeekOnLan - Connexion");
-$form->appendBasicCSSAndJS();
+$form = new GeekOnLanWebpage("GeekOnLan - Connexion");
 
 
 $err ='';

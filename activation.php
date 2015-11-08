@@ -3,8 +3,7 @@
 require_once("includes/autoload.inc.php");
 
 //création de la page web
-$page=new Webpage("GeekOnLan - Validation Mail");
-$page->appendBasicCSSAndJS();
+$page=new GeekOnLanWebpage("GeekOnLan - Validation Mail");
 
 // Connexion à la base de données
 require_once("includes/myPDO.inc.php");
