@@ -54,8 +54,6 @@ class GeekOnLanWebpage extends Webpage {
     }
 
     private function insertConnexionForm() {
-        $salt = Member::Challenge();
-
         $this->sidebar .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
             <label for="login">Identifiant :</label>
@@ -64,7 +62,7 @@ class GeekOnLanWebpage extends Webpage {
             <label for="pass">Mot de Passe :</label>
             <input id="pass" type="password" name="pass" onfocus="resetInput('pass')">
 
-            <input type="text" name="hiddenCrypt" value="{$salt}">
+            <input type="text" name="hiddenCrypt" value="">
 
             <button type="button" onclick="sha256()">Confirmer</button>
 		</form>

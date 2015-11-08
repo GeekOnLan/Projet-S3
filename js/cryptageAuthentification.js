@@ -4,7 +4,9 @@ function sha256(){
     cryptpass = CryptoJS.SHA256(pass);
     document.getElementsByName('pass')[0].value = "";
     document.getElementsByName('login')[0].value = "";
-    document.getElementsByName('hiddenCrypt')[0].value = CryptoJS.SHA1(log + cryptpass);
+    temp = CryptoJS.SHA1(CryptoJS.SHA1(log) + cryptpass);
+    //alert(temp);
+    document.getElementsByName('hiddenCrypt')[0].value = temp;
     document.connexion.submit();
 }
 
