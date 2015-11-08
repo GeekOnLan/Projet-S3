@@ -1,4 +1,4 @@
-function sha256(){/*
+function sha256(){
     pass = document.getElementsByName('pass')[0].value;
     log = document.getElementsByName('login')[0].value;
     if (pass == ''){
@@ -23,14 +23,7 @@ function sha256(){/*
         }, true);
         xhr.open('GET', 'scriptPHP/connexion.php?crypt=' + crypt);
         xhr.send(null);
-    }*/
-   /* pass = document.getElementsByName('pass')[0].value;
-    log = document.getElementsByName('login')[0].value;
-    cryptpass = CryptoJS.SHA256(pass);
-    document.getElementsByName('pass')[0].value = "";
-    document.getElementsByName('login')[0].value = "";
-    document.getElementsByName('hiddenCrypt')[0].value = CryptoJS.SHA1(log + document.getElementsByName('hiddenCrypt')[0].value + cryptpass);*/
-    document.connexion.submit();
+    }
 }
 
 function resetInput(name){
