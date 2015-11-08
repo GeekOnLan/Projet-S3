@@ -11,14 +11,14 @@ function sha256(){
         cryptpass = CryptoJS.SHA256(pass);
         document.getElementsByName('pass')[0].value = "";
         document.getElementsByName('login')[0].value = "";
-        crypt = CryptoJS.SHA1(log + document.getElementsByName('hidden')[0].value + cryptpass);
+        crypt = CryptoJS.SHA1(log + document.getElementsByName('hiddenCrypt')[0].value + cryptpass);
         xhr = new XMLHttpRequest();
-        xhr.addEventListener('readystatechange', function () {
+        xhr.addEventListener('readystatechange', function (){
             if (xhr.readyState === 2) {
                 alert('send');
             }
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                alert(xhr.responseXML.documentElement);
+            if (xhr.readyState === 4 && xhr.status === 200){
+                alert(xhr.responseXML.documentElement.textContent);
             }
         }, true);
         xhr.open('GET', 'scriptPHP/connexion.php?crypt=' + crypt);

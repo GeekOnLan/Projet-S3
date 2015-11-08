@@ -6,7 +6,8 @@ require_once("../includes/myPDO.inc.php");
 require_once("../includes/autoload.inc.php");
 
 $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
-
+echo $xml."<response>false</response>";
+/*
 if(verify($_GET,'crypt')){
     try{
         $member = Member::createFromAuth($_GET['crypt']);
@@ -18,4 +19,4 @@ if(verify($_GET,'crypt')){
     }
 }
 else
-    echo $xml."<response>false</response>";
+    echo $xml."<response>false</response>";*/
