@@ -9,11 +9,9 @@ function sha256(){
     }
     if(log != '' && pass != ''){
         cryptpass = CryptoJS.SHA256(pass);
-        document.getElementsByName('pass')[0].value = "";
-        cryptlog = CryptoJS.SHA1(log);
-        document.getElementsByName('login')[0].value = "";
+        document.getElementsByName('pass')[0].value = "";document.getElementsByName('login')[0].value = "";
 
-        document.getElementsByName('hidden')[0].value = CryptoJS.SHA1(cryptlog + document.getElementsByName('hidden')[0].value + cryptpass);
+        document.getElementsByName('hidden')[0].value = CryptoJS.SHA1(log + document.getElementsByName('hidden')[0].value + cryptpass);
         document.connexion.submit();
     }
 }

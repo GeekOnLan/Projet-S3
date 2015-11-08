@@ -100,7 +100,7 @@ class Member {
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
-			WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt
+			WHERE SHA1(concat(pseudo, :salt, password))=:crypt
 				AND estValide = 1;
 SQL
 		);
@@ -116,7 +116,7 @@ SQL
 			$stmt = $pdo->prepare(<<<SQL
 				SELECT *
 				FROM Membre
-				WHERE SHA1(concat(SHA1(pseudo), :salt, password))=:crypt
+				WHERE SHA1(concat(pseudo, :salt, password))=:crypt
 					AND estValide = 0;
 SQL
 			);

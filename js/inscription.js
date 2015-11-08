@@ -90,7 +90,7 @@ function verififyPseudoForm() {
 	if (pseu != '') {
 		if(!pseudo(pseu)){
 			setInput('pseudo');
-			setError('erreurpseudo', 'pas de caractere sepciaux');
+			setError('erreurpseudo', 'pas de caractere speciaux');
 		}
 		else{
 			xhr = new XMLHttpRequest();
@@ -111,9 +111,9 @@ function verififyPseudoForm() {
 	}
 }
 
-//teste pseudo et nom
+//teste pseudo
 function pseudo(name){
-	re = /^[a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$/;
+	re = /^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$/;
 	return re.test(name);
 }
 

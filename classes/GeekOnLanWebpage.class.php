@@ -19,7 +19,7 @@ class GeekOnLanWebpage extends Webpage {
     public function __construct($title) {
         parent::__construct($title);
 
-        $connected = true;
+        $connected = Member::isConnected();
 
         $this->appendBasicCSSAndJS();
         $this->insertGeekOnLanHeader($connected);
