@@ -30,7 +30,7 @@ function setInput(name){
 
 function sha256(){
     pass = $("#connexionForm input[name='pass']").val();
-    log = $("#connexionForm input[name='login']").val();
+    login = $("#connexionForm input[name='login']").val();
     if(pass=="")
         setInput('pass');
     if(login=="")
@@ -50,9 +50,9 @@ window.addEventListener("keypress",function(even){
 })
 
 function resetInput(name){
-    document.getElementsByName(name)[0].style.invalid = false;
+    document.getElementsByName(name)[0].setCustomValidity("");
 }
 
 function setInput(name){
-    document.getElementsByName(name)[0].style.invalid = true;
+    document.getElementsByName(name)[0].setCustomValidity("Champ invalide")
 }

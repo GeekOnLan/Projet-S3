@@ -38,6 +38,10 @@ body {
     margin: auto;
 }
 
+#connexionForm input:invalid {
+    background-color: red;
+}
+
 #connexionForm button:active {
     background: #585858;
 }
