@@ -35,7 +35,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hidden"))
 			WHERE pseudo = :pseudo;
 SQL
 					);
-                    $pseudoVerif = $stmt->execute(array("pseudo",$pseudo));
+                    $pseudoVerif = $stmt->execute(array("pseudo" =>$pseudo));
                     if($pseudoVerif!=$pseudo){
                         $stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
