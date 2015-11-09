@@ -1,10 +1,11 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/connectedPage.inc.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
+require_once('includes/connectedPage.inc.php');
+require_once('includes/autoload.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - Profile");
 
+//list a puce des informations du membre
 $html = '<ul>';
 
 $member = Member::getInstance();

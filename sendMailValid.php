@@ -17,14 +17,15 @@ function envoieMailValide($login,$email){
 	$entete = "From: inscription@geekonlan.com" ;
 	$key = urlencode($key);
 	$login = urlencode($login);
+	//chemin du site
+	$path = $_SERVER['DOCUMENT_ROOT'];
 	// Le lien d'activation est composé du login(login) et de la clé(key)
 	$message =<<<HTML
 Bienvenue sur GeekOnLAN,
 
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou le copier/coller dans votre navigateur internet.
-
-http://geekonlancom/activation.php?log={$login}&key={$key}
+{$path}/Projet-S3/activation.php?log={$login}&key={$key}
 
 
 ---------------

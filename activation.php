@@ -1,6 +1,6 @@
 <?php
 //w
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
+require_once('includes/autoload.inc.php');
 
 //création de la page web
 $page=new GeekOnLanWebpage("GeekOnLan - Validation Mail");

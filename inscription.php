@@ -1,8 +1,8 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/myPDO.inc.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/utility.inc.php');
+require_once('includes/autoload.inc.php');
+require_once('includes/myPDO.inc.php');
+require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 
@@ -37,7 +37,7 @@ SQL
             if ($pseudoVerif != $pseudo) {
                 $stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
-	VALUES (:ln,:fn,:pseudo,:mail,:birthday,:password)
+	VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, 'DD/MM/YYYY'),:password)
 SQL
                 );
                 $stmt->execute(array("ln" => $lN,
