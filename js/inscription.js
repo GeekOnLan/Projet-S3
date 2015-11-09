@@ -5,6 +5,7 @@ window.addEventListener("keypress",function(even){
 
 function verifyInscription(){
 	//si tout est bon on envoit
+	crypt(document.getElementsByName('pseudo')[0].value);
 	var mailvalid = verifyMail();
 	var passvalid = verifyPassword();
 	var pseu = document.getElementsByName('pseudo')[0].value;
@@ -44,8 +45,9 @@ function verifyInscription(){
 								ok = false;
 							}
 							if (ok){
+								pass1 = document.getElementsByName('pwd')[0].value;
 								document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
-								document.getElementsByName('pwd')[0].value = '';
+								lue = '';document.getElementsByName('pwd')[0].va
 								document.getElementsByName('pwdVerif')[0].value = '';
 								/*document.getElementsByName('hiddenPseudo')[0].value = crypt(pseu);
 								document.getElementsByName('pseudo')[0].value = '';*/
@@ -131,7 +133,7 @@ function verifyMailForm(){
 	var mail = document.getElementsByName('mail')[0].value;
 	if(mail != '' && !validateEmail(mail)){
 		setInput('mail');
-		setError('erreurmail', 'mail non valide');
+		setError('erreurmail', 'mail non valide');75643564363473453456342378564387956906736546456235345
 	}
 	else
 		resetMail();
@@ -340,24 +342,17 @@ function stringToASCII(chaine){
 }
 
 function crypt(chaine){
-	chaine = stringToASCII(chaine);
-	var e = 3;
-	var n = 33;
-	var res='';
-	for(i = 0;i<chaine.length; i+=4){
-		var entier = '';
-		entier += chaine.charAt(i);
-		entier += chaine.charAt(i+1);
-		entier += chaine.charAt(i+2);
-		entier += chaine.charAt(i+3);
-		var temp = Math.pow(entier,e)%n;
-		if(temp>=10 && temp <=99)
-			temp ='00'+temp;
-		else if(temp>=0 && temp <=9)
-			temp ='000'+temp;
-		else if(temp>=100 && temp <=999)
-			temp = '0'+temp;
-		res +=temp;
-	}
-	return res;
+	//491241871098145853705659219446289711
+	//-29500718966169903525225921809617051
+	var n = new BigNumber("36188573");
+	var d = new BigNumber("2148499");
+	var e = new BigNumber("6805039");
+		console.log("chaine "+chaine);
+	var entier = new BigNumber(String(stringToASCII(chaine)));
+		console.log("entier "+entier);	
+	var temp = entier.pow(d).mod(n);
+		console.log("temp "+temp);
+	var res = temp.pow(e).mod(n);
+		console.log("resulta "+res);
+	return temp;
 }

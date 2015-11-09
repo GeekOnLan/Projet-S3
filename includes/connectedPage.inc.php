@@ -1,0 +1,3 @@
+<?php
+	if(!Member::isConnected())
+		
