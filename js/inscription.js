@@ -320,39 +320,3 @@ function resetPseudo(){
 	resetError('erreurpseudo');
 	resetInput('pseudo');
 }
-
-//----------------------------------------------------------//
-//cryptage RSA
-//----------------------------------------------------------//
-
-function stringToASCII(chaine){
-	var res='';
-	for(i = 0;i<chaine.length; i++){
-		var num = chaine.charCodeAt(i);
-		if(num>=10 && num <=99)
-			res+='0'+num;
-		else if(num>=0 && num <=9)
-			res+='00'+num;
-		else
-			res+=num;
-	}
-	while(res.length%4!=0)
-		res='0'+res;
-	return res;
-}
-
-function crypt(chaine){
-	//491241871098145853705659219446289711
-	//-29500718966169903525225921809617051
-	var n = new BigNumber("36188573");
-	var d = new BigNumber("2148499");
-	var e = new BigNumber("6805039");
-		console.log("chaine "+chaine);
-	var entier = new BigNumber(String(stringToASCII(chaine)));
-		console.log("entier "+entier);	
-	var temp = entier.pow(d).mod(n);
-		console.log("temp "+temp);
-	var res = temp.pow(e).mod(n);
-		console.log("resulta "+res);
-	return temp;
-}
