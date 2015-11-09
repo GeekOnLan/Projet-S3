@@ -5,7 +5,6 @@ window.addEventListener("keypress",function(even){
 
 function verifyInscription(){
 	//si tout est bon on envoit
-	crypt(document.getElementsByName('pseudo')[0].value);
 	var mailvalid = verifyMail();
 	var passvalid = verifyPassword();
 	var pseu = document.getElementsByName('pseudo')[0].value;
