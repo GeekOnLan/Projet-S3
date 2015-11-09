@@ -1,0 +1,11 @@
+#parallax {
+    position: fixed;
+    top: 0;
+    background-color: crimson;
+}
+
+#parallax img {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
