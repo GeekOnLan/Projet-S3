@@ -1,7 +1,7 @@
 <?php
 
-require_once("includes/autoload.inc.php");
-require_once("includes/utility.inc.php");
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/utility.inc.php');
 
 // Si le membre n'est pas connecté
 if(!Member::isConnected()) {

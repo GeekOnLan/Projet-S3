@@ -1,7 +1,7 @@
 <?php
 
-require_once("includes/autoload.inc.php");
-require_once("includes/myPDO.inc.php");
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/myPDO.inc.php');
 
 class Member {
 
@@ -59,6 +59,13 @@ class Member {
     */
     public function getFirstName(){
         return $this->prenom;
+    }
+    
+    /*
+     * retourne le pseudo
+     */
+    public function getPseudo(){
+    	return $this->pseudo;
     }
 
     /*

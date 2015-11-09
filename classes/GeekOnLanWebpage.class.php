@@ -78,7 +78,7 @@ HTML;
         $this->sidebar = <<<HTML
 <nav id="sidebar">
     <ul>
-        <li><a href="#">Profil</a></li>
+        <li><a href="profil.php">Profil</a></li>
         <li><a href="#">Participations</a></li>
         <li><a href="#">Cree une LAN</a></li>
         <li><a href="#">Mes LAN</a></li>
@@ -100,7 +100,7 @@ HTML;
         else
             $auth=<<<HTML
 <li><a href="authentification.php">Deconnexion</a></li>
-<li><a href="profile.php">Profile</a></li>
+<li><a href="profil.php">Profile</a></li>
 HTML;
 
         $this->appendContent(<<<HTML

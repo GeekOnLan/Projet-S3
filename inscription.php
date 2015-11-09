@@ -1,8 +1,8 @@
 <?php
 
-require_once("includes/autoload.inc.php");
-require_once("includes/myPDO.inc.php");
-require_once("includes/utility.inc.php");
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/autoload.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/myPDO.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet-S3/includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 
