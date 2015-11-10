@@ -5,6 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
+$form->appendJsUrl("js/BigInt.js");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
@@ -83,7 +84,6 @@ echo $form->toHTML();
 
 // Fonction utilis� pour cr�e le formulaire d'inscription au sein de la page.
 function formulaire(){
-
     $html= <<<HTML
 
 	<form method="POST" name="inscription" action="inscription.php">
