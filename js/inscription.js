@@ -5,64 +5,36 @@ window.addEventListener("keypress",function(even){
 
 function verifyInscription(){
 	//si tout est bon on envoit
-	var mailvalid = verifyMail();
-	var passvalid = verifyPassword();
-	var pseu = document.getElementsByName('pseudo')[0].value;
-	if (pseu != ''){
-		if(!pseudo(pseu)){
-			setInput('pseudo');
-			setError('erreurpseudo', 'les caracteres autoriser sont : ');
-		}
-		else{
-			var xhr = new XMLHttpRequest();
-			xhr.addEventListener('readystatechange', function () {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var $xml = xhr.responseXML.documentElement.textContent;
-					if ($xml == "false") {
-						setInput('pseudo');
-						setError('erreurpseudo', 'ce pseudo est deja pris');
-					}
-					else {
-						if (passvalid && mailvalid) {
-							var ok = true;
-							var birth = document.getElementsByName('birthday')[0].value;
-							if (birth != '' && !birthdayTest(birth)) {
-								setInput('birthday');
-								setError('erreurbirth', 'date de naissance au format : JJ/MM/AAAA');
-								ok = false;
-							}
-							var nom = document.getElementsByName('lastName')[0].value;
-							if (nom != '' && !name(nom)) {
-								setInput('lastname');
-								setError('erreurlast', 'pas de caractere sepciaux');
-								ok = false;
-							}
-							var prenom = document.getElementsByName('firstName')[0].value;
-							if (prenom != '' && !name(prenom)) {
-								setInput('firstname');
-								setError('erreurfirst', 'pas de caractere sepciaux');
-								ok = false;
-							}
-							if (ok){
-								pass1 = document.getElementsByName('pwd')[0].value;
-								document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
-								document.getElementsByName('pwd')[0].value = '';
-								document.getElementsByName('pwdVerif')[0].value = '';
-								/*document.getElementsByName('hiddenPseudo')[0].value = crypt(pseu);
-								document.getElementsByName('pseudo')[0].value = '';*/
-								document.inscription.submit();
-							}
-						}
-					}
+	var pseudo = verififyPseudo();
+	var mail = verifyMail();
+	var first =  verifyFirst();
+	var last =  verifyLast();
+	var birth = verifyBirth();
+	var pass = verifyPass();
+	if(pseudo){
+		var xhr = new XMLHttpRequest();
+		xhr.addEventListener('readystatechange', function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+				if (xml == "false") {
+					setInput('pseudo');
+					setError('erreurpseudo', 'ce pseudo est déjà pris');
+					pseudo=false;
 				}
-			}, true);
-			xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseudo);
-			xhr.send(null);
-		}
+				else {
+					resetPseudo();
+				}
+			}
+		}, true);
+		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + document.getElementsByName('pseudo')[0].value);
+		xhr.send(null);
 	}
-	else {
-		setInput('pseudo');
-		return false;
+	if (pseudo && first && last && mail && birth && pass) {
+		pass1 = document.getElementsByName('pwd')[0].value;
+		document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
+		document.getElementsByName('pwd')[0].value = '';
+		document.getElementsByName('pwdVerif')[0].value = '';
+		document.inscription.submit();
 	}
 }
 
@@ -106,8 +78,8 @@ function verififyPseudoForm() {
 			var xhr = new XMLHttpRequest();
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					var $xml = xhr.responseXML.documentElement.textContent;
-					if ($xml == "false") {
+					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+					if (xml == "false") {
 						setInput('pseudo');
 						setError('erreurpseudo', 'ce pseudo est déjà pris');
 					}
@@ -118,6 +90,30 @@ function verififyPseudoForm() {
 			xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
 			xhr.send(null);
 		}
+	}
+}
+
+function verififyPseudo() {
+	var pseu = document.getElementsByName('pseudo')[0].value;
+	if (pseu != '') {
+		if(pseu.length>20){
+			setInput('pseudo');
+			setError('erreurpseudo', 'pseudo trop grand');
+			return false;
+		}
+		else if(!pseudo(pseu)){
+			setInput('pseudo');
+			setError('erreurpseudo', 'pas de caractere speciaux');
+			return false;
+		}
+		else{
+			resetPseudo();
+			return true;
+		}
+	}
+	else {
+		setInput('pseudo');
+		return false;
 	}
 }
 
@@ -136,7 +132,7 @@ function verifyMailForm(){
 	var mail = document.getElementsByName('mail')[0].value;
 	if(mail != '' && !validateEmail(mail)){
 		setInput('mail');
-		setError('erreurmail', 'mail non valide');75643564363473453456342378564387956906736546456235345
+		setError('erreurmail', 'mail non valide');
 	}
 	else
 		resetMail();
@@ -174,19 +170,29 @@ function validateEmail(){
 //prenom
 //----------------------------------------------------------//
 
-function verifyFirst(){
-	var first = document.getElementsByName('firstName')[0].value
+function verifyFirstForm(){
+	var first = document.getElementsByName('firstName')[0].value;
 	if(first != '' && !name(first)){
 		setInput('firstName');
 		setError('erreurfirst','Prénom incorrect');
 	}
 	else
-		resetLast();
+		resetFirst();
 }
 
-function resetFirst(){
-	resetInput('firstName');
-	resetError('erreurfirst');
+function verifyFirst(){
+	var first = document.getElementsByName('firstName')[0].value;
+	if(first == '')
+		return true;
+	else if(!name(first)){
+		setInput('firstName');
+		setError('erreurfirst','Prénom incorrect');
+		return false;
+	}
+	else {
+		resetFirst();
+		return true;
+	}
 }
 
 //teste prenom et nom
@@ -199,7 +205,7 @@ function name(name){
 //nom
 //----------------------------------------------------------//
 
-function verifyLast(){
+function verifyLastForm(){
 	var last = document.getElementsByName('lastName')[0].value
 	if(last != '' && !name(last)){
 		setInput('lastName');
@@ -209,9 +215,19 @@ function verifyLast(){
 		resetLast();
 }
 
-function resetLast(){
-	resetInput('lastName');
-	resetError('erreurlast');
+function verifyLast(){
+	var last = document.getElementsByName('lastName')[0].value;
+	if(last == '')
+		return true;
+	else if(!name(last)){
+		setInput('lastName');
+		setError('erreurlast','Nom incorrect');
+		return false;
+	}
+	else {
+		resetLast();
+		return true;
+	}
 }
 
 //----------------------------------------------------------//
@@ -220,7 +236,7 @@ function resetLast(){
 
 //verify la date de naissance dans le formulaire
 function verifyBirthForm(){
-			var d = document.getElementsByName('birthday')[0].value
+			var d = document.getElementsByName('birthday')[0].value;
 			if(d != '' && !birthdayTest(d)){
 				setInput('birthday');
 				setError('erreurbirth','date de naissance au format : JJ/MM/AAAA');
@@ -243,9 +259,34 @@ function verifyBirthForm(){
 	}
 }
 
-function resetBirth(){
-	resetInput('birthday');
-	resetError('erreurbirth');
+function verifyBirth(){
+	var d = document.getElementsByName('birthday')[0].value;
+	if(d=='')
+		return true;
+	if(d != '' && !birthdayTest(d)){
+		setInput('birthday');
+		setError('erreurbirth','date de naissance au format : JJ/MM/AAAA');
+		return false;
+	}
+	else if(d != ''){
+		var j=(d.substring(0,2));
+		var m=(d.substring(3,5));
+		var a=(d.substring(6));
+		var d2=new Date(a,m-1,j);
+		var j2=d2.getDate();
+		var m2=d2.getMonth()+1;
+		var a2=d2.getFullYear();
+		if (a2<=100) {a2=1900+a2}
+		if ( (j!=j2)||(m!=m2)||(a!=a2)){
+			setInput('birthday');
+			setError('erreurbirth','cette date n\'existe pas');
+			return false;
+		}
+		else {
+			resetBirth();
+			return true;
+		}
+	}
 }
 
 //teste une date de naissance
@@ -259,7 +300,7 @@ function birthdayTest(dateBirth){
 //----------------------------------------------------------//
 
 //verifie les mots de passe pour le formulaire
-function verifyPass(){
+function verifyPassForm(){
 	var pass1 = document.getElementsByName('pwd')[0].value;
 	var pass2 = document.getElementsByName('pwdVerif')[0].value;
 
@@ -278,22 +319,24 @@ function verifyPass(){
 		}
 	}
 	else{
-		resetInput('pwdVerif')
-		resetError('erreurpass');
+		resetPWD();
 		document.getElementsByName('pwdVerif')[0].value = '';
 	}
 }
 
 //verifier les mots de passe
-function verifyPassword(){
+function verifyPass(){
 	var pass1 = document.getElementsByName('pwd')[0].value;
 	var pass2 = document.getElementsByName('pwdVerif')[0].value;
-	if(pass1 != '' && pass1 == pass2 && passwordTest(pass1))
+	if(pass1 != '' && pass1 == pass2 && passwordTest(pass1)){
+		resetPWD();
 		return true;
-	else
+	}
+	else {
 		setInput('pwdVerif');
-	setInput('pwd');
-	return false;
+		setInput('pwd');
+		return false;
+	}
 }
 
 //test un mot de passe
@@ -306,6 +349,31 @@ function passwordTest(pass){
 //reset
 //----------------------------------------------------------//
 
+function resetPseudo(){
+	resetError('erreurpseudo');
+	resetInput('pseudo');
+}
+
+
+function resetMail(){
+	resetError('erreurmail');
+	resetInput('mail');
+}
+
+function resetFirst(){
+	resetInput('firstName');
+	resetError('erreurfirst');
+}
+
+function resetLast(){
+	resetInput('lastName');
+	resetError('erreurlast');
+}
+
+function resetBirth(){
+	resetInput('birthday');
+	resetError('erreurbirth');
+}
 
 function resetPWD(){
 	resetError('erreurpass');
@@ -314,12 +382,3 @@ function resetPWD(){
 	resetInput('pwd');
 }
 
-function resetMail(){
-	resetError('erreurmail');
-	resetInput('mail');
-}
-
-function resetPseudo(){
-	resetError('erreurpseudo');
-	resetInput('pseudo');
-}

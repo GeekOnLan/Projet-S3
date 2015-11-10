@@ -5,7 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
-$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
+//$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
@@ -98,12 +98,12 @@ function formulaire(){
 			<tr>
     			<td>
     				<label for="firstName">Prénom</label>
-    				<input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()">
+    				<input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirstForm()">
     				<span id="erreurfirst">
     			</td>
     		    <td>
     				<label for="lastName">Nom</label>
-    				<input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()">
+    				<input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLastForm()">
     				<span id="erreurlast">
     			</td>
     		</tr>
@@ -117,14 +117,14 @@ function formulaire(){
 			<tr>
     			<td>
     				<label for="pwd">Mot de passe*</label>
-    				<input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()">
+    				<input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
     				<span id="erreurpass1"></span>
     			</td>
     		</tr>
 			<tr>
     			<td>
     				<label for="pwdVerif">Confirmer mot de passe*</label>
-    				<input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()">
+    				<input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
     				<span id="erreurpass"></span>
     			</td>
     		</tr>
