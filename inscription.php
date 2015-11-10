@@ -6,6 +6,7 @@ require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 $form->appendJsUrl("js/BigInt.js");
+$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
@@ -88,15 +89,57 @@ function formulaire(){
 
 	<form method="POST" name="inscription" action="inscription.php">
 		<table>
-			<tr><td>Pseudonyme</td><td><input name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()"><span id="erreurpseudo"></span></td></tr>
-			<tr><td>Email</td><td><input name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()"><span id="erreurmail"></span></td></tr>
-			<tr><td>Pr&#233;nom  </td><td><input name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()"><span id="erreurfirst"></td></tr>
-			<tr><td>Nom  </td><td><input name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()"><span id="erreurlast"></td></tr>
-			<tr><td>Date de naissance  </td><td><input name="birthday" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text"><span id="erreurbirth"></span></td></tr>
-			<tr><td>Mot de passe </td><td><input name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass1"></span></td></tr>
-			<tr><td>Retappez votre mot de passe</td><td><input name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()"><span id="erreurpass"></span></td></tr>
-			<div><input name="hiddenPass" type="hidden"></div>
-			<div><input name="hiddenPseudo" type="hidden"></div>
+			<tr>
+    		    <td>
+    				<label for="pseudo">Pseudonyme</label>
+    				<input id="pseudo" name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()">
+    				<span id="erreurpseudo"></span>
+    			</td>
+    		    <td>
+    				<label for="mail">E-Mail</label>
+    				<input id="mail" name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()">
+    				<span id="erreurmail"></span>
+    			</td>
+    		</tr>
+			<tr>
+    			<td>
+    				<label for="firstName">Prénom</label>
+    				<input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirst()">
+    				<span id="erreurfirst">
+    			</td>
+    		    <td>
+    				<label for="lastName">Nom</label>
+    				<input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLast()">
+    				<span id="erreurlast">
+    			</td>
+    		</tr>
+			<tr>
+    			<td>
+    				<label for="birthday">Date de naissance</label>
+    				<input id="birthday" name="birthday" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text">
+    				<span id="erreurbirth"></span>
+    			</td>
+    		</tr>
+			<tr>
+    			<td>
+    				<label for="pwd">Mot de passe</label>
+    				<input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()">
+    				<span id="erreurpass1"></span>
+    			</td>
+    		</tr>
+			<tr>
+    			<td>
+    				<label for="pwdVerif">Confirmer mot de passe</label>
+    				<input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()">
+    				<span id="erreurpass"></span>
+    			</td>
+    		</tr>
+			<div>
+    			<input name="hiddenPass" type="hidden">
+    		</div>
+			<div>
+    			<input name="hiddenPseudo" type="hidden">
+    		</div>
 		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 	</form>
