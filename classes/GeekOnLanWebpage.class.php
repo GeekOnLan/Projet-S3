@@ -20,16 +20,17 @@ class GeekOnLanWebpage extends Webpage {
         parent::__construct($title);
 
         $connected = Member::isConnected();
-        //$connected = false;
-
+        //css et js de base
         $this->appendBasicCSSAndJS();
-        $this->insertConnexionForm();
-        $this->appendToHead("<link rel=\"icon\" type=\image/png\" href=\"resources/img/icon.png\"/>");
         $this->insertGeekOnLanHeader($connected);
-        $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
-
-        if($connected)
+        $this->appendToHead("<link rel=\"icon\" type=\image/png\" href=\"resources/img/icon.png\"/>");
+        if($connected) {
             $this->insertGeekOnLanSidebar();
+            $this->mainframe .= "<button id='sidebarButton' type='button'></button>";
+        }
+        else{
+            $this->insertConnexionForm();
+        }
     }
 
     /**
@@ -46,18 +47,16 @@ class GeekOnLanWebpage extends Webpage {
     private function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
-
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
-        $this->appendJsUrl("js/cryptageAuthentification.js");
-        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
-        $this->appendJsUrl("js/rsa.js");
     }
 
-    private function insertConnexionForm() {
-        $challenge = Member::Challenge();
-        $this->sidebar .= <<<HTML
+    private function insertConnexionForm(){
+            $this->appendJsUrl("js/cryptageAuthentification.js");
+            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+            $challenge = Member::Challenge();
+            $this->sidebar .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
             <label for="login">Identifiant :</label>
             <input id="login" type="text" name="login" onfocus="resetInput('login')">

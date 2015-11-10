@@ -5,7 +5,6 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
-$form->appendJsUrl("js/BigInt.js");
 $form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
@@ -24,7 +23,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPas
         $lN = $_POST['lastName'];
         $bD = $_POST['birthday'];
         // On vérifie la validité du pseudonyme
-        if(mb_ereg("^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$",$_POST['pseudo']) == 1) {
+        if(mb_ereg("^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['pseudo']) == 1) {
             //Connexion � la BdD
             $pdo = myPDO::GetInstance();
             //Test pour vérifier si le pseudo n'est pas déjà utilisé
@@ -52,16 +51,12 @@ SQL
                 $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
             }
             else {
-                $form->appendContent("<p>Pseudonyme déjà utilisé</p><br>");
-                $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-                $form->appendJsUrl("js/inscription.js");
+                addJsAndCss($form);
                 $form->appendContent(formulaire());
             }
         }
         else{
-            $form->appendContent("<p>Pseudonyme non valide !</p><br>");
-            $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-            $form->appendJsUrl("js/inscription.js");
+            addJsAndCss($form);
             $form->appendContent(formulaire());
         }
     }
@@ -70,14 +65,13 @@ SQL
         if($cNO==2)$form->appendContent("<p>Prénom non valide !</p><br>");
         if($cNO==3)$form->appendContent("<p>Nom non valide !</p><br>");
         $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-        $form->appendJsUrl("js/inscription.js");
+        addJsAndCss($form);
         $form->appendContent(formulaire());
     }
 }
 
 else{
-    $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-    $form->appendJsUrl("js/inscription.js");
+    addJsAndCss($form);
     $form->appendContent(formulaire());
 }
 echo $form->toHTML();
@@ -91,12 +85,12 @@ function formulaire(){
 		<table>
 			<tr>
     		    <td>
-    				<label for="pseudo">Pseudonyme</label>
+    				<label for="pseudo">Pseudonyme*</label>
     				<input id="pseudo" name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()">
     				<span id="erreurpseudo"></span>
     			</td>
     		    <td>
-    				<label for="mail">E-Mail</label>
+    				<label for="mail">E-Mail*</label>
     				<input id="mail" name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()">
     				<span id="erreurmail"></span>
     			</td>
@@ -122,14 +116,14 @@ function formulaire(){
     		</tr>
 			<tr>
     			<td>
-    				<label for="pwd">Mot de passe</label>
+    				<label for="pwd">Mot de passe*</label>
     				<input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPass()">
     				<span id="erreurpass1"></span>
     			</td>
     		</tr>
 			<tr>
     			<td>
-    				<label for="pwdVerif">Confirmer mot de passe</label>
+    				<label for="pwdVerif">Confirmer mot de passe*</label>
     				<input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPass()">
     				<span id="erreurpass"></span>
     			</td>
@@ -183,4 +177,9 @@ HTML;
     mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
 }
 
-
+function addJsAndCss(GeekOnLanWebpage $form){
+    $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+    $form->appendJsUrl("js/rsa.js");
+    $form->appendJsUrl("js/BigInt.js");
+    $form->appendJsUrl("js/inscription.js");
+}

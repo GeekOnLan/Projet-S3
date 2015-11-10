@@ -94,7 +94,11 @@ function resetError(name){
 function verififyPseudoForm() {
 	var pseu = document.getElementsByName('pseudo')[0].value;
 	if (pseu != '') {
-		if(!pseudo(pseu)){
+		if(pseu.length>20){
+			setInput('pseudo');
+			setError('erreurpseudo', 'speudo trop grand');
+		}
+		else if(!pseudo(pseu)){
 			setInput('pseudo');
 			setError('erreurpseudo', 'pas de caractere speciaux');
 		}
@@ -187,7 +191,7 @@ function resetFirst(){
 
 //teste prenom et nom
 function name(name){
-	var re = /^[a-zA-Z][a-zA-Z'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{1,40}$/;
+	var re = /^[a-zA-Z]{1,20}$/;
 	return re.test(name);
 }
 

@@ -13,12 +13,12 @@ function verifyForm($champs,$birthday,$fN,$lN){
         }
     }
     if(verify($champs,$fN)){
-        if(!mb_ereg("^[a-zA-Z'������������������ \.]{0,40}$",$champs[$fN]) == 1){
+        if(!mb_ereg("^[a-zA-Z]{1,20}$",$champs[$fN]) == 1){
             return 2;
         }
     }
     if(verify($champs,$lN)){
-        if(!mb_ereg("^[a-zA-Z'������������������ \.]{0,40}$",$champs[$lN]) == 1){
+        if(!mb_ereg("^[a-zA-Z]{1,20}$",$champs[$lN]) == 1){
             return 3;
         }
     }
