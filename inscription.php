@@ -129,7 +129,7 @@ Bienvenue sur GeekOnLAN,
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou le copier/coller dans votre navigateur internet.
 
-http://geekonlancom/activation.php?log={$login}&key={$key}
+http://geekonlan.com/activation.php?log={$login}&key={$key}
 
 
 ---------------
