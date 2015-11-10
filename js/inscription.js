@@ -46,7 +46,7 @@ function verifyInscription(){
 							if (ok){
 								pass1 = document.getElementsByName('pwd')[0].value;
 								document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
-								lue = '';document.getElementsByName('pwd')[0].va
+								document.getElementsByName('pwd')[0].value = '';
 								document.getElementsByName('pwdVerif')[0].value = '';
 								/*document.getElementsByName('hiddenPseudo')[0].value = crypt(pseu);
 								document.getElementsByName('pseudo')[0].value = '';*/

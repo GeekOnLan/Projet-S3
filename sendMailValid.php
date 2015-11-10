@@ -18,14 +18,14 @@ function envoieMailValide($login,$email){
 	$key = urlencode($key);
 	$login = urlencode($login);
 	//chemin du site
-	$path = $_SERVER['DOCUMENT_ROOT'];
+	$path = realpath('activation.php');
 	// Le lien d'activation est composé du login(login) et de la clé(key)
 	$message =<<<HTML
 Bienvenue sur GeekOnLAN,
 
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou le copier/coller dans votre navigateur internet.
-{$path}/Projet-S3/activation.php?log={$login}&key={$key}
+{$path}?log={$login}&key={$key}
 
 
 ---------------
