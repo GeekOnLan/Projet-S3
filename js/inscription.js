@@ -319,21 +319,3 @@ function resetPseudo(){
 	resetError('erreurpseudo');
 	resetInput('pseudo');
 }
-//----------------------------------------------------------//
-//cryptage RSA
-//----------------------------------------------------------//
-function crypt(chaine){
-	
-	var n = new BigInteger("36188573",10);
-	var e = new BigInteger("2148499",10);
-	var d = new BigInteger("6805039",10);
-	
-		console.log("chaine "+chaine);
-	var entier = new BigInteger(chaine,10);
-		console.log("entier "+entier);	
-	var res = entier.modPowInt(e,n);
-		console.log("temp "+temp);
-	var temp = res.modPowInt(d,n);
-		console.log("resulta "+res);
-	return temp;
-}

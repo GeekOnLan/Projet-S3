@@ -52,6 +52,7 @@ class GeekOnLanWebpage extends Webpage {
         $this->appendJsUrl("js/cryptageAuthentification.js");
         $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
         $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+        $this->appendJsUrl("js/rsa.js");
     }
 
     private function insertConnexionForm() {
