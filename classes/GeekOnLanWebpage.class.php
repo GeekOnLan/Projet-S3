@@ -13,6 +13,11 @@ class GeekOnLanWebpage extends Webpage {
     private $sidebar = null;
 
     /**
+     * @var string text au dessus de tout
+     */
+    private $foreground = null;
+
+    /**
      * Construit une page Web sur le modèle de GeekOnLan
      * @param string $title le titre de la page
      */
@@ -41,6 +46,10 @@ class GeekOnLanWebpage extends Webpage {
         $this->mainframe .= $content;
     }
 
+    public function appendForeground($content) {
+        $this->foreground .= $content;
+    }
+
     /**
      * Ajoute le css et le javascript de base
      */
@@ -52,11 +61,11 @@ class GeekOnLanWebpage extends Webpage {
     }
 
     private function insertConnexionForm(){
-            $this->appendJsUrl("js/cryptageAuthentification.js");
+            $this->appendJsUrl("js/authentification.js");
             $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
             $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
             $challenge = Member::Challenge();
-            $this->sidebar .= <<<HTML
+            $this->foreground .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
             <label for="login">Identifiant :</label>
             <input id="login" type="text" name="login" onfocus="resetInput('login')">
@@ -128,6 +137,7 @@ HTML
     public function toHTML() {
         parent::appendContent(<<<HTML
 {$this->sidebar}
+{$this->foreground}
         <div id="mainframe">
 {$this->mainframe}
         </div>
