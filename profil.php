@@ -34,7 +34,7 @@ $html.="<button type=\"button\" onclick=\"prompt()\">supprimer ce compte</button
 $prompt=<<<HTML
 <div id="myPrompt">
 	<div id="promptTitle">
-       <h1>Supprimmer ce compte ?</h1>
+       <h1>Supprimer ce compte ?</h1>
   	</div>
     <div id="promptButton">
      	<input type="button" value="Confirmer" id="idOk" class="ok" onclick="clickOk()" />
