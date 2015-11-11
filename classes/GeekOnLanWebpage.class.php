@@ -13,7 +13,7 @@ class GeekOnLanWebpage extends Webpage {
     private $sidebar = null;
 
     /**
-     * @var string text au dessus de tout
+     * @var string texte au-dessus de tout
      */
     private $foreground = null;
 
@@ -25,17 +25,16 @@ class GeekOnLanWebpage extends Webpage {
         parent::__construct($title);
 
         $connected = Member::isConnected();
-        //css et js de base
+        //$connected = false;
+
         $this->appendBasicCSSAndJS();
-        $this->insertGeekOnLanHeader($connected);
+        $this->insertConnexionForm();
         $this->appendToHead("<link rel=\"icon\" type=\image/png\" href=\"resources/img/icon.png\"/>");
-        if($connected) {
+        $this->insertGeekOnLanHeader($connected);
+        $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
+
+        if($connected)
             $this->insertGeekOnLanSidebar();
-            $this->mainframe .= "<button id='sidebarButton' type='button'></button>";
-        }
-        else{
-            $this->insertConnexionForm();
-        }
     }
 
     /**
@@ -46,6 +45,10 @@ class GeekOnLanWebpage extends Webpage {
         $this->mainframe .= $content;
     }
 
+    /**
+     * Ajoute un contenu au premier plan
+     * @param $content
+     */
     public function appendForeground($content) {
         $this->foreground .= $content;
     }
@@ -56,26 +59,36 @@ class GeekOnLanWebpage extends Webpage {
     private function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
+
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
+        $this->appendJsUrl("js/authentification.js");
+        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
     }
 
-    private function insertConnexionForm(){
-            $this->appendJsUrl("js/authentification.js");
-            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
-            $challenge = Member::Challenge();
-            $this->foreground .= <<<HTML
+    private function insertConnexionForm() {
+        $challenge = Member::Challenge();
+        $this->foreground .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
-            <label for="login">Identifiant :</label>
-            <input id="login" type="text" name="login" onfocus="resetInput('login')">
-
-            <label for="pass">Mot de Passe :</label>
-            <input id="pass" type="password" name="pass" onfocus="resetInput('pass')">
+            <h2>Connexion</h2>
+            <table>
+                <tr>
+                    <td class="connexionIcon"><img src="resources/img/Contact.png" alt="login" /></td>
+                    <td><input id="login" type="text" name="login" onfocus="resetInput('login')" placeholder="Pseudo"></td>
+                </tr>
+                <tr>
+                    <td class="connexionIcon"><img src="resources/img/Lock.png" alt="password" /></td>
+                    <td><input id="pass" type="password" name="pass" onfocus="resetInput('pass')" placeholder="Mot de passe"></td>
+                </tr>
+            </table>
 
             <input type="hidden" name="hiddenCrypt" value={$challenge}>
 
-            <button type="button" onclick="sha256()">Confirmer</button>
+            <div>
+                <a href="#">S'inscire</a>
+                <button type="button" onclick="sha256()">Confirmer</button>
+            </div>
 		</form>
 HTML;
     }
@@ -109,7 +122,7 @@ HTML;
         else
             $auth=<<<HTML
 <li><a href="authentification.php">Deconnexion</a></li>
-<li><a href="profil.php">Profil</a></li>
+<li><a href="profil.php">Profile</a></li>
 HTML;
 
         $this->appendContent(<<<HTML
