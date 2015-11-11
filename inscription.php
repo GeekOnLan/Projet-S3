@@ -5,7 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
-//$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
+$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {

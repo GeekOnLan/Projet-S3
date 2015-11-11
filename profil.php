@@ -5,7 +5,8 @@ require_once('includes/autoload.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - Profile");
 $webpage->appendJsUrl("js/deleteAccount.js");
-$webpage->appendCssUrl("style/regular/deleteAccount.css");
+$webpage->appendCssUrl("style/regular/deleteAccount.css","screen and (min-width: 680px");
+$webpage->appendCssUrl("style/mobile/deleteAccount.css","screen and (max-width: 680px)");
 
 //list a puce des informations du membre
 $html = '<ul>';
@@ -33,10 +34,10 @@ $html.="<button type=\"button\" onclick=\"prompt()\">supprimer ce compte</button
 $prompt=<<<HTML
 <div id="myPrompt">
 	<div id="promptTitle">
-       Supprimmer ce compte ?
+       <h1>Supprimmer ce compte ?</h1>
   	</div>
     <div id="promptButton">
-     	<input type="button" value="Ok" id="idOk" class="ok" onclick="clickOk()" />
+     	<input type="button" value="Confirmer" id="idOk" class="ok" onclick="clickOk()" />
       	<input type="button" value="Annuler" id="idAnnuler" class="annuler" onclick="clickAnnuler()" />
   </div>
 </div>
