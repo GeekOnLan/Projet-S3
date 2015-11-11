@@ -1,9 +1,10 @@
 <?php
-header('Content-Type: text/xml');
 header('Content-Type: application/xml');
 require_once("../includes/utility.inc.php");
 require_once("../includes/autoload.inc.php");
 require_once("../includes/myPDO.inc.php");
+require_once("../includes/userRestricted.inc.php");
+
 
 $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 
