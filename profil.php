@@ -33,12 +33,10 @@ $html.="<button type=\"button\" onclick=\"prompt()\">supprimer ce compte</button
 //boite de dialogue pour confirmer la suppression
 $prompt=<<<HTML
 <div id="myPrompt">
-	<div id="promptTitle">
-       <h1>Supprimer ce compte ?</h1>
-  	</div>
-    <form  name="delete" methode="POST" action="scriptPHP/deleteAccount.php">
-     	<input type="button" value="Confirmer" id="idOk" class="ok" onclick="clickOk()" />
-      	<input type="button" value="Annuler" id="idAnnuler" class="annuler" onclick="clickAnnuler()" />
+    <h2>Supprimer ce compte ?</h2>
+    <form id="formDelete" name="delete" methode="POST" action="scriptPHP/deleteAccount.php">
+     	<input type="button" value="Confirmer" id="idOk" onclick="clickOk()" />
+      	<input type="button" value="Annuler" id="idAnnuler" onclick="clickAnnuler()" />
   </form>
 </div>
 HTML;
