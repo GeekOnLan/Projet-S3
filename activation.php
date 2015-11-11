@@ -1,6 +1,7 @@
 <?php
-//w
+
 require_once('includes/autoload.inc.php');
+require_once('includes/deconnectedMember.inc.php');
 
 //création de la page web
 $page=new GeekOnLanWebpage("GeekOnLan - Validation Mail");

@@ -3,6 +3,7 @@
 require_once('includes/autoload.inc.php');
 require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
+require_once('includes/deconnectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 $form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");

@@ -1,6 +1,7 @@
 <?php
 
 require_once('includes/autoload.inc.php');
+require_once('includes/connectedMember.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - LAN");
 

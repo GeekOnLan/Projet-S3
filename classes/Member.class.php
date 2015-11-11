@@ -44,7 +44,7 @@ class Member {
     * retourne l'id du membre
     */
     public function getId(){
-        return $this->id;
+        return $this->idMembre;
     }
 
     /*
@@ -96,8 +96,7 @@ class Member {
 
     /**
      * cree une instance de Member
-     * @param $pseudo pseudo du membre
-     * @param $mdp mot de passe du membre
+     * @param $crypt String pseudo et mot de passe crypter du membre
      * @return Member instance du membre
      * @throws Exception si le pseudo ou mot de passe est invalide
      */
@@ -128,7 +127,7 @@ SQL
 SQL
             );
             $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
-            $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+            $stmt->setFetchMode(PDO::FETCH_CLASS ,__CLASS__);
             $member = $stmt->fetch();
             if($member!==false)
                 throw new Exception('Vous n\'avez pas valider votre adresse mail');
@@ -181,7 +180,7 @@ SQL
 
     /**
      * renvoit l'instance du membre stocker dans la session
-     * @return Membre
+     * @return Member
      * @throws Exception si la session a un probleme de lancement
      */
     public static function GetInstance(){

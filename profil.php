@@ -1,6 +1,6 @@
 <?php
 
-require_once('includes/connectedPage.inc.php');
+require_once('includes/connectedMember.inc.php');
 require_once('includes/autoload.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - Profile");
@@ -36,10 +36,10 @@ $prompt=<<<HTML
 	<div id="promptTitle">
        <h1>Supprimer ce compte ?</h1>
   	</div>
-    <div id="promptButton">
+    <form  name="delete" methode="POST" action="scriptPHP/deleteAccount.php">
      	<input type="button" value="Confirmer" id="idOk" class="ok" onclick="clickOk()" />
       	<input type="button" value="Annuler" id="idAnnuler" class="annuler" onclick="clickAnnuler()" />
-  </div>
+  </form>
 </div>
 HTML;
 

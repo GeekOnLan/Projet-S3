@@ -44,7 +44,8 @@ class Webpage {
 
     /**
      * Ajouter l'URL d'un script CSS dans head
-     * @param string $url L'URL du script CSS
+     * @param $url string l'URL du script CSS
+     * @param null $media media du css
      */
     public function appendCssUrl($url, $media = null) {
         $media = ($media === null) ? "" : "media=\"" . $media . "\"";

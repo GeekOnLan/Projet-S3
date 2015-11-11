@@ -9,6 +9,7 @@ function prompt(){
 }
 
 function clickOk(){
+    //document.delete.submit();
     prompt();
 }
 
