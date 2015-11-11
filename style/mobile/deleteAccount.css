@@ -2,15 +2,25 @@
     border-top: solid 10px #FF5B00;
     position: fixed;
     z-index: 20;
-    background: #313131;
+
+    width: 100%;
     text-align: center;
 
-    top: 0;
-    height: 250px;
-    width: 100%;
+    background: #3a3a3a;
+    box-shadow: 2px 2px 1px 0 #333;
 
     transition: transform 0.3s;
-    transform: translateY(-270px);
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
 }
 
 #myPrompt.open {
@@ -22,21 +32,41 @@
     opacity: 0.5;
 }
 
-#promptTitle{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background: #489FC7;
-}
-
-.ok, .annuler{
-    width: 80%;
-    height: 45px;
-    margin: 30px auto;
+#idOk, #idAnnuler{
+    display: table-cell;
+    width: 100%;
     font-family: AgencyRegular, Arial, serif;
 
     color: #b9b9b9;
     background: #3f3f3f;
-    border: none;
     font-size: 32px;
-    background: #585858;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 2px #222;
+}
+
+#idAnnuler{
+    margin-top: 10px;
+}
+
+#formDelete{
+    padding: 20px;
+}
+
+#myPrompt h2{
+    background: #d95600;
+    color: #b9b9b9;
+
+    border-left: solid 3px #222;
+    border-bottom: solid 3px #222;
+    border-right: solid 3px #222;
+
+    font-size: 26px;
+
+    display: block;
+
+    height: 40px;
+    width: 220px;
+
+    margin: -9px auto 0;
 }

@@ -65,7 +65,6 @@ SQL
         if($cNO==1)$form->appendContent("<p>Date d'anniversaire non valide !</p><br>");
         if($cNO==2)$form->appendContent("<p>Prénom non valide !</p><br>");
         if($cNO==3)$form->appendContent("<p>Nom non valide !</p><br>");
-        $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
         addJsAndCss($form);
         $form->appendContent(formulaire());
     }
@@ -179,7 +178,6 @@ HTML;
 }
 
 function addJsAndCss(GeekOnLanWebpage $form){
-    $form->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
     $form->appendJsUrl("js/rsa.js");
     $form->appendJsUrl("js/BigInt.js");
     $form->appendJsUrl("js/inscription.js");

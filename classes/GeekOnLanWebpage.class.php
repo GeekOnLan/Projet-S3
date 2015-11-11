@@ -59,12 +59,13 @@ class GeekOnLanWebpage extends Webpage {
     private function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
-
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
-        $this->appendJsUrl("js/authentification.js");
-        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-        $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+        if(!Member::isConnected()) {
+            $this->appendJsUrl("js/authentification.js");
+            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
+            $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js");
+        }
     }
 
     private function insertConnexionForm() {
@@ -75,18 +76,18 @@ class GeekOnLanWebpage extends Webpage {
             <table>
                 <tr>
                     <td class="connexionIcon"><img src="resources/img/Contact.png" alt="login" /></td>
-                    <td><input id="login" type="text" name="login" onfocus="resetInput('login')" placeholder="Pseudo"></td>
+                    <td><input id="login" type="text" name="login" onfocus="resetInputAuth('login')" placeholder="Pseudo"></td>
                 </tr>
                 <tr>
                     <td class="connexionIcon"><img src="resources/img/Lock.png" alt="password" /></td>
-                    <td><input id="pass" type="password" name="pass" onfocus="resetInput('pass')" placeholder="Mot de passe"></td>
+                    <td><input id="pass" type="password" name="pass" onfocus="resetInputAuth('pass')" placeholder="Mot de passe"></td>
                 </tr>
             </table>
 
             <input type="hidden" name="hiddenCrypt" value={$challenge}>
 
             <div>
-                <a href="#">S'inscire</a>
+                <a href="inscription.php">S'inscire</a>
                 <button type="button" onclick="sha256()">Confirmer</button>
             </div>
 		</form>

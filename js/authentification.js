@@ -2,9 +2,9 @@ function sha256(){
     var pass = $("#connexionForm input[name='pass']").val();
     var login = $("#connexionForm input[name='login']").val();
     if(pass=="")
-        setInput('pass');
+        setInputAuth('pass');
     if(login=="")
-        setInput('login');
+        setInputAuth('login');
     else if(pass!=""){
         cryptpass = CryptoJS.SHA256(pass);
         $("#connexionForm input[name='pass'],#connexionForm input[name='login']").val('');
@@ -19,10 +19,11 @@ window.addEventListener("keypress",function(even){
         sha256();
 });
 
-function resetInput(name){
+function resetInputAuth(name){
     document.getElementsByName(name)[0].setCustomValidity("");
+    console.log('apel');
 }
 
-function setInput(name){
+function setInputAuth(name){
     document.getElementsByName(name)[0].setCustomValidity("Champ invalide")
 }
