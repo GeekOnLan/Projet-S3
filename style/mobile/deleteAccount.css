@@ -40,29 +40,3 @@
     font-size: 32px;
     background: #585858;
 }
-
-.ok{
-    width: 80%;
-    height: 45px;
-    margin: 30px auto;
-    font-family: AgencyRegular, Arial, serif;
-
-    color: #b9b9b9;
-    background: #3f3f3f;
-    border: none;
-    font-size: 32px;
-    background: #585858;
-}
-
-.annuler{
-    width: 80%;
-    height: 45px;
-    margin: 30px auto;
-    font-family: AgencyRegular, Arial, serif;
-
-    color: #b9b9b9;
-    background: #3f3f3f;
-    border: none;
-    font-size: 32px;
-    background: #585858;
-}
