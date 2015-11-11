@@ -1,19 +1,16 @@
-function prompt(){
-    if($("#myPrompt").hasClass("open")) {
-        $("#myPrompt").removeAttr("class");
-        $("body > div[id='layer']").removeAttr("class");
-    } else {
-        $("#myPrompt").addClass("open");
-        $("body > div[id='layer']").addClass("deleteLayer");
-    }
-}
+$(function() {
+    toggleLayer.actions.push({
+        actionClass: "deleteLayer",
+        doAction: toggleDelete
+    });
 
-function clickOk(){
-    //document.delete.submit();
-    prompt();
-}
+    // J'ai utiliser un seul selecteur pour le moment car tes deux boutons
+    // font la même chose. Plus tard, il faudra faire 2 sélécteurs
+    $("#myPrompt input").click(toggleDelete);
+    $("#buttonDelete").click(toggleDelete);
+});
 
-
-function clickAnnuler(){
-    prompt();
-}
+var toggleDelete = function() {
+    $("#myPrompt").toggleClass("open");
+    $("body > div[id='layer']").toggleClass("deleteLayer");
+};

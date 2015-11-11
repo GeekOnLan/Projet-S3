@@ -39,7 +39,7 @@
     opacity: 0.5;
 }
 
-#myPrompt h2{
+#myPrompt h2 {
     background: #FF5B00;
     color: #b9b9b9;
 
@@ -57,7 +57,7 @@
     margin: -9px auto 0;
 }
 
-#idOk, #idAnnuler{
+#myPrompt input {
     display: table-cell;
     width: 100%;
     font-family: AgencyRegular, Arial, serif;
@@ -68,12 +68,4 @@
 
     box-shadow: 2px 2px 1px 0 #111;
     border: solid 2px #222;
-}
-
-#idAnnuler{
-    margin-top: 10px;
-}
-
-#formDelete{
-    padding: 20px;
 }

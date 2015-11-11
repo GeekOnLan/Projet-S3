@@ -149,7 +149,7 @@ body {
     transform: translateY(0px);
 }
 
-#layer.backgroundLayer {
+#layer.connexionLayer {
     visibility: visible;
     opacity: 0.5;
 }
@@ -340,7 +340,7 @@ header > hr {
     -moz-transform: translateX(250px);
 }
 
-#layer.foregroundLayer {
+#layer.sidebarLayer {
     visibility: visible;
     opacity: 0.5;
 }

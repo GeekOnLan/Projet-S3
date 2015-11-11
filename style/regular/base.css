@@ -157,7 +157,7 @@ body {
     -moz-transform: scale3d(1, 1, 1);
 }
 
-#layer.backgroundLayer {
+#layer.connexionLayer {
     visibility: visible;
     opacity: 0.5;
 }
@@ -407,7 +407,7 @@ header > hr {
     -webkit-filter: blur(2px);
 }
 
-#layer.foregroundLayer {
+#layer.sidebarLayer {
     visibility: visible;
     opacity: 0.5;
 }

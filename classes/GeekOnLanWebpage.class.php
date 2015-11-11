@@ -151,7 +151,9 @@ HTML
     public function toHTML() {
         parent::appendContent(<<<HTML
 {$this->sidebar}
+        <div id="foreground">
 {$this->foreground}
+        </div>
         <div id="mainframe">
 {$this->mainframe}
         </div>

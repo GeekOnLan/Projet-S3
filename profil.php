@@ -28,15 +28,15 @@ if($birth!='')
 $html.='</ul>';
 
 //boutton du suppression du compte
-$html.="<button type=\"button\" onclick=\"prompt()\">supprimer ce compte</button>";
+$html.="<button type='button' id='buttonDelete'>supprimer ce compte</button>";
 
 //boite de dialogue pour confirmer la suppression
 $prompt=<<<HTML
 <div id="myPrompt">
     <h2>Supprimer ce compte ?</h2>
-    <form id="formDelete" name="delete" methode="POST" action="scriptPHP/deleteAccount.php">
-     	<input type="button" value="Confirmer" id="idOk" onclick="clickOk()" />
-      	<input type="button" value="Annuler" id="idAnnuler" onclick="clickAnnuler()" />
+    <form id="formDelete" name="delete" method="POST" action="scriptPHP/deleteAccount.php">
+     	<input type="button" value="Confirmer"/>
+      	<input type="button" value="Annuler"/>
   </form>
 </div>
 HTML;
