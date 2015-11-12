@@ -3,6 +3,7 @@
     require_once('includes/connectedMember.inc.php');
     require_once('includes/myPDO.inc.php');
     require_once('includes/utility.inc.php');
+
 /*
  * change le mot de passe du membre
  */
@@ -34,7 +35,7 @@ SQL
     }
 
 }
-else{
-    header('Location: profil.php?message=une erreur est survenue');
-}
+else
+    header('Location: index.php');
+
 
