@@ -62,6 +62,9 @@ class GeekOnLanWebpage extends Webpage {
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
+        $this->appendJsUrl("js/parallaxPlugin/jquery.simple3D.js");
+        $this->appendJsUrl("js/parallax.js");
+        $this->appendCssUrl("style/parallax.css");
         if(!Member::isConnected()) {
             $this->appendJsUrl("js/authentification.js");
             $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
@@ -141,6 +144,11 @@ HTML;
                 $auth
             </ul>
         </nav>
+        <div id="parallax">
+        <div class="bottom"></div>
+        <div class="middle"></div>
+        <div class="front"></div>
+        </div>
 HTML
         );
     }
