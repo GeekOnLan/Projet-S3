@@ -11,6 +11,6 @@ $stmt = $pdo->prepare(<<<SQL
             WHERE idMembre=:id;
 SQL
 );
-$stmt->execute(array("id"=>17));
+$stmt->execute(array("id"=>$member->getId()));
 Member::disconnect();
-header('Location: ../index.php');
+header('Location: index.php');

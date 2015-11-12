@@ -305,16 +305,16 @@ function verifyPassForm(){
 	var pass2 = document.getElementsByName('pwdVerif')[0].value;
 
 	if(pass1 != ''){
-		if(pass1 != pass2 && pass2 != ''){
-			setInput('pwdVerif');
-			setError('erreurpass', 'mot de passe different');
-		}
-		else if(!passwordTest(pass1)){
+		if(!passwordTest(pass1)){
 			setInput('pwd');
 			setError('erreurpass1', 'le mot de passe doit contenir au moin une lettre majuscule un chiffre et au moins 6 characteres');
 		}
+		else if(pass1 != pass2 && pass2 != ''){
+			setInput('pwdVerif');
+			setError('erreurpass', 'mot de passe different');
+		}
 		else{
-			resetInput('pwdVerif')
+			resetInput('pwdVerif');
 			resetError('erreurpass');
 		}
 	}

@@ -99,12 +99,12 @@ function formulaire(){
     			<td>
     				<label for="firstName">Prénom</label>
     				<input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirstForm()">
-    				<span id="erreurfirst">
+    				<span id="erreurfirst"></span>
     			</td>
     		    <td>
     				<label for="lastName">Nom</label>
     				<input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLastForm()">
-    				<span id="erreurlast">
+    				<span id="erreurlast"></span>
     			</td>
     		</tr>
 			<tr>

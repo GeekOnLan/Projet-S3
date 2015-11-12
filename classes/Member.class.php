@@ -114,6 +114,7 @@ SQL
         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $member = $stmt->fetch();
         if($member!==false){
+            self::Challenge();
             return $member;
         }
         else{
@@ -193,7 +194,8 @@ SQL
 
     public static function Challenge(){
         $res = '';
-        for($i=0;$i<256;$i++){
+        $it = rand(65,90);
+        for($i=0;$i<$it;$i++){
             $char = rand(0,2);
             switch($char){
                 case 0:

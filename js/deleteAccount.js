@@ -4,9 +4,6 @@ $(function() {
         doAction: toggleDelete
     });
 
-    // J'ai utiliser un seul selecteur pour le moment car tes deux boutons
-    // font la même chose. Plus tard, il faudra faire 2 sélécteurs
-    $("#myPrompt input").click(toggleDelete);
     $("#buttonDelete").click(toggleDelete);
 });
 
