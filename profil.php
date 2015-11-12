@@ -34,9 +34,9 @@ $html.="<button type='button' id='buttonDelete'>supprimer ce compte</button>";
 $prompt=<<<HTML
 <div id="myPrompt">
     <h2>Supprimer ce compte ?</h2>
-    <form id="formDelete" name="delete" method="POST" action="scriptPHP/deleteAccount.php">
-     	<input type="button" value="Confirmer"/>
-      	<input type="button" value="Annuler"/>
+    <form id="formDelete" name="delete" method="POST">
+     	<button value="Confirmer">Confirmer</button>
+      	<button  value="Annuler">Annuler</button>
   </form>
 </div>
 HTML;

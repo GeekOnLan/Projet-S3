@@ -24,7 +24,9 @@
 }
 
 #myPrompt.open {
-    transform: translateY(0px);
+    transform: scale3d(1, 1, 1);
+    -webkit-transform: scale3d(1, 1, 1);
+    -moz-transform: scale3d(1, 1, 1);
 }
 
 #layer.deleteLayer {
@@ -32,29 +34,8 @@
     opacity: 0.5;
 }
 
-#idOk, #idAnnuler{
-    display: table-cell;
-    width: 100%;
-    font-family: AgencyRegular, Arial, serif;
-
-    color: #b9b9b9;
-    background: #3f3f3f;
-    font-size: 32px;
-
-    box-shadow: 2px 2px 1px 0 #111;
-    border: solid 2px #222;
-}
-
-#idAnnuler{
-    margin-top: 10px;
-}
-
-#formDelete{
-    padding: 20px;
-}
-
-#myPrompt h2{
-    background: #d95600;
+#myPrompt h2 {
+    background: #FF5B00;
     color: #b9b9b9;
 
     border-left: solid 3px #222;
@@ -69,4 +50,24 @@
     width: 220px;
 
     margin: -9px auto 0;
+}
+
+#myPrompt button {
+    width: 90%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 2px #222;
+}
+
+#myPrompt button:active{
+    background: #5b5b5b;
+}
+
+#myPrompt button{
+    margin: 20px;
 }

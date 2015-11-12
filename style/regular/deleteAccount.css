@@ -57,9 +57,8 @@
     margin: -9px auto 0;
 }
 
-#myPrompt input {
-    display: table-cell;
-    width: 100%;
+#myPrompt button {
+    width: 90%;
     font-family: AgencyRegular, Arial, serif;
 
     color: #b9b9b9;
@@ -68,4 +67,12 @@
 
     box-shadow: 2px 2px 1px 0 #111;
     border: solid 2px #222;
+}
+
+#myPrompt button:active{
+    background: #5b5b5b;
+}
+
+#myPrompt button{
+    margin: 20px;
 }
