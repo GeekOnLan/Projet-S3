@@ -21,7 +21,6 @@ window.addEventListener("keypress",function(even){
 
 function resetInputAuth(name){
     document.getElementsByName(name)[0].setCustomValidity("");
-    console.log('apel');
 }
 
 function setInputAuth(name){
