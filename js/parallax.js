@@ -15,14 +15,14 @@ $(function() {
         bottom.css('transform', 'translate3d(' + mouseXBot + 'px,' + mouseYBot + 'px, 0px)');
 
         /*mouvement de la couche middle*/
-        var mouseXMid = (e.pageX - ($(window).width() / 2)) * 0.015;
-        var mouseYMid = (e.pageY - ($(window).height() / 2)) * 0.015;
+        var mouseXMid = (e.pageX - ($(window).width() / 2)) * 0.03;
+        var mouseYMid = (e.pageY - ($(window).height() / 2)) * 0.03;
 
         middle.css('transform', 'translate3d(' + mouseXMid + 'px,' + mouseYMid + 'px, 0px)');
 
         /*mouvement de la couche front*/
-        var mouseXTop = (e.pageX - ($(window).width() / 2)) * 0.02;
-        var mouseYTop = (e.pageY - ($(window).height() / 2)) * 0.02;
+        var mouseXTop = (e.pageX - ($(window).width() / 2)) * 0.09;
+        var mouseYTop = (e.pageY - ($(window).height() / 2)) * 0.09;
 
         front.css('transform', 'translate3d(' + mouseXTop + 'px,' + mouseYTop + 'px, 0px)');
     });
