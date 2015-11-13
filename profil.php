@@ -86,9 +86,9 @@ $prompt=<<<HTML
 		<div id="myPrompt">
 			<h2>Supprimer ce compte ?</h2>
 			<form id="formDelete" name="delete" method="POST" action="deleteAccount.php">
-				<button value="Confirmer">Confirmer</button>
-				<button  value="Annuler">Annuler</button>
-		  </form>
+				<button type="button" id="idConfirmer" value="Confirmer" >Confirmer</button>
+				<button type="button" id="idAnnuler" value="Annuler">Annuler</button>
+		 	</form>
 		</div>
 HTML;
 

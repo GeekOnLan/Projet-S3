@@ -3,7 +3,8 @@ $(function() {
         actionClass: "deleteLayer",
         doAction: toggleDelete
     });
-
+    $("#idConfirmer").click(function(){document.delete.submit()});
+    $("#idAnnuler").click(toggleDelete);
     $("#buttonDelete").click(toggleDelete);
 });
 
