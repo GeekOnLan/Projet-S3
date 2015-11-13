@@ -1,19 +1,17 @@
 #parallax {
-    position: absolute;
-    z-index: 1;
+    position: fixed;
+    z-index: -99;
     width: 100%;
-    height: 900px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    overflow: hidden;
 }
-#parallax div {
-    min-height: 1100px;
-    width: 120%;
+
+#parallax img {
+    position:absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
 }
-#parallax div.bottom {
-    background: url(../../resources/img/bottom.png);
-}
-#parallax div.middle {
-    background: url(../../resources/img/middle.png);
-}
-#parallax div.front {
-    background: url(../../resources/img/front.png);
-}	

@@ -60,8 +60,10 @@ class GeekOnLanWebpage extends Webpage {
     private function appendBasicCSSAndJS(){
         $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
+        $this->appendCssUrl("style/regular/parallax.css");
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");
         $this->appendJsUrl("js/base.js");
+        $this->appendJsUrl("js/parallax.js");
         if(!Member::isConnected()) {
             $this->appendJsUrl("js/authentification.js");
             $this->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
@@ -142,9 +144,9 @@ HTML;
             </ul>
         </nav>
         <div id="parallax">
-        <div class="bottom"></div>
-        <div class="middle"></div>
-        <div class="front"></div>
+            <img src="resources/img/bottom.png" alt="bottom" />
+            <img src="resources/img/middle.png" alt="middle" />
+            <img src="resources/img/front.png" alt="front" />
         </div>
 HTML
         );
