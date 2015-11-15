@@ -13,6 +13,25 @@ body {
     src: url('../../resources/fonts/AgencyBold.ttf');
 }
 
+*::selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+*::-moz-selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+*::-webkit-selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+#mainframe{
+    overflow: auto;
+}
+
 /** ================================= **/
 /** ==== Formulaire de connexion ==== **/
 /** ================================= **/

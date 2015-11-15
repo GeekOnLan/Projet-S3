@@ -9,6 +9,25 @@ body {
     font-family: AgencyRegular, Arial, serif;
 }
 
+*::selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+*::-moz-selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+*::-webkit-selection {
+    background:#40CFF6;
+    color:#d95600;
+}
+
+#mainframe{
+    overflow: auto;
+}
+
 @font-face {
     font-family: AgencyRegular;
     src: url('../../resources/fonts/AgencyBold.ttf');
@@ -341,7 +360,6 @@ header > hr {
     -o-transition: all 0.3s;
 }
 
-
 #mainframe {
     position: fixed;
     left: 0;
@@ -398,7 +416,7 @@ header > hr {
 
 #mainframe.pushedMainframe {
     transform: perspective(100px) translateX(250px);
-    -webkit-transform: perspective(800px) translateX(250px) translateZ(-100px) rotateY(-5deg); /** Meilleure animation pour Chrome, et oui messieurs ! **/
+    -webkit-transform: perspective(800px) translateX(250px) translateZ(-100px) rotateY(-5deg);
     -moz-transform: perspective(100px) translateX(250px);
 }
 
