@@ -68,7 +68,7 @@ function verififyPseudoForm() {
 	if (pseu != '') {
 		if(pseu.length>20){
 			setInput('pseudo');
-			setError('erreurpseudo', 'pseudo trop grand');
+			setError('erreurpseudo', 'peudo trop grand');
 		}
 		else if(!pseudo(pseu)){
 			setInput('pseudo');

@@ -1,6 +1,5 @@
 <?php
 
-require_once('includes/autoload.inc.php');
 require_once('includes/myPDO.inc.php');
 
 class Member {
@@ -107,7 +106,7 @@ class Member {
 			SELECT *
 			FROM Membre
 			WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
-				AND estValide = 1;
+				AND estValide = 0;
 SQL
         );
         $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
@@ -212,5 +211,17 @@ SQL
         self::startSession();
         $_SESSION['challenge'] = $res;
         return $res;
+    }
+    
+    public function getIdLAN(){
+    	$pdo = MyPDO::GetInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT idLAN
+			FROM LAN
+			WHERE idMembre = :idMembre;
+SQL
+    	);
+    	$stmt->execute(array("idMembre"=>$this->getId()));
+    	return $stmt;
     }
 }
