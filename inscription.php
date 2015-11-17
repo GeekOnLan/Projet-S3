@@ -36,10 +36,11 @@ SQL
             );
             $stmt->execute(array("pseudo" => $pseudo));
             $pseudoVerif = $stmt->fetch();
-            if ($pseudoVerif != $pseudo) {
+            if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0
+                && strcasecmp($pseudo, "root")!=0) {
                 $stmt = $pdo->prepare(<<<SQL
 	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
-	VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, 'DD/MM/YYYY'),:password)
+	VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, '%d/%m/%Y'),:password)
 SQL
                 );
                 $stmt->execute(array("ln" => $lN,
@@ -52,11 +53,13 @@ SQL
                 $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
             }
             else {
+                $form->appendContent("<p>Le pseudonyme est déjà utilisé</p>");
                 addJsAndCss($form);
                 $form->appendContent(formulaire());
             }
         }
         else{
+            $form->appendContent("<p>Le pseudonyme est non valide</p>");
             addJsAndCss($form);
             $form->appendContent(formulaire());
         }
