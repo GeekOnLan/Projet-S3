@@ -72,7 +72,7 @@ class GeekOnLanWebpage extends Webpage {
     }
 
     private function insertConnexionForm() {
-        $challenge = Member::Challenge();
+        $challenge = Member::challenge();
         $this->foreground .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
             <h2>Connexion</h2>

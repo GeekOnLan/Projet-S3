@@ -113,7 +113,7 @@ SQL
         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $member = $stmt->fetch();
         if($member!==false){
-            self::Challenge();
+            self::challenge();
             return $member;
         }
         else{
@@ -137,20 +137,37 @@ SQL
     }
 
     /**
+     * ajoute un membre dans la BD
+     * @param $pseudo pseudo du membre
+     * @param $mail mail du membre
+     * @param $password mot de passe du membre
+     * @param $fN nom du membre
+     * @param $lN prenom du membre
+     * @param $bD anniversaire du membre
+     */
+    public static function createMember($pseudo,$mail,$password,$fN,$lN,$bD){
+        self::startSession();
+        $pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+        INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
+        VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, '%d/%m/%Y'),:password)
+SQL
+        );
+        $stmt->execute(array("ln" => $lN, "fn" => $fN, "pseudo" => $pseudo, "password" => $password, "mail" => $mail, "birthday" => $bD));
+    }
+
+    /**
      * demmare une session si celle si ne les pas
      * @throws Exception si une erreur de lancement survient
      */
     private static function startSession(){
         if(session_status()==PHP_SESSION_NONE)
             session_start();
-        elseif(session_status()==PHP_SESSION_DISABLED)
-            throw new Exception('erreur lancement de session du a php les session ne sont pas activer');
     }
 
     /**
      * indique si le l'utilisateur et connecter
      * @return bool
-     * @throws Exception
      */
     public static function isConnected(){
         self::startSession();
@@ -162,7 +179,6 @@ SQL
 
     /**
      * stock l'instance du membre dans une variable de session
-     * @throws Exception si la session a un probleme de lancement
      */
     public function saveIntoSession(){
         self::startSession();
@@ -171,7 +187,6 @@ SQL
 
     /**
      * deconnect le membre
-     * @throws Exception si la session a un probleme de lancement
      */
     public static function disconnect(){
         self::startSession();
@@ -181,9 +196,8 @@ SQL
     /**
      * renvoit l'instance du membre stocker dans la session
      * @return Member
-     * @throws Exception si la session a un probleme de lancement
      */
-    public static function GetInstance(){
+    public static function getInstance(){
         self::startSession();
         if(self::isConnected())
             return $_SESSION['Member'];
@@ -191,7 +205,11 @@ SQL
             return null;
     }
 
-    public static function Challenge(){
+    /**
+     * cree un challenge pour crypter la connexion
+     * @return string challenge pour la cennexion
+     */
+    public static function challenge(){
         $res = '';
         $it = rand(65,90);
         for($i=0;$i<$it;$i++){
@@ -212,8 +230,12 @@ SQL
         $_SESSION['challenge'] = $res;
         return $res;
     }
-    
-    public function getIdLAN(){
+
+    /**
+     * retour un tableau d'instance de lan cree par l'utilisateur
+     * @return array tableau de lan
+     */
+    public function getLAN(){
     	$pdo = MyPDO::GetInstance();
     	$stmt = $pdo->prepare(<<<SQL
 			SELECT idLAN
@@ -222,6 +244,10 @@ SQL
 SQL
     	);
     	$stmt->execute(array("idMembre"=>$this->getId()));
-    	return $stmt;
+        $tab = array();
+        foreach($stmt as $res){
+            array_push ($tab,Lan::createFromId($res['idLAN']));
+        }
+    	return $tab;
     }
 }

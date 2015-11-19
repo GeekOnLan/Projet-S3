@@ -10,66 +10,61 @@ $form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
-    $pseudo = $_POST['pseudo'];
-    $mail = $_POST['mail'];
-    $password = $_POST['hiddenPass'];
-    $fN = null;
-    $lN = null;
-    $bD = null;
+    try{
+        $pseudo = $_POST['pseudo'];
+        $mail = $_POST['mail'];
+        $password = $_POST['hiddenPass'];
+        $fN = null;
+        $lN = null;
+        $bD = null;
 
-    //Test sur les champs non obligatoire :
-    $cNO = verifyForm($_POST,"birthday","firstName","lastName");
-    if($cNO==4){
-        $fN = $_POST['firstName'];
-        $lN = $_POST['lastName'];
-        $bD = $_POST['birthday'];
-        // On vérifie la validité du pseudonyme
-        if(mb_ereg("^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['pseudo']) == 1) {
-            //Connexion � la BdD
-            $pdo = myPDO::GetInstance();
-            //Test pour vérifier si le pseudo n'est pas déjà utilisé
-            $stmt = $pdo->prepare(<<<SQL
-			SELECT pseudo
-			FROM Membre
-			WHERE pseudo = :pseudo;
-SQL
-            );
-            $stmt->execute(array("pseudo" => $pseudo));
-            $pseudoVerif = $stmt->fetch();
-            if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0
-                && strcasecmp($pseudo, "root")!=0) {
+        //Test sur les champs non obligatoire :
+        $cNO = verifyForm($_POST,"birthday","firstName","lastName");
+        if($cNO==4){
+            $fN = $_POST['firstName'];
+            $lN = $_POST['lastName'];
+            $bD = $_POST['birthday'];
+            // On vérifie la validité du pseudonyme
+            if(mb_ereg("^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['pseudo']) == 1) {
+                //Connexion � la BdD
+                $pdo = myPDO::getInstance();
+                //Test pour vérifier si le pseudo n'est pas déjà utilisé
                 $stmt = $pdo->prepare(<<<SQL
-	INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
-	VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, '%d/%m/%Y'),:password)
+                SELECT pseudo
+                FROM Membre
+                WHERE pseudo = :pseudo;
 SQL
                 );
-                $stmt->execute(array("ln" => $lN,
-                    "fn" => $fN,
-                    "pseudo" => $pseudo,
-                    "password" => $password,
-                    "mail" => $mail,
-                    "birthday" => $bD));
-                envoieMailValide($pseudo, $mail);
-                $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+                $stmt->execute(array("pseudo" => $pseudo));
+                $pseudoVerif = $stmt->fetch();
+                if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0 && strcasecmp($pseudo, "root")!=0) {
+                    Member::createMember($pseudo,$mail,$password,$fN,$lN,$bD);
+                    envoieMailValide($pseudo, $mail);
+                    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+                }
+                else {
+                    $form->appendContent("<p>Le pseudonyme est déjà utilisé</p>");
+                    addJsAndCss($form);
+                    $form->appendContent(formulaire());
+                }
             }
-            else {
-                $form->appendContent("<p>Le pseudonyme est déjà utilisé</p>");
+            else{
+                $form->appendContent("<p>Le pseudonyme est non valide</p>");
                 addJsAndCss($form);
                 $form->appendContent(formulaire());
             }
         }
-        else{
-            $form->appendContent("<p>Le pseudonyme est non valide</p>");
+        else {
+            if ($cNO == 1) $form->appendContent("<p>Date d'anniversaire non valide !</p><br>");
+            if ($cNO == 2) $form->appendContent("<p>Prénom non valide !</p><br>");
+            if ($cNO == 3) $form->appendContent("<p>Nom non valide !</p><br>");
             addJsAndCss($form);
             $form->appendContent(formulaire());
+
         }
     }
-    else{
-        if($cNO==1)$form->appendContent("<p>Date d'anniversaire non valide !</p><br>");
-        if($cNO==2)$form->appendContent("<p>Prénom non valide !</p><br>");
-        if($cNO==3)$form->appendContent("<p>Nom non valide !</p><br>");
-        addJsAndCss($form);
-        $form->appendContent(formulaire());
+    catch(Exception $e){
+        $form->appendContent('<div>Un problème est survenu &nbsp; : ' . $e->getMessage() . '</div>');
     }
 }
 

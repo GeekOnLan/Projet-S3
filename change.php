@@ -8,7 +8,7 @@
  * change le mot de passe du membre
  */
 if(verify($_POST,'lastPassHidden') && verify($_POST,'newPassHidden')) {
-    $pdo = myPDO::GetInstance();
+    $pdo = myPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM Membre
@@ -16,9 +16,9 @@ if(verify($_POST,'lastPassHidden') && verify($_POST,'newPassHidden')) {
 			  AND password=:lastPass;
 SQL
     );
-    $stmt->execute(array("id"=>Member::GetInstance()->getId(), "lastPass" => $_POST['lastPassHidden']));
+    $stmt->execute(array("id"=>Member::getInstance()->getId(), "lastPass" => $_POST['lastPassHidden']));
     if($stmt->fetch()!==false) {
-        $pdo = myPDO::GetInstance();
+        $pdo = myPDO::getInstance();
         $stmt = $pdo->prepare(<<<SQL
 			UPDATE Membre
 			SET password=:pass
@@ -26,7 +26,7 @@ SQL
 			  AND password=:lastPass;
 SQL
         );
-        $stmt->execute(array("id"=>Member::GetInstance()->getId(), "lastPass" => $_POST['lastPassHidden'], "pass" => $_POST['newPassHidden']));
+        $stmt->execute(array("id"=>Member::getInstance()->getId(), "lastPass" => $_POST['lastPassHidden'], "pass" => $_POST['newPassHidden']));
         Member::disconnect();
         header('Location: index.php');
     }
