@@ -1,17 +1,21 @@
-#parallax {
-    position: fixed;
-    z-index: -99;
+#mainframe > div > div {
+    background-size: cover;
+
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 100%;
-    left: 0px;
-    top: 0px;
-    overflow: hidden;
+    z-index: -99;
 }
 
-#parallax img {
-    position:absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
+.bottom {
+    background: url("../../resources/img/bottom.png") no-repeat center center fixed;
+}
+
+.middle {
+    background: url("../../resources/img/middle.png") no-repeat center center fixed;
+}
+
+.front {
+    background: url("../../resources/img/front.png") no-repeat center center fixed;
 }

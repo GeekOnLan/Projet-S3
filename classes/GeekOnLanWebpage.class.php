@@ -25,10 +25,9 @@ class GeekOnLanWebpage extends Webpage {
         parent::__construct($title);
 
         $connected = Member::isConnected();
-        //$connected = false;
 
         $this->appendBasicCSSAndJS();
-        $this->appendToHead("<link rel=\"icon\" type=\image/png\" href=\"resources/img/icon.png\"/>");
+        $this->appendToHead("<link rel='icon' type='image/png' href='resources/img/icon.png' />");
         $this->insertGeekOnLanHeader($connected);
         $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
 
@@ -143,11 +142,6 @@ HTML;
                 $auth
             </ul>
         </nav>
-        <div id="parallax">
-            <img src="resources/img/bottom.png" alt="bottom" />
-            <img src="resources/img/middle.png" alt="middle" />
-            <img src="resources/img/front.png" alt="front" />
-        </div>
 HTML
         );
     }
@@ -163,7 +157,14 @@ HTML
 {$this->foreground}
         </div>
         <div id="mainframe">
-{$this->mainframe}
+            <article>
+            {$this->mainframe}
+            </article>
+            <div id="parallax">
+                <div class="bottom"></div>
+                <div class="middle"></div>
+                <div class="front"></div>
+            </div>
         </div>
         <div id="layer"></div>
 HTML

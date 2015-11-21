@@ -1,8 +1,8 @@
 #mainframe form {
-	background: #dddddd;
-	width: 70%;
-	margin: auto;
-	box-shadow: 2px 2px 2px 0 #333;
+    background: #dddddd;
+    width: 70%;
+    margin: auto;
+    box-shadow: 2px 2px 2px 0 #333;
 
     text-align: center;
 }
@@ -19,13 +19,13 @@
     border: solid 3px #727272;
 }
 
-#mainframe form td {
-    padding: 5px;
+#mainframe form img {
+    display: none;
 }
 
-#mainframe form table div > * {
-    display: table-cell;
-    vertical-align: middle;
+#mainframe form td {
+    padding: 5px;
+    display: block;
 }
 
 #mainframe form label {
@@ -33,18 +33,7 @@
     color: #212121;
 }
 
-#mainframe form img{
-    float: left;
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-
-    background-color: #40CFF6;
-    box-shadow: 0 0 5px 0 #333 inset;
-}
-
 #mainframe form input {
-    float: right;
     border: none;
     height: 50px;
 
@@ -52,7 +41,7 @@
     padding: 0 10px;
 
     position: relative;
-    width: calc(100% - 70px);
+    width: calc(100% - 20px);
 }
 
 #mainframe form table span {
@@ -81,7 +70,7 @@
     font-family: AgencyRegular, Arial, serif;
 
     color: #212121;
-    background: #dddddd;
+    background: #f1f1f1;
     font-size: 32px;
 
     box-shadow: 2px 2px 1px 0 #111;

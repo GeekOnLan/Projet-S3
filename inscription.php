@@ -7,6 +7,7 @@ require_once('includes/deconnectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Inscription");
 $form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
+$form->appendCssUrl("style/mobile/inscription.css", "screen and (max-width: 680px");
 
 //On regarde si l'utilisateur � d�j� ex�cut� le formulaire
 if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
@@ -78,53 +79,80 @@ echo $form->toHTML();
 // Fonction utilis� pour cr�e le formulaire d'inscription au sein de la page.
 function formulaire(){
     $html= <<<HTML
-
 	<form method="POST" name="inscription" action="inscription.php">
+		<h2>Inscription</h2>
 		<table>
 			<tr>
     		    <td>
-    				<label for="pseudo">Pseudonyme*</label>
-    				<input id="pseudo" name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()">
-    				<span id="erreurpseudo"></span>
+    				<label for="lastName">Nom</label>
+    				<div>
+    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLastForm()">
+    				</div>
+    				<span id="erreurlast"></span>
     			</td>
-    		    <td>
+			    <td>
     				<label for="mail">E-Mail*</label>
-    				<input id="mail" name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()">
+    				<div>
+    				    <img src="resources/img/Mail.png" alt="login" />
+    				    <input id="mail" name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()">
+    				</div>
     				<span id="erreurmail"></span>
     			</td>
     		</tr>
 			<tr>
     			<td>
     				<label for="firstName">Prénom</label>
-    				<input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirstForm()">
+    				<div>
+    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirstForm()">
+                    </div>
     				<span id="erreurfirst"></span>
     			</td>
-    		    <td>
-    				<label for="lastName">Nom</label>
-    				<input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLastForm()">
-    				<span id="erreurlast"></span>
+    			<td>
+    				<label for="pseudo">Pseudonyme*</label>
+    				<div>
+    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <input id="pseudo" name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()">
+    				</div>
+    				<span id="erreurpseudo"></span>
     			</td>
     		</tr>
+    		<tr>
+    			<td colspan="2"><hr/></td>
+			</tr>
 			<tr>
     			<td>
     				<label for="birthday">Date de naissance</label>
-    				<input id="birthday" name="birthday" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text">
+    				<div>
+    				    <img src="resources/img/Birthday.png" alt="login" />
+    				    <input id="birthday" name="birthday" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text">
+    				</div>
     				<span id="erreurbirth"></span>
     			</td>
+    			<td></td>
     		</tr>
 			<tr>
     			<td>
     				<label for="pwd">Mot de passe*</label>
-    				<input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				<div>
+    				    <img src="resources/img/Lock.png" alt="login" />
+    				    <input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				</div>
     				<span id="erreurpass1"></span>
     			</td>
+    			<td></td>
     		</tr>
 			<tr>
     			<td>
     				<label for="pwdVerif">Confirmer mot de passe*</label>
-    				<input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				<div>
+    				    <img src="resources/img/Lock.png" alt="login" />
+    				    <input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				</div>
     				<span id="erreurpass"></span>
     			</td>
+    			<td></td>
     		</tr>
 			<div>
     			<input name="hiddenPass" type="hidden">
@@ -134,6 +162,7 @@ function formulaire(){
     		</div>
 		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
+		<p>* : champs obligatoires</p>
 	</form>
 
 HTML;

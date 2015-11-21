@@ -24,10 +24,6 @@ body {
     color:#d95600;
 }
 
-#mainframe{
-    overflow: auto;
-}
-
 @font-face {
     font-family: AgencyRegular;
     src: url('../../resources/fonts/AgencyBold.ttf');
@@ -212,6 +208,7 @@ header > hr {
 
 #menu {
     margin-bottom: 60px;
+    position: relative;
 }
 
 #menu ul:first-child {
@@ -360,6 +357,11 @@ header > hr {
     -o-transition: all 0.3s;
 }
 
+#mainframe article {
+    height: 100%;
+    overflow: auto;
+}
+
 #mainframe {
     position: fixed;
     left: 0;
@@ -367,7 +369,7 @@ header > hr {
     width: 100%;
     height: 100%;
 
-    background-color: white;
+    overflow: hidden;
 
     transition: all 0.5s;
     -webkit-transition: all 0.5s;

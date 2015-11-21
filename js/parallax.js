@@ -2,9 +2,9 @@
  * Created by PandarkMeow on 04/11/2015.
  */
 $(function() {
-    var bottom = $("#parallax img[alt='bottom']");
-    var middle = $("#parallax img[alt='middle']");
-    var front = $("#parallax img[alt='front']");
+    var bottom = $("#parallax .bottom");
+    var middle = $("#parallax .middle");
+    var front = $("#parallax .front");
 
     /*alert(bottom.attr('alt'));*/
     $("body").mousemove(function(e) {
