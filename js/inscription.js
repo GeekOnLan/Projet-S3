@@ -38,14 +38,14 @@ function verifyInscription(){
 	}
 }
 
-//mais le contour en rouge
+//met les erreur sur le css
 function setInput(name){
-	document.getElementsByName(name)[0].style.borderColor = 'red';
+	document.getElementsByName(name)[0].setCustomValidity("Champ invalide")
 }
 
 //remet les coutours pas default
 function resetInput(name){
-	document.getElementsByName(name)[0].style.borderColor = '';
+	document.getElementsByName(name)[0].setCustomValidity("");
 }
 
 //affiche un message d'erreur
@@ -113,6 +113,7 @@ function verififyPseudo() {
 	}
 	else {
 		setInput('pseudo');
+		setError('erreurpseudo', 'champ obligatoir');
 		return false;
 	}
 }
@@ -141,7 +142,8 @@ function verifyMailForm(){
 function verifyMail(){
 	var mail = document.getElementsByName('mail')[0].value;
 	if(mail == ''){
-		setInput('mail');
+		setInput('mail')
+		setError('erreurmail', 'champ obligatoir');
 		return false;
 	}
 	else {
@@ -151,6 +153,7 @@ function verifyMail(){
 		}
 		else {
 			setInput('mail');
+			setError('erreurmail', 'mail non valide');
 			return false;
 		}
 	}
@@ -206,7 +209,7 @@ function name(name){
 //----------------------------------------------------------//
 
 function verifyLastForm(){
-	var last = document.getElementsByName('lastName')[0].value
+	var last = document.getElementsByName('lastName')[0].value;
 	if(last != '' && !name(last)){
 		setInput('lastName');
 		setError('erreurlast','Nom incorrect');
@@ -332,9 +335,24 @@ function verifyPass(){
 		resetPWD();
 		return true;
 	}
-	else {
-		setInput('pwdVerif');
+	else if(pass1 == ''){
 		setInput('pwd');
+		setError('erreurpass1', 'champ obligatoire');
+		return false;
+	}
+	else if(pass1 != '' && !passwordTest(pass1)){
+		setInput('pwd');
+		setError('erreurpass1', 'le mot de passe doit contenir au moin une lettre majuscule un chiffre et au moins 6 characteres');
+		return false;
+	}
+	else if(pass1 != '' && passwordTest(pass1) && pass2==''){
+		setInput('pwdVerif');
+		setError('erreurpass', 'confirmer votre mot de passe');
+		return false;
+	}
+	else if(pass1 != '' && pass2 ==''){
+		setInput('pwdVerif');
+		setError('erreurpass', 'confirmer votre mot de passe');
 		return false;
 	}
 }

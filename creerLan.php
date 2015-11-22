@@ -4,10 +4,11 @@ require_once('includes/autoload.inc.php');
 require_once('classes/Lan.class.php');
 require_once('includes/utility.inc.php');
 require_once('includes/utility.inc.php');
-require_once('includes/deconnectedMember.inc.php');
+require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Create - LAN");
-$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
+$form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px");
+
 function verifyFormLAN(){
     $res=true;
     $res=$res&&(isset($_POST['nameLAN'])&&!empty($_POST['nameLAN']));
@@ -51,54 +52,56 @@ function formulaire(){
 $html= <<<HTML
 
 <form method="POST" name="ajoutLAN" action="PasToucher_testBertrand_creerLan.php">
+    <h2>Crée une Lan</h2>
     <table>
         <tr>
             <td>
-                Nom De La LAN
-            </td><td>
-                <input name="nameLAN" type="text"  onfocus="resetNameLAN()" onblur="verififyNameLAN()">
-            </td><td>
+                <label for="nameLan">Nom de la LAN*</label>
+                <div>
+                    <input name="nameLAN" type="text"  onfocus="resetNameLAN()" onblur="verifyNameLANForm()">
+                </div>
                 <span id="erreurNameLAN"></span>
             </td>
         </tr>
         <tr>
             <td>
-                Date de lévènement
-            </td><td>
-                <input name="dateLAN" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
-            </td><td>
-                <span id="erreurDateLAN"> jj/mm/yyyy</span>
+                <label for="detaLAN">Date de lévènement*</label>
+                <div>
+                    <input name="dateLAN" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
+                </div>
+                <span id="erreurDateLAN"></span>
             </td>
         </tr>
         <tr>
             <td>
-                Déscription de la LAN <br> 80 caractères maximum
-            </td><td>
-                <textarea maxlength="90" name="descriptionLAN" type="text"  onfocus="resetDescriptionLAN()" onblur="verifyDescriptionLAN()"></textarea>
-            </td><td>
+                <label for="descriptionLAN">Déscription de la LAN</label>
+                <div>
+                    <textarea maxlength="90" name="descriptionLAN" type="text"  onfocus="resetDescriptionLAN()" onblur="verifyDescriptionLAN()"></textarea>
+                </div>
                 <span id="erreurDescriptionLAN"></span>
             </td>
         </tr>
         <tr>
             <td>
-                Ville
-            </td><td>
-                <input name="villeLAN" type="text" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
-            </td><td>
+                <label for="villeLAN">Ville*</label>
+                <div>
+                    <input name="villeLAN" type="text" onfocus="resetVilleLAN()" onblur="verifyVilleLANForm()">
+                </div>
                 <span id="erreurVilleLAN"></span>
             </td>
         </tr>
         <tr>
             <td>
-                Adresse
-            </td><td>
-                <input name="adresseLAN" type="text" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
-            </td><td>
+                <label for="adresseLAN">Adresse*</label>
+                <div>
+                    <input name="adresseLAN" type="text" onfocus="resetAdresseLAN()" onblur="verifyAdresseLANForm()">
+                </div>
                 <span id="erreurAdresseLAN"></span>
             </td>
         </tr>
     </table>
-    <button type="button" onclick="verifyInscription()"> Envoyer </button>
+    <button type="button" onclick="verifyLAN()">Crée une Lan</button>
+    <p>* : champs obligatoires</p>
 </form>
 
 HTML;
@@ -143,5 +146,5 @@ HTML;
 function addJsAndCss(GeekOnLanWebpage $form){
     $form->appendJsUrl("js/rsa.js");
     $form->appendJsUrl("js/BigInt.js");
-    $form->appendJsUrl("js/PasToucher_cree_Lan.js");
+    $form->appendJsUrl("js/creeLan.js");
 }

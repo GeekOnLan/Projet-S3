@@ -1,8 +1,8 @@
 #mainframe form {
-	background: #dddddd;
-	width: 70%;
-	margin: auto;
-	box-shadow: 2px 2px 2px 0 #333;
+    background: #dddddd;
+    width: 70%;
+    margin: auto;
+    box-shadow: 2px 2px 2px 0 #333;
 
     text-align: center;
 }
@@ -43,7 +43,7 @@
     box-shadow: 0 0 5px 0 #333 inset;
 }
 
-#mainframe form input {
+#mainframe form input,textarea {
     float: right;
     border: none;
     height: 50px;
@@ -63,7 +63,7 @@
     padding-top: 4px;
 }
 
-#mainframe form input:invalid {
+#mainframe form input:invalid ,form textarea:invalid {
     background: red;
     box-shadow: 0 0 5px 0 red inset;
 }

@@ -105,7 +105,7 @@ HTML;
     <ul>
         <li><a href="profil.php">Profil</a></li>
         <li><a href="#">Participations</a></li>
-        <li><a href="#">Cree une LAN</a></li>
+        <li><a href="creerLan.php">Cree une LAN</a></li>
         <li><a href="#">Mes LAN</a></li>
     </ul>
 </nav>
