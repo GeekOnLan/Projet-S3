@@ -8,6 +8,8 @@ require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Create - LAN");
 $form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px");
+$form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
+
 
 function verifyFormLAN(){
     $res=true;
@@ -62,27 +64,7 @@ $html= <<<HTML
                 </div>
                 <span id="erreurNameLAN"></span>
             </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="detaLAN">Date de lévènement*</label>
-                <div>
-                    <input name="dateLAN" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
-                </div>
-                <span id="erreurDateLAN"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="descriptionLAN">Déscription de la LAN</label>
-                <div>
-                    <textarea maxlength="90" name="descriptionLAN" type="text"  onfocus="resetDescriptionLAN()" onblur="verifyDescriptionLAN()"></textarea>
-                </div>
-                <span id="erreurDescriptionLAN"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
+             <td>
                 <label for="villeLAN">Ville*</label>
                 <div>
                     <input name="villeLAN" type="text" onfocus="resetVilleLAN()" onblur="verifyVilleLANForm()">
@@ -92,11 +74,27 @@ $html= <<<HTML
         </tr>
         <tr>
             <td>
+                <label for="detaLAN">Date de lévènement*</label>
+                <div>
+                    <input name="dateLAN" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
+                </div>
+                <span id="erreurDateLAN"></span>
+            </td>
+             <td>
                 <label for="adresseLAN">Adresse*</label>
                 <div>
                     <input name="adresseLAN" type="text" onfocus="resetAdresseLAN()" onblur="verifyAdresseLANForm()">
                 </div>
                 <span id="erreurAdresseLAN"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="descriptionLAN">Déscription de la LAN</label>
+                <div>
+                    <textarea maxlength="90" name="descriptionLAN" type="text"  onfocus="resetDescriptionLAN()" onblur="verifyDescriptionLAN()"></textarea>
+                </div>
+                <span id="erreurDescriptionLAN"></span>
             </td>
         </tr>
     </table>

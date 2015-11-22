@@ -113,7 +113,7 @@ function verififyPseudo() {
 	}
 	else {
 		setInput('pseudo');
-		setError('erreurpseudo', 'champ obligatoir');
+		setError('erreurpseudo', 'champ obligatoire');
 		return false;
 	}
 }
@@ -143,7 +143,7 @@ function verifyMail(){
 	var mail = document.getElementsByName('mail')[0].value;
 	if(mail == ''){
 		setInput('mail')
-		setError('erreurmail', 'champ obligatoir');
+		setError('erreurmail', 'champ obligatoire');
 		return false;
 	}
 	else {
