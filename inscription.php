@@ -80,77 +80,102 @@ echo $form->toHTML();
 function formulaire(){
     $html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
-		<h2>Inscription</h2>
+		<div>
+			<h2>Inscription</h2>
+		</div>
 		<table>
 			<tr>
-    		    <td>
-    				<label for="lastName">Nom</label>
+    			<td colspan="2">
+    				<h3>Information du compte</h3>
+    				<hr/>
+    			</td>
+			</tr>
+			<tr>
+				<td>
+    				<label for="pseudo">Pseudonyme*</label>
     				<div>
     				    <img src="resources/img/Contact.png" alt="login" />
-    				    <input id="lastName" name="lastName" type="text" onfocus="resetLast()" onblur="verifyLastForm()">
+    				    <input id="pseudo" name="pseudo" type="text" placeholder="Pseudo" onfocus="resetPseudo()" onblur="verififyPseudoForm()">
     				</div>
-    				<span id="erreurlast"></span>
+    				<span id="erreurpseudo"></span>
     			</td>
+    			<td>
+    				<label for="pwd">Mot de passe*</label>
+    				<div>
+    				    <img src="resources/img/Lock.png" alt="login" />
+    				    <input id="pwd" name="pwd" type="password" placeholder="Mot de passe" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				</div>
+    				<span id="erreurpass1"></span>
+    			</td>
+    		</tr>
+			<tr>
 			    <td>
     				<label for="mail">E-Mail*</label>
     				<div>
     				    <img src="resources/img/Mail.png" alt="login" />
-    				    <input id="mail" name="mail" type="text"  onfocus="resetMail()" onblur="verifyMailForm()">
+    				    <input id="mail" name="mail" type="text" placeholder="Adresse mail" onfocus="resetMail()" onblur="verifyMailForm()">
     				</div>
     				<span id="erreurmail"></span>
     			</td>
-    		</tr>
-			<tr>
-    			<td>
-    				<label for="firstName">Prénom</label>
+			    <td>
+    				<label for="pwdVerif">Confirmer mot de passe*</label>
     				<div>
-    				    <img src="resources/img/Contact.png" alt="login" />
-    				    <input id="firstName" name="firstName" type="text" onfocus="resetFirst()" onblur="verifyFirstForm()">
-                    </div>
-    				<span id="erreurfirst"></span>
-    			</td>
-    			<td>
-    				<label for="pseudo">Pseudonyme*</label>
-    				<div>
-    				    <img src="resources/img/Contact.png" alt="login" />
-    				    <input id="pseudo" name="pseudo" type="text"  onfocus="resetPseudo()" onblur="verififyPseudoForm()">
+    				    <img src="resources/img/Lock.png" alt="login" />
+    				    <input id="pwdVerif" name="pwdVerif" type="password" placeholder="Mot de passe" onfocus="resetPWD()" onblur="verifyPassForm()">
     				</div>
-    				<span id="erreurpseudo"></span>
+    				<span id="erreurpass"></span>
     			</td>
+
+
     		</tr>
     		<tr>
-    			<td colspan="2"><hr/></td>
+    			<td colspan="2">
+    				<h3>Information personnelles</h3>
+    				<hr/>
+    			</td>
 			</tr>
 			<tr>
     			<td>
     				<label for="birthday">Date de naissance</label>
     				<div>
     				    <img src="resources/img/Birthday.png" alt="login" />
-    				    <input id="birthday" name="birthday" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text">
+    				    <input id="birthday" name="birthday" placeholder="Date de naissance" onfocus="resetBirth()" onblur="verifyBirthForm()" type="text">
     				</div>
     				<span id="erreurbirth"></span>
     			</td>
-    			<td></td>
+    			<td rowspan="3">
+    				<p>
+    					En vous inscrivant vous vous engagez à respecter le réglement de GeekOnLan ainsi que Lorem ipsum dolor sit amet,
+						<br/>
+						<br/>
+    					consectetur adipiscing elit. Nullam sit amet porttitor arcu. Donec tempor, enim lacinia vehicula commodo, velit ante facilisis orci,
+    					eu pretium erat massa non elit. In porta ut nulla non rutrum. Curabitur condimentum nunc vitae ante pretium.
+
+    					<br/>
+    					<br/>
+    					* : champs obligatoires
+					</p>
+    			</td>
     		</tr>
 			<tr>
-    			<td>
-    				<label for="pwd">Mot de passe*</label>
+				<td>
+    				<label for="firstName">Prénom</label>
     				<div>
-    				    <img src="resources/img/Lock.png" alt="login" />
-    				    <input id="pwd" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
-    				</div>
-    				<span id="erreurpass1"></span>
+    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <input id="firstName" name="firstName" type="text" placeholder="Prénom" onfocus="resetFirst()" onblur="verifyFirstForm()">
+                    </div>
+    				<span id="erreurfirst"></span>
     			</td>
     			<td></td>
     		</tr>
 			<tr>
-    			<td>
-    				<label for="pwdVerif">Confirmer mot de passe*</label>
+				<td>
+    				<label for="lastName">Nom</label>
     				<div>
-    				    <img src="resources/img/Lock.png" alt="login" />
-    				    <input id="pwdVerif" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <input id="lastName" name="lastName" type="text" placeholder="Nom" onfocus="resetLast()" onblur="verifyLastForm()">
     				</div>
-    				<span id="erreurpass"></span>
+    				<span id="erreurlast"></span>
     			</td>
     			<td></td>
     		</tr>
@@ -162,7 +187,6 @@ function formulaire(){
     		</div>
 		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
-		<p>* : champs obligatoires</p>
 	</form>
 
 HTML;
