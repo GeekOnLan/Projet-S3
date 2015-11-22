@@ -3,9 +3,13 @@
 	width: 70%;
     box-shadow: 2px 2px 0 0 #333;
 
+    border-top: solid 20px #FF5B00;
+
     text-align: center;
     margin: auto auto 50px;
-    border: solid 2px #111;
+    border-bottom: solid 2px #111;
+    border-left: solid 2px #111;
+    border-right: solid 2px #111;
 }
 
 #mainframe table {
@@ -106,7 +110,7 @@
 }
 
 #mainframe form h2 {
-    margin: auto;
+    margin: -19px auto auto;
     background: #FF5B00;
     height: 40px;
     width: 200px;
@@ -116,12 +120,6 @@
     border-bottom: solid 5px #212121;
     border-right: solid 5px #212121;
     border-left: solid 5px #212121;
-}
-
-#mainframe form div:first-child {
-    background: #FF5B00;
-    height: 30px;
-    margin-bottom: 20px;
 }
 
 #mainframe form button {

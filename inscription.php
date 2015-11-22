@@ -80,9 +80,7 @@ echo $form->toHTML();
 function formulaire(){
     $html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
-		<div>
-			<h2>Inscription</h2>
-		</div>
+		<h2>Inscription</h2>
 		<table>
 			<tr>
     			<td colspan="2">
