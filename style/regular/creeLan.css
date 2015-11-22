@@ -85,6 +85,11 @@
     width: calc(100% - 70px);
 }
 
+#mainframe form textarea{
+    resize: none;
+    height: 200px;
+}
+
 #mainframe form table span {
     display: block;
     height: 25px;

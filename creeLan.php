@@ -57,6 +57,12 @@ $html= <<<HTML
     <h2>Crée une Lan</h2>
     <table>
         <tr>
+    			<td colspan="2">
+    				<h3>Information de la LAN</h3>
+    				<hr/>
+    			</td>
+		</tr>
+        <tr>
             <td>
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
@@ -88,6 +94,12 @@ $html= <<<HTML
                 <span id="erreurAdresseLAN"></span>
             </td>
         </tr>
+        <tr>
+    			<td colspan="2">
+    				<h3>Information complémentaire</h3>
+    				<hr/>
+    			</td>
+		</tr>
         <tr>
             <td colspan="2" id="area">
                 <label for="descriptionLAN">Déscription de la LAN</label>

@@ -6,9 +6,9 @@ function sha256(){
     if(login=="")
         setInputAuth('login');
     else if(pass!=""){
-        cryptpass = CryptoJS.SHA256(pass);
+        var cryptpass = CryptoJS.SHA256(pass);
         $("#connexionForm input[name='pass'],#connexionForm input[name='login']").val('');
-        temp = (CryptoJS.SHA1(CryptoJS.SHA1(login) + $("#connexionForm input[name='hiddenCrypt']").val() + cryptpass));
+        var temp = (CryptoJS.SHA1(CryptoJS.SHA1(login) + $("#connexionForm input[name='hiddenCrypt']").val() + cryptpass));
         $("#connexionForm input[name='hiddenCrypt']").val(temp);
         document.connexion.submit();
     }
