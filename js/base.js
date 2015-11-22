@@ -21,8 +21,9 @@ $(function() {
 
 var toggleSidebar = function() {
     $("body > nav[id='sidebar']").toggleClass("sidebarOpen");
-    $("body > div[id='mainframe']").toggleClass("pushedMainframe blur");
+    $("body > div[id='mainframe']").toggleClass("pushedMainframe");
     $("body > div[id='layer']").toggleClass("sidebarLayer");
+    stopParallax = !stopParallax;
 };
 
 var toggleLayer = function() {
@@ -35,6 +36,8 @@ var toggleLayer = function() {
 
 var toggleConnexionForm = function() {
     $("#connexionForm").toggleClass("open");
+
     $("body > div[id='layer']").toggleClass("connexionLayer");
-    $("body > div[id='mainframe']").toggleClass("blur");
+    $("body > div[id='mainframe']").toggleClass("slide");
+    stopParallax = !stopParallax;
 };

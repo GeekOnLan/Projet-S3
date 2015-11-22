@@ -1,13 +1,16 @@
 /**
  * Created by PandarkMeow on 04/11/2015.
  */
+var stopParallax = false;
+
 $(function() {
     var bottom = $("#parallax .bottom");
     var middle = $("#parallax .middle");
     var front = $("#parallax .front");
 
-    /*alert(bottom.attr('alt'));*/
     $("body").mousemove(function(e) {
+        if(stopParallax) return;
+
         /*mouvement de la couche bottom*/
         var mouseXBot = (e.pageX - ($(window).width() / 2)) * 0.01;
         var mouseYBot = (e.pageY - ($(window).height() / 2)) * 0.01;

@@ -128,6 +128,25 @@ SQL
 			throw new Exception('cette Lan n\'existe pas');
 	}
 
+	public static function getLanFromRange($offset, $limit) {
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM LAN
+			LIMIT :fromOffset , :toLimit;
+SQL
+);
+		$stmt->bindValue(':fromOffset', $offset, PDO::PARAM_INT);
+		$stmt->bindValue(':toLimit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+
+		if(($lans = $stmt->fetchAll()) !== false)
+			return $lans;
+		else
+			throw new Exception("En dehors des limites");
+	}
+
 	/**
 	 * ajoute une lan dans la BD
 	 * @param $name nom de la lan

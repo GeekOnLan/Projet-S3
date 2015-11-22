@@ -136,7 +136,7 @@ HTML;
         <nav id="menu">
             <ul>
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="lan.php">LAN</a></li>
+                <li><a href="listeLans.php">LAN</a></li>
             </ul>
             <ul>
                 $auth
