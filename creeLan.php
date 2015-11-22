@@ -32,14 +32,14 @@ if (verifyFormLAN()) {
             Lan::addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN);
             $form->appendContent("<p>Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation.</p>");
         }catch(Exception $e){
-            $form->appendContent(formulaire());
+            $form->appendContent($e);
         }
     }else{
         try{
             Lan::addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
             $form->appendContent("<p>Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation.</p>");
         }catch(Exception $e){
-            $form->appendContent(formulaire());
+            $form->appendContent($e);
         }
     }
     //envoieMailValide($pseudo, $mail);
@@ -53,21 +53,21 @@ echo $form->toHTML();
 function formulaire(){
 $html= <<<HTML
 
-<form method="POST" name="ajoutLAN" action="PasToucher_testBertrand_creerLan.php">
+<form method="POST" name="ajoutLAN" action="creeLan.php">
     <h2>Crée une Lan</h2>
     <table>
         <tr>
             <td>
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
-                    <input name="nameLAN" type="text"  onfocus="resetNameLAN()" onblur="verifyNameLANForm()">
+                    <input name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLANForm()">
                 </div>
                 <span id="erreurNameLAN"></span>
             </td>
              <td>
                 <label for="villeLAN">Ville*</label>
                 <div>
-                    <input name="villeLAN" type="text" onfocus="resetVilleLAN()" onblur="verifyVilleLANForm()">
+                    <input name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLANForm()">
                 </div>
                 <span id="erreurVilleLAN"></span>
             </td>
@@ -76,23 +76,23 @@ $html= <<<HTML
             <td>
                 <label for="detaLAN">Date de lévènement*</label>
                 <div>
-                    <input name="dateLAN" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
+                    <input name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
                 </div>
                 <span id="erreurDateLAN"></span>
             </td>
              <td>
                 <label for="adresseLAN">Adresse*</label>
                 <div>
-                    <input name="adresseLAN" type="text" onfocus="resetAdresseLAN()" onblur="verifyAdresseLANForm()">
+                    <input name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLANForm()">
                 </div>
                 <span id="erreurAdresseLAN"></span>
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2" id="area">
                 <label for="descriptionLAN">Déscription de la LAN</label>
                 <div>
-                    <textarea maxlength="90" name="descriptionLAN" type="text"  onfocus="resetDescriptionLAN()" onblur="verifyDescriptionLAN()"></textarea>
+                    <textarea maxlength="90" name="descriptionLAN" type="text"></textarea>
                 </div>
                 <span id="erreurDescriptionLAN"></span>
             </td>

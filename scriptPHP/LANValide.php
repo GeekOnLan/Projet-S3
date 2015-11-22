@@ -6,16 +6,15 @@ require_once("../includes/myPDO.inc.php");
 
 $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 
-if(verify($_GET,'pseudo') && isset($_GET['wait'])){
-    usleep(rand(0, 20) * 100000);
+if(verify($_GET,'LANName')){
     $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
                 SELECT *
-                FROM Membre
-                WHERE pseudo = :pseudo;
+                FROM LAN
+                WHERE nomLAN = :nomLAN;
 SQL
     );
-    $stmt->execute(array("pseudo" => $_GET['pseudo']));
+    $stmt->execute(array("nomLAN" => $_GET['LANName']));
     $member = $stmt->fetch();
     if($member==false){
         echo $xml."<response>true</response>";

@@ -9,6 +9,9 @@ function verifyLAN(){
 	var date = verifyDateLAN();
 	var ville = verifyVilleLAN();
 	var adresse = verifyAdresseLAN();
+	if(name && date && ville && adresse){
+		document.ajoutLAN.submit();
+	}
 }
 
 //met les erreur sur le css
@@ -96,8 +99,6 @@ function verifyName(name){
 //----------------------------------------------------------//
 //date
 //----------------------------------------------------------//
-
-
 //verify la date dans le formulaire
 function verifyDateLANForm(){
 	var d = document.getElementsByName('dateLAN')[0].value;
@@ -117,6 +118,10 @@ function verifyDateLANForm(){
 		if ( (j!=j2)||(m!=m2)||(a!=a2)){
 			setInput('dateLAN');
 			setError('erreurDateLAN','cette date n\'existe pas');
+		}
+		else if(new Date(a,m,j) < new Date()){
+			setInput('dateLAN');
+			setError('erreurDateLAN','vous ne pouvez pas retourner dans le passer');
 		}
 		else
 			resetDateLAN();

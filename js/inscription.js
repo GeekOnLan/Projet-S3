@@ -1,3 +1,11 @@
+var xhr;
+if (window.XMLHttpRequest) {
+	xhr = new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xhr = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
 window.addEventListener("keypress",function(even){
 	if(even.keyCode === 13)
 		verifyInscription();
@@ -75,7 +83,6 @@ function verififyPseudoForm() {
 			setError('erreurpseudo', 'pas de caractere speciaux');
 		}
 		else{
-			var xhr = new XMLHttpRequest();
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
@@ -87,7 +94,7 @@ function verififyPseudoForm() {
 						resetPseudo();
 				}
 			}, true);
-			xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
+			xhr.open('GET', 'scriptPHP/pseudoValide.php?wait&pseudo=' + pseu);
 			xhr.send(null);
 		}
 	}

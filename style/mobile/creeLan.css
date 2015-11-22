@@ -33,7 +33,7 @@
     color: #212121;
 }
 
-#mainframe form input ,textarea {
+#mainframe form input {
     border: none;
     height: 50px;
 
@@ -52,7 +52,7 @@
     padding-top: 4px;
 }
 
-#mainframe form input:invalid ,form textarea:invalid {
+#mainframe form input:invalid {
     box-shadow: 0 0 5px 0 red inset;
 }
 
