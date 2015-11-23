@@ -3,24 +3,39 @@ window.addEventListener("keypress",function(even){
 		verifyInscription();
 });
 
+function getAllError(){
+	//str1.concat(str2)
+	var error = document.getElementById("erreurNameLAN").innerHTML;
+	error+=document.getElementById("erreurDateLAN").innerHTML;
+	error+=document.getElementById("erreurDescriptionLAN").innerHTML;
+	error+=document.getElementById("erreurVilleLAN").innerHTML;
+	error+=document.getElementById("erreurAdresseLAN").innerHTML;
+	return error;
+}
+
 function verifyLAN(){
 	//si tout est bon on envoit
-	var name = verifyNameLAN();
-	var date = verifyDateLAN();
-	var ville = verifyVilleLAN();
-	var adresse = verifyAdresseLAN();
-	if(name && date && ville && adresse){
+	var erreur = getAllError();
+	if(erreur=="     "){
+		console.log("pas d'erreurs");
+		var nameLAN = document.getElementsByName('nameLAN')[0].value;
+		var dateLAN = document.getElementsByName('dateLAN')[0].value;
+		var descriptionLAN =  document.getElementsByName('descriptionLAN')[0].value;
+		var ville = document.getElementsByName('villeLAN')[0].value;
+		var adresseLAN = document.getElementsByName('adresseLAN')[0].value;
 		document.ajoutLAN.submit();
+	}else{
+		console.log("erreur champs");
 	}
 }
 
-//met les erreur sur le css
-function setInput(name){
-	document.getElementsByName(name)[0].setCustomValidity("Champ invalide")
+//mais le contour en rouge
+function voidRedInput(name){
+	document.getElementsByName(name)[0].setCustomValidity("Champ invalide");
 }
 
 //remet les coutours pas default
-function resetInput(name){
+function resetVoidRedInput(name){
 	document.getElementsByName(name)[0].setCustomValidity("");
 }
 
@@ -33,169 +48,138 @@ function resetError(name){
 	document.getElementById(name).innerHTML = '';
 }
 
-function resetNameLAN(){
-	resetError('erreurNameLAN');
-	resetInput('nameLAN');
-}
-
-function resetDateLAN(){
-	resetError('erreurDateLAN');
-	resetInput('dateLAN');
-}
-
-function resetDescriptionLAN(){
-	resetError('erreurDescriptionLAN');
-	resetInput('descriptionLAN');
-}
-
-function resetVilleLAN(){
-	resetError('erreurVilleLAN');
-	resetInput('villeLAN');
-}
-
-function resetAdresseLAN(){
-	resetError('erreurAdresseLAN');
-	resetInput('adresseLAN');
-}
 
 //----------------------------------------------------------//
-//nom
+//nameLAN
 //----------------------------------------------------------//
-
-function verifyNameLANForm(){
-	var name = document.getElementsByName('nameLAN')[0].value;
-	if(name != '' && !verifyName(name)){
-		setInput('nameLAN');
-		setError('erreurNameLAN','Nom incorect');
-	}
-	else
-		resetNameLAN();
-}
-
-function verifyNameLAN(){
-	var name = document.getElementsByName('nameLAN')[0].value;
-	if(name == '') {
-		setInput('nameLAN');
-		setError('erreurNameLAN', 'Champ obligatoire');
-		return false;
-	}
-	else if(!verifyName(name)){
-		setInput('nameLAN');
-		setError('erreurNameLAN','Nom incorrect');
-		return false;
-	}
-	else {
-		resetNameLAN();
-		return true;
-	}
-}
-
-//test le nom de lan
-function verifyName(name){
-	var re = /^[a-zA-Z]{1,20}$/;
-	return re.test(name);
-}
-
-//----------------------------------------------------------//
-//date
-//----------------------------------------------------------//
-//verify la date dans le formulaire
-function verifyDateLANForm(){
-	var d = document.getElementsByName('dateLAN')[0].value;
-	if(d != '' && !birthdayTest(d)){
-		setInput('dateLAN');
-		setError('erreurDateLAN','date au format : JJ/MM/AAAA');
-	}
-	else if(d != ''){
-		var j=(d.substring(0,2));
-		var m=(d.substring(3,5));
-		var a=(d.substring(6));
-		var d2=new Date(a,m-1,j);
-		var j2=d2.getDate();
-		var m2=d2.getMonth()+1;
-		var a2=d2.getFullYear();
-		if (a2<=100) {a2=1900+a2}
-		if ( (j!=j2)||(m!=m2)||(a!=a2)){
-			setInput('dateLAN');
-			setError('erreurDateLAN','cette date n\'existe pas');
+function nomLanDejaUtilise(){
+	/*
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener('readystatechange', function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+			if (xml == "false") {
+				voidRedInput('nameLAN');
+				setError('erreurNameLAN', 'ce nom de LAN est déjà pris');
+			}
+			else
+				resetPseudo();
 		}
-		else if(new Date(a,m,j) < new Date()){
-			setInput('dateLAN');
-			setError('erreurDateLAN','vous ne pouvez pas retourner dans le passer');
-		}
-		else
-			resetDateLAN();
-	}
+	}, true);
+	xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
+	xhr.send(null);
+	*/
+	return false;
 }
 
+
+//verifier le pseudo avec ajax pour le formulaire
+function verifyNameLAN() {
+	var nameLAN = document.getElementsByName('nameLAN')[0].value;
+
+	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
+	match = regex.exec(nameLAN)==nameLAN;
+	if(!match){
+		voidRedInput('nameLAN');
+		setError('erreurNameLAN', 'caractères non autorisé utilisé');
+	}else if (nameLAN.length>2) {
+		if(nameLAN.length>31){
+			voidRedInput('nameLAN');
+			setError('erreurNameLAN', 'nom de LAN trop grand ');
+		}else if(nomLanDejaUtilise()){
+			voidRedInput('nameLAN');
+			setError('erreurNameLAN', 'nom de LAN deja utilisé');
+		}else{
+			setError('erreurNameLAN',' ');
+			console.log("nom OK");
+		}
+	}else{
+		voidRedInput('nameLAN');
+		setError('erreurNameLAN', 'nom de LAN trop petit');
+	}
+}
+//----------------------------------------------------------//
+//date de LAN
+//----------------------------------------------------------//
+
+//verify la date de naissance dans le formulaire
 function verifyDateLAN(){
 	var d = document.getElementsByName('dateLAN')[0].value;
-	if(d=='') {
-		setInput('dateLAN');
-		setError('erreurDateLAN','champ obligatoire');
-		return false;
-	}
-	if(d != '' && !birthdayTest(d)){
-		setInput('dateLAN');
-		setError('erreurDateLAN','date de naissance au format : JJ/MM/AAAA');
-		return false;
-	}
-	else if(d != ''){
+	if(d!=''){
 		var j=(d.substring(0,2));
 		var m=(d.substring(3,5));
 		var a=(d.substring(6));
-		var d2=new Date(a,m-1,j);
-		var j2=d2.getDate();
-		var m2=d2.getMonth()+1;
-		var a2=d2.getFullYear();
-		if (a2<=100) {a2=1900+a2}
-		if ( (j!=j2)||(m!=m2)||(a!=a2)){
-			setInput('dateLAN');
-			setError('erreurDateLAN','cette date n\'existe pas');
-			return false;
+		m-=1;
+		var d=new Date(a,m,j);
+		if(d<new Date()){
+			voidRedInput('dateLAN');
+			setError('erreurDateLAN','vous ne pouvez retourner dans le passé, vous vous-êtes pris pour Marty ?');
+		}else{
+			var rep= (d.getFullYear()!=a || d.getMonth()!=m) ? "date invalide" : "date valide";
+
+			if (rep=="date invalide"){
+				voidRedInput('dateLAN');
+				setError('erreurDateLAN','cette date n\'existe pas');
+			}else{
+				setError('erreurDateLAN',' ');
+				console.log(rep);
+			}
 		}
-		else {
-			resetDateLAN();
-			return true;
-		}
+	}else{
+		voidRedInput('dateLAN');
+		setError('erreurDateLAN','veillez entrer une date sous la forme jj/mm/yyyy');
 	}
 }
 
-//teste une date
-function birthdayTest(dateBirth){
-	var re = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
-	return re.test(dateBirth);
+
+//----------------------------------------------------------//
+//description
+//----------------------------------------------------------//
+
+//verifier le mail pour le formulaire
+function verifyDescriptionLAN(){
+	var description = document.getElementsByName('descriptionLAN')[0].value;
+
+	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
+	match = regex.exec(description)==description;
+	if(!match){
+		document.getElementsByName('descriptionLAN')[0].value="LAN créer par";
+		setError('erreurDescriptionLAN', 'caractères non autorisé utilisé');
+	}else if(description.length>80){
+		voidRedInput('descriptionLAN');
+		setError('erreurDescriptionLAN', 'description trop longue');
+	}
+	else{
+		setError('erreurDescriptionLAN',' ');
+		console.log("description ok");
+	}
 }
 
 //----------------------------------------------------------//
-//nom
+//ville
 //----------------------------------------------------------//
 
-function verifyVilleLANForm(){
-	var ville = document.getElementsByName('villeLAN')[0].value;
-	if(ville != '' && !verifyName(ville)){
-		setInput('villeLAN');
-		setError('erreurVilleLAN','Ville incorect');
-	}
-	else
-		resetVilleLAN();
+function valideVille(ville){
+	var res=false;
+	if(ville!="")res=true;
+	return res;
 }
 
 function verifyVilleLAN(){
-	var ville = document.getElementsByName('nameLAN')[0].value;
-	if(ville == '') {
-		setInput('villeLAN');
-		setError('erreurVilleLAN', 'Champ obligatoire');
-		return false;
+	var ville = document.getElementsByName('villeLAN')[0].value;
+
+	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
+	match = regex.exec(ville)==ville;
+	if(!match){
+		voidRedInput('villeLAN');
+		setError('erreurVilleLAN', 'caractères non autorisé utilisé');
+	}else if(valideVille(ville)){
+		setError('erreurVilleLAN',' ');
+		console.log("ville ok");
 	}
-	else if(!verifyName(ville)){
-		setInput('villeLAN');
+	else{
+		voidRedInput('villeLAN');
 		setError('erreurVilleLAN','Ville incorrect');
-		return false;
-	}
-	else {
-		resetVilleLAN();
-		return true;
 	}
 }
 
@@ -203,19 +187,57 @@ function verifyVilleLAN(){
 //adresse
 //----------------------------------------------------------//
 
-function verifyAdresseLANForm(){
-	var ville = document.getElementsByName('adresseLAN')[0].value;
+function valideAdresse(adresse){
+	var res=false;
+	if(adresse!="")res=true;
+	return res;
 }
 
 function verifyAdresseLAN(){
-	var ville = document.getElementsByName('adresseLAN')[0].value;
-	if(ville == '') {
-		setInput('adresseLAN');
-		setError('erreurAdresseLAN', 'Champ obligatoire');
-		return false;
+	var adresse = document.getElementsByName('adresseLAN')[0].value
+
+	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
+	match = regex.exec(adresse)==adresse;
+	if(!match){
+		voidRedInput('adresseLAN');
+		setError('erreurAdresseLAN', 'caractères non autorisé utilisé');
+	}else if(valideAdresse(adresse)){
+		setError('erreurAdresseLAN',' ');
+		console.log("Adresse ok");
 	}
-	else {
-		resetVilleLAN();
-		return true;
+	else{
+		voidRedInput('adresseLAN');
+		setError('erreurAdresseLAN','Adresse incorrect');
 	}
+}
+
+
+//----------------------------------------------------------//
+//reset
+//----------------------------------------------------------//
+
+function resetNameLAN(){
+	resetError('erreurNameLAN');
+	resetVoidRedInput('nameLAN');
+}
+
+
+function resetDateLAN(){
+	resetError('erreurDateLAN');
+	resetVoidRedInput('dateLAN');
+}
+
+function resetDescriptionLAN(){
+	resetVoidRedInput('descriptionLAN');
+	resetError('erreurDescriptionLAN');
+}
+
+function resetVilleLAN(){
+	resetVoidRedInput('villeLAN');
+	resetError('erreurVilleLAN');
+}
+
+function resetAdresseLAN(){
+	resetVoidRedInput('adresseLAN');
+	resetError('erreurAdresseLAN');
 }

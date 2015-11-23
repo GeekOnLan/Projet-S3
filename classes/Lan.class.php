@@ -163,12 +163,12 @@ SQL
 		$id=$member->getId();
 		
 		if($description=='')
-			$description="LAN crée par ".$member.getPseudo();
+			$description="LAN crée par ".$member->getPseudo();
 		
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, 'idLieux',`estOuverte`)
-			VALUES (:idMembre,:nomLan,:descriptionLAN,:dateLAN,:adresse,:idLieux,false);
+			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieux,false);
 SQL
 		);
 		$stmt->execute(array("idMembre"=>$id,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieux"=>$idLieux));

@@ -66,14 +66,14 @@ $html= <<<HTML
             <td>
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
-                    <input name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLANForm()">
+                    <input name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
                 </div>
                 <span id="erreurNameLAN"></span>
             </td>
              <td>
                 <label for="villeLAN">Ville*</label>
                 <div>
-                    <input name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLANForm()">
+                    <input name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
                 </div>
                 <span id="erreurVilleLAN"></span>
             </td>
@@ -82,14 +82,14 @@ $html= <<<HTML
             <td>
                 <label for="detaLAN">Date de lévènement*</label>
                 <div>
-                    <input name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLANForm()" type="text">
+                    <input name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
                 </div>
                 <span id="erreurDateLAN"></span>
             </td>
              <td>
                 <label for="adresseLAN">Adresse*</label>
                 <div>
-                    <input name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLANForm()">
+                    <input name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                 </div>
                 <span id="erreurAdresseLAN"></span>
             </td>
@@ -104,7 +104,7 @@ $html= <<<HTML
             <td colspan="2" id="area">
                 <label for="descriptionLAN">Déscription de la LAN</label>
                 <div>
-                    <textarea maxlength="90" name="descriptionLAN" type="text"></textarea>
+                    <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                 </div>
                 <span id="erreurDescriptionLAN"></span>
             </td>
