@@ -20,7 +20,7 @@ function verifyInscription(){
 	var birth = verifyBirth();
 	var pass = verifyPass();
 	if(pseudo){
-		var xhr = new XMLHttpRequest();
+		xhr.abort();
 		xhr.addEventListener('readystatechange', function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
@@ -31,18 +31,18 @@ function verifyInscription(){
 				}
 				else {
 					resetPseudo();
+					if (pseudo && first && last && mail && birth && pass) {
+						pass1 = document.getElementsByName('pwd')[0].value;
+						document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
+						document.getElementsByName('pwd')[0].value = '';
+						document.getElementsByName('pwdVerif')[0].value = '';
+						document.inscription.submit();
+					}
 				}
 			}
 		}, true);
-		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + document.getElementsByName('pseudo')[0].value);
+		xhr.open('GET', 'scriptPHP/pseudoValide.php?wait&pseudo=' + document.getElementsByName('pseudo')[0].value);
 		xhr.send(null);
-	}
-	if (pseudo && first && last && mail && birth && pass) {
-		pass1 = document.getElementsByName('pwd')[0].value;
-		document.getElementsByName('hiddenPass')[0].value = CryptoJS.SHA256(pass1);
-		document.getElementsByName('pwd')[0].value = '';
-		document.getElementsByName('pwdVerif')[0].value = '';
-		document.inscription.submit();
 	}
 }
 
@@ -83,6 +83,7 @@ function verififyPseudoForm() {
 			setError('erreurpseudo', 'pas de caractere speciaux');
 		}
 		else{
+			xhr.abort();
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;

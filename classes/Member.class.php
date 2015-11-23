@@ -244,10 +244,6 @@ SQL
 SQL
     	);
     	$stmt->execute(array("idMembre"=>$this->getId()));
-        $tab = array();
-        foreach($stmt as $res){
-            array_push ($tab,Lan::createFromId($res['idLAN']));
-        }
-    	return $tab;
+            return $stmt->fetchAll();
     }
 }
