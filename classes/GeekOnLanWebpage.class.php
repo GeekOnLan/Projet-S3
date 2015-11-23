@@ -125,7 +125,7 @@ HTML;
         else
             $auth=<<<HTML
 <li><a href="authentification.php">Deconnexion</a></li>
-<li><a href="profil.php">Profile</a></li>
+<li><a href="profil.php">Profil</a></li>
 HTML;
 
         $this->appendContent(<<<HTML
