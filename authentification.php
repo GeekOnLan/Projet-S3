@@ -15,9 +15,7 @@ if(!Member::isConnected()) {
 			header('Location: index.php' . SID);
 			exit();
 		} catch (Exception $e) {
-			$webpage = new GeekOnLanWebpage("GeekOnLan - Connexion");
-			$webpage -> appendContent('<div>Un problème est survenu &nbsp; : ' . $e->getMessage() . '</div>');
-			echo $webpage->toHTML();
+			header('Location: erreur.php?erreur='.$e->getMessage());
 		}
 	}
 }

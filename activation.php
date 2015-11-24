@@ -44,5 +44,5 @@ if(verify($_GET,'log') && verify($_GET,'key')) {
 	echo($page->toHTML());
 }
 else
-	header('Location: index.php');
+	header('Location: erreur.php?erreur=un problème est survenu');
 

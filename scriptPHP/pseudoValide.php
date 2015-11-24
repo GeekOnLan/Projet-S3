@@ -10,7 +10,7 @@ if(verify($_GET,'pseudo') && isset($_GET['wait'])){
     usleep(rand(0, 20) * 100000);
     $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
-                SELECT *
+                SELECT pseudo
                 FROM Membre
                 WHERE pseudo = :pseudo;
 SQL

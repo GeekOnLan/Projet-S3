@@ -31,7 +31,7 @@ foreach($list as $lan) {
         <tr>
             <td>{$lan->getLanName()}</td>
             <td>{$lan->getLanDate()}</td>
-            <td>{$lan->getLieux()}</td>
+            <td>{$lan->getLieux()->getNomSimple()}</td>
         </tr>
 HTML;
 }

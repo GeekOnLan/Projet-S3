@@ -36,6 +36,6 @@ SQL
 
 }
 else
-    header('Location: index.php');
+    header('Location: erreur.php?erreur=un problème est survenu');
 
 

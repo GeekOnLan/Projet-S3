@@ -9,7 +9,7 @@ $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 if(verify($_GET,'LANName')){
     $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
-                SELECT *
+                SELECT nomLAN
                 FROM LAN
                 WHERE nomLAN = :nomLAN;
 SQL

@@ -32,7 +32,7 @@ class Lan{
 	/**
 	 * @var null id du lieux de la lan
 	 */
-	private $idLieux = null;
+	private $idLieu = null;
 
 	/**
 	 * @var null adresse de la lan
@@ -90,7 +90,7 @@ class Lan{
 	 * @return le lieux de la lan
 	 */
 	public function getLieux(){
-		return $this->idLieux;
+		return Lieu::createFromId($this->idLieu);
 	}
 
 	/**
@@ -156,7 +156,7 @@ SQL
 	 * @param string $description description de la lan
 	 * @throws Exception
 	 */
-	public static function addLan($name,$date,$adress,$idLieux,$description = ''){
+	public static function addLan($name,$date,$adress,$nom,$description = ''){
 		if(!Member::isConnected())
 			throw new Exception('le membre n\'est pas connecter');
 		$member=Member::GetInstance();
@@ -164,14 +164,24 @@ SQL
 		
 		if($description=='')
 			$description="LAN crée par ".$member->getPseudo();
+
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+                SELECT idLieu
+                FROM Lieu
+                WHERE nomVille = :nom;
+SQL
+		);
+		$stmt->execute(array("nom" => $nom));
+		$idLieu = $stmt->fetch()['idLieu'];
 		
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, 'idLieux',`estOuverte`)
-			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieux,false);
+			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, `idLieu`,`estOuverte`)
+			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,false);
 SQL
 		);
-		$stmt->execute(array("idMembre"=>$id,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieux"=>$idLieux));
+		$stmt->execute(array("idMembre"=>$id,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieu"=>$idLieu));
 	}
 
 	/**
@@ -182,7 +192,9 @@ SQL
    <tr>
    		<td>{$this->getLanName()}</td>
    		<td>{$this->getLanDate()}</td>
-   		<td>{$this->getLieux()}</td>
+   		<td>{$this->getLieux()->getNomSimple()}</td>
+   		<td>{$this->getLieux()->getNomVille()}</td>
+   		<td>{$this->getLieux()->getDepartement()}</td>
    </tr>
 HTML;
 	return $donnees;
