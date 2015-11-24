@@ -232,6 +232,38 @@ SQL
     }
 
     /**
+     * ajoute une lan dans la BD
+     * @param $name nom de la lan
+     * @param $date date de la lan
+     * @param $adress adresse dela lan
+     * @param $idLieux lieux de la lan
+     * @param string $description description de la lan
+     * @throws Exception
+     */
+    public function addLan($name,$date,$adress,$nom,$description = ''){
+        if($description=='')
+            $description="LAN crée par ".$this->pseudo;
+
+        $pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+                SELECT idLieu
+                FROM Lieu
+                WHERE nomVille = :nom;
+SQL
+        );
+        $stmt->execute(array("nom" => $nom));
+        $idLieu = $stmt->fetch()['idLieu'];
+
+        $pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, `idLieu`,`estOuverte`)
+			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,false);
+SQL
+        );
+        $stmt->execute(array("idMembre"=>$this->idMembre,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieu"=>$idLieu));
+    }
+
+    /**
      * retour un tableau d'instance de lan cree par l'utilisateur
      * @return array tableau de lan
      */

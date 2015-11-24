@@ -147,41 +147,29 @@ SQL
 			throw new Exception("En dehors des limites");
 	}
 
-	/**
-	 * ajoute une lan dans la BD
-	 * @param $name nom de la lan
-	 * @param $date date de la lan
-	 * @param $adress adresse dela lan
-	 * @param $idLieux lieux de la lan
-	 * @param string $description description de la lan
-	 * @throws Exception
-	 */
-	public static function addLan($name,$date,$adress,$nom,$description = ''){
-		if(!Member::isConnected())
-			throw new Exception('le membre n\'est pas connecter');
-		$member=Member::GetInstance();
-		$id=$member->getId();
-		
+	public function addTournoi($nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = ''){
 		if($description=='')
-			$description="LAN crée par ".$member->getPseudo();
+			$description="Tounoi crée par ".Member::getInstance()->getPseudo();
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			INSERT INTO `LAN`(`idLan`, `nomTournoi`, `tpElimination`, `dateHeurePrevu`, `descriptionTournoi`, `nbEquipeMax`,`nbPersMaxParEquipe`)
+			VALUES (:idLan,:nomTournoi,:tpElimination,STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'),:descriptionTournoi,:nbEquipeMax,:nbPersMaxParEquipe);
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe));
+	}
 
+	public function getTournoi(){
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
-                SELECT idLieu
-                FROM Lieu
-                WHERE nomVille = :nom;
+			SELECT *
+			FROM Tournoi
+			WHERE idLAN = :idLAN;
 SQL
 		);
-		$stmt->execute(array("nom" => $nom));
-		$idLieu = $stmt->fetch()['idLieu'];
-		
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, `idLieu`,`estOuverte`)
-			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,false);
-SQL
-		);
-		$stmt->execute(array("idMembre"=>$id,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieu"=>$idLieu));
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Tournoi');
+		$stmt->execute(array("idLAN"=>$this->idLAN));
+		return $stmt->fetchAll();
 	}
 
 	/**
@@ -197,6 +185,6 @@ SQL
    		<td>{$this->getLieux()->getDepartement()}</td>
    </tr>
 HTML;
-	return $donnees;
+		return $donnees;
 	}
 }
