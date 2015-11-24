@@ -238,12 +238,13 @@ SQL
     public function getLAN(){
     	$pdo = MyPDO::GetInstance();
     	$stmt = $pdo->prepare(<<<SQL
-			SELECT idLAN
+			SELECT *
 			FROM LAN
 			WHERE idMembre = :idMembre;
 SQL
     	);
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
     	$stmt->execute(array("idMembre"=>$this->getId()));
-            return $stmt->fetchAll();
+        return $stmt->fetchAll();
     }
 }
