@@ -75,6 +75,7 @@ class GeekOnLanWebpage extends Webpage {
         $this->foreground .= <<<HTML
         <form id="connexionForm" name="connexion" action="authentification.php" method="post">
             <h2>Connexion</h2>
+            <a href="#">x</a>
             <table>
                 <tr>
                     <td class="connexionIcon"><img src="resources/img/Contact.png" alt="login" /></td>
@@ -89,7 +90,7 @@ class GeekOnLanWebpage extends Webpage {
             <input type="hidden" name="hiddenCrypt" value={$challenge}>
 
             <div>
-                <a href="inscription.php">S'inscire</a>
+                <a href="inscription.php">S'inscrire</a>
                 <button type="button" onclick="sha256()">Confirmer</button>
             </div>
 		</form>
