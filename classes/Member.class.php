@@ -106,7 +106,7 @@ class Member {
 			SELECT *
 			FROM Membre
 			WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
-				AND estValide = 0;
+				AND estValide = 1;
 SQL
         );
         $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
