@@ -13,3 +13,25 @@ $membre = Member::getInstance();
 $lans = $membre->getLAN();
 
 var_dump($lans);
+
+$html = <<<HTML
+
+<table>
+	<tr>
+		<td>Nom</td>
+		<td>Date</td>
+		<td>Lieu</td>
+	</tr>
+HTML;
+
+foreach($lans as $lan) {
+	$html .= $lan->toString();
+}
+
+$html .= <<<HTML
+    </table>
+HTML;
+
+$page->appendContent($html);
+
+echo $page->toHTML();

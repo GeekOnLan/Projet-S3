@@ -179,23 +179,11 @@ SQL
 	 */
 	public function toString(){
 		$donnees = <<<HTML
-<table>
    <tr>
    		<td>{$this->getLanName()}</td>
-   	</tr>
-   <tr>
-  		<td>{$this->getLanDescription()}</td>
-   </tr>
-   <tr>
    		<td>{$this->getLanDate()}</td>
-   	</tr>
-   <tr>
    		<td>{$this->getLieux()}</td>
    </tr>
-   <tr>
-   		<td>{$this->getAdress()}</td>
-   </tr>
-</table>
 HTML;
 	return $donnees;
 	}
