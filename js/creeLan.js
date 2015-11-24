@@ -76,27 +76,29 @@ function nomLanDejaUtilise(){
 //verifier le pseudo avec ajax pour le formulaire
 function verifyNameLAN() {
 	var nameLAN = document.getElementsByName('nameLAN')[0].value;
-
-	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
-	match = regex.exec(nameLAN)==nameLAN;
-	if(!match){
-		voidRedInput('nameLAN');
-		setError('erreurNameLAN', 'caractères non autorisé utilisé');
-	}else if (nameLAN.length>2) {
-		if(nameLAN.length>31){
+	if(nameLAN!=""){
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
+		match = regex.exec(nameLAN)==nameLAN;
+		if(!match){
 			voidRedInput('nameLAN');
-			setError('erreurNameLAN', 'nom de LAN trop grand ');
-		}else if(nomLanDejaUtilise()){
-			voidRedInput('nameLAN');
-			setError('erreurNameLAN', 'nom de LAN deja utilisé');
+			setError('erreurNameLAN', 'caractères non autorisé utilisé');
+		}else if (nameLAN.length>2) {
+			if(nameLAN.length>31){
+				voidRedInput('nameLAN');
+				setError('erreurNameLAN', 'nom de LAN trop grand ');
+			}else if(nomLanDejaUtilise()){
+				voidRedInput('nameLAN');
+				setError('erreurNameLAN', 'nom de LAN deja utilisé');
+			}else{
+				setError('erreurNameLAN',' ');
+				console.log("nom OK");
+			}
 		}else{
-			setError('erreurNameLAN',' ');
-			console.log("nom OK");
+			voidRedInput('nameLAN');
+			setError('erreurNameLAN', 'nom de LAN trop petit');
 		}
-	}else{
-		voidRedInput('nameLAN');
-		setError('erreurNameLAN', 'nom de LAN trop petit');
 	}
+	console.log(nameLAN);
 }
 //----------------------------------------------------------//
 //date de LAN
@@ -109,26 +111,32 @@ function verifyDateLAN(){
 		var j=(d.substring(0,2));
 		var m=(d.substring(3,5));
 		var a=(d.substring(6));
+		console.log(j,m,a);
 		m-=1;
 		var d=new Date(a,m,j);
-		if(d<new Date()){
-			voidRedInput('dateLAN');
-			setError('erreurDateLAN','vous ne pouvez retourner dans le passé, vous vous-êtes pris pour Marty ?');
-		}else{
-			var rep= (d.getFullYear()!=a || d.getMonth()!=m) ? "date invalide" : "date valide";
-
-			if (rep=="date invalide"){
+		if(j!=""&&m!=""&&a!=""){
+			if(d<new Date()){
 				voidRedInput('dateLAN');
-				setError('erreurDateLAN','cette date n\'existe pas');
+				setError('erreurDateLAN','vous ne pouvez retourner dans le passé, vous vous-êtes pris pour Marty ?');
 			}else{
-				setError('erreurDateLAN',' ');
-				console.log(rep);
+				var rep= (d.getFullYear()!=a || d.getMonth()!=m) ? "date invalide" : "date valide";
+
+				if (rep=="date invalide"){
+					voidRedInput('dateLAN');
+					setError('erreurDateLAN','cette date n\'existe pas');
+				}else{
+					setError('erreurDateLAN',' ');
+					console.log(rep);
+				}
 			}
+		}else{
+			voidRedInput('dateLAN');
+			setError('erreurDateLAN','veillez entrer une date sous la forme jj/mm/yyyy');
 		}
-	}else{
-		voidRedInput('dateLAN');
-		setError('erreurDateLAN','veillez entrer une date sous la forme jj/mm/yyyy');
 	}
+	/*
+
+	*/
 }
 
 
@@ -139,17 +147,21 @@ function verifyDateLAN(){
 //verifier le mail pour le formulaire
 function verifyDescriptionLAN(){
 	var description = document.getElementsByName('descriptionLAN')[0].value;
-
-	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
-	match = regex.exec(description)==description;
-	if(!match){
-		document.getElementsByName('descriptionLAN')[0].value="LAN créer par";
-		setError('erreurDescriptionLAN', 'caractères non autorisé utilisé');
-	}else if(description.length>80){
-		voidRedInput('descriptionLAN');
-		setError('erreurDescriptionLAN', 'description trop longue');
-	}
-	else{
+	if(description!=""){
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
+		match = regex.exec(description)==description;
+		if(!match){
+			document.getElementsByName('descriptionLAN')[0].value="LAN créer par";
+			setError('erreurDescriptionLAN', 'caractères non autorisé utilisé');
+		}else if(description.length>80){
+			voidRedInput('descriptionLAN');
+			setError('erreurDescriptionLAN', 'description trop longue');
+		}
+		else{
+			setError('erreurDescriptionLAN',' ');
+			console.log("description ok");
+		}
+	}else{
 		setError('erreurDescriptionLAN',' ');
 		console.log("description ok");
 	}
@@ -167,19 +179,20 @@ function valideVille(ville){
 
 function verifyVilleLAN(){
 	var ville = document.getElementsByName('villeLAN')[0].value;
-
-	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
-	match = regex.exec(ville)==ville;
-	if(!match){
-		voidRedInput('villeLAN');
-		setError('erreurVilleLAN', 'caractères non autorisé utilisé');
-	}else if(valideVille(ville)){
-		setError('erreurVilleLAN',' ');
-		console.log("ville ok");
-	}
-	else{
-		voidRedInput('villeLAN');
-		setError('erreurVilleLAN','Ville incorrect');
+	if(ville!=""){
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
+		match = regex.exec(ville)==ville;
+		if(!match){
+			voidRedInput('villeLAN');
+			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
+		}else if(valideVille(ville)){
+			setError('erreurVilleLAN',' ');
+			console.log("ville ok");
+		}
+		else{
+			voidRedInput('villeLAN');
+			setError('erreurVilleLAN','Ville incorrect');
+		}
 	}
 }
 
@@ -195,19 +208,20 @@ function valideAdresse(adresse){
 
 function verifyAdresseLAN(){
 	var adresse = document.getElementsByName('adresseLAN')[0].value
-
-	var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ]{0,30}/);
-	match = regex.exec(adresse)==adresse;
-	if(!match){
-		voidRedInput('adresseLAN');
-		setError('erreurAdresseLAN', 'caractères non autorisé utilisé');
-	}else if(valideAdresse(adresse)){
-		setError('erreurAdresseLAN',' ');
-		console.log("Adresse ok");
-	}
-	else{
-		voidRedInput('adresseLAN');
-		setError('erreurAdresseLAN','Adresse incorrect');
+	if(adresse!=""){
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
+		match = regex.exec(adresse)==adresse;
+		if(!match){
+			voidRedInput('adresseLAN');
+			setError('erreurAdresseLAN', 'caractères non autorisé utilisé');
+		}else if(valideAdresse(adresse)){
+			setError('erreurAdresseLAN',' ');
+			console.log("Adresse ok");
+		}
+		else{
+			voidRedInput('adresseLAN');
+			setError('erreurAdresseLAN','Adresse incorrect');
+		}
 	}
 }
 
