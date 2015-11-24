@@ -12,4 +12,4 @@ $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px"
 $membre = Member::getInstance();
 $lans = $membre->getLAN();
 
-echo $lans[0]->getLanName();
+var_dump($lans);

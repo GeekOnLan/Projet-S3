@@ -106,7 +106,7 @@ class Member {
 			SELECT *
 			FROM Membre
 			WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
-				AND estValide = 1;
+				AND estValide = 0;
 SQL
         );
         $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
@@ -238,13 +238,13 @@ SQL
     public function getLAN(){
     	$pdo = MyPDO::GetInstance();
     	$stmt = $pdo->prepare(<<<SQL
-			SELECT idLAN
+			SELECT *
 			FROM LAN
 			WHERE idMembre = :idMembre;
 SQL
     	);
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
     	$stmt->execute(array("idMembre"=>$this->getId()));
-            return $stmt->fetchAll();
+        return $stmt->fetchAll();
     }
 }
