@@ -106,7 +106,7 @@ $html= <<<HTML
                 <div>
                     <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                 </div>
-                <span id="erreurDescriptionLAN"></span>
+                <span id="erreurDescriptionLAN"> </span>
             </td>
         </tr>
     </table>
