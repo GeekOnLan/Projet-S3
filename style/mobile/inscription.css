@@ -25,7 +25,7 @@
     border: solid 3px #1b1b1b;
 
     margin: auto;
-    width: 70%;
+    width: 80%;
 }
 
 #mainframe form td {
@@ -81,6 +81,7 @@
     color: white;
 
     position: relative;
+    width: calc(100% - 20px);
 }
 
 #mainframe form table span {

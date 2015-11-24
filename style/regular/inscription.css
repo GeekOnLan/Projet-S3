@@ -25,7 +25,7 @@
     border: solid 3px #1b1b1b;
 
     margin: auto;
-    width: 70%;
+    width: 80%;
 }
 
 #mainframe form td {
@@ -50,12 +50,13 @@
 }
 
 #mainframe form label {
-    font-size: 26px;
+    font-size: 22px;
     color: #8e8e8e;
     border-bottom: solid 3px #212121;
     width: 85%;
     display: inline-block;
     margin-bottom: 3px;
+    margin-left: 20px;
     padding-left: 10px;
 }
 
@@ -79,7 +80,7 @@
     border: none;
     height: 50px;
 
-    font-size: 28px;
+    font-size: 22px;
     padding: 0 10px;
 
     background: #525252;
@@ -134,4 +135,8 @@
     border: solid 3px #222;
 
     margin-bottom: 15px;
+}
+
+#mainframe form button:active {
+	background: #696969;
 }
