@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Composer` (
   `idMembre` int(11) NOT NULL,
   `idEquipe` int(11) NOT NULL,
   `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `Equipe` (
   `descriptionEquipe` char(127) DEFAULT NULL,
   `inscriptionOuverte` tinyint(1) NOT NULL,
   `image` char(127) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `Equipe` (
 CREATE TABLE IF NOT EXISTS `Inviter` (
   `idMembre` int(11) NOT NULL,
   `idEquipe` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `Jeu` (
   `descriptionJeu` varchar(255) DEFAULT NULL,
   `estGratuit` tinyint(1) NOT NULL,
   `imageJeu` char(63) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -80,12 +80,13 @@ CREATE TABLE IF NOT EXISTS `Jeu` (
 CREATE TABLE IF NOT EXISTS `LAN` (
 `idLAN` int(11) NOT NULL,
   `idMembre` int(11) NOT NULL,
+  `idLieu` int(11) NOT NULL,
   `nomLAN` char(31) NOT NULL,
   `desciptionLAN` varchar(255) DEFAULT NULL,
   `dateLAN` datetime NOT NULL,
   `adresse` char(63) NOT NULL,
   `estOuverte` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `Lieu` (
   `departement` int(11) NOT NULL,
   `slug` char(255) NOT NULL,
   `canton` char(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `Lieu`
@@ -36868,17 +36869,6 @@ INSERT INTO `Lieu` (`idLieu`, `nomVille`, `arrondissement`, `codePostal`, `nomSi
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Localiser`
---
-
-CREATE TABLE IF NOT EXISTS `Localiser` (
-  `idLieu` int(11) NOT NULL,
-  `idLAN` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `Membre`
 --
 
@@ -36893,9 +36883,16 @@ CREATE TABLE IF NOT EXISTS `Membre` (
   `cleMail` char(41) NOT NULL,
   `estValide` tinyint(1) NOT NULL DEFAULT '0',
   `estBanni` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+
+--
+-- Champs de la table 'Membre'
+--
+
+INSERT INTO `Membre` (`idMembre`,`pseudo`,`mail`,`password`) VALUES 
+(1,'Administrateur','interdit@tuaspasledroit.fr','5ea035a8a684c6564e34b0068ecf0610790fa91491510c7a757e0b018848da83');
 
 --
 -- Structure de la table `Notifications`
@@ -36906,7 +36903,7 @@ CREATE TABLE IF NOT EXISTS `Notifications` (
   `objetNotif` char(31) NOT NULL,
   `date` datetime NOT NULL,
   `message` varchar(511) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -36920,7 +36917,7 @@ CREATE TABLE IF NOT EXISTS `Participer` (
   `idTournoi` int(11) NOT NULL,
   `niveauArbre` int(11) DEFAULT NULL,
   `numMatch` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -36931,7 +36928,7 @@ CREATE TABLE IF NOT EXISTS `Participer` (
 CREATE TABLE IF NOT EXISTS `Recevoir` (
   `idNotification` int(11) NOT NULL,
   `idMembre` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -36949,7 +36946,7 @@ CREATE TABLE IF NOT EXISTS `Tournoi` (
   `descriptionTournoi` char(127) DEFAULT NULL,
   `nbEquipeMax` int(11) NOT NULL,
   `nbPersMaxParEquipe` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Index pour les tables exportées
@@ -36983,7 +36980,7 @@ ALTER TABLE `Jeu`
 -- Index pour la table `LAN`
 --
 ALTER TABLE `LAN`
- ADD PRIMARY KEY (`idLAN`), ADD KEY `FK_Organiser` (`idMembre`);
+ ADD PRIMARY KEY (`idLAN`), ADD KEY `FK_Organiser` (`idMembre`), ADD KEY `FK_Place` (`idLieu`) ;
 
 --
 -- Index pour la table `Lieu`
@@ -36991,11 +36988,6 @@ ALTER TABLE `LAN`
 ALTER TABLE `Lieu`
  ADD PRIMARY KEY (`idLieu`);
 
---
--- Index pour la table `Localiser`
---
-ALTER TABLE `Localiser`
- ADD PRIMARY KEY (`idLieu`,`idLAN`), ADD KEY `FK_Localiser2` (`idLAN`);
 
 --
 -- Index pour la table `Membre`
@@ -37083,14 +37075,8 @@ ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMem
 -- Contraintes pour la table `LAN`
 --
 ALTER TABLE `LAN`
-ADD CONSTRAINT `FK_Organiser` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`);
-
---
--- Contraintes pour la table `Localiser`
---
-ALTER TABLE `Localiser`
-ADD CONSTRAINT `FK_Localiser2` FOREIGN KEY (`idLAN`) REFERENCES `LAN` (`idLAN`),
-ADD CONSTRAINT `FK_Localiser` FOREIGN KEY (`idLieu`) REFERENCES `Lieu` (`idLieu`);
+ADD CONSTRAINT `FK_Organiser` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`),
+ADD CONSTRAINT `FK_Place` FOREIGN KEY (`idLieu`) REFERENCES `Lieu` (`idLieu`);
 
 --
 -- Contraintes pour la table `Participer`
