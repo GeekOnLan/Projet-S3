@@ -17,6 +17,7 @@ $(function() {
     $("#sidebarButton").click(toggleSidebar);
     $("#layer").click(toggleLayer);
     $("#connexionButton").click(toggleConnexionForm);
+    $("#connexionForm a:nth-child(2)").click(toggleConnexionForm);
 });
 
 var toggleSidebar = function() {
