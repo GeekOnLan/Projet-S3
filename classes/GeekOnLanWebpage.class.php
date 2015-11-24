@@ -32,7 +32,7 @@ class GeekOnLanWebpage extends Webpage {
         $this->mainframe .= ($connected) ? "<button id='sidebarButton' type='button'></button>" : "";
 
         if($connected)
-            $this->insertGeekOnLanSidebar();
+            $this->insertGeekOnLanSidebar(Member::getInstance());
         else
             $this->insertConnexionForm();
     }
@@ -100,9 +100,10 @@ HTML;
     /**
      * Ajoute la barre mode connecté de GeekOnLan
      */
-    private function insertGeekOnLanSidebar() {
+    private function insertGeekOnLanSidebar(Member $m) {
         $this->sidebar = <<<HTML
 <nav id="sidebar">
+    <h2>{$m->getPseudo()}</h2>
     <ul>
         <li><a href="profil.php">Profil</a></li>
         <li><a href="#">Participations</a></li>
