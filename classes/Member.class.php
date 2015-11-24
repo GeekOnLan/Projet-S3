@@ -243,6 +243,7 @@ SQL
 			WHERE idMembre = :idMembre;
 SQL
     	);
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
     	$stmt->execute(array("idMembre"=>$this->getId()));
             return $stmt->fetchAll();
     }
