@@ -37,7 +37,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPas
 SQL
                 );
                 $stmt->execute(array("pseudo" => $pseudo));
-                $pseudoVerif = $stmt->fetch()[''];
+                $pseudoVerif = $stmt->fetch()['pseudo'];
                 if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0 && strcasecmp($pseudo, "root")!=0) {
                     Member::createMember($pseudo,$mail,$password,$fN,$lN,$bD);
                     envoieMailValide($pseudo, $mail);
@@ -50,7 +50,7 @@ SQL
                 }
             }
             else{
-                $form->appendContent("<p>Le pseudonyme est non valide</p>");
+                $form->appendContent("<p>Le pseudonyme n'est pas valide</p>");
                 addJsAndCss($form);
                 $form->appendContent(formulaire());
             }

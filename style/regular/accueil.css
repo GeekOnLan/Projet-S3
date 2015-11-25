@@ -1,0 +1,24 @@
+#news table {
+    background: #3a3a3a;
+    width: 70%;
+    margin: auto;
+    box-shadow: 2px 2px 0 0 #111;
+
+    text-align: center;
+    border-collapse: collapse;
+}
+
+#news tr {
+    height: 40px;
+    font-size: 28px;
+    color: #acacac;
+    font-weight: normal;
+}
+
+#news tr:first-child {
+    border-bottom: solid 5px #D84508;
+}
+
+#news tr:nth-child(even) {
+    background: #4d4d4d;
+}

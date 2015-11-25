@@ -185,4 +185,22 @@ SQL
 HTML;
 		return $donnees;
 	}
+
+	/*
+	 * Permet de récupérer toutes les LANS qui se
+	 */
+	public static function getLanFrom(){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idLAN
+            FROM LAN
+            WHERE dateLAN BETWEEN CURDATE() AND ADDDATE(CURDATE(),31)
+            AND estOuverte = 1;
+SQL
+		);
+		$stmt->execute();
+        $res = $stmt->fetchAll();
+        return $res;
+
+	}
 }

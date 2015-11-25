@@ -19,7 +19,7 @@ $html = '<ul>';
 
 $member = Member::getInstance();
 
-//information relaive au membre
+//information relative au membre
 $html.='<li>'.$member->getPseudo().'</li>';
 $last = $member->getLastName();
 if($last!='')
