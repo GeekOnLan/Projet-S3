@@ -181,8 +181,6 @@ SQL
    		<td>{$this->getLanName()}</td>
    		<td>{$this->getLanDate()}</td>
    		<td>{$this->getLieux()->getNomSimple()}</td>
-   		<td>{$this->getLieux()->getNomVille()}</td>
-   		<td>{$this->getLieux()->getDepartement()}</td>
    </tr>
 HTML;
 		return $donnees;

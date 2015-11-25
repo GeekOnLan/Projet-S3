@@ -8,17 +8,7 @@ body {
     font-family: AgencyRegular, Arial, serif;
 }
 
-*::selection {
-    background:#40CFF6;
-    color:#d95600;
-}
-
 *::-moz-selection {
-    background:#40CFF6;
-    color:#d95600;
-}
-
-*::-webkit-selection {
     background:#40CFF6;
     color:#d95600;
 }
@@ -351,7 +341,6 @@ header > hr {
 
 #sidebarButton {
     position: fixed;
-    background: #DDD url("../../resources/img/option.png") no-repeat center;
 
     top: 50%;
     width: 50px;

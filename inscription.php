@@ -37,7 +37,7 @@ if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPas
 SQL
                 );
                 $stmt->execute(array("pseudo" => $pseudo));
-                $pseudoVerif = $stmt->fetch();
+                $pseudoVerif = $stmt->fetch()[''];
                 if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0 && strcasecmp($pseudo, "root")!=0) {
                     Member::createMember($pseudo,$mail,$password,$fN,$lN,$bD);
                     envoieMailValide($pseudo, $mail);

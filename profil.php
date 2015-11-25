@@ -51,8 +51,8 @@ $html.=<<<HTML
 					<label for="newPass">nouveau mot de passe</label>
 				</td>
 				<td>
-					<input id="newPass" name="newPass" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
-					<span id="erreurpass"></span>
+					<input id="newPass" name="pwd" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+					<span id="erreurpass1"></span>
 				</td>
 			</tr>
 			<tr>
@@ -60,8 +60,8 @@ $html.=<<<HTML
 					<label for="newPassVerify">confimer nouveau mot de passe</label>
 				</td>
 				<td>
-					<input id="newPassVerify" name="newPassVerify" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
-					<span id="erreurpass1"></span>
+					<input id="newPassVerify" name="pwdVerif" type="password" onfocus="resetPWD()" onblur="verifyPassForm()">
+					<span id="erreurpass"></span>
 				</td>
 			</tr>
 			<tr>

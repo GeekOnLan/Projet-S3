@@ -242,7 +242,7 @@ SQL
      */
     public function addLan($name,$date,$adress,$nom,$description = ''){
         if($description=='')
-            $description="LAN crée par ".$this->pseudo;
+            $description="LAN crï¿½e par ".$this->pseudo;
 
         $pdo = MyPDO::GetInstance();
         $stmt = $pdo->prepare(<<<SQL
@@ -278,5 +278,10 @@ SQL
     	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
     	$stmt->execute(array("idMembre"=>$this->getId()));
         return $stmt->fetchAll();
+    }
+    
+    public static function deleteAccount(){
+    	return true;
+    	
     }
 }

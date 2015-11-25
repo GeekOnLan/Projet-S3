@@ -247,26 +247,30 @@ function verifyLast(){
 
 //verify la date de naissance dans le formulaire
 function verifyBirthForm(){
-			var d = document.getElementsByName('birthday')[0].value;
-			if(d != '' && !birthdayTest(d)){
+	var d = document.getElementsByName('birthday')[0].value;
+	var j=(d.substring(0,2));
+	var m=(d.substring(3,5));
+	var a=(d.substring(6));
+	if(d != '' && !birthdayTest(d)){
+		setInput('birthday');
+		setError('erreurbirth','La date de naissance doit être au format JJ/MM/AAAA');
+	}
+		else if(d != ''){
+			var d2=new Date(a,m-1,j);
+			var j2=d2.getDate();
+			var m2=d2.getMonth()+1;
+			var a2=d2.getFullYear();
+			if (a2<=100) {a2=1900+a2}
+			if ( (j!=j2)||(m!=m2)||(a!=a2)){
 				setInput('birthday');
-				setError('erreurbirth','La date de naissance doit être au format JJ/MM/AAAA');
-			}
-			else if(d != ''){
-				var j=(d.substring(0,2));
-				var m=(d.substring(3,5));
-				var a=(d.substring(6));
-				var d2=new Date(a,m-1,j);
-				var j2=d2.getDate();
-				var m2=d2.getMonth()+1;
-				var a2=d2.getFullYear();
-				if (a2<=100) {a2=1900+a2}
-				if ( (j!=j2)||(m!=m2)||(a!=a2)){
-					setInput('birthday');
-					setError('erreurbirth','Cette date n\'existe pas');
-				}
-			else
-				resetBirth();
+				setError('erreurbirth','Cette date n\'existe pas');
+		}
+		else if(new Date(a,m,j)>new Date()){
+			setInput('birthday');
+			setError('erreurbirth','Tu reviens du futur Marty ?');
+		}
+		else
+			resetBirth();
 	}
 }
 
@@ -291,6 +295,11 @@ function verifyBirth(){
 		if ( (j!=j2)||(m!=m2)||(a!=a2)){
 			setInput('birthday');
 			setError('erreurbirth','Cette date n\'existe pas');
+			return false;
+		}
+		else if(new Date(a,m,j)>new Date()){
+			setInput('birthday');
+			setError('erreurbirth','Tu reviens du futur Marty ?');
 			return false;
 		}
 		else {
