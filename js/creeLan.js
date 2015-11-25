@@ -1,6 +1,14 @@
+var xhr;
+if (window.XMLHttpRequest) {
+	xhr = new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xhr = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
 window.addEventListener("keypress",function(even){
 	if(even.keyCode === 13)
-		verifyInscription();
+		verifyLAN();
 });
 
 function getAllError(){
@@ -17,15 +25,12 @@ function verifyLAN(){
 	//si tout est bon on envoit
 	var erreur = getAllError();
 	if(erreur=="     "){
-		console.log("pas d'erreurs");
 		var nameLAN = document.getElementsByName('nameLAN')[0].value;
 		var dateLAN = document.getElementsByName('dateLAN')[0].value;
 		var descriptionLAN =  document.getElementsByName('descriptionLAN')[0].value;
 		var ville = document.getElementsByName('villeLAN')[0].value;
 		var adresseLAN = document.getElementsByName('adresseLAN')[0].value;
 		document.ajoutLAN.submit();
-	}else{
-		console.log("erreur champs");
 	}
 }
 
@@ -52,26 +57,6 @@ function resetError(name){
 //----------------------------------------------------------//
 //nameLAN
 //----------------------------------------------------------//
-function nomLanDejaUtilise(){
-	/*
-	var xhr = new XMLHttpRequest();
-	xhr.addEventListener('readystatechange', function () {
-		if (xhr.readyState === 4 && xhr.status === 200) {
-			var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
-			if (xml == "false") {
-				voidRedInput('nameLAN');
-				setError('erreurNameLAN', 'ce nom de LAN est déjà pris');
-			}
-			else
-				resetPseudo();
-		}
-	}, true);
-	xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + pseu);
-	xhr.send(null);
-	*/
-	return false;
-}
-
 
 //verifier le pseudo avec ajax pour le formulaire
 function verifyNameLAN() {
@@ -86,19 +71,29 @@ function verifyNameLAN() {
 			if(nameLAN.length>31){
 				voidRedInput('nameLAN');
 				setError('erreurNameLAN', 'nom de LAN trop grand ');
-			}else if(nomLanDejaUtilise()){
-				voidRedInput('nameLAN');
-				setError('erreurNameLAN', 'nom de LAN deja utilisé');
 			}else{
-				setError('erreurNameLAN',' ');
-				console.log("nom OK");
+				xhr.abort();
+				xhr.addEventListener('readystatechange', function () {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+						if (xml == "false") {
+							voidRedInput('nameLAN');
+							setError('erreurNameLAN', 'ce nom de LAN est déjà pris');
+						}
+						else {
+							setError('erreurNameLAN',' ');
+						}
+					}
+				}, true);
+				xhr.open('GET', 'scriptPHP/LANValide.php?LANName=' + nameLAN);
+				xhr.send(null);
+
 			}
 		}else{
 			voidRedInput('nameLAN');
 			setError('erreurNameLAN', 'nom de LAN trop petit');
 		}
 	}
-	console.log(nameLAN);
 }
 //----------------------------------------------------------//
 //date de LAN
@@ -111,7 +106,6 @@ function verifyDateLAN(){
 		var j=(d.substring(0,2));
 		var m=(d.substring(3,5));
 		var a=(d.substring(6));
-		console.log(j,m,a);
 		m-=1;
 		var d=new Date(a,m,j);
 		if(j!=""&&m!=""&&a!=""){
@@ -126,7 +120,6 @@ function verifyDateLAN(){
 					setError('erreurDateLAN','cette date n\'existe pas');
 				}else{
 					setError('erreurDateLAN',' ');
-					console.log(rep);
 				}
 			}
 		}else{
@@ -159,23 +152,15 @@ function verifyDescriptionLAN(){
 		}
 		else{
 			setError('erreurDescriptionLAN',' ');
-			console.log("description ok");
 		}
 	}else{
 		setError('erreurDescriptionLAN',' ');
-		console.log("description ok");
 	}
 }
 
 //----------------------------------------------------------//
 //ville
 //----------------------------------------------------------//
-
-function valideVille(ville){
-	var res=false;
-	if(ville!="")res=true;
-	return res;
-}
 
 function verifyVilleLAN(){
 	var ville = document.getElementsByName('villeLAN')[0].value;
@@ -185,13 +170,22 @@ function verifyVilleLAN(){
 		if(!match){
 			voidRedInput('villeLAN');
 			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
-		}else if(valideVille(ville)){
-			setError('erreurVilleLAN',' ');
-			console.log("ville ok");
-		}
-		else{
-			voidRedInput('villeLAN');
-			setError('erreurVilleLAN','Ville incorrect');
+		}else{
+			xhr.abort();
+			xhr.addEventListener('readystatechange', function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+					if (xml == "false") {
+						voidRedInput('villeLAN');
+						setError('erreurVilleLAN', "cette ville n'existe pas");
+					}
+					else {
+						setError('erreurVilleLAN',' ');
+					}
+				}
+			}, true);
+			xhr.open('GET', 'scriptPHP/VilleValide.php?Ville=' + ville);
+			xhr.send(null);
 		}
 	}
 }
@@ -216,7 +210,6 @@ function verifyAdresseLAN(){
 			setError('erreurAdresseLAN', 'caractères non autorisé utilisé');
 		}else if(valideAdresse(adresse)){
 			setError('erreurAdresseLAN',' ');
-			console.log("Adresse ok");
 		}
 		else{
 			voidRedInput('adresseLAN');
