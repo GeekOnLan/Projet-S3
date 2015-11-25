@@ -12,6 +12,7 @@ window.addEventListener("keypress",function(even){
 });
 
 function verifyInscription(){
+	xhr.abort();
 	//si tout est bon on envoit
 	var pseudo = verififyPseudo();
 	var mail = verifyMail();
@@ -20,7 +21,6 @@ function verifyInscription(){
 	var birth = verifyBirth();
 	var pass = verifyPass();
 	if(pseudo){
-		xhr.abort();
 		xhr.addEventListener('readystatechange', function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
@@ -72,6 +72,7 @@ function resetError(name){
 
 //verifier le pseudo avec ajax pour le formulaire
 function verififyPseudoForm() {
+	xhr.abort();
 	var pseu = document.getElementsByName('pseudo')[0].value;
 	if (pseu != '') {
 		if(pseu.length>20){
@@ -83,9 +84,10 @@ function verififyPseudoForm() {
 			setError('erreurpseudo', 'Le pseudonyme ne doit pas contenir de caractères spéciaux');
 		}
 		else{
-			xhr.abort();
+			document.getElementById("pseudoLogo").setAttribute("src","resources/gif/chargement.gif");
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
+					document.getElementById("pseudoLogo").setAttribute("src","resources/img/Contact.png");
 					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
 					if (xml == "false") {
 						setInput('pseudo');

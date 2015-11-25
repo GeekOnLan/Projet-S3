@@ -25,7 +25,7 @@
     border: solid 3px #1b1b1b;
 
     margin: auto;
-    width: 70%;
+    width: 80%;
 }
 
 #mainframe form td {
@@ -70,18 +70,18 @@
     display: none;
 }
 
-#mainframe form input ,form textarea{
+#mainframe form input , form textarea{
     border: none;
     height: 50px;
-
+    resize: none;
     font-size: 28px;
     padding: 0 10px;
 
     background: #525252;
     color: white;
-    resize: none;
 
     position: relative;
+    width: calc(100% - 20px);
 }
 
 #mainframe form textarea{

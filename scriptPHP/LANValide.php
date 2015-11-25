@@ -7,7 +7,7 @@ require_once("../includes/myPDO.inc.php");
 $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 
 if(verify($_GET,'LANName')){
-    usleep(2 * 100000);
+    usleep(rand(0, 20) * 100000);
     $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
                 SELECT nomLAN

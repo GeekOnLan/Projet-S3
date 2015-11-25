@@ -58,8 +58,10 @@ function resetError(name){
 //nameLAN
 //----------------------------------------------------------//
 
+
 //verifier le pseudo avec ajax pour le formulaire
 function verifyNameLAN() {
+	xhr.abort();
 	var nameLAN = document.getElementsByName('nameLAN')[0].value;
 	if(nameLAN!=""){
 		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
@@ -72,9 +74,10 @@ function verifyNameLAN() {
 				voidRedInput('nameLAN');
 				setError('erreurNameLAN', 'nom de LAN trop grand ');
 			}else{
-				xhr.abort();
+				document.getElementById("lanName").setAttribute("src","resources/gif/chargement.gif");
 				xhr.addEventListener('readystatechange', function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
+						document.getElementById("lanName").setAttribute("src","resources/img/Lan.png");
 						var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
 						if (xml == "false") {
 							voidRedInput('nameLAN');
@@ -87,7 +90,6 @@ function verifyNameLAN() {
 				}, true);
 				xhr.open('GET', 'scriptPHP/LANValide.php?LANName=' + nameLAN);
 				xhr.send(null);
-
 			}
 		}else{
 			voidRedInput('nameLAN');
@@ -163,6 +165,7 @@ function verifyDescriptionLAN(){
 //----------------------------------------------------------//
 
 function verifyVilleLAN(){
+	xhr.abort();
 	var ville = document.getElementsByName('villeLAN')[0].value;
 	if(ville!=""){
 		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
@@ -171,9 +174,10 @@ function verifyVilleLAN(){
 			voidRedInput('villeLAN');
 			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
 		}else{
-			xhr.abort();
+			document.getElementById("ville").setAttribute("src","resources/gif/chargement.gif");
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
+					document.getElementById("ville").setAttribute("src","resources/img/Ville.png");
 					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
 					if (xml == "false") {
 						voidRedInput('villeLAN');

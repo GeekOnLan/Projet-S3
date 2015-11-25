@@ -92,7 +92,7 @@ function formulaire(){
 				<td>
     				<label for="pseudo">Pseudonyme*</label>
     				<div>
-    				    <img src="resources/img/Contact.png" alt="login" />
+    				    <img id="pseudoLogo" src="resources/img/Contact.png" alt="login" />
     				    <input id="pseudo" name="pseudo" type="text" placeholder="Pseudo" onfocus="resetPseudo()" onblur="verififyPseudoForm()">
     				</div>
     				<span id="erreurpseudo"></span>
