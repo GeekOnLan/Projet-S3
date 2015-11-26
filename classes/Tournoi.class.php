@@ -28,8 +28,8 @@ class Tournoi{
         return $this->idTournoi;
     }
 
-    public function getIdJeu(){
-        return $this->idJeu;
+    public function getJeu(){
+        return Jeu::createFromId($this->idJeu);
     }
 
     public function getNomTournoi(){

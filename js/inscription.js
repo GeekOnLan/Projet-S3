@@ -84,7 +84,7 @@ function verififyPseudoForm() {
 			setError('erreurpseudo', 'Le pseudonyme ne doit pas contenir de caractères spéciaux');
 		}
 		else{
-			document.getElementById("pseudoLogo").setAttribute("src","resources/gif/chargement.gif");
+			document.getElementById("pseudoLogo").setAttribute("src","resources/gif/load.gif");
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					document.getElementById("pseudoLogo").setAttribute("src","resources/img/Contact.png");

@@ -74,7 +74,7 @@ function verifyNameLAN() {
 				voidRedInput('nameLAN');
 				setError('erreurNameLAN', 'nom de LAN trop grand ');
 			}else{
-				document.getElementById("lanName").setAttribute("src","resources/gif/chargement.gif");
+				document.getElementById("lanName").setAttribute("src","resources/gif/load.gif");
 				xhr.addEventListener('readystatechange', function () {
 					if (xhr.readyState === 4 && xhr.status === 200) {
 						document.getElementById("lanName").setAttribute("src","resources/img/Lan.png");
@@ -174,7 +174,7 @@ function verifyVilleLAN(){
 			voidRedInput('villeLAN');
 			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
 		}else{
-			document.getElementById("ville").setAttribute("src","resources/gif/chargement.gif");
+			document.getElementById("ville").setAttribute("src","resources/gif/load.gif");
 			xhr.addEventListener('readystatechange', function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					document.getElementById("ville").setAttribute("src","resources/img/Ville.png");

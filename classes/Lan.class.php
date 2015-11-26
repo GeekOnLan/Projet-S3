@@ -147,16 +147,16 @@ SQL
 			throw new Exception("En dehors des limites");
 	}
 
-	public function addTournoi($nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = ''){
+	public function addTournoi($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = ''){
 		if($description=='')
 			$description="Tounoi crée par ".Member::getInstance()->getPseudo();
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `LAN`(`idLan`, `nomTournoi`, `tpElimination`, `dateHeurePrevu`, `descriptionTournoi`, `nbEquipeMax`,`nbPersMaxParEquipe`)
-			VALUES (:idLan,:nomTournoi,:tpElimination,STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'),:descriptionTournoi,:nbEquipeMax,:nbPersMaxParEquipe);
+			INSERT INTO `Tournoi`(`idLan`,`idJeu`, `nomTournoi`, `tpElimination`, `dateHeurePrevu`, `descriptionTournoi`, `nbEquipeMax`,`nbPersMaxParEquipe`)
+			VALUES (:idLan,:idJeu,:nomTournoi,:tpElimination,STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'),:descriptionTournoi,:nbEquipeMax,:nbPersMaxParEquipe);
 SQL
 		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe));
+		$stmt->execute(array("idLan"=>$this->idLAN,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe));
 	}
 
 	public function getTournoi(){

@@ -1,5 +1,4 @@
 <?php
-header('Content-Type: application/xml');
 require_once("../includes/utility.inc.php");
 require_once("../includes/autoload.inc.php");
 require_once("../includes/myPDO.inc.php");
@@ -7,6 +6,7 @@ require_once("../includes/myPDO.inc.php");
 $xml = "<?xml version = \"1.0\" encoding=\"UTF-8\"?>";
 
 if(verify($_GET,'LANName')){
+    header('Content-Type: application/xml');
     usleep(rand(0, 20) * 100000);
     $pdo = MyPDO::GetInstance();
     $stmt = $pdo->prepare(<<<SQL
@@ -24,4 +24,4 @@ SQL
         echo $xml."<response>false</response>";
 }
 else
-    echo $xml."<response>Exception</response>";
+    header('Location: ../erreur.php?erreur=un problème est survenu');
