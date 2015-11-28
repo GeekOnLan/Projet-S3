@@ -93,18 +93,79 @@ class Lan{
 		return Lieu::createFromId($this->idLieu);
 	}
 
-	/* WALLAH FAUT FAIRE LES SETTERS */
-public function setName($nom){}
-public function setDate($date){}
-public function setDescription($desc){}
-public function setLieux($lieux){}
-public function setAdress($adress){}
-/*--------------------------------------------------------------*/
 	/**
 	 * @return l'etat de la lan ouverte ou fermer
 	 */
 	public function isOpen(){
 		return $this->estOuverte;
+	}
+
+	public function setName($nom){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			UPDATE `lan`
+			SET `nomLAN` = :nom
+			WHERE `idLAN` = :idLan;
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"nom"=>$nom));
+		$this->nomLAN = $nom;
+	}
+
+	public function setDate($date){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			UPDATE `lan`
+			SET `dateLAN` = STR_TO_DATE(:date, '%d/%m/%Y')
+			WHERE `idLAN` = :idLan;
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"date"=>$date));
+		$this->dateLAN = $date;
+	}
+	public function setDescription($desc){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			UPDATE `lan`
+			SET `descriptionLAN` = :desc
+			WHERE `idLAN` = :idLan;
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"desc"=>$desc));
+		$this->desciptionLAN = $desc;
+	}
+	public function setLieux($nom){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+                SELECT idLieu
+                FROM Lieu
+                WHERE nomVille = :nom;
+SQL
+		);
+		$stmt->execute(array("nom" => $nom));
+		$idLieu = $stmt->fetch()['idLieu'];
+
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			UPDATE `lan`
+			SET `idLieu` = :idLieu
+			WHERE `idLAN` = :idLan;
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"idLieu"=>$idLieu));
+		$this->desciptionLAN = $idLieu;
+	}
+
+	public function setAdress($adress){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			UPDATE `lan`
+			SET `adresse` = :desc
+			WHERE `idLAN` = :idLan;
+SQL
+		);
+		$stmt->execute(array("idLan"=>$this->idLAN,"adresse"=>$adress));
+		$this->adresse = $adress;
 	}
 
 	/**
