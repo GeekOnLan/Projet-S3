@@ -76,7 +76,7 @@ class Lan{
 	 * @return la date de la lan
 	 */
 	public function getLanDate(){
-		return $this->dateLAN;
+		return  date("d/m/Y", strtotime($this->desciptionLAN));
 	}
 
 	/**
