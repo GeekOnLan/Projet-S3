@@ -133,6 +133,7 @@ SQL
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM LAN
+			WHERE estOuverte = 1
 			LIMIT :fromOffset , :toLimit;
 SQL
 );
