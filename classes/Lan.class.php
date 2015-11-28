@@ -160,7 +160,7 @@ SQL
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			UPDATE `lan`
-			SET `adresse` = :desc
+			SET `adresse` = :adresse
 			WHERE `idLAN` = :idLan;
 SQL
 		);

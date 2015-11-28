@@ -35,6 +35,7 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
     }
     else {
         $page->appendContent(formulaire($lan));
+        $page->appendJsUrl("js/creeLan.js");
     }
     echo $page->toHTML();
 
@@ -50,7 +51,7 @@ function formulaire($lan)
     $form = <<<HTML
 
 <form method="POST" name="modifLAN" action="updateLAN.php?idLan={$lan->getId()}">
-    <h2>Modification de {$lan->getLanName()}</h2>
+    <h2>Modification</h2>
     <table>
         <tr>
     			<td colspan="2">
@@ -62,14 +63,16 @@ function formulaire($lan)
             <td>
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
-                    <input name="nameLAN" type="text"  placeholder="Nom"  value="{$lan->getLanName()}">
+                    <img id="lanName" src="resources/img/Lan.png"/>
+                    <input name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
                 </div>
                 <span id="erreurNameLAN"></span>
             </td>
              <td>
                 <label for="villeLAN">Ville*</label>
                 <div>
-                    <input name="villeLAN" type="text" placeholder="Ville"  >
+                    <img id="ville" src="resources/img/Ville.png"/>
+                    <input name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
                 </div>
                 <span id="erreurVilleLAN"></span>
             </td>
@@ -78,14 +81,16 @@ function formulaire($lan)
             <td>
                 <label for="detaLAN">Date de lévènement*</label>
                 <div>
-                    <input name="dateLAN" placeholder="Date"  type="text" value="{$lan->getLanDate()}">
+                    <img src="resources/img/Birthday.png"/>
+                    <input name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
                 </div>
                 <span id="erreurDateLAN"></span>
             </td>
              <td>
                 <label for="adresseLAN">Adresse*</label>
                 <div>
-                    <input name="adresseLAN" type="text" placeholder="Adresse"  value="{$lan->getAdress()}">
+                    <img id="ville" src="resources/img/Ville.png"/>
+                    <input name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                 </div>
                 <span id="erreurAdresseLAN"></span>
             </td>
@@ -98,11 +103,11 @@ function formulaire($lan)
 		</tr>
         <tr>
             <td colspan="2" id="area">
-                <label for="descriptionLAN">Description de la LAN</label>
+                <label for="descriptionLAN">Déscription de la LAN</label>
                 <div>
-                    <textarea maxlength="90" name="descriptionLAN" type="text"> {$lan->getLanDescription()}</textarea>
+                    <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                 </div>
-                <span id="erreurDescriptionLAN"></span>
+                <span id="erreurDescriptionLAN"> </span>
             </td>
         </tr>
     </table>
