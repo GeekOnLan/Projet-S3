@@ -93,6 +93,13 @@ class Lan{
 		return Lieu::createFromId($this->idLieu);
 	}
 
+	/* WALLAH FAUT FAIRE LES SETTERS */
+public function setName($nom){}
+public function setDate($date){}
+public function setDescription($desc){}
+public function setLieux($lieux){}
+public function setAdress($adress){}
+/*--------------------------------------------------------------*/
 	/**
 	 * @return l'etat de la lan ouverte ou fermer
 	 */
@@ -113,13 +120,13 @@ class Lan{
 	 */
 	public static function createFromId($id){
 		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
+		$stmt = $pdo->c(<<<SQL
 			SELECT *
 			FROM LAN
-			WHERE idLAN = :id;
+			WHERE idLAN = ?;
 SQL
 		);
-		$stmt->execute(array("id"=>$id));
+		$stmt->execute(array($id));
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$lan = $stmt->fetch();
 		if($lan!==false)
@@ -202,5 +209,12 @@ SQL
         $res = $stmt->fetchAll();
         return $res;
 
+	}
+
+	/**
+	 * Permet de supprimer une LAN
+     */
+	public function deleteLan(){
+		//TODO:Implement
 	}
 }
