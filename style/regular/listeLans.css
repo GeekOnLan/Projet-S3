@@ -1,4 +1,4 @@
-#mainframe table {
+#mainframe article > table {
     background: #3a3a3a;
     width: 70%;
     margin: auto;
@@ -8,17 +8,113 @@
     border-collapse: collapse;
 }
 
-#mainframe tr {
+#mainframe article > table tr {
     height: 40px;
     font-size: 28px;
     color: #acacac;
     font-weight: normal;
 }
 
-#mainframe tr:first-child {
+#mainframe article > table tr:first-child {
     border-bottom: solid 5px #D84508;
 }
 
-#mainframe tr:nth-child(even) {
-    background: #4d4d4d;
+/** ------------------------ **/
+/** Mise en forme des filtre **/
+/** ------------------------ **/
+
+#mainframe form[name="filter"] {
+    background: #3a3a3a;
+    width: 70%;
+    margin: auto auto 20px;
+    box-shadow: 2px 2px 0 0 #111;
+    padding-bottom: 5px;
+}
+
+#mainframe form[name="filter"] button[type="submit"] {
+    border: none;
+    font-size: 22px;
+}
+
+#mainframe form[name="filter"] button[type="button"]:hover {
+    background: #595959;
+}
+
+#mainframe form[name="filter"] button[type="button"] {
+    border: none;
+    display: block;
+
+    font-size: 22px;
+    border-bottom: solid 4px #40CFF6;
+    width: calc(100% - 80px);
+    text-align: left;
+    margin-left: 40px;
+
+    background: #494949;
+    color: #cfcfcf;
+}
+
+#mainframe form[name="filter"] > table {
+    text-align: left;
+    margin: 0 40px;
+    padding: 5px 0;
+    width: calc(100% - 80px);
+    table-layout: fixed;
+}
+
+#mainframe form[name="filter"] > table input {
+    font-size: 20px;
+    border: solid 2px #333333;
+    box-shadow: 0 0 2px 2px #111111 inset;
+    padding: 3px 10px;
+    box-sizing: border-box;
+}
+
+#mainframe form[name="filter"] > table td > * {
+    width: 100%;
+}
+
+#mainframe form[name="filter"] > div {
+    background: #525252;
+    width: calc(100% - 100px);
+    margin-left: 40px;
+    margin-bottom: 10px;
+
+    padding: 10px;
+}
+
+#mainframe form[name="filter"] > div > p, #mainframe form[name="filter"] label {
+    font-size: 20px;
+    font-family: Arial;
+    color: #cfcfcf;
+    margin-bottom: 5px;
+}
+
+#mainframe form[name="filter"] > div > table {
+    width: 100%;
+}
+
+#mainframe form[name="filter"] > div > table input[type="text"] {
+    font-size: 20px;
+    border: solid 2px #333333;
+    box-shadow: 0 0 2px 2px #111111 inset;
+    padding: 3px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#mainframe form[name="filter"] textarea {
+    font-size: 20px;
+    border: solid 2px #333333;
+    box-shadow: 0 0 2px 2px #111111 inset;
+    padding: 3px 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 80px;
+
+    font-family: Arial;
+}
+
+#mainframe form[name="filter"] tr:nth-child(2) td:nth-child(3) {
+    text-align: center;
 }
