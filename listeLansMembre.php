@@ -19,6 +19,7 @@ $html = <<<HTML
 		<td>Nom</td>
 		<td>Date</td>
 		<td>Lieu</td>
+		<td>Description</td>
 	</tr>
 HTML;
 

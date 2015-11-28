@@ -250,6 +250,7 @@ SQL
    		<td>{$this->getLanName()}</td>
    		<td>{$this->getLanDate()}</td>
    		<td>{$this->getLieux()->getNomSimple()}</td>
+   		<td>{$this->getLanDescription()}</td>
    </tr>
 HTML;
 		return $donnees;
