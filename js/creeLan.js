@@ -1,9 +1,17 @@
-var xhr;
+var xhrVille;
 if (window.XMLHttpRequest) {
-	xhr = new XMLHttpRequest();
+	xhrVille = new XMLHttpRequest();
 } else {
 	// code for IE6, IE5
-	xhr = new ActiveXObject("Microsoft.XMLHTTP");
+	xhrVille = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+var xhrLan;
+if (window.XMLHttpRequest) {
+	xhrLan = new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xhrLan = new ActiveXObject("Microsoft.XMLHTTP");
 }
 
 window.addEventListener("keypress",function(even){
@@ -53,6 +61,40 @@ function resetError(name){
 	document.getElementById(name).innerHTML = '';
 }
 
+//----------------------------------------------------------//
+//ville
+//----------------------------------------------------------//
+
+function verifyVilleLAN(){
+	console.log("ville apeler");
+	xhrVille.abort();
+	var ville = document.getElementsByName('villeLAN')[0].value;
+	if(ville!=""){
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
+		match = regex.exec(ville)==ville;
+		if(!match){
+			voidRedInput('villeLAN');
+			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
+		}else{
+			document.getElementById("ville").setAttribute("src","resources/gif/load.gif");
+			xhrVille.addEventListener('readystatechange', function () {
+				if (xhrVille.readyState === 4 && xhrVille.status === 200) {
+					document.getElementById("ville").setAttribute("src","resources/img/Ville.png");
+					var xml = xhrVille.responseXML.getElementsByTagName('response').item(0).textContent;
+					if (xml == "false") {
+						voidRedInput('villeLAN');
+						setError('erreurVilleLAN', "cette ville n'existe pas");
+					}
+					else {
+						setError('erreurVilleLAN',' ');
+					}
+				}
+			}, true);
+			xhrVille.open('GET', 'scriptPHP/VilleValide.php?Ville=' + ville);
+			xhrVille.send(null);
+		}
+	}
+}
 
 //----------------------------------------------------------//
 //nameLAN
@@ -61,7 +103,8 @@ function resetError(name){
 
 //verifier le pseudo avec ajax pour le formulaire
 function verifyNameLAN() {
-	xhr.abort();
+	console.log("Lan apeler");
+	xhrLan.abort();
 	var nameLAN = document.getElementsByName('nameLAN')[0].value;
 	if(nameLAN!=""){
 		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
@@ -75,10 +118,10 @@ function verifyNameLAN() {
 				setError('erreurNameLAN', 'nom de LAN trop grand ');
 			}else{
 				document.getElementById("lanName").setAttribute("src","resources/gif/load.gif");
-				xhr.addEventListener('readystatechange', function () {
-					if (xhr.readyState === 4 && xhr.status === 200) {
+				xhrLan.addEventListener('readystatechange', function () {
+					if (xhrLan.readyState === 4 && xhrLan.status === 200) {
 						document.getElementById("lanName").setAttribute("src","resources/img/Lan.png");
-						var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
+						var xml = xhrLan.responseXML.getElementsByTagName('response').item(0).textContent;
 						if (xml == "false") {
 							voidRedInput('nameLAN');
 							setError('erreurNameLAN', 'ce nom de LAN est déjà pris');
@@ -88,8 +131,8 @@ function verifyNameLAN() {
 						}
 					}
 				}, true);
-				xhr.open('GET', 'scriptPHP/LANValide.php?LANName=' + nameLAN);
-				xhr.send(null);
+				xhrLan.open('GET', 'scriptPHP/LANValide.php?LANName=' + nameLAN);
+				xhrLan.send(null);
 			}
 		}else{
 			voidRedInput('nameLAN');
@@ -157,40 +200,6 @@ function verifyDescriptionLAN(){
 		}
 	}else{
 		setError('erreurDescriptionLAN',' ');
-	}
-}
-
-//----------------------------------------------------------//
-//ville
-//----------------------------------------------------------//
-
-function verifyVilleLAN(){
-	xhr.abort();
-	var ville = document.getElementsByName('villeLAN')[0].value;
-	if(ville!=""){
-		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\- \_]{0,30}/);
-		match = regex.exec(ville)==ville;
-		if(!match){
-			voidRedInput('villeLAN');
-			setError('erreurVilleLAN', 'caractères non autorisé utilisé');
-		}else{
-			document.getElementById("ville").setAttribute("src","resources/gif/load.gif");
-			xhr.addEventListener('readystatechange', function () {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					document.getElementById("ville").setAttribute("src","resources/img/Ville.png");
-					var xml = xhr.responseXML.getElementsByTagName('response').item(0).textContent;
-					if (xml == "false") {
-						voidRedInput('villeLAN');
-						setError('erreurVilleLAN', "cette ville n'existe pas");
-					}
-					else {
-						setError('erreurVilleLAN',' ');
-					}
-				}
-			}, true);
-			xhr.open('GET', 'scriptPHP/VilleValide.php?Ville=' + ville);
-			xhr.send(null);
-		}
 	}
 }
 
