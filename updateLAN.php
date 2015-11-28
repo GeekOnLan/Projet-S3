@@ -12,6 +12,7 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
     $page->appendCssUrl("style/regular/updateLan.css", "screen and (min-width: 680px");
     $page->appendCssUrl("style/mobile/updateLan.css", "screen and (max-width: 680px");
     $lans = Member::getInstance()->getLAN();
+    $lan = null;
     if ($_REQUEST['idLan'] <= sizeof($lans) - 1) {
 
         $lan = $lans[$_REQUEST['idLan']];
@@ -50,7 +51,7 @@ function formulaire($lan)
 {
     $form = <<<HTML
 
-<form method="POST" name="modifLAN" action="updateLAN.php?idLan={$lan->getId()}">
+<form method="POST" name="modifLAN" action="updateLAN.php?idLan={$_REQUEST['idLan']}">
     <h2>Modification</h2>
     <table>
         <tr>

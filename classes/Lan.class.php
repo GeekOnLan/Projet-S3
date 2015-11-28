@@ -22,7 +22,7 @@ class Lan{
 	/**
 	 * @var null description de la lan
 	 */
-	private $desciptionLAN = null;
+	private $descriptionLAN = null;
 
 	/**
 	 * @var null date de la lan
@@ -69,14 +69,14 @@ class Lan{
 	 * @return la description de la lan
 	 */
 	public function getLanDescription(){
-		return $this->desciptionLAN;
+		return $this->descriptionLAN;
 	}
 
 	/**
 	 * @return la date de la lan
 	 */
 	public function getLanDate(){
-		return  date("d/m/Y", strtotime($this->desciptionLAN));
+		return  date("d/m/Y", strtotime($this->dateLAN));
 	}
 
 	/**
@@ -181,7 +181,7 @@ SQL
 	 */
 	public static function createFromId($id){
 		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->c(<<<SQL
+		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
 			FROM LAN
 			WHERE idLAN = ?;

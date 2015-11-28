@@ -36,7 +36,7 @@ if (verifyFormLAN()) {
         }
     }else{
         try{
-            Lan::addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
+            Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
             $form->appendContent("<p>Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation.</p>");
         }catch(Exception $e){
             $form->appendContent($e);
