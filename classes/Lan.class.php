@@ -257,7 +257,7 @@ HTML;
 	}
 
 	/*
-	 * Permet de récupérer toutes les LANS qui se
+	 * Permet de récupérer toutes les LANS qui se dérouleront dans moins d'un mois
 	 */
 	public static function getLanFrom(){
 		$pdo = MyPDO::GetInstance();
@@ -273,6 +273,21 @@ SQL
         return $res;
 
 	}
+
+	public function getLanPicture(){
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT j.imageJeu
+            FROM LAN l, TOURNOI t, JEU j
+            WHERE t.idTournoi = 1 AND t.idLAN = :idlan AND t.idJeu = j.idJeu;
+SQL
+		);
+		$stmt->execute(array("idlan"=>$this->idLAN));;
+		$res = $stmt->fetch()['imageJeu'];
+		return $res;
+
+	}
+
 
 	/**
 	 * Permet de supprimer une LAN
