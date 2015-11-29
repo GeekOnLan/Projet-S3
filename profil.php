@@ -6,9 +6,6 @@ require_once('includes/utility.inc.php');
 require_once('includes/myPDO.inc.php');
 
 if(verify($_POST,'lastPassHidden') && verify($_POST,'newPassHidden')) {
-	if($_POST['lastPassHidden'] != $_POST['newPassHidden'])
-		header('Location: erreur.php?erreur=mot de passe incorecte');
-
 	$pdo = myPDO::getInstance();
 	$stmt = $pdo->prepare(<<<SQL
 			SELECT *
@@ -41,6 +38,8 @@ else {
 	$webpage->appendCssUrl("style/regular/deleteAccount.css", "screen and (min-width: 680px");
 	$webpage->appendCssUrl("style/mobile/deleteAccount.css", "screen and (max-width: 680px)");
 	$webpage->appendCssUrl("style/regular/profil.css", "screen and (min-width: 680px");
+	$webpage->appendCssUrl("style/mobile/profil.css", "screen and (max-width: 680px");
+
 
 //list a puce des informations du membre
 	$html = '<ul>';
@@ -154,7 +153,7 @@ HTML;
 </form>
 HTML;
 
-	$webpage->appendJsUrl("js/changePassword.js");
+	$webpage->appendJsUrl("js/inscription.js");
 	$webpage->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
 
 //boite de dialogue pour confirmer la suppression

@@ -11,6 +11,19 @@ window.addEventListener("keypress",function(even){
 		verifyInscription();
 });
 
+function sha256(){
+	var pass = $("input[name='lastPass']").val();
+	var newPass = $("input[name='pwd']").val();
+	if(verifyPass()){
+		$("input[name='lastPassHidden']").val(CryptoJS.SHA256(pass));
+		$("input[name='newPassHidden']").val(CryptoJS.SHA256(newPass));
+		$("input[name='lastPass']").val('');
+		$("input[name='newPass']").val('');
+		$("input[name='newPassVerify").val('');
+		document.change.submit();
+	}
+}
+
 function verifyInscription(){
 	xhr.abort();
 	//si tout est bon on envoit
