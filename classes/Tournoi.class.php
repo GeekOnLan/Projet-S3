@@ -72,4 +72,15 @@ SQL
         else
             throw new Exception('ce lieux n\'existe pas');
     }
+
+    public function delete(){
+        $pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+			DELETE FROM `tournoi`
+			WHERE `idLAN` = :lan
+			AND `idTournoi` = :id
+SQL
+        );
+        $stmt->execute(array("lan"=>$this->idLAN,"id"=>$this->idTournoi));
+    }
 }

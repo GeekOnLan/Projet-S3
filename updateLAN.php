@@ -35,8 +35,20 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
         $page->appendContent("<p>Votre LAN a bien ete modifiee.</p>");
     }
     else {
+        $prompt = <<<HTML
+		<div id="myPrompt">
+			<h2>Supprimer cette LAN ? ?</h2>
+			<form id="formDelete" name="delete" method="POST" action="deleteLan.php?idLan={$_REQUEST['idLan']}">
+				<button type="button" id="idConfirmer" value="Confirmer" >Confirmer</button>
+				<button type="button" id="idAnnuler" value="Annuler">Annuler</button>
+		 	</form>
+		</div>
+HTML;
+
+        $page->appendForeground($prompt);
         $page->appendContent(formulaire($lan));
         $page->appendJsUrl("js/creeLan.js");
+        $page->appendJsUrl("js/deleteLan.js");
     }
     echo $page->toHTML();
 
@@ -114,10 +126,11 @@ function formulaire($lan)
     </table>
     <a href="manageTournament.php?idLan={$_REQUEST['idLan']}">Gerer les Tournois</a>
     <button type="submit">Modifier la Lan</button>
-    <a href="delLan.php?idLan={$_REQUEST['idLan']}">Supprimer la Lan</a>
+    <button type="button" id="buttonDelete">Supprimer la Lan</button>
     <p>* : champs obligatoires</p>
 </form>
-
 HTML;
+
+
     return $form;
 }

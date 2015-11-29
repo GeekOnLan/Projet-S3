@@ -282,6 +282,5 @@ SQL
     
     public static function deleteAccount(){
     	return true;
-    	
     }
 }

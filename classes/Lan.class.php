@@ -293,6 +293,15 @@ SQL
 	 * Permet de supprimer une LAN
      */
 	public function deleteLan(){
-		//TODO:Implement
+		$tournois = $this->getTournoi();
+		foreach($tournois as $tournoi)
+			$tournoi->delete();
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			DELETE FROM `Lan`
+			WHERE `idLAN` = :id
+SQL
+		);
+		$stmt->execute(array("id"=>$this->idLAN));
 	}
 }

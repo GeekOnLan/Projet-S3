@@ -7,11 +7,12 @@ if(verify($_SERVER,'HTTP_REFERER')) {
     $member = Member::getInstance();
 
     try {
-        $member->deleteAccount();
-        header('Location: erreur.php?erreur=Votre compte a bien été supprimé');
+        $member->getLAN()[$_GET['idLan']]->deleteLan();
+        header('Location: erreur.php?erreur=Votre lan a bien été supprimé');
     }
     catch(Exception $e){
-        header('Location: erreur.php?erreur=un probl?me est survenu');    }
+        header('Location: erreur.php?erreur=un probléme est survenu');
+    }
 }
 else
     header('Location: index.php');
