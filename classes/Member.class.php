@@ -78,7 +78,7 @@ class Member {
     * retourne la date de naissance
     */
     public function getBirthday(){
-        return $this->dateNais;
+        return date("d/m/Y", strtotime($this->dateNais));
     }
 
     /*
@@ -257,7 +257,7 @@ SQL
         $pdo = MyPDO::GetInstance();
         $stmt = $pdo->prepare(<<<SQL
 			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, `idLieu`,`estOuverte`)
-			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,false);
+			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,true);
 SQL
         );
         $stmt->execute(array("idMembre"=>$this->idMembre,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieu"=>$idLieu));

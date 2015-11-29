@@ -112,11 +112,9 @@ function formulaire($lan)
             </td>
         </tr>
     </table>
-    <a href="manageTournament.php?idLan={$lan->getId()}">Gerer les Tournois</a>
+    <a href="manageTournament.php?idLan={$_REQUEST['idLan']}">Gerer les Tournois</a>
     <button type="submit">Modifier la Lan</button>
-    <a href="delLan.php?idLan={$lan->getId()}">Supprimer la Lan</a>
-    Je passe le numero dans en get, c'est pas cool
-
+    <a href="delLan.php?idLan={$_REQUEST['idLan']}">Supprimer la Lan</a>
     <p>* : champs obligatoires</p>
 </form>
 
