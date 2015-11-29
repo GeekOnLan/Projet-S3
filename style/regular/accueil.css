@@ -4,9 +4,9 @@
 }
 .inutile{
     position: relative;
-    width : 70%;
-    margin-left : 15%;
-    margin-right : 15%;
+    width : 75%;
+    margin-left : 12.5%;
+    margin-right : 12.5%;
     margin-bottom: 50px;
 }
 .news{
@@ -22,17 +22,18 @@
 }
 
 .txtDiv {
-    padding : 0;
+    vertical-align: top;
     display:table-cell;
-    background-color: blanchedalmond;
+    background-color: darkgray;
 }
 
 .dateDiv{
     position : absolute;
-    left : 40%;
+    left : 35%;
     background-color: white;
-    width : 10%;
+    width : 15%;
     height : 25%;
+    text-align : center;
 }
 
 

@@ -9,10 +9,18 @@ $news = "";
 
 foreach($lesLans as $lan){
     $inutile = Lan::createFromId($lan['idLAN']);
-    $news.= "<div class='inutile'>\n     <div class=\"dateDiv\">".$inutile->getLanDate()."</div>";
-    $news.="\n       <div class=\"news\">";
-    $news.="\n          <img class=\"imgDiv\" src=\"".$inutile->getLanPicture()."\">";
-    $news.="\n     <div class =\"txtDiv\">".$inutile->getLanName()."</div>\n   </div>\n</div>\n";
+    $news.=<<<HTML
+        <div class="inutile">
+            <div class="dateDiv">{$inutile->getLanDate()}</div>
+            <div class="news">
+                <img class="imgDiv" src="{$inutile->getLanPicture()}">
+                <div class ="txtDiv">
+                    <h1>{$inutile->getLanName()}</h1>
+                </div>
+            </div>
+        </div>
+
+HTML;
 }
 
 $webpage -> appendContent('<div>Ceci est la page d\'accueil, Have fun! Un texte un peu plus long pour pouvoir vérifier l\'alignement. Ah non c\'est toujours pas assez long, donc je vais devoir vous raconter une longue histoire</div>');
