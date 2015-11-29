@@ -7,7 +7,7 @@ if(verify($_SERVER,'HTTP_REFERER')) {
     $member = Member::getInstance();
 
     try {
-        $member->getLAN()[$_GET['idLan']]->deleteLan();
+        $member->getLAN()[$_GET['idLan']]->delete();
         header('Location: erreur.php?erreur=Votre lan a bien été supprimé');
     }
     catch(Exception $e){

@@ -292,7 +292,7 @@ SQL
 	/**
 	 * Permet de supprimer une LAN
      */
-	public function deleteLan(){
+	public function delete(){
 		$tournois = $this->getTournoi();
 		foreach($tournois as $tournoi)
 			$tournoi->delete();

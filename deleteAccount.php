@@ -11,7 +11,8 @@ if(verify($_SERVER,'HTTP_REFERER')) {
         header('Location: erreur.php?erreur=Votre compte a bien été supprimé');
     }
     catch(Exception $e){
-        header('Location: erreur.php?erreur=un probl?me est survenu');    }
+        header('Location: erreur.php?erreur=un probl?me est survenu');
+    }
 }
 else
     header('Location: index.php');

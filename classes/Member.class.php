@@ -280,7 +280,17 @@ SQL
         return $stmt->fetchAll();
     }
     
-    public static function deleteAccount(){
-    	return true;
+    public function deleteAccount(){
+        $lans = $this->getLAN();
+        foreach($lans as $lan)
+            $lan->delete();
+        $pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+			DELETE FROM `membre`
+			WHERE `idMembre` = :id
+SQL
+        );
+        $stmt->execute(array("id"=>$this->idMembre));
+        $this->disconnect();
     }
 }
