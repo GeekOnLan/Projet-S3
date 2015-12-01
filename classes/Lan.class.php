@@ -76,7 +76,13 @@ class Lan{
 	 * @return la date de la lan
 	 */
 	public function getLanDate(){
-		return  date("d/m/Y", strtotime($this->dateLAN));
+		$dat = substr($this->dateLAN,0,10);
+		$res = substr($dat,8,2);
+		$res.="/";
+		$res.=substr($dat,5,2);
+		$res.="/";
+		$res.=substr($dat,0,4);
+		return $res;
 	}
 
 	/**

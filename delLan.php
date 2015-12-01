@@ -8,7 +8,7 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
     if ($_REQUEST['idLan'] <= sizeof($lans) - 1) {
         $lan = $lans[$_REQUEST['idLan']];
         try {
-            $lan->deleteLan();
+            $lan->delete();
             header('Location: index.php');
         } catch (Exception $e) {
             header('Location: index.php');
