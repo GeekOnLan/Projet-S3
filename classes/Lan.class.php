@@ -106,41 +106,7 @@ class Lan{
 		return $this->estOuverte;
 	}
 
-	public function setName($nom){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `lan`
-			SET `nomLAN` = :nom
-			WHERE `idLAN` = :idLan;
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"nom"=>$nom));
-		$this->nomLAN = $nom;
-	}
-
-	public function setDate($date){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `lan`
-			SET `dateLAN` = STR_TO_DATE(:date, '%d/%m/%Y')
-			WHERE `idLAN` = :idLan;
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"date"=>$date));
-		$this->dateLAN = $date;
-	}
-	public function setDescription($desc){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `lan`
-			SET `descriptionLAN` = :desc
-			WHERE `idLAN` = :idLan;
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"desc"=>$desc));
-		$this->desciptionLAN = $desc;
-	}
-	public function setLieux($nom){
+	public function update($nom,$date,$desc,$lieu,$adress){
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
                 SELECT idLieu
@@ -148,30 +114,21 @@ SQL
                 WHERE nomVille = :nom;
 SQL
 		);
-		$stmt->execute(array("nom" => $nom));
+		$stmt->execute(array("nom" => $lieu));
 		$idLieu = $stmt->fetch()['idLieu'];
-
-		$pdo = MyPDO::GetInstance();
+		
 		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `lan`
-			SET `idLieu` = :idLieu
+			UPDATE `LAN`
+			SET `nomLAN` = :nom
+			, `dateLAN` = STR_TO_DATE(:date, '%d/%m/%Y')
+			, `descriptionLAN` = :desc
+			, `idLieu` = :idLieu
+			, `adresse` = :adresse
 			WHERE `idLAN` = :idLan;
 SQL
 		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"idLieu"=>$idLieu));
-		$this->desciptionLAN = $idLieu;
-	}
-
-	public function setAdress($adress){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `lan`
-			SET `adresse` = :adresse
-			WHERE `idLAN` = :idLan;
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"adresse"=>$adress));
-		$this->adresse = $adress;
+		$stmt->execute(array("idLan"=>$this->idLAN,"nom"=>$nom,"date"=>$date,"desc"=>$desc,"idLieu"=>$idLieu,"adresse"=>$adress));
+		$this->nomLAN = $nom;
 	}
 
 	/**

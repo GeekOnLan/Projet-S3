@@ -79,7 +79,7 @@ else {
 
         <tr>
     			<td colspan="2">
-    				<h3>Information complémentaire</h3>
+    				<h3>Information complÃ©mentaire</h3>
     				<hr/>
     			</td>
 		</tr>
