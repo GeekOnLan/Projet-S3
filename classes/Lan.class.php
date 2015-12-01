@@ -243,7 +243,7 @@ SQL
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT j.imageJeu
-            FROM LAN l, TOURNOI t, JEU j
+            FROM LAN l, Tournoi t, Jeu j
             WHERE t.idTournoi = 1 AND t.idLAN = :idlan AND t.idJeu = j.idJeu;
 SQL
 		);
