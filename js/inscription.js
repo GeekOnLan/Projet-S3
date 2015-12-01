@@ -54,7 +54,7 @@ function verifyInscription(){
 				}
 			}
 		}, true);
-		xhr.open('GET', 'scriptPHP/pseudoValide.php?wait&pseudo=' + document.getElementsByName('pseudo')[0].value);
+		xhr.open('GET', 'scriptPHP/pseudoValide.php?pseudo=' + document.getElementsByName('pseudo')[0].value);
 		xhr.send(null);
 	}
 }
