@@ -3,26 +3,23 @@ require_once("includes/utility.inc.php");
 require_once("includes/autoload.inc.php");
 
 if(verify($_GET,'idLan')){
-//	header('Content-Type: application/json');
+	header('Content-Type: application/json');
 	usleep(rand(0, 20) * 100000);
 	$lan=Lan::createFromId($_GET['idLan']);
 	$lieu=$lan->getLieux();
-	$info=array();
-	$info[]+=$lan->getLanName();
-	$info[]+=$lan->getLanDate();
-	$info[]+=$lan->getAdress();
-	$info[]+=$lan->isOpen();
-	$info[]+=$lan->getLanDescription();
-	/*$lieu=array();
-	$lieu+=$lieu->getNomSimple();
-	$lieu+=$lieu->getNomVille();
-	$lieu+=$lieu->getArrondissement();
-	$lieu+=$lieu->getCodePostal();
-	$lieu+=$lieu->getCanton();
-	$lieu+=$lieu->getSlug();	
-	$lieu+=$lieu->getDepartement();	
-	$info+=$lieu;*/
-		var_dump($info);
+	$info["name"]=$lan->getLanName();
+	$info["date"]=$lan->getLanDate();
+	$info["adresse"]=$lan->getAdress();
+	$info["open"]=$lan->isOpen();
+	$info["description"]=$lan->getLanDescription();
+	$info["nomSimple"]=$lieu->getNomSimple();
+	$info["nomVille"]=$lieu->getNomVille();
+	$info["arrondissement"]=$lieu->getArrondissement();
+	$info["code"]=$lieu->getCodePostal();
+	$info["slug"]=$lieu->getSlug();	
+	$info["departement"]=$lieu->getDepartement();
+	$info["canton"]=$lieu->getCanton();
+	echo json_encode($info);
 }
 else
 	echo "lol";//header('Location: ../erreur.php?erreur=un probléme est survenu');
