@@ -9,13 +9,17 @@ $news = "";
 
 foreach($lesLans as $lan){
     $inutile = Lan::createFromId($lan['idLAN']);
+    if($inutile->getLanPicture()== null)$img = "resources/img/logo.png";
+    else $img = $inutile->getLanPicture();
     $news.=<<<HTML
         <div class="inutile">
             <div class="dateDiv">{$inutile->getLanDate()}</div>
             <div class="news">
-                <img class="imgDiv" src="{$inutile->getLanPicture()}">
+                <img class="imgDiv" src="{$img}">
                 <div class ="txtDiv">
                     <h1>{$inutile->getLanName()}</h1>
+                    <p>{$inutile->getLanDescription()}</p>
+                    <div id="bouton"><a href = "">Lire la suite</a></div>
                 </div>
             </div>
         </div>
