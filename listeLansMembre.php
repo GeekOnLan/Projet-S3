@@ -8,6 +8,7 @@ require_once ('includes/connectedMember.inc.php');
 $page = new GeekOnLanWebpage("GeekOnLan - Mes Lans");
 $page->appendCssUrl("style/regular/listeLansMembre.css", "screen and (min-width: 680px");
 $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px");
+$page->appendJsUrl("js/detailsLansMembre.js");
 
 $membre = Member::getInstance();
 $lans = $membre->getLAN();

@@ -214,7 +214,7 @@ SQL
    		<td>{$this->getLanDate()}</td>
    		<td>{$this->getLieux()->getNomSimple()}</td>
 		<td>{$this->getLanDescription()}</td>
-		<td><button type="submit" name="details">Détails</button></td>
+		<td><button type="submit" name="details" id="details" onclick="ajax({$this->getId()})">Détails</button></td>
 		<td><button type="submit" name="modifier">Modifier</button></td>
    </tr>
 HTML;
