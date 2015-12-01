@@ -52,6 +52,7 @@ HTML;
         $page->appendContent(formulaire($lan));
         $page->appendJsUrl("js/creeLan.js");
         $page->appendJsUrl("js/deleteLan.js");
+        $page->appendJsUrl("js/updateLan.js");
     }
     echo $page->toHTML();
 
@@ -80,7 +81,7 @@ function formulaire($lan)
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
                     <img id="lanName" src="resources/img/Lan.png"/>
-                    <input name="nameLAN" type="text"  placeholder="Nom" value="{$lan->getLanName()}" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
+                    <input name="nameLAN" type="text"  placeholder="Nom" value="{$lan->getLanName()}" onfocus="resetNameLAN()" onblur="verifyNameLANUpdate()">
                 </div>
                 <span id="erreurNameLAN"> </span>
             </td>
@@ -127,6 +128,7 @@ function formulaire($lan)
             </td>
         </tr>
     </table>
+    <input name="originalName" type="hidden" value="{$lan->getLanName()}">           
     <button type="button" onclick="verifyUpdate()">Modifier la Lan</button>
     <button type="button" id="buttonDelete">Supprimer la Lan</button>
     <p>* : champs obligatoires</p>

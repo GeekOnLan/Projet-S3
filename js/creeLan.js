@@ -29,19 +29,6 @@ function getAllError(){
 	return error;
 }
 
-function verifyUpdate(){
-	//si tout est bon on envoit
-	var erreur = getAllError();
-	if(erreur=="     "){
-		var nameLAN = document.getElementsByName('nameLAN')[0].value;
-		var dateLAN = document.getElementsByName('dateLAN')[0].value;
-		var descriptionLAN =  document.getElementsByName('descriptionLAN')[0].value;
-		var ville = document.getElementsByName('villeLAN')[0].value;
-		var adresseLAN = document.getElementsByName('adresseLAN')[0].value;
-		document.modifLAN.submit();
-	}
-}
-
 function verifyLAN(){
 	//si tout est bon on envoit
 	var erreur = getAllError();
