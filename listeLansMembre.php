@@ -15,7 +15,7 @@ $lans = $membre->getLAN();
 
 $html = <<<HTML
 
-<table>
+<table id="results">
 	<tr>
 		<td>Nom</td>
 		<td>Date</td>
@@ -23,14 +23,16 @@ $html = <<<HTML
 		<td>Description</td>
 	</tr>
 HTML;
-
-foreach($lans as $lan) {
+$i=0;foreach($lans as $lan) {
 	$html .= $lan->toString();
+	$html.="<td><a href=\"updateLAN.php?idLan=".$i."\">Modifier</a></td></tr>";
+	$i++;
 }
 
 $html .= <<<HTML
-    </table>
+	</table>
 HTML;
+	
 
 $page->appendContent($html);
 

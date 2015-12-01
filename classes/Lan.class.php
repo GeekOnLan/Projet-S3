@@ -215,8 +215,6 @@ SQL
    		<td>{$this->getLieux()->getNomSimple()}</td>
 		<td>{$this->getLanDescription()}</td>
 		<td><button type="submit" name="details" id="details" onclick="ajax({$this->getId()})">Détails</button></td>
-		<td><button type="submit" name="modifier">Modifier</button></td>
-   </tr>
 HTML;
 		return $donnees;
 	}
@@ -243,7 +241,7 @@ SQL
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT j.imageJeu
-            FROM LAN l, Tournoi t, Jeu j
+            FROM LAN l, TOURNOI t, JEU j
             WHERE t.idTournoi = 1 AND t.idLAN = :idlan AND t.idJeu = j.idJeu;
 SQL
 		);
