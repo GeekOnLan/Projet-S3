@@ -14,24 +14,27 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
     $lans = Member::getInstance()->getLAN();
     $lan = null;
     if ($_REQUEST['idLan'] <= sizeof($lans) - 1) {
-
         $lan = $lans[$_REQUEST['idLan']];
-
-    } else {
-        header('Location: erreur.php?erreur=La LAN n\'existe pas');
-    }
-
+    }else
+        header('Location: erreur.php?erreur=un problÃ¨me est survenu');
+    
     if(isset($_POST['nameLAN'])||isset($_POST['dateLAN'])||isset($_POST['descriptionLAN'])||isset($_POST['villeLAN'])||isset($_POST['adresseLAN'])){
-        if(!empty($_POST['nameLAN']))
-            $lan->setName($_POST['nameLAN']);
+        $nom=$lan->getLanName();
+        $date=$lan->getLanDate();
+        $desc=$lan->getLanDescription();
+        $lieu=$lan->getLieux()->getSlug();
+        $adresse=$lan->getAdress();
+    	if(!empty($_POST['nameLAN']))
+            $nom=$_POST['nameLAN'];
         if(!empty($_POST['dateLAN']))
-            $lan->setDate($_POST['dateLAN']);
+            $date=$_POST['dateLAN'];
         if(!empty($_POST['descriptionLAN']))
-            $lan->setDescription($_POST['descriptionLAN']);
+            $desc=$_POST['descriptionLAN'];
         if(!empty($_POST['villeLAN']))
-            $lan->setLieux($_POST['villeLAN']);
+            $lieu=$_POST['villeLAN'];
         if(!empty($_POST['adresseLAN']))
-            $lan->setAdress($_POST['adresseLAN']);
+            $adresse=$_POST['adresseLAN'];
+        $lan->update($nom,$date,$desc,$lieu,$adresse);
         $page->appendContent("<p>Votre LAN a bien ete modifiee.</p>");
     }
     else {
@@ -49,13 +52,14 @@ HTML;
         $page->appendContent(formulaire($lan));
         $page->appendJsUrl("js/creeLan.js");
         $page->appendJsUrl("js/deleteLan.js");
+        $page->appendJsUrl("js/updateLan.js");
     }
     echo $page->toHTML();
 
 }
 
 else {
-        echo "redirection";
+      header('Location: index.php');
 }
 
 
@@ -77,9 +81,9 @@ function formulaire($lan)
                 <label for="nameLan">Nom de la LAN*</label>
                 <div>
                     <img id="lanName" src="resources/img/Lan.png"/>
-                    <input name="nameLAN" type="text"  placeholder="Nom"  value="{$lan->getLanName()}" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
+                    <input name="nameLAN" type="text"  placeholder="Nom" value="{$lan->getLanName()}" onfocus="resetNameLAN()" onblur="verifyNameLANUpdate()">
                 </div>
-                <span id="erreurNameLAN"></span>
+                <span id="erreurNameLAN"> </span>
             </td>
              <td>
                 <label for="villeLAN">Ville*</label>
@@ -87,17 +91,17 @@ function formulaire($lan)
                     <img id="ville" src="resources/img/Ville.png"/>
                     <input name="villeLAN" type="text" placeholder="Ville" value="{$lan->getLieux()->getSlug()}" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
                 </div>
-                <span id="erreurVilleLAN"></span>
+                <span id="erreurVilleLAN"> </span>
             </td>
         </tr>
         <tr>
             <td>
-                <label for="dateLAN">Date de lévènement*</label>
+                <label for="dateLAN">Date de l'Ã©vÃ¨nement*</label>
                 <div>
                     <img src="resources/img/Birthday.png"/>
-                    <input name="dateLAN" placeholder="Date" value="{$lan->getLanDate()}" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="date">
+                    <input name="dateLAN" placeholder="Date" value="{$lan->getLanDate()}" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
                 </div>
-                <span id="erreurDateLAN"></span>
+                <span id="erreurDateLAN"> </span>
             </td>
              <td>
                 <label for="adresseLAN">Adresse*</label>
@@ -105,18 +109,18 @@ function formulaire($lan)
                     <img id="ville" src="resources/img/Ville.png"/>
                     <input name="adresseLAN" type="text" placeholder="Adresse" value="{$lan->getAdress()}" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                 </div>
-                <span id="erreurAdresseLAN"></span>
+                <span id="erreurAdresseLAN"> </span>
             </td>
         </tr>
         <tr>
     			<td colspan="2">
-    				<h3>Information complémentaire</h3>
+    				<h3>Information complÃ©mentaire</h3>
     				<hr/>
     			</td>
 		</tr>
         <tr>
             <td colspan="2" id="area">
-                <label for="descriptionLAN">Déscription de la LAN</label>
+                <label for="descriptionLAN">DÃ©scription de la LAN</label>
                 <div>
                     <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()">{$lan->getLanDescription()}</textarea>
                 </div>
@@ -124,7 +128,8 @@ function formulaire($lan)
             </td>
         </tr>
     </table>
-    <button type="submit">Modifier la Lan</button>
+    <input name="originalName" type="hidden" value="{$lan->getLanName()}">           
+    <button type="button" onclick="verifyUpdate()">Modifier la Lan</button>
     <button type="button" id="buttonDelete">Supprimer la Lan</button>
     <p>* : champs obligatoires</p>
 </form>

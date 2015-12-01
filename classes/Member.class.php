@@ -242,7 +242,7 @@ SQL
      */
     public function addLan($name,$date,$adress,$nom,$description = ''){
         if($description=='')
-            $description="LAN cr�e par ".$this->pseudo;
+            $description="LAN crée par ".$this->pseudo;
 
         $pdo = MyPDO::GetInstance();
         $stmt = $pdo->prepare(<<<SQL
