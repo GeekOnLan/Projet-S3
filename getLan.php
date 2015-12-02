@@ -22,4 +22,4 @@ if(verify($_GET,'idLan')){
 	echo json_encode($info);
 }
 else
-	echo "lol";//header('Location: ../erreur.php?erreur=un probléme est survenu');
+	header('Location: ../erreur.php?erreur=un probléme est survenu');
