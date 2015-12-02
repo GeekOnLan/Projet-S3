@@ -214,7 +214,7 @@ SQL
    		<td>{$this->getLanDate()}</td>
    		<td>{$this->getLieux()->getNomSimple()}</td>
 		<td>{$this->getLanDescription()}</td>
-		<td><button type="submit" name="details" id="details" onclick="ajax({$this->getId()})">Détails</button></td>
+		<td><button type="button" name="details" id="details" onclick="ajax({$this->getId()})">Détails</button></td>
 HTML;
 		return $donnees;
 	}
@@ -241,7 +241,7 @@ SQL
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT j.imageJeu
-            FROM LAN l, TOURNOI t, JEU j
+            FROM LAN l, Tournoi t, Jeu j
             WHERE t.idTournoi = 1 AND t.idLAN = :idlan AND t.idJeu = j.idJeu;
 SQL
 		);
@@ -261,7 +261,7 @@ SQL
 			$tournoi->delete();
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
-			DELETE FROM `Lan`
+			DELETE FROM `LAN`
 			WHERE `idLAN` = :id
 SQL
 		);
