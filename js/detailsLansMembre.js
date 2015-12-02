@@ -1,11 +1,11 @@
-xhr = null;
 function ajax(idLan){
 	$.ajax({
 		url		: 'getLan.php',
 		type	: 'GET',
-		data	: 'id=' + idLan,
+		data	: 'idLan=' + idLan,
 		dataType: "json",
 		success	: function(data) {
+			console.log('recut');
 			$("#results").html('');
 			//$('#result').html(data);
 			alert(data);
