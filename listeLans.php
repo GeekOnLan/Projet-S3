@@ -70,7 +70,7 @@ foreach($list as $lan) {
         <tr>
             <td>{$lan->getLanName()}</td>
             <td>{$lan->getLanDate()}</td>
-            <td>{$lan->getLieux()->getNomSimple()}</td>
+            <td>{$lan->getLieux()->getSlug()}</td>
         </tr>
         <tr>
             <td colspan="3">
@@ -87,5 +87,6 @@ $html .= <<<HTML
 HTML;
 
 $page->appendContent($html);
+$page->appendJsUrl("js/listeLans.js");
 
 echo $page->toHTML();

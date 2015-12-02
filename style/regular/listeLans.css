@@ -81,6 +81,9 @@
     margin-bottom: 10px;
 
     padding: 10px;
+
+	transition: all 0.3s;
+	transform-origin: 50% 0%;
 }
 
 #mainframe form[name="filter"] > div > p, #mainframe form[name="filter"] label {

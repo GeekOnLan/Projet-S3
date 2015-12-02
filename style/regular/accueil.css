@@ -10,18 +10,22 @@
     margin-bottom: 50px;
 }
 .news{
+
+    height : 250px;
     width : 100%;
     display: table;
     table-layout: fixed;
 }
 
 .imgDiv {
+    height : 250px;
     display:table-cell;
     width : 100%;
     background-color: black;
 }
 
 .txtDiv {
+    height : 250px;
     vertical-align: top;
     display:table-cell;
     background-color: darkgray;

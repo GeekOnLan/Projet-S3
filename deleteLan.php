@@ -8,10 +8,11 @@ if(verify($_SERVER,'HTTP_REFERER')) {
 
     try {
         $member->getLAN()[$_GET['idLan']]->delete();
-        header('Location: erreur.php?erreur=Votre lan a bien été supprimé');
+        header('Location: erreur.php?erreur=Votre lan a bien Ã©tÃ© supprimÃ©');
     }
     catch(Exception $e){
-        header('Location: erreur.php?erreur=un probléme est survenu');
+        //header('Location: erreur.php?erreur=un problÃ©me est survenu');
+        echo $e;
     }
 }
 else

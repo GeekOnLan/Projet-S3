@@ -140,6 +140,10 @@
     margin-bottom: 15px;
 }
 
+#mainframe #buttonDelete{
+    background-color: #9f0000;
+}
+
 #mainframe form a {
     padding-left: 15px;
     padding-right: 15px;

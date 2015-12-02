@@ -76,7 +76,7 @@ SQL
     public function delete(){
         $pdo = MyPDO::GetInstance();
         $stmt = $pdo->prepare(<<<SQL
-			DELETE FROM `tournoi`
+			DELETE FROM `Tournoi`
 			WHERE `idLAN` = :lan
 			AND `idTournoi` = :id
 SQL
