@@ -26,10 +26,10 @@ SQL
 		);
 		$stmt->execute(array("id"=>Member::getInstance()->getId(), "lastPass" => $_POST['lastPassHidden'], "pass" => $_POST['newPassHidden']));
 		Member::disconnect();
-		header('Location: index.php');
+		header('Location: message.php?message=votre mot de passe a bien ete modifier');
 	}
 	else
-		header('Location: erreur.php?erreur=mot de passe incorecte');
+		header('Location: message.php?message=mot de passe incorecte');
 }
 else {
 

@@ -30,16 +30,16 @@ if (verifyFormLAN()) {
     if(empty($descriptionLAN)){
         try{
             Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN);
-            $form->appendContent("<p>Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation.</p>");
+            header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
         }catch(Exception $e){
-            $form->appendContent($e);
+            header('Location: message.php?message=un problème est survenu');
         }
     }else{
         try{
             Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
-            $form->appendContent("<p>Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation.</p>");
+            header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
         }catch(Exception $e){
-            $form->appendContent($e);
+            header('Location: message.php?message=un problème est survenu');
         }
     }
     //envoieMailValide($pseudo, $mail);

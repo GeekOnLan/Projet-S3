@@ -8,11 +8,11 @@ if(verify($_SERVER,'HTTP_REFERER')) {
 
     try {
         $member->deleteAccount();
-        header('Location: erreur.php?erreur=Votre compte a bien été supprimé');
+        header('Location: message.php?message=Votre compte a bien été supprimé');
     }
     catch(Exception $e){
-        header('Location: erreur.php?erreur=un probl?me est survenu');
+        header('Location: message.php?message=un problème est survenu');
     }
 }
 else
-    header('Location: index.php');
+    header('Location: message.php?message=un problème est survenu');
