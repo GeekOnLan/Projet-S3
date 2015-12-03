@@ -1,10 +1,12 @@
 <?php
+
 require_once('../includes/utility.inc.php');
-require_once('../includes/autoload.inc.php');
+require_once('../classes/ResquestBuilder.class.php');
 
 // ===== Script principal ===== //
 
-
+$test = new RequestBuilder();
+$test->appendJoinTables("Table", "t1", "Table", "t2", "ouech");
 
 // =====   Fin du script  ===== //
 
@@ -24,5 +26,3 @@ function getUsedFilters() {
 
 	return $filtersUsed;
 }
-
-
