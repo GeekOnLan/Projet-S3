@@ -16,7 +16,7 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
     if ($_REQUEST['idLan'] <= sizeof($lans) - 1) {
         $lan = $lans[$_REQUEST['idLan']];
     }else
-        header('Location: erreur.php?erreur=un problème est survenu');
+        header('Location: message.php?message=un problème est survenu');
     
     if(isset($_POST['nameLAN'])||isset($_POST['dateLAN'])||isset($_POST['descriptionLAN'])||isset($_POST['villeLAN'])||isset($_POST['adresseLAN'])){
         $nom=$lan->getLanName();
@@ -59,7 +59,7 @@ HTML;
 }
 
 else {
-      header('Location: index.php');
+    header('Location: message.php?message=un problème est survenu');
 }
 
 

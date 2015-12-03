@@ -41,7 +41,7 @@ SQL
                 if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0 && strcasecmp($pseudo, "root")!=0) {
                     Member::createMember($pseudo,$mail,$password,$fN,$lN,$bD);
                     envoieMailValide($pseudo, $mail);
-                    $form->appendContent("<p>Vous &#234;tes bien inscrit ! Vous allez recevoir un email de confirmation.</p>");
+					header('Location: message.php?message=Vous etes bien inscrit ! Vous allez recevoir un email de confirmation');
                 }
                 else {
                     $form->appendContent("<p>Le pseudonyme est déjà utilisé</p>");
@@ -65,7 +65,7 @@ SQL
         }
     }
     catch(Exception $e){
-        $form->appendContent('<div>Un problème est survenu &nbsp; : ' . $e->getMessage() . '</div>');
+		header('Location: message.php?message=un problème est survenu');
     }
 }
 

@@ -82,5 +82,16 @@ SQL
 SQL
         );
         $stmt->execute(array("lan"=>$this->idLAN,"id"=>$this->idTournoi));
+
+        $stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM Tournoi
+			WHERE idLan = :id;
+SQL
+        );
+        $stmt->execute(array("id"=>$this->idLAN));
+        if($stmt->fetch()==null){
+            Lan::createFromId($this->idLAN)->delete();
+        }
     }
 }
