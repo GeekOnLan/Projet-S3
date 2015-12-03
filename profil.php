@@ -35,8 +35,6 @@ else {
 
 	$webpage = new GeekOnLanWebpage("GeekOnLan - Profil");
 	$webpage->appendJsUrl("js/deleteAccount.js");
-	$webpage->appendCssUrl("style/regular/deleteAccount.css", "screen and (min-width: 680px");
-	$webpage->appendCssUrl("style/mobile/deleteAccount.css", "screen and (max-width: 680px)");
 	$webpage->appendCssUrl("style/regular/profil.css", "screen and (min-width: 680px");
 	$webpage->appendCssUrl("style/mobile/profil.css", "screen and (max-width: 680px");
 

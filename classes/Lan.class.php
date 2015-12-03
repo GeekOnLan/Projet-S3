@@ -231,10 +231,9 @@ HTML;
             AND estOuverte = 1;
 SQL
 		);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
 		$stmt->execute();
-        $res = $stmt->fetchAll();
-        return $res;
-
+		return  $stmt->fetchAll();
 	}
 
 	public function getLanPicture(){
@@ -248,7 +247,6 @@ SQL
 		$stmt->execute(array("idlan"=>$this->idLAN));;
 		$res = $stmt->fetch()['imageJeu'];
 		return $res;
-
 	}
 
 
