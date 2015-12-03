@@ -12,10 +12,10 @@ if(!Member::isConnected()) {
 		try {
 			$member = Member::createFromAuth($_POST['hiddenCrypt']);
 			$member->saveIntoSession();
-			header('Location: index.php' . SID);
+			header('Location: index.php');
 			exit();
 		} catch (Exception $e) {
-			header('Location: erreur.php?erreur='.$e->getMessage());
+			header('Location: message.php?message=login ou mot de passe incorecte');
 		}
 	}
 }

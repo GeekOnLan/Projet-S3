@@ -9,15 +9,15 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
         $lan = $lans[$_REQUEST['idLan']];
         try {
             $lan->delete();
-            header('Location: index.php');
+            header('Location: message.php?message=votre Lan a bien ete supprimer');
         } catch (Exception $e) {
-            header('Location: index.php');
+            header('Location: message.php?message=un problème est survenu');
         }
     }
     else
-        header('Location: index.php');
+        header('Location: message.php?message=un problème est survenu');
 }
 else
-    header('Location: index.php');
+    header('Location: message.php?message=un problème est survenu');
 
 

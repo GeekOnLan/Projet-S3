@@ -40,9 +40,8 @@ if(verify($_GET,'log') && verify($_GET,'key')) {
 		} // Si les deux clés sont différentes on provoque une erreur...
 		else $page->appendContent("Erreur ! Votre compte ne peut ètre activé...");
 	}
-
 	echo($page->toHTML());
 }
 else
-	header('Location: erreur.php?erreur=un problème est survenu');
+	header('Location: message.php?message=un problème est survenu');
 
