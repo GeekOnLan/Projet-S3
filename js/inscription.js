@@ -11,7 +11,7 @@ window.addEventListener("keypress",function(even){
 		verifyInscription();
 });
 
-function sha256(){
+function sha256modif(){
 	var pass = $("input[name='lastPass']").val();
 	var newPass = $("input[name='pwd']").val();
 	if(verifyPass()){
