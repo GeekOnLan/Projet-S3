@@ -1,6 +1,6 @@
 <?php
 
-require_once('includes/myPDO.inc.php');
+//require_once('../includes/myPDO.inc.php');
  
 class Lan{
 
