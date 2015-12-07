@@ -24,17 +24,44 @@ if(verify($_GET,'idLan')){
 	$open= "non";
 	if($lan->isOpen()) $open = "oui";
 	$html = <<<HTML
-	<ul>
-		<li>Adresse : {$lan->getAdress()}
-		<li>Ouverte ? : {$open}
-		<li>Nom Simple : {$lan->getLieux()->getNomSimple()}
-		<li>Ville : {$lan->getLieux()->getNomVille()}
-		<li>Arrondissement : {$lan->getLieux()->getArrondissement()}
-		<li>Code Postal : {$lan->getLieux()->getCodePostal()}
-		<li>Slug : {$lan->getLieux()->getSlug()}
-		<li>Departement : {$lan->getLieux()->getDepartement()}
-		<li>Canton : {$lan->getLieux()->getCanton()}
-	</ul>
+	<table>
+		<tr>
+			<td>Adresse</td>
+			<td>{$lan->getAdress()}</td>
+		</tr>
+		<tr>
+			<td>Ouverte ?</td>
+			<td>{$open}</td>
+		</tr>
+		<tr>
+			<td>Nom Simple</td>
+			<td>{$lan->getLieux()->getNomSimple()}</td>
+		</tr>
+		<tr>
+			<td>Ville</td>
+			<td>{$lan->getLieux()->getNomVille()}</td>
+		</tr>
+		<tr>
+			<td>Arrondissement</td>
+			<td>{$lan->getLieux()->getArrondissement()}</td>
+		</tr>
+		<tr>
+			<td>Code Postal</td>
+			<td>{$lan->getLieux()->getCodePostal()}</td>
+		</tr>
+		<tr>
+			<td>Slug</td>
+			<td>{$lan->getLieux()->getSlug()}</td>
+		</tr>
+		<tr>
+			<td>Departement</td>
+			<td>{$lan->getLieux()->getDepartement()}</td>
+		</tr>
+		<tr>
+			<td>Canton</td>
+			<td>{$lan->getLieux()->getCanton()}</td>
+		</tr>
+	</table>
 HTML;
 
 	echo $html;

@@ -31,7 +31,7 @@ $i=0;foreach($lans as $lan) {
 
 $html .= <<<HTML
 	</table>
-	<div id = "results" style="background-color:white; text-align:center; "></div>
+	<div id = "results" style="background-color:white; text-align:center;"></div>
 HTML;
 
 	
