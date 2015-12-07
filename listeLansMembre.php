@@ -15,7 +15,7 @@ $lans = $membre->getLAN();
 
 $html = <<<HTML
 
-<table id="results">
+<table>
 	<tr>
 		<td>Nom</td>
 		<td>Date</td>
@@ -31,7 +31,9 @@ $i=0;foreach($lans as $lan) {
 
 $html .= <<<HTML
 	</table>
+	<div id = "results" style="background-color:white; text-align:center; "></div>
 HTML;
+
 	
 
 $page->appendContent($html);

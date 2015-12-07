@@ -3,12 +3,11 @@ function ajax(idLan){
 		url		: 'getLan.php',
 		type	: 'GET',
 		data	: 'idLan=' + idLan,
-		dataType: "json",
+		dataType: "html",
 		success	: function(data) {
 			console.log('recut');
 			$("#results").html('');
-			//$('#result').html(data);
-			alert(data);
+			$(data).appendTo('#results');
 		},
 		error : function(statut, erreur) {
 			alert('Error ' + statut + ' : ' + erreur);
