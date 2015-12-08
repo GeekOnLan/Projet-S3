@@ -9,7 +9,6 @@ require_once('../classes/Lan.class.php');
 
 $filters = getUsedFilters();
 $sql = buildRequest(array_keys($filters));
-
 $res = toJSON(sendRequest($sql, $filters));
 echo $res;
 
@@ -26,7 +25,9 @@ function toJSON($res) {
 	$objets = array();
 	foreach($res as $lan) {
 		$objets[] = <<<JSON
-	{"name": "{$lan->getLanName()}"}
+	{"name": "{$lan->getLanName()}",
+	 "date": "{$lan->getLanDate()}",
+	 "lieu": "{$lan->getLieux()->getNomSimple()}"}
 JSON;
 	}
 
@@ -44,7 +45,7 @@ JSON;
 function sendRequest($sql, $values) {
 	// On supprime les filtres qui n'ont pas besoin d'être placés dans la requête
 	// Ex : solo, equipe, gratuit, ...
-	$token = array("name" => null, "departement" => null, "ville" => null);
+	$token = array("name" => null, "departement" => null, "ville" => null, "jeu" => null);
 	$values = array_intersect_key($values, $token);
 
 	$pdo = MyPDO::getInstance();
@@ -62,7 +63,7 @@ function sendRequest($sql, $values) {
  * @return array la liste des filtres utilisés
  */
 function getUsedFilters() {
-	$filtersList = array("name", "departement", "ville", "gratuit", "equipe", "solo");
+	$filtersList = array("name", "departement", "ville", "gratuit", "equipe", "solo", "jeu");
 	$filtersUsed = array();
 
 	foreach($filtersList as $filter) {
@@ -78,6 +79,10 @@ function getUsedFilters() {
 	if(array_key_exists("ville", $filtersUsed))
 		$filtersUsed["ville"] = "%" . $_GET["ville"] . "%";
 
+	// Idem
+	if(array_key_exists("jeu", $filtersUsed))
+		$filtersUsed["jeu"] = "%" . $_GET["jeu"] . "%";
+
 	return $filtersUsed;
 }
 
@@ -88,7 +93,7 @@ function getUsedFilters() {
  * @return string la requête SQL
  */
 function buildRequest($filters) {
-	$select = "l.nomLAN, l.dateLAN";
+	$select = "l.nomLAN, l.dateLAN, l.idLieu";
 	$from = "LAN l, Lieu li, Tournoi t, Jeu j";
 	$where = "l.estOuverte = 1 AND l.idLieu = li.idLieu AND t.idLAN = l.idLAN AND j.idJeu = t.idJeu";
 
@@ -113,11 +118,14 @@ function buildRequest($filters) {
 			case "solo" :
 				$where .= " AND t.nbPersMaxParEquipe = 1";
 				break;
+			case "jeu" :
+				$where .= " AND j.nomJeu LIKE :jeu";
+				break;
 		}
 	}
 
 	return <<<SQL
-	SELECT $select
+	SELECT DISTINCT $select
 	FROM $from
 	WHERE $where;
 SQL;

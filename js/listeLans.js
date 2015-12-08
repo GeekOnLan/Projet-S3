@@ -19,7 +19,7 @@ var show = function(res) {
     resTable.empty();
 
 	for(var i in res) {
-        resTable.append("<tr><td>" + res[i].name + "</td></tr>");
+        resTable.append("<tr><td>" + res[i].name + "</td><td>" + res[i].date + "</td><td>" + res[i].lieu + "</td></tr>");
 	}
 };
 
@@ -36,7 +36,8 @@ var getFilters = function() {
         $("#mainframe form[name='filter'] input[name='ville']"),
         $("#mainframe form[name='filter'] input[name='gratuit']"),
         $("#mainframe form[name='filter'] input[name='equipe']"),
-        $("#mainframe form[name='filter'] input[name='solo']")
+        $("#mainframe form[name='filter'] input[name='solo']"),
+		$("#mainframe form[name='filter'] textarea[name='jeu']")
     ];
 
     // On parcours tout les champs pour récuperer ceux remplit
