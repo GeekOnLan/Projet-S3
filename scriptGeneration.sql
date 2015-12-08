@@ -36935,14 +36935,14 @@ CREATE TABLE IF NOT EXISTS `Recevoir` (
 --
 
 CREATE TABLE IF NOT EXISTS `Tournoi` (
-`idLAN` int(11) NOT NULL,
+  `idLAN` int(11) NOT NULL,
   `idTournoi` int(11) NOT NULL,
   `idJeu` int(11) NOT NULL,
   `nomTournoi` char(31) NOT NULL,
   `tpElimination` int(11) NOT NULL,
   `dateHeurePrevu` datetime NOT NULL,
   `descriptionTournoi` char(127) DEFAULT NULL,
-  `arbreTournoi` char(512) DEFAULT NULL,
+  `arbreTournoi` text(512) DEFAULT NULL,
   `nbEquipeMax` int(11) NOT NULL,
   `nbPersMaxParEquipe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37050,8 +37050,8 @@ MODIFY `idNotification` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Tournoi`
 --
-ALTER TABLE `Tournoi`
-MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;
+/*ALTER TABLE `Tournoi`
+MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;*/
 --
 -- Contraintes pour les tables exportées
 --
@@ -37074,7 +37074,7 @@ ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMem
 -- Contraintes pour la table `LAN`
 --
 ALTER TABLE `LAN`
-ADD CONSTRAINT `FK_Organiser` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`),
+ADD CONSTRAINT `FK_Organiser` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`) ON DELETE CASCADE,
 ADD CONSTRAINT `FK_Place` FOREIGN KEY (`idLieu`) REFERENCES `Lieu` (`idLieu`);
 
 --
@@ -37088,14 +37088,14 @@ ADD CONSTRAINT `FK_Participer` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`id
 -- Contraintes pour la table `Recevoir`
 --
 ALTER TABLE `Recevoir`
-ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`),
+ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`) ON DELETE CASCADE,
 ADD CONSTRAINT `FK_Recevoir` FOREIGN KEY (`idNotification`) REFERENCES `Notifications` (`idNotification`);
 
 --
 -- Contraintes pour la table `Tournoi`
 --
 ALTER TABLE `Tournoi`
-ADD CONSTRAINT `FK_LI` FOREIGN KEY (`idLAN`) REFERENCES `LAN` (`idLAN`),
+ADD CONSTRAINT `FK_LI` FOREIGN KEY (`idLAN`) REFERENCES `LAN` (`idLAN`) ON DELETE CASCADE,
 ADD CONSTRAINT `FK_Consacrer` FOREIGN KEY (`idJeu`) REFERENCES `Jeu` (`idJeu`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
