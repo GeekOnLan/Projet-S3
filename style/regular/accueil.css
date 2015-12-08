@@ -8,9 +8,9 @@
     margin-left : 12.5%;
     margin-right : 12.5%;
     margin-bottom: 50px;
+    box-shadow: 2px 2px 1px 0 #111;
 }
 .news{
-
     height : 250px;
     width : 100%;
     display: table;
@@ -31,13 +31,42 @@
     background-color: darkgray;
 }
 
+.txtDiv h1{
+    font-size: 2em;
+}
+.txtDiv p {
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-size: 1.20em;
+}
+
+.txtDiv hr{
+    margin-left : 1%;
+    margin-right: 1%;
+    background-color: black;
+}
+
+.txtDiv a{
+    position : absolute;
+    border-style: solid;
+    border-color: #111111;
+    background-color: #8e8e8e;
+    text-decoration: none;
+    padding-left : 1%;
+    padding-right: 1%;
+    left : 83.98%;
+    top : 83%;
+
+}
+
 .dateDiv{
     position : absolute;
-    left : 35%;
+    left : 34.75%;
     background-color: white;
     width : 15%;
     height : 25%;
     text-align : center;
+    box-shadow: 2px 2px 1px 0 #111;
 }
 
 

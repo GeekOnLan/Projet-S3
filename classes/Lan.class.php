@@ -225,10 +225,11 @@ HTML;
 	public static function getLanFrom(){
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
-			SELECT idLAN
+			SELECT idLAN, dateLAN
             FROM LAN
             WHERE dateLAN BETWEEN CURDATE() AND ADDDATE(CURDATE(),31)
-            AND estOuverte = 1;
+            AND estOuverte = 1
+            ORDER BY 2;
 SQL
 		);
 		$stmt->execute();

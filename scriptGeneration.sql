@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `LAN` (
   `idMembre` int(11) NOT NULL,
   `idLieu` int(11) NOT NULL,
   `nomLAN` char(31) NOT NULL,
-  `desciptionLAN` varchar(255) DEFAULT NULL,
+  `descriptionLAN` varchar(255) DEFAULT NULL,
   `dateLAN` datetime NOT NULL,
   `adresse` char(63) NOT NULL,
   `estOuverte` tinyint(1) NOT NULL
@@ -36914,9 +36914,7 @@ CREATE TABLE IF NOT EXISTS `Notifications` (
 CREATE TABLE IF NOT EXISTS `Participer` (
   `idEquipe` int(11) NOT NULL,
   `idLAN` int(11) NOT NULL,
-  `idTournoi` int(11) NOT NULL,
-  `niveauArbre` int(11) DEFAULT NULL,
-  `numMatch` int(11) DEFAULT NULL
+  `idTournoi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -36944,6 +36942,7 @@ CREATE TABLE IF NOT EXISTS `Tournoi` (
   `tpElimination` int(11) NOT NULL,
   `dateHeurePrevu` datetime NOT NULL,
   `descriptionTournoi` char(127) DEFAULT NULL,
+  `arbreTournoi` char(512) DEFAULT NULL,
   `nbEquipeMax` int(11) NOT NULL,
   `nbPersMaxParEquipe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37052,7 +37051,7 @@ MODIFY `idNotification` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `Tournoi`
 --
 ALTER TABLE `Tournoi`
-MODIFY `idLAN` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --
