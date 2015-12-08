@@ -24,4 +24,4 @@ SQL
     	echo $xml."<response>false</response>";
 }
 else
-    header('Location: ../erreur.php?erreur=un probléme est survenu');
+    header('Location: message.php?message=un problème est survenu');

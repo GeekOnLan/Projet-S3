@@ -31,16 +31,16 @@
     padding-bottom: 5px;
 }
 
-#mainframe form[name="filter"] button[type="submit"] {
+#searchSubmit {
     border: none;
     font-size: 22px;
 }
 
-#mainframe form[name="filter"] button[type="button"]:hover {
+#mainframe form[name="filter"] button[type="button"]:nth-child(n + 2):hover {
     background: #595959;
 }
 
-#mainframe form[name="filter"] button[type="button"] {
+#mainframe form[name="filter"] button[type="button"]:nth-child(n + 2) {
     border: none;
     display: block;
 

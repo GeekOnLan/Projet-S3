@@ -7,6 +7,7 @@ require_once('includes/utility.inc.php');
 $page = new GeekOnLanWebpage("GeekOnLan - Inscription");
 $page->appendCssUrl("style/regular/listeLans.css", "screen and (min-width: 680px");
 $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px");
+$page->appendJsUrl("js/listeLans.js");
 
 $pageNumber = 1;
 if(verify($_GET, 'page'))
@@ -20,7 +21,7 @@ $html = <<<HTML
             <tr>
                 <td><label for="filterNom">Rechercher par nom</label></td>
                 <td><input id="filterNom" type="text" name="name" placeholder="Nom de la LAN"></td>
-                <td><button type="submit">Rechercher</button></td>
+                <td><button type="button" id="searchSubmit">Rechercher</button></td>
             </tr>
         </table>
 
@@ -29,7 +30,6 @@ $html = <<<HTML
             <p>Rechercher par lieu</p>
             <table>
                 <tr>
-                    <td><input type="text" name="region" placeholder="Région"></td>
                     <td><input type="text" name="departement" placeholder="Département"></td>
                     <td><input type="text" name="ville" placeholder="Ville"></td>
                 </tr>
@@ -58,35 +58,38 @@ $html = <<<HTML
         </div>
     </form>
     <table>
-        <tr>
-            <td>Nom</td>
-            <td>Date</td>
-            <td>Lieu</td>
-        </tr>
+        <thead>
+            <tr>
+                <td>Nom</td>
+                <td>Date</td>
+                <td>Lieu</td>
+            </tr>
+        </thead>
+        <tbody id="searchRes">
 HTML;
 
 foreach($list as $lan) {
     $html .= <<<HTML
-        <tr>
-            <td>{$lan->getLanName()}</td>
-            <td>{$lan->getLanDate()}</td>
-            <td>{$lan->getLieux()->getSlug()}</td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                {$lan->getLanDescription()}
-                <br/>
-                Lieu : {$lan->getAdress()}
-            </td>
-        </tr>
+            <tr>
+                <td>{$lan->getLanName()}</td>
+                <td>{$lan->getLanDate()}</td>
+                <td>{$lan->getLieux()->getSlug()}</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    {$lan->getLanDescription()}
+                    <br/>
+                    Lieu : {$lan->getAdress()}
+                </td>
+            </tr>
 HTML;
 }
 
 $html .= <<<HTML
+        </tbody>
     </table>
 HTML;
 
 $page->appendContent($html);
-$page->appendJsUrl("js/listeLans.js");
 
 echo $page->toHTML();

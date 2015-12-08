@@ -5,10 +5,10 @@
 require_once('includes/autoload.inc.php');
 require_once('includes/utility.inc.php');
 
-if(verify($_GET,'erreur')){
+if(verify($_GET,'message')){
     $webpage = new GeekOnLanWebpage("GeekOnLan - Accueil");
-    $webpage -> appendContent($_GET['erreur']);
+    $webpage -> appendContent(addslashes($_GET['message']));
     echo $webpage->toHTML();
 }
 else
-    header('Location: index.php'.SID);
+    header('Location: index.php');

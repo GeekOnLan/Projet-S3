@@ -26,17 +26,15 @@ SQL
 		);
 		$stmt->execute(array("id"=>Member::getInstance()->getId(), "lastPass" => $_POST['lastPassHidden'], "pass" => $_POST['newPassHidden']));
 		Member::disconnect();
-		header('Location: index.php');
+		header('Location: message.php?message=votre mot de passe a bien ete modifier');
 	}
 	else
-		header('Location: erreur.php?erreur=mot de passe incorecte');
+		header('Location: message.php?message=mot de passe incorecte');
 }
 else {
 
 	$webpage = new GeekOnLanWebpage("GeekOnLan - Profil");
 	$webpage->appendJsUrl("js/deleteAccount.js");
-	$webpage->appendCssUrl("style/regular/deleteAccount.css", "screen and (min-width: 680px");
-	$webpage->appendCssUrl("style/mobile/deleteAccount.css", "screen and (max-width: 680px)");
 	$webpage->appendCssUrl("style/regular/profil.css", "screen and (min-width: 680px");
 	$webpage->appendCssUrl("style/mobile/profil.css", "screen and (max-width: 680px");
 
@@ -146,7 +144,7 @@ HTML;
             </td>
         </tr>
     </table>
-    <button type="button" onclick="sha256()">Confirmer</button>
+    <button type="button" onclick="sha256modif()">Confirmer</button>
     <p>* : champs obligatoires</p>
     <input id="lastPassHidden" name="lastPassHidden" type="hidden">
 	<input id="newPassHidden" name="newPassHidden" type="hidden">

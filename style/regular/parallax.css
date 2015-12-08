@@ -9,13 +9,13 @@
 }
 
 .bottom {
-    background: url("../../resources/img/bottom.png") no-repeat center center fixed;
+    background: url("../../resources/img/2.png") no-repeat center center fixed;
 }
 
 .middle {
-    background: url("../../resources/img/middle.png") no-repeat center center fixed;
+    background: url("../../resources/img/1.png") no-repeat center center fixed;
 }
 
 .front {
-    background: url("../../resources/img/front.png") no-repeat center center fixed;
+    /*background: url("../../resources/img/1.png") no-repeat center center fixed;*/
 }
