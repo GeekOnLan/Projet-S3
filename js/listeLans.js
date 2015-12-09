@@ -5,8 +5,22 @@ $(function() {
 		});
 	});
 
+	sendSearch();
+
+	$("#nextPage").click(function() {
+		page++;
+		sendSearch();
+	});
+
+	$("#prevPage").click(function() {
+		page -= (page > 1) ? 1 : 0;
+		sendSearch();
+	});
+
 	$("#searchSubmit").click(sendSearch);
 });
+
+var page = 1;
 
 /**
  * Remplit le tableau des résultat avec
@@ -19,7 +33,7 @@ var show = function(res) {
     resTable.empty();
 
 	for(var i in res) {
-        resTable.append("<tr><td>" + res[i].name + "</td><td>" + res[i].date + "</td><td>" + res[i].lieu + "</td></tr>");
+        resTable.append("<tr><td>" + res[i].name + "</td><td>" + res[i].date + "</td><td>" + res[i].lieu + "</td><td><a href='#'>Détails</a></td></tr>");
 	}
 };
 
@@ -29,19 +43,19 @@ var show = function(res) {
  *
  * @returns {string} la requête GET
  */
-var getFilters = function() {
-    var filters = [
-        $("#mainframe form[name='filter'] input[name='name']"),
-        $("#mainframe form[name='filter'] input[name='departement']"),
-        $("#mainframe form[name='filter'] input[name='ville']"),
-        $("#mainframe form[name='filter'] input[name='gratuit']"),
-        $("#mainframe form[name='filter'] input[name='equipe']"),
-        $("#mainframe form[name='filter'] input[name='solo']"),
+var getFilters = function(page) {
+	var filters = [
+		$("#mainframe form[name='filter'] input[name='name']"),
+		$("#mainframe form[name='filter'] input[name='departement']"),
+		$("#mainframe form[name='filter'] input[name='ville']"),
+		$("#mainframe form[name='filter'] input[name='gratuit']"),
+		$("#mainframe form[name='filter'] input[name='equipe']"),
+		$("#mainframe form[name='filter'] input[name='solo']"),
 		$("#mainframe form[name='filter'] textarea[name='jeu']")
-    ];
+	];
 
     // On parcours tout les champs pour récuperer ceux remplit
-    var res = [];
+    var res = ["page=" + page];
     for(var i in filters) {
         if(filters[i].val() != "" && filters[i].attr("type") != "checkbox")
             res.push(filters[i].attr("name") + "=" + filters[i].val());
@@ -59,7 +73,7 @@ var sendSearch = function() {
 	$.ajax({
 		url: 'scriptPHP/searchWithFilter.php',
 		type: 'GET',
-		data: getFilters(),
+		data: getFilters(page),
 		dataType: 'json',
 		success : function(res, statut) {
 			show(res);
@@ -90,4 +104,4 @@ var expandFilter = function(filterButton) {
 	}
 
 	expandableDiv.toggleClass("open");
-}
+};

@@ -15,8 +15,21 @@
     font-weight: normal;
 }
 
-#mainframe article > table tr:first-child {
+#mainframe article > table > thead > tr {
     border-bottom: solid 5px #D84508;
+}
+
+#mainframe article > table > tbody > tr:nth-child(odd) {
+    background: #494949;
+}
+
+#mainframe article > div > button {
+    width: 200px;
+}
+
+#mainframe article > div {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 /** ------------------------ **/
