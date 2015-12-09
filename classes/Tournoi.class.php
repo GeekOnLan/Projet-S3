@@ -94,4 +94,18 @@ SQL
             Lan::createFromId($this->idLAN)->delete();
         }
     }
+    
+    public function getEquipe(){
+    	$pdo = MyPDO::GetInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM Participer
+			WHERE idLan = :idLan
+    		AND idTournoi=:idTournoi;
+SQL
+    	);
+    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Equipe');
+    	$stmt->execute(array("idLan"=>$this->idLAN,"idTournoi"=>$this->idTournoi));
+    	return $stmt->fetchAll();
+    }
 }

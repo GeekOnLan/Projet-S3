@@ -75,6 +75,13 @@ foreach($list as $lan) {
                 <td>{$lan->getLanDate()}</td>
                 <td>{$lan->getLieux()->getSlug()}</td>
             </tr>
+            <tr>
+                <td colspan="3">
+                    {$lan->getLanDescription()}
+                    <br/>
+                    Lieu : {$lan->getAdress()}
+                </td>
+            </tr>
 HTML;
 }
 

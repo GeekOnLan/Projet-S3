@@ -1,4 +1,5 @@
 function sha256(){
+    console.log('seft');
     var pass = $("#connexionForm input[name='pass']").val();
     var login = $("#connexionForm input[name='login']").val();
     if(pass=="")

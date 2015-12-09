@@ -144,7 +144,7 @@ HTML;
             </td>
         </tr>
     </table>
-    <button type="button" onclick="sha256()">Confirmer</button>
+    <button type="button" onclick="sha256modif()">Confirmer</button>
     <p>* : champs obligatoires</p>
     <input id="lastPassHidden" name="lastPassHidden" type="hidden">
 	<input id="newPassHidden" name="newPassHidden" type="hidden">

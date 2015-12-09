@@ -2,7 +2,7 @@
 
 //require_once('includes/myPDO.inc.php');
 
-class Lieu {
+class Lieu {}
 	
 	private $idLieu = null;
 	
