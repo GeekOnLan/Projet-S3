@@ -19,6 +19,7 @@
 
 .imgDiv {
     height : 250px;
+    -moz-height : 254px;
     display:table-cell;
     width : 100%;
     background-color: black;
@@ -29,6 +30,12 @@
     vertical-align: top;
     display:table-cell;
     background-color: darkgray;
+    padding-left : 10px;
+    padding-right : 10px;
+    font-family: Arial;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
 }
 
 .txtDiv h1{
@@ -38,6 +45,7 @@
     overflow:hidden;
     text-overflow: ellipsis;
     font-size: 1.20em;
+    padding-left : 10px;
 }
 
 .txtDiv hr{
