@@ -9,13 +9,7 @@ $page->appendCssUrl("style/regular/listeLans.css", "screen and (min-width: 680px
 $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px");
 $page->appendJsUrl("js/listeLans.js");
 
-$pageNumber = 1;
-if(verify($_GET, 'page'))
-    $pageNumber = $_GET['page'];
-
-$list = Lan::getLanFromRange($pageNumber - 1, 10);
-
-$html = <<<HTML
+$page->appendContent(<<<HTML
     <form name="filter">
         <table>
             <tr>
@@ -57,6 +51,10 @@ $html = <<<HTML
             </table>
         </div>
     </form>
+    <div>
+        <button id="prevPage" type="button"> &lt </button>
+        <button id="nextPage" type="button"> &gt </button>
+    </div>
     <table>
         <thead>
             <tr>
@@ -66,23 +64,9 @@ $html = <<<HTML
             </tr>
         </thead>
         <tbody id="searchRes">
-HTML;
-
-foreach($list as $lan) {
-    $html .= <<<HTML
-            <tr>
-                <td>{$lan->getLanName()}</td>
-                <td>{$lan->getLanDate()}</td>
-                <td>{$lan->getLieux()->getSlug()}</td>
-            </tr>
-HTML;
-}
-
-$html .= <<<HTML
         </tbody>
     </table>
-HTML;
-
-$page->appendContent($html);
+HTML
+);
 
 echo $page->toHTML();

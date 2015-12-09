@@ -8,8 +8,13 @@ require_once('../classes/Lan.class.php');
 // ===== Script principal ===== //
 
 $filters = getUsedFilters();
+
+$offset = 0;
+if(verify($_GET, "page") && $_GET["page"] > 0)
+	$offset = ($_GET["page"] - 1) * 10;
+
 $sql = buildRequest(array_keys($filters));
-$res = toJSON(sendRequest($sql, $filters));
+$res = toJSON(sendRequest($sql, $filters, $offset));
 echo $res;
 
 // =====   Fin du script  ===== //
@@ -37,12 +42,13 @@ JSON;
 /**
  * Envoit la requête
  *
- * @param string $sql	- Code SQL de la requête
- * @param array $values	- tableau contenant les valeurs à remplacer dans la requête
+ * @param string $sql - Code SQL de la requête
+ * @param array $values - tableau contenant les valeurs à remplacer dans la requête
+ * @param int $offset - Début de la selection
  *
  * @return array Le résultat de la requête
  */
-function sendRequest($sql, $values) {
+function sendRequest($sql, $values, $offset) {
 	// On supprime les filtres qui n'ont pas besoin d'être placés dans la requête
 	// Ex : solo, equipe, gratuit, ...
 	$token = array("name" => null, "departement" => null, "ville" => null, "jeu" => null);
@@ -52,7 +58,14 @@ function sendRequest($sql, $values) {
 	$stmt = $pdo->prepare($sql);
 
 	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
-	$stmt->execute($values);
+
+	$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+	$stmt->bindValue(':size', 10, PDO::PARAM_INT);
+
+	foreach($values as $key => $value)
+		$stmt->bindValue(":" . $key, $value, PDO::PARAM_STR);
+
+	$stmt->execute();
 
 	return $stmt->fetchAll();
 }
@@ -89,7 +102,7 @@ function getUsedFilters() {
 /**
  * Construit la requête correspondant à la recherche de l'utilisateur
  *
- * @param $filters - Liste des filtres utilisés
+ * @param $filters		- Liste des filtres utilisés
  * @return string la requête SQL
  */
 function buildRequest($filters) {
@@ -127,6 +140,7 @@ function buildRequest($filters) {
 	return <<<SQL
 	SELECT DISTINCT $select
 	FROM $from
-	WHERE $where;
+	WHERE $where
+	LIMIT :offset , :size;
 SQL;
 }
