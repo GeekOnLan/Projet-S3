@@ -5,18 +5,20 @@ require_once('includes/autoload.inc.php');
 $webpage = new GeekOnLanWebpage("GeekOnLan - Accueil");
 $webpage->appendCssUrl("style/regular/accueil.css");
 
-$lesLans = Lan::getLanFrom();
+$lesLans = Lan::getRecentLan();
 $news = "";
 
 // Pour les mois écrit en français
 setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
 
 foreach($lesLans as $lan){
-    // On affecte l'image de la Lan, si elle n'en a pas, on en met une part défaut
-    if($lan->getLanPicture()== null)$img = "resources/img/logo.png";
-    else $img = $lan->getLanPicture();
+    $img = $lan->getLanPicture();
 
-    // La date avec des / c'est moche, donc on décompose la date pour faire un joli
+    // Si il n'y a pas d'image, on en met une part défaut
+    if($img == null)
+        $img = "resources/img/logo.png";
+
+    // La date avec des '/' c'est moche, donc on décompose la date pour faire un joli
     // style en CSS
     $date = explode('/', $lan->getLanDate());
     $day = $date[0];

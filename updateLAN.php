@@ -22,7 +22,7 @@ if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])) {
         $nom=$lan->getLanName();
         $date=$lan->getLanDate();
         $desc=$lan->getLanDescription();
-        $lieu=$lan->getLieux()->getSlug();
+        $lieu=$lan->getLieu()->getSlug();
         $adresse=$lan->getAdress();
     	if(!empty($_POST['nameLAN']))
             $nom=$_POST['nameLAN'];
@@ -89,7 +89,7 @@ function formulaire($lan)
                 <label for="villeLAN">Ville*</label>
                 <div>
                     <img id="ville" src="resources/img/Ville.png"/>
-                    <input name="villeLAN" type="text" placeholder="Ville" value="{$lan->getLieux()->getSlug()}" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
+                    <input name="villeLAN" type="text" placeholder="Ville" value="{$lan->getLieu()->getSlug()}" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
                 </div>
                 <span id="erreurVilleLAN"> </span>
             </td>

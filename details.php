@@ -36,16 +36,16 @@ if(verify($_GET,'idLan')){
 	<tr>
 		<td>{$lan->getLanName()}</td>
    		<td>{$lan->getLanDate()}</td>
-   		<td>{$lan->getLieux()->getNomSimple()}</td>
+   		<td>{$lan->getLieu()->getNomSimple()}</td>
 		<td>{$lan->getLanDescription()}</td>
-		<td>{$lan->getAdress()}</td>
+		<td>{$lan->getAdresse()}</td>
 		<td>{$open}</td>
-		<td>{$lan->getLieux()->getNomSimple()}</td>
-		<td>{$lan->getLieux()->getNomVille()}</td>
-		<td>{$lan->getLieux()->getArrondissement()}</td>
-		<td>{$lan->getLieux()->getCodePostal()}</td>
-		<td>{$lan->getLieux()->getDepartement()}</td>
-		<td>{$lan->getLieux()->getCanton()}</td>
+		<td>{$lan->getLieu()->getNomSimple()}</td>
+		<td>{$lan->getLieu()->getNomVille()}</td>
+		<td>{$lan->getLieu()->getArrondissement()}</td>
+		<td>{$lan->getLieu()->getCodePostal()}</td>
+		<td>{$lan->getLieu()->getDepartement()}</td>
+		<td>{$lan->getLieu()->getCanton()}</td>
 	</tr>
 	<tr>
 		<td><a href=\"updateLAN.php?idLan="{$_GET['idLan']}"">Modifier</a></td>

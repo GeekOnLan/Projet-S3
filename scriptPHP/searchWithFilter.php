@@ -32,7 +32,7 @@ function toJSON($res) {
 		$objets[] = <<<JSON
 	{"name": "{$lan->getLanName()}",
 	 "date": "{$lan->getLanDate()}",
-	 "lieu": "{$lan->getLieux()->getNomSimple()}"}
+	 "lieu": "{$lan->getLieu()->getNomSimple()}"}
 JSON;
 	}
 
