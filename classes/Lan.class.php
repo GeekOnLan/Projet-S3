@@ -229,7 +229,7 @@ HTML;
             FROM LAN
             WHERE dateLAN BETWEEN CURDATE() AND ADDDATE(CURDATE(),31)
             AND estOuverte = 1
-            ORDER BY 2;
+            ORDER BY 6;
 SQL
 		);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
