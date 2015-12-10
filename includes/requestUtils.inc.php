@@ -1,5 +1,7 @@
 <?php
 
+require_once(projectPath . "includes/myPDO.inc.php");
+
 /**
  * Fonction utilitaire qui réalise une requête SELECT
  *
@@ -75,9 +77,9 @@ SQL
 /**
  * Fonction utilitaire qui réalise une requête INSERT
  *
- * @param $params - Paramètres à bind sous forme d'un tableau : 'clé' => valeur
- * @param $insert - Contenu du INSERT INTO (sans inclure les mots clés INSERT INTO)
- * @param $values - Contenu du VALUES (sans inclure le mot clé VALUES)
+ * @param array $params  - Paramètres à bind sous forme d'un tableau : 'clé' => valeur
+ * @param string $insert - Contenu du INSERT INTO (sans inclure les mots clés INSERT INTO)
+ * @param string $values - Contenu du VALUES (sans inclure le mot clé VALUES)
  */
 function insertRequest($params, $insert, $values) {
     $pdo = MyPDO::getInstance();
@@ -98,6 +100,14 @@ SQL
     $stmt->execute();
 }
 
+/**
+ * Fonction utilitaire qui réalise une requête UPDATE
+ *
+ * @param array $params    - Paramètres à bind sous forme d'un tableau : 'clé' => valeur
+ * @param string $update   - Contenu du UPDATE (sans inclure le mot clé UPDATE)
+ * @param string $set      - Contenu du SET (sans inclure le mot clé SET)
+ * @param string $where    - Contenu du WHERE (sans inclure le mot clé WHERE)
+ */
 function updateRequest($params, $update, $set, $where) {
     $pdo = MyPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL

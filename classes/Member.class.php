@@ -1,203 +1,177 @@
 <?php
 
-require_once('includes/myPDO.inc.php');
+require_once(projectPath . "includes/requestUtils.inc.php");
 
 class Member {
 
-    /*
-    * id du membre
-    */
     private $idMembre = null;
-
-    /*
-    * nom du membre
-    */
     private $nom = null;
-
-    /*
-    * prenom du membre
-    */
     private $prenom = null;
-
-    /*
-    * pseudo du membre
-    */
     private $pseudo = null;
-
-    /*
-    * mail du membre
-    */
     private $mail = null;
-
-    /*
-    * dateNais du membre
-    */
     private $dateNais = null;
-
-    /*
-    * savoir si le membre est banni
-    */
     private $estBanni = null;
+    private $estValide = null;
 
-    /*
-    * retourne l'id du membre
-    */
-    public function getId(){
+    /**
+     * Retourne l'identifiant du membre
+     * @return int ID du membre
+     */
+    public function getId() {
         return $this->idMembre;
     }
 
-    /*
-    * retourne le nom
-    */
-    public function getLastName(){
+    /**
+     * Retourne le nom de famille du membre
+     * @return string Nom de famille
+     */
+    public function getLastName() {
         return $this->nom;
     }
 
-    /*
-    * retourne le prenom
-    */
-    public function getFirstName(){
+    /**
+     * Retourne le prénom du membre
+     * @return string Prénom
+     */
+    public function getFirstName() {
         return $this->prenom;
     }
-    
-    /*
-     * retourne le pseudo
+
+    /**
+     * Retourne le pseudo du membre
+     * @return string Pseudo
      */
-    public function getPseudo(){
+    public function getPseudo() {
     	return $this->pseudo;
     }
 
-    /*
-    * retourne le mail
-    */
-    public function getMail(){
+    /**
+     * Retourne l'E-mail du membre
+     * @return string L'E-mail
+     */
+    public function getMail() {
         return $this->mail;
     }
 
-    /*
-    * retourne la date de naissance
-    */
-    public function getBirthday(){
+    /**
+     * Retourne la date de naissance du membre
+     * @return string Date de naissance
+     */
+    public function getBirthday() {
         return date("d/m/Y", strtotime($this->dateNais));
     }
 
-    /*
-    * retourne letat du membre, banni ou non
-    */
-    public function getBan(){
+    /**
+     * Indique si le membre est banni
+     * @return bool true si le membre est banni, false sinon
+     */
+    public function isBan() {
         return $this->estBanni;
     }
 
     /**
-     * pour ne pas cree d'instance de Member
+     * Indique si le membre a validé son E-mail
+     * @return bool true si l'E-mail est valide, false sinon
      */
-    private function __construct(){}
+    public function isValid() {
+        return $this->estValide;
+    }
 
     /**
-     * cree une instance de Member
-     * @param $crypt String pseudo et mot de passe crypter du membre
-     * @return Member instance du membre
-     * @throws Exception si le pseudo ou mot de passe est invalide
+     * On interdit l'instanciation d'un membre
      */
-    public static function createFromAuth($crypt){
-        self::startSession();
-        $pdo = MyPDO::GetInstance();
-        $stmt = $pdo->prepare(<<<SQL
-			SELECT *
-			FROM Membre
-			WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
-				AND estValide = 0;
-SQL
-        );
-        $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
-        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
-        $member = $stmt->fetch();
-        if($member!==false){
-            self::challenge();
-            return $member;
-        }
-        else{
+    private function __construct() {}
 
-            $pdo = MyPDO::GetInstance();
-            $stmt = $pdo->prepare(<<<SQL
-				SELECT *
-				FROM Membre
-				WHERE SHA1(concat(SHA1(pseudo), :challenge, password))=:crypt
-					AND estValide = 0;
-SQL
-            );
-            $stmt->execute(array("challenge"=>$_SESSION['challenge'], "crypt" => $crypt));
-            $stmt->setFetchMode(PDO::FETCH_CLASS ,__CLASS__);
-            $member = $stmt->fetch();
-            if($member!==false)
-                throw new Exception('Vous n\'avez pas valider votre adresse mail');
+    /**
+     * Retourne une instance du Membre authentifié si les identifiants sont corrects
+     *
+     * @param $crypt    - Agglomérat de du login, du mot de passe et du challenge
+     *
+     * @return Member L'instance du membre authentifié
+     * @throws Exception Si la connexion échoue
+     */
+    public static function createFromAuth($crypt) {
+        self::startSession();
+        $member = selectRequest(array("challenge" => $_SESSION['challenge'], "crypt" => $crypt), array(PDO::FETCH_CLASS => "Member"), "*", "Membre", "SHA1(concat(SHA1(pseudo), :challenge, password)) = :crypt");
+
+        if(isset($member[0])) {
+            // TODO rectifier la condition lors de la mise en production
+            if(!$member[0]->estValide) {
+                self::challenge();
+                return $member[0];
+            } else {
+                throw new Exception("Vous n'avez pas validé votre E-mail");
+            }
+        } else
+            throw new Exception("Pseudo ou mot de passe invalide");
+    }
+
+    /**
+     * Créée un nouveau membre
+     *
+     * @param string $pseudo    - Le pseudo du membre
+     * @param string $mail      - L'E-mail du membre
+     * @param string $password  - Le mot de passe du membre
+     * @param string $fN        - Le prénom du membre
+     * @param string $lN        - Le nom du membre
+     * @param string $bD        - La date de naissance du membre
+     */
+    public static function createMember($pseudo,$mail,$password,$fN,$lN,$bD) {
+        // TODO passer un tableau en paramètre ça serait pas mieux ?
+        self::startSession();
+        insertRequest(array("ln" => $lN, "fn" => $fN, "pseudo" => $pseudo, "password" => $password, "mail" => $mail, "birthday" => $bD),
+            "Membre(nom, prenom, pseudo, mail, dateNais, password)",
+            "(:ln, :fn, :pseudo, :mail, STR_TO_DATE(:birthday, '%d/%m/%Y'), :password)");
+    }
+
+    /**
+     * Démarre la session
+     *
+     * @throws Exception Si la session n'a pas pu être démarrée
+     */
+    private static function startSession() {
+        if(session_status() == PHP_SESSION_NONE) {
+            if(!headers_sent())
+                session_start();
             else
-                throw new Exception('Pseudo ou mot de passe invalide');
+                throw new Exception("Erreur de session");
         }
     }
 
     /**
-     * ajoute un membre dans la BD
-     * @param $pseudo pseudo du membre
-     * @param $mail mail du membre
-     * @param $password mot de passe du membre
-     * @param $fN nom du membre
-     * @param $lN prenom du membre
-     * @param $bD anniversaire du membre
+     * Indique si l'utilisateur est connecté
+     *
+     * @return bool true s'il est connecté, false sinon
      */
-    public static function createMember($pseudo,$mail,$password,$fN,$lN,$bD){
+    public static function isConnected() {
         self::startSession();
-        $pdo = MyPDO::GetInstance();
-        $stmt = $pdo->prepare(<<<SQL
-        INSERT INTO `Membre`(`nom`, `prenom`, `pseudo`, `mail`, `dateNais`, `password`)
-        VALUES (:ln,:fn,:pseudo,:mail,STR_TO_DATE(:birthday, '%d/%m/%Y'),:password)
-SQL
-        );
-        $stmt->execute(array("ln" => $lN, "fn" => $fN, "pseudo" => $pseudo, "password" => $password, "mail" => $mail, "birthday" => $bD));
-    }
-
-    /**
-     * demmare une session si celle si ne les pas
-     * @throws Exception si une erreur de lancement survient
-     */
-    private static function startSession(){
-        if(session_status()==PHP_SESSION_NONE)
-            session_start();
-    }
-
-    /**
-     * indique si le l'utilisateur et connecter
-     * @return bool
-     */
-    public static function isConnected(){
-        self::startSession();
-        if(isset($_SESSION['Member']) && !empty($_SESSION['Member']) && $_SESSION['Member']!=null){
+        if(isset($_SESSION['Member']) && !empty($_SESSION['Member']) && $_SESSION['Member'] != null){
             return true;
         }
         else return false;
     }
 
     /**
-     * stock l'instance du membre dans une variable de session
+     * Stock l'instance courante dans une variable de session
      */
-    public function saveIntoSession(){
+    public function saveIntoSession() {
         self::startSession();
-        $_SESSION['Member']=$this;
+        $_SESSION['Member'] = $this;
     }
 
     /**
-     * deconnect le membre
+     * Déconnecte le membre
      */
-    public static function disconnect(){
+    public static function disconnect() {
         self::startSession();
-        $_SESSION['Member']=null;
+        $_SESSION['Member'] = null;
     }
 
     /**
-     * renvoit l'instance du membre stocker dans la session
-     * @return Member
+     * Retourne l'instance du membre sauvegardée dans un variable de session
+     * @return Member|null L'instance du membre
      */
-    public static function getInstance(){
+    public static function getInstance() {
         self::startSession();
         if(self::isConnected())
             return $_SESSION['Member'];
@@ -206,10 +180,11 @@ SQL
     }
 
     /**
-     * cree un challenge pour crypter la connexion
-     * @return string challenge pour la cennexion
+     * Créée un chaine de caractère aléatoire
+     * @return string Challenge pour la connexion
      */
-    public static function challenge(){
+    public static function challenge() {
+        // TODO j'hésite à dire qu'elle n'est pas à sa place
         $res = '';
         $it = rand(65,90);
         for($i=0;$i<$it;$i++){
@@ -231,66 +206,29 @@ SQL
         return $res;
     }
 
-    /**
-     * ajoute une lan dans la BD
-     * @param $name nom de la lan
-     * @param $date date de la lan
-     * @param $adress adresse dela lan
-     * @param $idLieux lieux de la lan
-     * @param string $description description de la lan
-     * @throws Exception
-     */
-    public function addLan($name,$date,$adress,$nom,$description = ''){
-        if($description=='')
-            $description="LAN crée par ".$this->pseudo;
+    // TODO pas à sa place
+    public function addLan($name,$date,$adress,$nom,$description = '') {
+        if($description == '')
+            $description = "LAN crée par " . $this->pseudo;
 
-        $pdo = MyPDO::GetInstance();
-        $stmt = $pdo->prepare(<<<SQL
-                SELECT idLieu
-                FROM Lieu
-                WHERE nomVille = :nom;
-SQL
-        );
-        $stmt->execute(array("nom" => $nom));
-        $idLieu = $stmt->fetch()['idLieu'];
+        // TODO je pense qu'il faudrait vérifier si l'id de lieu existe avant de faire la requête
+        $idLieu = selectRequest(array("nom" => $nom), array(PDO::FETCH_ASSOC => null), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
 
-        $pdo = MyPDO::GetInstance();
-        $stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `LAN`(`idMembre`, `nomLan`, `descriptionLAN`, `dateLAN`, `adresse`, `idLieu`,`estOuverte`)
-			VALUES (:idMembre,:nomLan,:descriptionLAN,STR_TO_DATE(:dateLAN, '%d/%m/%Y'),:adresse,:idLieu,true);
-SQL
-        );
-        $stmt->execute(array("idMembre"=>$this->idMembre,"nomLan"=>$name,"descriptionLAN"=>$description,"dateLAN"=>$date,"adresse"=>$adress,"idLieu"=>$idLieu));
+        insertRequest(array("idMembre" => $this->idMembre, "nomLan" => $name, "descriptionLAN" => $description, "dateLAN" => $date, "adresse" => $adress, "idLieu" => $idLieu),
+            "LAN(idMembre, nomLan, descriptionLAN, dateLAN, adresse, idLieu,estOuverte)",
+            "(:idMembre, :nomLan, :descriptionLAN, STR_TO_DATE(:dateLAN, '%d/%m/%Y'), :adresse, :idLieu, true)");
+    }
+
+    // TODO idem
+    public function getLAN() {
+        return selectRequest(array("idMembre" => $this->getId()), array(PDO::FETCH_CLASS => "Lan"), "*", "LAN", "idMembre = :idMembre");
     }
 
     /**
-     * retour un tableau d'instance de lan cree par l'utilisateur
-     * @return array tableau de lan
+     * Supprime le compte
      */
-    public function getLAN(){
-    	$pdo = MyPDO::GetInstance();
-    	$stmt = $pdo->prepare(<<<SQL
-			SELECT *
-			FROM LAN
-			WHERE idMembre = :idMembre;
-SQL
-    	);
-    	$stmt->setFetchMode(PDO::FETCH_CLASS, 'Lan');
-    	$stmt->execute(array("idMembre"=>$this->getId()));
-        return $stmt->fetchAll();
-    }
-    
-    public function deleteAccount(){
-        $lans = $this->getLAN();
-        foreach($lans as $lan)
-            $lan->delete();
-        $pdo = MyPDO::GetInstance();
-        $stmt = $pdo->prepare(<<<SQL
-			DELETE FROM `membre`
-			WHERE `idMembre` = :id
-SQL
-        );
-        $stmt->execute(array("id"=>$this->idMembre));
+    public function deleteAccount() {
+        deleteRequest(array("id"=>$this->idMembre), "Membre", "idMembre = :id");
         $this->disconnect();
     }
 }
