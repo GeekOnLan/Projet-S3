@@ -24,7 +24,7 @@ $html = <<<HTML
 HTML;
 $i=0;
 foreach($lans as $lan) {
-	$html .= $lan->toString();
+	$html .= $lan;
 	$html.="<td><a href=\"updateLAN.php?idLan=".$i."\">Modifier</a></td></tr>";
 	$html.="<td><a href=\"tournoialacon.php?idLan=".$i."\">Mes Tournois</a></td></tr>";
 	$i++;

@@ -1,81 +1,60 @@
 <?php
 
-//require_once('../includes/myPDO.inc.php');
+require_once(projectPath . "includes/requestUtils.inc.php");
  
-class Lan{
+class Lan {
 
-	/**
-	 * @var null id de la lan
-	 */
 	private $idLAN = null;
-
-	/**
-	 * @var null id de la lan
-	 */
 	private $idMembre = null;
-
-	/**
-	 * @var null nom de la lan
-	 */
 	private $nomLAN = null;
-
-	/**
-	 * @var null description de la lan
-	 */
 	private $descriptionLAN = null;
-
-	/**
-	 * @var null date de la lan
-	 */
 	private $dateLAN = null;
-
-	/**
-	 * @var null id du lieux de la lan
-	 */
 	private $idLieu = null;
-
-	/**
-	 * @var null adresse de la lan
-	 */
 	private $adresse = null;
-
-	/**
-	 * @var null retour true si la lan est ouverte
-	 */
 	private $estOuverte = null;
 
 	/**
-	 * @return id de la lan
+	 * On empêche l'instanciation d'une Lan
 	 */
-	public function getId(){
+	private function __construct() {}
+
+	/**
+	 * Retourne l'identifiant de la Lan
+	 * @return int ID de la lan
+	 */
+	public function getId() {
 		return $this->idLAN;
 	}
 
 	/**
-	 * @return id du membre
+	 * Retourn l'identifiant du membre propriétaire de la Lan
+	 * @return int ID du créateur
 	 */
-	public function getIdMember(){
+	public function getIdMember() {
 		return $this->idMembre;
 	}
 
 	/**
-	 * @return le nom de la lan
+	 * Retourne le nom de la Lan
+	 * @return string Le nom de la Lan
 	 */
-	public function getLanName(){
+	public function getLanName() {
 		return $this->nomLAN;
 	}
 
 	/**
-	 * @return la description de la lan
+	 * Retourne la description de la Lan
+	 * @return string La description de la Lan
 	 */
-	public function getLanDescription(){
+	public function getLanDescription() {
 		return $this->descriptionLAN;
 	}
 
 	/**
-	 * @return la date de la lan
+	 * Retourne la date de la Lan au format JJ/MM/AAAA
+	 * @return string La date de la Lan
 	 */
-	public function getLanDate(){
+	public function getLanDate() {
 		$dat = substr($this->dateLAN,0,10);
 		$res = substr($dat,8,2);
 		$res.="/";
@@ -86,184 +65,102 @@ class Lan{
 	}
 
 	/**
-	 * @return l'adresse de la lan
+	 * Retourne l'adresse ou se déroulera la Lan
+	 * @return string L'adresse de la Lan
 	 */
-	public function getAdress(){
+	public function getAdresse() {
 		return $this->adresse;
 	}
 
 	/**
-	 * @return le lieux de la lan
+	 * Retourne le lieu ou se déroulera la Lan
+	 * @return Lieu Le lieux de la Lan
 	 */
-	public function getLieux(){
+	public function getLieu() {
 		return Lieu::createFromId($this->idLieu);
 	}
 
 	/**
-	 * @return l'etat de la lan ouverte ou fermer
+	 * Retourne l'état de la Lan
+	 * @return bool false si la Lan est fermée, true sinon
 	 */
-	public function isOpen(){
+	public function isOpen() {
 		return $this->estOuverte;
 	}
 
-	public function update($nom,$date,$desc,$lieu,$adress){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-                SELECT idLieu
-                FROM Lieu
-                WHERE nomVille = :nom;
-SQL
-		);
-		$stmt->execute(array("nom" => $lieu));
-		$idLieu = $stmt->fetch()['idLieu'];
-		
-		$stmt = $pdo->prepare(<<<SQL
-			UPDATE `LAN`
-			SET `nomLAN` = :nom
-			, `dateLAN` = STR_TO_DATE(:date, '%d/%m/%Y')
-			, `descriptionLAN` = :desc
-			, `idLieu` = :idLieu
-			, `adresse` = :adresse
-			WHERE `idLAN` = :idLan;
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"nom"=>$nom,"date"=>$date,"desc"=>$desc,"idLieu"=>$idLieu,"adresse"=>$adress));
-		$this->nomLAN = $nom;
+	// TODO commente moi ça je sais pas trop ce qu'elle fait
+	public function update($nom,$date,$desc,$lieu,$adress) {
+		$idLieu = selectRequest(array("nom" => $lieu), array(PDO::FETCH_ASSOC), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
+
+		updateRequest(array("idLan" => $this->idLAN, "nom" => $nom, "date" => $date, "desc" => $desc, "idLieu" => $idLieu, "adresse" => $adress),
+			"LAN",
+			"nomLAN = :nom, dateLAN = STR_TO_DATE(:date, '%d/%m/%Y'), descriptionLAN = :desc, idLieu = :idLieu, adresse = :adresse",
+			"idLAN = :idLan");
 	}
 
 	/**
-	 * pour empecher de cree des instance de lan
+	 * Retourne l'instance d'une Lan à partir de son identifiant
+	 *
+	 * @param int $id de la lan
+	 *
+	 * @return Lan
 	 */
-	private function __construct(){}
-
-	/**
-	 * cree une instance de lan a partir de son id
-	 * @param $id id de la lan
-	 * @return mixed Lan
-	 * @throws Exception si la lan n'existe pas
-	 */
-	public static function createFromId($id){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT *
-			FROM LAN
-			WHERE idLAN = ?;
-SQL
-		);
-		$stmt->execute(array($id));
-		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
-		$lan = $stmt->fetch();
-		if($lan!==false)
-			return $lan;
-		else
-			throw new Exception('cette Lan n\'existe pas');
+	public static function createFromId($id) {
+		return selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "idLan = :id")[0];
 	}
 
-	public static function getLanFromRange($offset, $limit) {
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT *
-			FROM LAN
-			WHERE estOuverte = 1
-			LIMIT :fromOffset , :toLimit;
-SQL
-);
-		$stmt->bindValue(':fromOffset', $offset, PDO::PARAM_INT);
-		$stmt->bindValue(':toLimit', $limit, PDO::PARAM_INT);
-		$stmt->execute();
-		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+	// TODO idem que getTournoi : rien à foutre ici et omg faites passez un tableau au lieu d'une méga liste de paramètre
+	public function addTournoi($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = '') {
+		if($description == '')
+			$description = "Tounoi crée par " . Member::getInstance()->getPseudo();
 
-		if(($lans = $stmt->fetchAll()) !== false)
-			return $lans;
-		else
-			throw new Exception("En dehors des limites");
+		$bigmama = array("idLan"=>$this->idLAN,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe);
+		insertRequest($bigmama, "Tournoi(idLAN, idJeu, nomTournoi, tpElimination, dateHeurePrevu, descriptionTournoi, nbEquipeMax,nbPersMaxParEquipe)",
+			"(:idLan, :idJeu, :nomTournoi, :tpElimination, STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'), :descriptionTournoi, :nbEquipeMax, :nbPersMaxParEquipe)");
 	}
 
-	public function addTournoi($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = ''){
-		if($description=='')
-			$description="Tounoi crée par ".Member::getInstance()->getPseudo();
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			INSERT INTO `Tournoi`(`idLan`,`idJeu`, `nomTournoi`, `tpElimination`, `dateHeurePrevu`, `descriptionTournoi`, `nbEquipeMax`,`nbPersMaxParEquipe`)
-			VALUES (:idLan,:idJeu,:nomTournoi,:tpElimination,STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'),:descriptionTournoi,:nbEquipeMax,:nbPersMaxParEquipe);
-SQL
-		);
-		$stmt->execute(array("idLan"=>$this->idLAN,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe));
-	}
-
-	public function getTournoi(){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT *
-			FROM Tournoi
-			WHERE idLAN = :idLAN;
-SQL
-		);
-		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Tournoi');
-		$stmt->execute(array("idLAN"=>$this->idLAN));
-		return $stmt->fetchAll();
+	// TODO rien à foutre dans Lan cette méthode
+	public function getTournoi() {
+		return selectRequest(array("idLan" => $this->idLAN), array(PDO::FETCH_CLASS => 'Tournoi'), "*", "Tournoi", "idLan = :idLan");
 	}
 
 	/**
-	 * @return string un affichage de la lan en tableau
+	 * Affiche la Lan sous la forme d'un tableau
+	 * @return string L'affichage
 	 */
-	public function toString(){
-		$donnees = <<<HTML
+	public function __toString() {
+		return <<<HTML
    <tr>
    		<td>{$this->getLanName()}</td>
    		<td>{$this->getLanDate()}</td>
-   		<td>{$this->getLieux()->getNomSimple()}</td>
+   		<td>{$this->getLieu()->getNomSimple()}</td>
 		<td>{$this->getLanDescription()}</td>
 		<td><a href="details.php?idLan={$this->getId()}">Détails</a></td>
+	</tr>
 HTML;
-		return $donnees;
 	}
-
-	/*
-	 * Permet de récupérer toutes les LANS qui se dérouleront dans moins d'un mois
-	 */
-	public static function getLanFrom(){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT *
-            FROM LAN
-            WHERE dateLAN BETWEEN CURDATE() AND ADDDATE(CURDATE(),31)
-            AND estOuverte = 1
-            ORDER BY 2;
-SQL
-		);
-		$stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
-		$stmt->execute();
-		return  $stmt->fetchAll();
-	}
-
-	public function getLanPicture(){
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT j.imageJeu
-            FROM LAN l, Tournoi t, Jeu j
-            WHERE t.idTournoi = 1 AND t.idLAN = :idlan AND t.idJeu = j.idJeu;
-SQL
-		);
-		$stmt->execute(array("idlan"=>$this->idLAN));;
-		$res = $stmt->fetch()['imageJeu'];
-		return $res;
-	}
-
 
 	/**
-	 * Permet de supprimer une LAN
-     */
-	public function delete(){
-		$tournois = $this->getTournoi();
-		foreach($tournois as $tournoi)
-			$tournoi->delete();
-		$pdo = MyPDO::GetInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			DELETE FROM `LAN`
-			WHERE `idLAN` = :id
-SQL
-		);
-		$stmt->execute(array("id"=>$this->idLAN));
+	 * Retourne les Lans qui se déroulerons dans moins d'un mois
+	 * @return Lan[] La liste des Lans
+	 */
+	public static function getRecentLan() {
+		return selectRequest(array(), array(PDO::FETCH_CLASS => "Lan"), "*", "LAN", "dateLAN BETWEEN CURDATE() AND ADDDATE(CURDATE(),31) AND estOuverte = 1", "ORDER BY 6");
+	}
+
+	/**
+	 * Retourne le chemin de l'image associée à la Lan
+	 * @return string Chemin de l'image
+	 */
+	public function getLanPicture() {
+		// TODO retourne vide pour l'instant. Prendre l'image du jeu d'un tournoi à l'avenir
+		return "";
+	}
+
+	/**
+	 * Supprime la Lan
+	 */
+	public function delete() {
+		deleteRequest(array("id" => $this->idLAN), "LAN", "idLAN = :id");
 	}
 }

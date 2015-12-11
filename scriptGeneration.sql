@@ -36901,8 +36901,8 @@ INSERT INTO `Membre` (`idMembre`,`pseudo`,`mail`,`password`) VALUES
 CREATE TABLE IF NOT EXISTS `Notifications` (
 `idNotification` int(11) NOT NULL,
   `objetNotif` char(31) NOT NULL,
-  `date` datetime NOT NULL,
-  `message` varchar(511) NOT NULL
+  `dateNotif` datetime NOT NULL,
+  `messageNotif` varchar(511) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
