@@ -1,0 +1,49 @@
+#details {
+    background: #3a3a3a;
+    width: 80%;
+    margin: auto;
+    box-shadow: 2px 2px 0 0 #111;
+
+    text-align: center;
+    border-collapse: collapse;
+}
+
+#details tr {
+    height: 50px;
+    font-size: 28px;
+    color: #acacac;
+    font-weight: normal;
+}
+
+#details tr:first-child {
+    border-bottom: solid 5px #D84508;
+}
+
+#details tr td button{
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: AgencyRegular, Arial, serif;
+}
+#details tr td button,a {
+    background-color: #595959;
+}
+
+#details tr td a {
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    font-size: 30px;
+    color: black
+}
+
+#details tr td a:visited{
+    text-decoration: none;
+    color: black;
+}
+#details tr td a:hover {
+    text-decoration: none;
+    color: black;
+}
