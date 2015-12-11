@@ -30,7 +30,8 @@ function toJSON($res) {
 	$objets = array();
 	foreach($res as $lan) {
 		$objets[] = <<<JSON
-	{"name": "{$lan->getLanName()}",
+	{"id" : "{$lan->getId()}",
+	"name": "{$lan->getLanName()}",
 	 "date": "{$lan->getLanDate()}",
 	 "lieu": "{$lan->getLieu()->getNomSimple()}"}
 JSON;
@@ -106,7 +107,7 @@ function getUsedFilters() {
  * @return string la requête SQL
  */
 function buildRequest($filters) {
-	$select = "l.nomLAN, l.dateLAN, l.idLieu";
+	$select = "l.idLAN, l.nomLAN, l.dateLAN, l.idLieu";
 	$from = "LAN l, Lieu li, Tournoi t, Jeu j";
 	$where = "l.estOuverte = 1 AND l.idLieu = li.idLieu AND t.idLAN = l.idLAN AND j.idJeu = t.idJeu";
 

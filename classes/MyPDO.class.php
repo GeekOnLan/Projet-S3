@@ -55,8 +55,6 @@ final class MyPDO {
      * @param string $username Utilisateur pour la connexion BD.
      * @param string $password Mot de passe pour la connexion BD.
      * @param array $driver_options Options du pilote BD.
-     *
-     * @return void
      */
     public static function setConfiguration($dsn, $username='', $password='', array $driver_options=array()) {
         self::$_DSN           = $dsn ;
