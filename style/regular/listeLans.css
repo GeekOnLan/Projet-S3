@@ -1,6 +1,7 @@
 #mainframe article > table {
     background: #3a3a3a;
     width: 70%;
+    min-width: 800px;
     margin: auto;
     box-shadow: 2px 2px 0 0 #111;
 
@@ -37,100 +38,92 @@
 /** ------------------------ **/
 
 #mainframe form[name="filter"] {
+    font-family: Arial, sans-serif;
     background: #3a3a3a;
+
     width: 70%;
+    min-width: 800px;
     margin: auto auto 20px;
+    padding: 5px;
+
+    box-sizing: border-box;
     box-shadow: 2px 2px 0 0 #111;
-    padding-bottom: 5px;
+    border-radius: 5px;
 }
 
-#searchSubmit {
-    border: none;
-    font-size: 22px;
-}
-
-#mainframe form[name="filter"] button[type="button"]:nth-child(n + 2):hover {
-    background: #595959;
-}
-
-#mainframe form[name="filter"] button[type="button"]:nth-child(n + 2) {
-    border: none;
-    display: block;
+#mainframe form[name="filter"] input[type="text"], #mainframe form[name="filter"] textarea {
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
 
     font-size: 22px;
-    border-bottom: solid 4px #40CFF6;
-    width: calc(100% - 80px);
-    text-align: left;
-    margin-left: 40px;
+    padding: 3px 15px;
+    box-sizing: border-box;
 
-    background: #494949;
-    color: #cfcfcf;
+    background: #525252;
+    color: white;
+    resize: none;
 }
 
-#mainframe form[name="filter"] > table {
-    text-align: left;
-    margin: 0 40px;
-    padding: 5px 0;
-    width: calc(100% - 80px);
-    table-layout: fixed;
+#mainframe form[name="filter"] > table > tbody > tr > td:first-child > input {
+    width: calc(50% - 3px);
 }
 
-#mainframe form[name="filter"] > table input {
-    font-size: 20px;
-    border: solid 2px #333333;
-    box-shadow: 0 0 2px 2px #111111 inset;
-    padding: 3px 10px;
+#mainframe form[name="filter"] input[type="checkbox"] {
+    box-shadow: 2px 2px 1px 0 #111;
+}
+
+#mainframe form[name="filter"] textarea {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+#mainframe form[name="filter"] > table > tbody > tr:first-child > td:first-child > input {
+    display: inline;
     box-sizing: border-box;
 }
 
-#mainframe form[name="filter"] > table td > * {
-    width: 100%;
-}
-
-#mainframe form[name="filter"] > div {
-    background: #525252;
-    width: calc(100% - 100px);
-    margin-left: 40px;
-    margin-bottom: 10px;
-
-    padding: 10px;
-
-	transition: all 0.3s;
-	transform-origin: 50% 0%;
-}
-
-#mainframe form[name="filter"] > div > p, #mainframe form[name="filter"] label {
+#mainframe form[name="filter"] label, #mainframe form[name="filter"] p {
     font-size: 20px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     color: #cfcfcf;
     margin-bottom: 5px;
 }
 
-#mainframe form[name="filter"] > div > table {
+#mainframe form[name="filter"] > table {
+    border-spacing: 10px;
     width: 100%;
 }
 
-#mainframe form[name="filter"] > div > table input[type="text"] {
-    font-size: 20px;
-    border: solid 2px #333333;
-    box-shadow: 0 0 2px 2px #111111 inset;
-    padding: 3px 10px;
-    box-sizing: border-box;
+#mainframe form[name="filter"] > table > tbody > tr > td {
+    background: #525252;
+    border-radius: 5px;
+
+    padding: 10px;
+}
+
+#mainframe form[name="filter"] table table {
     width: 100%;
 }
 
-#mainframe form[name="filter"] textarea {
-    font-size: 20px;
-    border: solid 2px #333333;
-    box-shadow: 0 0 2px 2px #111111 inset;
-    padding: 3px 10px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 80px;
-
-    font-family: Arial;
+#mainframe form[name="filter"] table table tr:first-child td:last-child {
+    width: 50%;
 }
 
-#mainframe form[name="filter"] tr:nth-child(2) td:nth-child(3) {
-    text-align: center;
+#mainframe form[name="filter"] table table tr:nth-child(2) td:last-child {
+    text-align: right;
+    padding-right: 10px;
+}
+
+#mainframe form[name="filter"] table td[rowspan="2"] > * {
+    display: block;
+    margin: 15px 0;
+    width: 100%;
+}
+
+#mainframe form[name="filter"] table td[rowspan="2"] > button {
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+    background: #6d6d6d;
+    color: white;
+    font-size: 22px;
 }

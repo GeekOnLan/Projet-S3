@@ -251,7 +251,8 @@ header > hr {
 
 #sidebarButton {
     position: fixed;
-    background: #DDD url("../../resources/img/option.png") no-repeat center;
+    background: #DDD url("../../resources/img/menu.png") no-repeat center;
+    background-size: cover;
 
     top: 50px;
     right: 0;

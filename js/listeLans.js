@@ -1,10 +1,4 @@
 $(function() {
-	$("#mainframe form[name='filter'] > button").each(function(index) {
-		$(this).on("click", function() {
-			expandFilter(index);
-		});
-	});
-
 	sendSearch();
 
 	$("#nextPage").click(function() {
@@ -82,26 +76,4 @@ var sendSearch = function() {
 			console.log(error);
 		}
 	})
-};
-
-/**
- * Etend le groupe de filtre
- *
- * @param filterButton - le numéro du bouton
- */
-var expandFilter = function(filterButton) {
-	var expandableDiv = $("#mainframe form[name='filter'] > div")[filterButton];
-	expandableDiv = $(expandableDiv);
-
-	if(expandableDiv.hasClass("open")) {
-		expandableDiv.css({
-			transform: "scaleY(1)",
-		});
-	} else {
-		expandableDiv.css({
-			transform: "scaleY(0)",
-		});
-	}
-
-	expandableDiv.toggleClass("open");
 };

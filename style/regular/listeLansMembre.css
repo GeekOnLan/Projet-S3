@@ -27,7 +27,7 @@
     font-weight: bold;
     font-family: AgencyRegular, Arial, serif;
 }
-#mainframe article > table tr td button,a {
+#mainframe article > table tr td a {
     background-color: #595959;
 }
 

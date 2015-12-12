@@ -1,4 +1,4 @@
 ErrorDocument 401 /Projet-S3/index.php
 ErrorDocument 403 /Projet-S3/index.php
-ErrorDocument 404 /Projet-S3/index.php
+ErrorDocument 404 /Projet-S3/404.php
 ErrorDocument 500 /Projet-S3/index.php
