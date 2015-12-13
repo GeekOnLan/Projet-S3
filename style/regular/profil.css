@@ -1,136 +1,13 @@
-#mainframe form {
-    background: #3a3a3a;
-    width: 70%;
-    box-shadow: 2px 2px 0 0 #333;
-
-    border-top: solid 20px #FF5B00;
-
-    text-align: center;
-    margin: auto auto 50px;
-    border-bottom: solid 2px #111;
-    border-left: solid 2px #111;
-    border-right: solid 2px #111;
-}
-
-#mainframe table {
-    padding: 20px;
-    width: 100%;
-    text-align: left;
-}
-
-#mainframe form table div {
-    display: table;
-    border-collapse: collapse;
-    box-shadow: 2px 2px 1px 0 #111;
-    border: solid 3px #1b1b1b;
-
+#profilTable {
     margin: auto;
-    width: 70%;
+    width: 72%;
+    min-width: 800px;
+    border-spacing: 15px;
 }
 
-#mainframe form td {
-    padding: 15px;
-}
-
-#mainframe form tr {
-    margin: auto;
-}
-
-#mainframe form table div > * {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-#mainframe form label {
-    font-size: 26px;
-    color: #8e8e8e;
-    border-bottom: solid 3px #212121;
-    width: 85%;
-    display: inline-block;
-    margin-bottom: 3px;
-    padding-left: 10px;
-}
-
-#mainframe form hr {
-    width: 40%;
-    margin: auto;
-}
-
-#mainframe form img{
-    float: left;
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-
-    background-color: #40CFF6;
-    box-shadow: 0 0 5px 0 #333 inset;
-}
-
-#mainframe form div p,form input{
-    float: right;
-    border: none;
-    height: 50px;
-    resize : none;
-    font-size: 28px;
-    padding: 0 10px;
-
-    background: #525252;
-    color: white;
-
-    position: relative;
-    width: calc(100% - 70px);
-}
-
-#mainframe form table span {
-    display: block;
-    height: 25px;
-    color: #b70000;
-    font-size: 20px;
-    padding-top: 4px;
-    text-align: center;
-}
-
-#mainframe form h3 {
-    color: #8e8e8e;
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 3px;
-}
-
-#mainframe form input:invalid {
-    box-shadow: 0 0 5px 0 red inset;
-}
-
-#mainframe form h2 {
-    margin: -19px auto auto;
-    background: #FF5B00;
-    height: 40px;
-    width: 200px;
-    padding: 8px;
-    font-size: 30px;
-    color: white;
-    border-bottom: solid 5px #212121;
-    border-right: solid 5px #212121;
-    border-left: solid 5px #212121;
-}
-
-#mainframe form button {
-    width: 50%;
-    font-family: AgencyRegular, Arial, serif;
-
-    color: white;
-    background: #525252;
-    font-size: 32px;
-
-    box-shadow: 2px 2px 1px 0 #111;
-    border: solid 3px #222;
-
-    margin-bottom: 15px;
-}
-
-#mainframe #buttonDelete{
-    background-color: #9f0000;
-}
+/** ============================== **/
+/** ==== Menu de confirmation ==== **/
+/** ============================== **/
 
 #myPrompt{
     border-top: solid 10px #FF5B00;
@@ -209,4 +86,284 @@
 
 #myPrompt button{
     margin: 20px;
+}
+
+/** ===================== **/
+/** ==== Info compte ==== **/
+/** ===================== **/
+
+#persoInfo {
+    padding: 15px;
+    box-shadow: 2px 2px 0 0 #111;
+    border-radius: 5px;
+
+    background: #3a3a3a;
+    font-family: Arial, sans-serif;
+    border-top: solid 15px #40CFF6;
+    text-align: center;
+}
+
+#persoInfo div {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+}
+
+#persoInfo h3 {
+    font-size: 28px;
+    color: #cccccc;
+}
+
+#persoInfo h2 {
+    display: block;
+    background: #40CFF6;
+    color: white;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+
+    width: 100px;
+    text-align: center;
+    margin-top: -30px;
+    margin-left: -15px;
+    padding: 3px;
+}
+
+#persoInfo hr {
+    width: 80%;
+    margin: auto;
+}
+
+#persoInfo table {
+    width: 100%;
+    table-layout: fixed;
+    margin: auto;
+    padding-left: 50px;
+    border-spacing: 5px;
+}
+
+#persoInfo td:first-child {
+    color: #40CFF6;
+    padding-right: 30px;
+    font-weight: bold;
+    border-bottom: solid 3px #40CFF6;
+    border-right: solid 200px #3a3a3a;
+}
+
+#persoInfo td:last-child {
+    color: white;
+}
+
+#persoInfo td {
+    font-size: 22px;
+    text-align: left;
+    box-sizing: border-box;
+    padding-left: 20px;
+}
+
+#persoInfo #buttonDelete {
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+
+    font-size: 22px;
+    padding: 3px 15px;
+    box-sizing: border-box;
+    margin-top: 15px;
+
+    background: #525252;
+    color: white;
+    transition: all 0.3s;
+}
+
+#persoInfo #buttonDelete:hover {
+    color: red;
+    border: solid 3px red;
+}
+
+/** ======================== **/
+/** ==== Changement mdp ==== **/
+/** ======================== **/
+
+#changeForm {
+    padding: 15px;
+    box-shadow: 2px 2px 0 0 #111;
+    border-radius: 5px;
+
+    background: #3a3a3a;
+    font-family: Arial, sans-serif;
+    border-top: solid 15px #40CFF6;
+    text-align: center;
+}
+
+#changeForm h2 {
+    display: block;
+    background: #40CFF6;
+    color: white;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+
+    width: 200px;
+    text-align: center;
+    margin-top: -30px;
+    margin-left: -15px;
+    padding: 3px;
+}
+
+#changeForm img{
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+
+    background-color: #40CFF6;
+    box-shadow: 0 0 5px 0 #333 inset;
+}
+
+#changeForm input {
+    float: right;
+    border: none;
+    height: 50px;
+
+    font-size: 22px;
+    padding: 0 10px;
+
+    background: #525252;
+    color: white;
+
+    position: relative;
+    width: calc(100% - 70px);
+}
+
+#changeForm input:invalid {
+    box-shadow: 0 0 2px 2px red;
+}
+
+#changeForm table {
+    border-spacing: 10px;
+    text-align: left;
+}
+
+#changeForm table tr:nth-child(odd) td:last-child {
+    display: table;
+    border-collapse: collapse;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+
+    margin: auto;
+    width: 100%;
+}
+
+#changeForm table tr:nth-child(odd) td:first-child {
+    text-align: right;
+    width: 30%;
+}
+
+#changeForm table tr:nth-child(even) td[colspan="2"] {
+    font-size: 19px;
+    font-weight: bold;
+    color: #c70000;
+    text-shadow: 1px 1px #222222;
+}
+
+#changeForm label {
+    font-size: 22px;
+    color: #e5e5e5;
+}
+
+#changeForm table tr:last-child td:last-child {
+    text-align: center;
+}
+
+#changeForm button {
+    font-family: Arial, serif;
+
+    color: white;
+    background: #525252;
+    font-size: 22px;
+    padding: 5px 40px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #222;
+}
+
+#changeForm button:hover {
+    box-shadow: 0 0 2px 2px black inset;
+}
+
+#changeForm table tr:last-child td:first-child {
+    color: white;
+    font-size: 20px;
+}
+
+/** ================== **/
+/** ==== Mes Lans ==== **/
+/** ================== **/
+
+#myLans {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    box-shadow: 2px 2px 0 0 #111;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    background: #3a3a3a;
+    font-family: Arial, sans-serif;
+    border-top: solid 15px #40CFF6;
+    text-align: center;
+}
+
+#myLans h2 {
+    background: #40CFF6;
+    color: white;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+
+    width: 150px;
+    text-align: center;
+    margin-top: -30px;
+    margin-left: -15px;
+    padding: 3px;
+}
+
+#myLans table {
+    width: 100%;
+    font-size: 22px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    border: solid 5px #1b1b1b;
+}
+
+#myLans table tr:nth-child(odd) {
+    background: #494949;
+}
+
+#myLans table td {
+    padding: 5px 10px;
+}
+
+#myLans span {
+    display: block;
+    margin-top: 10px;
+    color: white;
+    font-size: 22px;
+}
+
+#myLans a {
+    display: block;
+    font-family: Arial, serif;
+
+    color: white;
+    text-decoration: none;
+    background: #525252;
+    font-size: 22px;
+    padding: 5px 40px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #222;
+}
+
+#myLans a:hover {
+    box-shadow: 0 0 2px 2px black inset;
 }
