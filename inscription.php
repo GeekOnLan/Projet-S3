@@ -1,84 +1,131 @@
 <?php
 
 require_once('includes/autoload.inc.php');
-require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
+require_once('includes/requestUtils.inc.php');
 require_once('includes/deconnectedMember.inc.php');
 
-$form = new GeekOnLanWebpage("GeekOnLan - Inscription");
-$form->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
-$form->appendCssUrl("style/mobile/inscription.css", "screen and (max-width: 680px");
+/**
+ * Vérifie la validité de pseudo fourni par l'utilisateur. Vérifie entre autre
+ * si le pseudo contient des caractères spéciaux, un nom interdit ou est déjà utilisé
+ *
+ * @param string $pseudo - Le pseudo à vérifier
+ * @return string L'éventuelle message d'erreur
+ */
+function verifPseudo($pseudo) {
+	$message = "";
+	if(mb_ereg("^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$", $pseudo) == 0)
+		$message = "Votre pseudo contient des caractères spéciaux";
+	else if(preg_match("/(r[0o]{2,40}t)|(a+d+m+i+n+)/i", $pseudo) == 1)
+		$message = "Ce pseudo est interdit";
+	else {
+		$pseudoVerif = selectRequest(array("pseudo" => $pseudo), array(PDO::FETCH_BOTH => null), "pseudo", "Membre", "pseudo = :pseudo");
+		if(isset($pseudoVerif[0]))
+			$message = "Ce pseudo est déjà utilisé";
+	}
 
-//On regarde si l'utilisateur � d�j� ex�cut� le formulaire
-if (verify($_POST,"pseudo") && verify($_POST,"mail") && verify($_POST,"hiddenPass")) {
-    try{
-        $pseudo = $_POST['pseudo'];
-        $mail = $_POST['mail'];
-        $password = $_POST['hiddenPass'];
-        $fN = null;
-        $lN = null;
-        $bD = null;
-
-        //Test sur les champs non obligatoire :
-        $cNO = verifyForm($_POST,"birthday","firstName","lastName");
-        if($cNO==4){
-            $fN = $_POST['firstName'];
-            $lN = $_POST['lastName'];
-            $bD = $_POST['birthday'];
-            // On vérifie la validité du pseudonyme
-            if(mb_ereg("^[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ \.]{0,40}$",$_POST['pseudo']) == 1) {
-                //Connexion � la BdD
-                $pdo = myPDO::getInstance();
-                //Test pour vérifier si le pseudo n'est pas déjà utilisé
-                $stmt = $pdo->prepare(<<<SQL
-                SELECT pseudo
-                FROM Membre
-                WHERE pseudo = :pseudo;
-SQL
-                );
-                $stmt->execute(array("pseudo" => $pseudo));
-                $pseudoVerif = $stmt->fetch()['pseudo'];
-                if ($pseudoVerif != $pseudo && strcasecmp($pseudo, "admin")!=0  && strcasecmp($pseudo, "administrateur")!=0 && strcasecmp($pseudo, "root")!=0) {
-                    Member::createMember($pseudo,$mail,$password,$fN,$lN,$bD);
-                    envoieMailValide($pseudo, $mail);
-					header('Location: message.php?message=Vous etes bien inscrit ! Vous allez recevoir un email de confirmation');
-                }
-                else {
-                    $form->appendContent("<p>Le pseudonyme est déjà utilisé</p>");
-                    addJsAndCss($form);
-                    $form->appendContent(formulaire());
-                }
-            }
-            else{
-                $form->appendContent("<p>Le pseudonyme n'est pas valide</p>");
-                addJsAndCss($form);
-                $form->appendContent(formulaire());
-            }
-        }
-        else {
-            if ($cNO == 1) $form->appendContent("<p>Date d'anniversaire non valide !</p><br>");
-            if ($cNO == 2) $form->appendContent("<p>Prénom non valide !</p><br>");
-            if ($cNO == 3) $form->appendContent("<p>Nom non valide !</p><br>");
-            addJsAndCss($form);
-            $form->appendContent(formulaire());
-
-        }
-    }
-    catch(Exception $e){
-		header('Location: message.php?message=un problème est survenu');
-    }
+	return $message;
 }
 
-else{
-    addJsAndCss($form);
-    $form->appendContent(formulaire());
+/**
+ * Verifie la validité des champs optionnels saisis. Test entre autre
+ * la validité de la date, du nom et du prénom
+ *
+ * @param string $birthday
+ * @param string $firstName
+ * @param string $lastName
+ * @return string Le message d'erreur si une erreur survient
+ */
+function verifyOption($birthday, $firstName, $lastName){
+	if($birthday != null) {
+		$date = explode('/', $birthday);
+		$day = isset($date[0]) ? intval($date[0]) : null;
+		$month = isset($date[1]) ? intval($date[1]) : null;
+		$year = isset($date[2]) ? intval($date[2]) : null;
+
+		if(!checkdate($month, $day, $year))
+			return "Date d'anniversaire invalide";
+	}
+
+	if($firstName != null && !mb_ereg("^[a-zA-Z\ ]+$", $firstName) == 1)
+		return "Prénom invalide";
+
+	if($lastName != null && !mb_ereg("^[a-zA-Z\ ]+$", $lastName) == 1)
+		return "Nom invalide";
+
+	return "";
 }
-echo $form->toHTML();
+
+/**
+ * Envois un mail de confirmation à l'utilisateur nouvellement créé
+ *
+ * @param string $login - Pseudo du membre
+ * @param string $email - E-mail du membre
+ */
+function envoieMailValide($login, $email){
+	// Génération aléatoire d'une clé
+	$key = md5(microtime(TRUE)*100000);
+
+	// Insertion de la clé dans la base de données
+	$dbh = myPDO::GetInstance();
+	$stmt = $dbh->prepare("UPDATE Membre SET cleMail=:key WHERE pseudo like :login");
+	$stmt->bindParam(':key', $key);
+	$stmt->bindParam(':login', $login);
+	$stmt->execute();
+
+	$destinataire = $email;
+	$sujet = "Activation de votre compte sur geekonlan" ;
+	$entete = "From: inscription@geekonlan.com" ;
+	$key = urlencode($key);
+	$login = urlencode($login);
+	// Le lien d'activation est composé du login(login) et de la clé(key)
+	$message =<<<HTML
+Bienvenue sur GeekOnLAN,
+
+Pour activer votre compte, veuillez cliquer sur le lien ci dessous
+ou le copier/coller dans votre navigateur internet.
+
+http://geekonlan.com/activation.php?log={$login}&key={$key}
 
 
-// Fonction utilis� pour cr�e le formulaire d'inscription au sein de la page.
-function formulaire(){
-    $html= <<<HTML
+---------------
+Ceci est un mail automatique, Merci de ne pas y répondre
+
+HTML;
+
+	mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
+}
+
+$html = "";
+
+// Vérification du formulaire
+if(verify($_POST, "pseudo") && verify($_POST, "mail") && verify($_POST, "hiddenPass")) {
+	$pseudo 	= $_POST['pseudo'];
+	$mail 		= $_POST['mail'];
+	$password 	= $_POST['hiddenPass'];
+	$firstName 	= verify($_POST, "firstName") ? $_POST['firstName'] : null;
+	$lastName 	= verify($_POST, "lastName") ? $_POST['lastName'] : null;
+	$birthday 	= verify($_POST, "bithday") ? $_POST['bithday'] : null;
+
+	$resPseudo = verifPseudo($pseudo);
+	$resOption = verifyOption($birthday, $firstName, $lastName);
+
+	if($res == "") {
+		Member::createMember($pseudo, $mail, $password, $firstName,$lastName, $birthday);
+		envoieMailValide($pseudo, $mail);
+		header('Location: message.php?message=Vous etes bien inscrit ! Vous allez recevoir un email de confirmation');
+	} else
+		$html = "<p>$resPseudo $resOption</p>";
+}
+
+$page = new GeekOnLanWebpage("GeekOnLan - Inscription");
+$page->appendJsUrl("js/rsa.js");
+$page->appendJsUrl("js/BigInt.js");
+$page->appendJsUrl("js/inscription.js");
+$page->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
+$page->appendCssUrl("style/mobile/inscription.css", "screen and (max-width: 680px");
+
+$html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">
 		<h2>Inscription</h2>
 		<table>
@@ -93,7 +140,7 @@ function formulaire(){
     				<label for="pseudo">Pseudonyme*</label>
     				<div>
     				    <img id="pseudoLogo" src="resources/img/Contact.png" alt="login" />
-    				    <input id="pseudo" name="pseudo" type="text" placeholder="Pseudo" onfocus="resetPseudo()" onblur="verififyPseudoForm()">
+    				    <input id="pseudo" name="pseudo" type="text" placeholder="Pseudo" maxlength="31" onfocus="resetPseudo()" onblur="verififyPseudoForm()">
     				</div>
     				<span id="erreurpseudo"></span>
     			</td>
@@ -111,7 +158,7 @@ function formulaire(){
     				<label for="mail">E-Mail*</label>
     				<div>
     				    <img src="resources/img/Mail.png" alt="login" />
-    				    <input id="mail" name="mail" type="text" placeholder="Adresse mail" onfocus="resetMail()" onblur="verifyMailForm()">
+    				    <input id="mail" name="mail" type="text" placeholder="Adresse mail" maxlength="64" onfocus="resetMail()" onblur="verifyMailForm()">
     				</div>
     				<span id="erreurmail"></span>
     			</td>
@@ -160,7 +207,7 @@ function formulaire(){
     				<label for="firstName">Prénom</label>
     				<div>
     				    <img src="resources/img/Contact.png" alt="login" />
-    				    <input id="firstName" name="firstName" type="text" placeholder="Prénom" onfocus="resetFirst()" onblur="verifyFirstForm()">
+    				    <input id="firstName" name="firstName" type="text" placeholder="Prénom" maxlength="31" onfocus="resetFirst()" onblur="verifyFirstForm()">
                     </div>
     				<span id="erreurfirst"></span>
     			</td>
@@ -171,7 +218,7 @@ function formulaire(){
     				<label for="lastName">Nom</label>
     				<div>
     				    <img src="resources/img/Contact.png" alt="login" />
-    				    <input id="lastName" name="lastName" type="text" placeholder="Nom" onfocus="resetLast()" onblur="verifyLastForm()">
+    				    <input id="lastName" name="lastName" type="text" placeholder="Nom" maxlength="31" onfocus="resetLast()" onblur="verifyLastForm()">
     				</div>
     				<span id="erreurlast"></span>
     			</td>
@@ -186,48 +233,8 @@ function formulaire(){
 		</table>
 		<button type="button" onclick="verifyInscription()"> Envoyer </button>
 	</form>
-
-HTML;
-    return $html;
-
-}
-// Préparation du mail contenant le lien d'activation
-function envoieMailValide($login,$email){
-    //génération aléatoire d'une clé
-    $key = md5(microtime(TRUE)*100000);
-
-    // Insertion de la clé dans la base de données
-    $dbh = myPDO::GetInstance();
-    $stmt = $dbh->prepare("UPDATE Membre SET cleMail=:key WHERE pseudo like :login");
-    $stmt->bindParam(':key', $key);
-    $stmt->bindParam(':login', $login);
-    $stmt->execute();
-
-    $destinataire = $email;
-    $sujet = "Activation de votre compte sur geekonlan" ;
-    $entete = "From: inscription@geekonlan.com" ;
-    $key = urlencode($key);
-    $login = urlencode($login);
-    // Le lien d'activation est composé du login(login) et de la clé(key)
-    $message =<<<HTML
-Bienvenue sur GeekOnLAN,
-
-Pour activer votre compte, veuillez cliquer sur le lien ci dessous
-ou le copier/coller dans votre navigateur internet.
-
-http://geekonlan.com/activation.php?log={$login}&key={$key}
-
-
----------------
-Ceci est un mail automatique, Merci de ne pas y répondre
-
 HTML;
 
-    mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
-}
+$page->appendContent($html);
 
-function addJsAndCss(GeekOnLanWebpage $form){
-    $form->appendJsUrl("js/rsa.js");
-    $form->appendJsUrl("js/BigInt.js");
-    $form->appendJsUrl("js/inscription.js");
-}
+echo $page->toHTML();

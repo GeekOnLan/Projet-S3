@@ -3,31 +3,6 @@ function verify($champs,$string){
     return (isset($champs[$string])&&!empty($champs[$string]));
 }
 
-//Fonction pour les tests sur le formulaire d'inscription, surement r�utilisable
-// Retourne 1 si le champ birthday est mal renseign�, 2 si c'est le champ du pr�nom, 3 pour le nom. Retourne 4 si les 3 champs sont correctement
-//renseign�s.
-function verifyForm($champs,$birthday,$fN,$lN){
-    if(verify($champs,$birthday)){
-        if(!mb_ereg("(?:(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:0[1-9]|1[0-2])[\/\\-. ]?(?:19|20)[0-9]{2}",$champs[$birthday]) == 1){
-            return 1;
-        }
-    }
-    if(verify($champs,$fN)){
-        if(!mb_ereg("^[a-zA-Z]{1,20}$",$champs[$fN]) == 1){
-            return 2;
-        }
-    }
-    if(verify($champs,$lN)){
-        if(!mb_ereg("^[a-zA-Z]{1,20}$",$champs[$lN]) == 1){
-            return 3;
-        }
-    }
-    return 4;
-}
-
-
-
-
 function decrypt($chaine){
 	
 	$n = "22782469609880586210215954529198328699762849071829281444083913073420430341988274543115439207346717733103808548322724893717891249991955541197995203978840775836853914854777304089361538296383477248076248762831253054689313750618030258372535915451171672561015357101019001878811374043380853820209273845487370257454447664096573362294553079927349217490049751330678460389718079215427407035320036101073797491427224454671279438924759398949863132362128519457260723263409621194840838762296330112075635352615276651650471297528264099124381803584728419013555202008843348423786688917724709218090042590673112815023946036299048884777319";
