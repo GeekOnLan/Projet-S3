@@ -35,10 +35,12 @@ foreach($lesLans as $lan){
                     <img src="$img" alt="news" />
                 </td>
                 <td>
-                    <h2>{$lan->getLanName()}</h2>
-                    <hr/>
-                    <p>{$lan->getLanDescription()}</p>
-                    <a href="details.php?idLan={$lan->getId()}">Lire la suite</a>
+                    <div>
+                        <h2>{$lan->getLanName()}</h2>
+                        <hr/>
+                        <p>{$lan->getLanDescription()}</p>
+                        <a href="details.php?idLan={$lan->getId()}">Lire la suite</a>
+                    </div>
                 </td>
             </tr>
         </table>
