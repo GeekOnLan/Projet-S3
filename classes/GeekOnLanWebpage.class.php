@@ -162,11 +162,7 @@ HTML
             <article>
             {$this->mainframe}
             </article>
-            <div id="parallax">
-                <div class="bottom"></div>
-                <div class="middle"></div>
-                <div class="front"></div>
-            </div>
+            <div id="parallax"></div>
         </div>
         <div id="layer"></div>
 HTML
