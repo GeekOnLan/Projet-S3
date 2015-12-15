@@ -2,7 +2,6 @@
 
 require_once('includes/autoload.inc.php');
 require_once('includes/myPDO.inc.php');
-require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
 $page = new GeekOnLanWebpage("GeekOnLan - Mes Lans");
@@ -41,6 +40,7 @@ HTML;
 		$html .= $lan;
 		$html.="<td><a href=\"updateLAN.php?idLan=".$i."\">Modifier</a></td></tr>";
 		$html.="<td><a href=\"listeTournoisMembre.php?idLan=".$i."\">Mes Tournois</a></td></tr>";
+		$html.="<td><a href=\"details.php?idLan=".$i."\">Détails</a></td>";
 		$i++;
 	}
 	

@@ -118,4 +118,22 @@ SQL
     	$stmt->execute(array("idLan"=>$this->idLAN,"idTournoi"=>$this->idTournoi));
     	return $stmt->fetchAll();
     }
+    
+    public static function getTournoiFromLAN($idLan,$idTournoi){
+    	$pdo = MyPDO::GetInstance();
+        $stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM Tournoi
+			WHERE idTournoi = :idTournoi
+        	AND idLan=:idLan;
+SQL
+        );
+        $stmt->execute(array("idTournoi"=>$idTournoi,"idLan"=>$idLan));
+        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+        $tournoi = $stmt->fetch();
+        if($tournoi!==false)
+            return $tournoi;
+        else
+            throw new Exception('ce tournoi n\'existe pas');
+    }
 }

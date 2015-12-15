@@ -2,7 +2,6 @@
 
 require_once('includes/autoload.inc.php');
 require_once('includes/myPDO.inc.php');
-require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
 if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
@@ -43,8 +42,9 @@ HTML
 	</tr>
 HTML
 );
+		$i=0;
 		foreach ($tournois as $tournoi){
-			$page->appendContent(toString($tournoi));
+			$page->appendContent(toString($tournoi,$i++));
 		}
 		$page->appendContent(<<<HTML
 	<tr>
@@ -61,7 +61,7 @@ else {
 	header('Location: message.php?message=un problème est survenu');
 }
 
-function toString(Tournoi $tournoi){
+function toString(Tournoi $tournoi,$i){
 	$equipe = sizeof($tournoi->getEquipe())."/".$tournoi->getNbEquipeMax();
 	$tour=<<<HTML
 
@@ -69,7 +69,7 @@ function toString(Tournoi $tournoi){
 		<td>{$tournoi->getNomTournoi()}</td>
 		<td>{$tournoi->getDateHeurePrevu()}</td>
 		<td>{$tournoi->getTpElimination()}</td>
-		<td>{$equipe}<a>Voir les équipes</a></td>
+		<td>{$equipe}<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Voir les équipes</a></td>
 		<td>{$tournoi->getNbPersMaxParEquipe()}</td>
 	</tr>
 HTML;

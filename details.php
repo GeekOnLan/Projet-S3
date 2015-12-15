@@ -11,12 +11,18 @@ $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px"
 
 $membre = Member::getInstance();
 
-if(verify($_GET,'idLan')){
-	$lan = Lan::createFromId($_GET['idLan']);
-	$open= "Non";
-	if($lan->isOpen()) $open = "Oui";
-
-	$html = <<<HTML
+if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])){
+	$membre = Member::getInstance();
+	$lans = $membre->getLAN();
+	if($_GET['idLan'] > sizeof($lans) - 1){
+		header('Location: message.php?message=un problème est survenu');
+	}
+	else{
+		$lan=$lans[$_GET['idLan']];
+		$open= "Non";
+		if($lan->isOpen()) $open = "Oui";
+	
+		$html = <<<HTML
 
 <table id="details">
 	<thead>
@@ -43,12 +49,14 @@ if(verify($_GET,'idLan')){
 	</tr>
 	<tr>
 		<td></td><td></td><td></td><td></td>
-		<td><a href=\"updateLAN.php?idLan="{$_GET['idLan']}"">Modifier</a></td>
-		<td><a href=\"listeTournois.php?idLan="{$_GET['idLan']}"">Mes Tournois</a></td>
+		<td><a href="updateLAN.php?idLan={$_GET['idLan']}">Modifier</a></td>
+		<td><a href="listeTournoisMembre.php?idLan={$_GET['idLan']}">Mes Tournois</a></td>
 	</tr>
 		
 HTML;
-	$page->appendContent($html);
-	echo $page->toHTML();
-} else
+		$page->appendContent($html);
+		echo $page->toHTML();
+	}
+} 
+else
 	header('Location: message.php?message=un problème est survenu');

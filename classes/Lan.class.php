@@ -135,7 +135,6 @@ class Lan {
    		<td>{$this->getLanDate()}</td>
    		<td>{$this->getLieu()->getNomSimple()}</td>
 		<td>{$this->getLanDescription()}</td>
-		<td><a href="details.php?idLan={$this->getId()}">Détails</a></td>
 	</tr>
 HTML;
 	}
