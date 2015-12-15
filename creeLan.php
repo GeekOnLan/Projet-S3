@@ -64,36 +64,36 @@ $html= <<<HTML
 		</tr>
         <tr>
             <td>
-                <label for="nameLan">Nom de la LAN*</label>
+                <label for="nameLan">Nom de la LAN *</label>
                 <div>
                     <img id="lanName" src="resources/img/Lan.png"/>
-                    <input name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
+                    <input maxlength="31" name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
                 </div>
                 <span id="erreurNameLAN"></span>
             </td>
              <td>
-                <label for="villeLAN">Ville*</label>
+                <label for="villeLAN">Ville *</label>
                 <div>
                     <img id="ville" src="resources/img/Ville.png"/>
-                    <input name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
+                    <input maxlength="63" name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
                 </div>
                 <span id="erreurVilleLAN"></span>
             </td>
         </tr>
         <tr>
             <td>
-                <label for="detaLAN">Date de lévènement*</label>
+                <label for="detaLAN">Date de lévènement *</label>
                 <div>
                     <img src="resources/img/Birthday.png"/>
-                    <input name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
+                    <input maxlength="12" name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
                 </div>
                 <span id="erreurDateLAN"></span>
             </td>
              <td>
-                <label for="adresseLAN">Adresse*</label>
+                <label for="adresseLAN">Adresse *</label>
                 <div>
                     <img id="ville" src="resources/img/Ville.png"/>
-                    <input name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
+                    <input maxlength="63" name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                 </div>
                 <span id="erreurAdresseLAN"></span>
             </td>
@@ -108,9 +108,89 @@ $html= <<<HTML
             <td colspan="2" id="area">
                 <label for="descriptionLAN">Déscription de la LAN</label>
                 <div>
-                    <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
+                    <textarea maxlength="255" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                 </div>
                 <span id="erreurDescriptionLAN"> </span>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <table>
+        <tr>
+    			<td colspan="2">
+    				<h3>Information de votre premier tournois</h3>
+    				<hr/>
+    			</td>
+		</tr>
+        <tr>
+            <td>
+                <label for="nameTournoi">Nom du tournoi *</label>
+                <div>
+                    <img id="tournoiName" src=""/>
+                    <input maxlength="31" name="nameTournoi" type="text"  placeholder="Nom Tournoi" onfocus="resetNameTournoi()" onblur="verifyNameTournoi()">
+                </div>
+                <span id="erreurNameTournoi"></span>
+            </td>
+            <td>
+                <label for="nameJeuTournoi">Nom du jeu *</label>
+                <div>
+                    <img id="tournoiJeuName" src=""/>
+                    <input maxlength="31" name="nameJeuTournoi" type="text"  placeholder="Nom jeu" onfocus="resetNameJeuTournoi()" onblur="verifyNameJeuTournoi()">
+                </div>
+                <span id="erreurNameJeuTournoi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="dateTournoi">Date du tournoi *</label>
+                <div>
+                    <img src=""/>
+                    <input maxlength="12" name="dateTournoi" placeholder="JJ:MM:AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
+                </div>
+                <span id="erreurDateTournoi"></span>
+            </td>
+             <td>
+                <label for="heureTournoi">Heure du tournoi *</label>
+                <div>
+                    <img id="tournoi" src=""/>
+                    <input maxlength="5"  name="heureTournoi" type="text" placeholder="HH:MM" onfocus="resetHeureTournoi()" onblur="verifyHeureTournoi()">
+                </div>
+                <span id="erreurHeureTournoi"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="nbEquipeMax">Nombre maximum d équipe *</label>
+                <div>
+                    <img id="nbEquipeMax" src=""/>
+                    <input maxlength="6" name="nbEquipeMax" placeholder="0000" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()" type="text">
+                </div>
+                <span id="erreurNbEquipeMax"></span>
+            </td>
+             <td>
+                <label for="nbMembreMax">Nombre maximum de joueur par équipe *</label>
+                <div>
+                    <img id="nbMembreMax" src=""/>
+                    <input maxlength="6" name="nbMembreMax" type="text" placeholder="0000" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
+                </div>
+                <span id="erreurNbMembreMax"></span>
+            </td>
+        </tr>
+        <tr>
+    			<td colspan="2">
+    				<h3>Information complémentaire</h3>
+    				<hr/>
+    			</td>
+		</tr>
+        <tr>
+            <td colspan="2" id="area">
+                <label for="descriptionTournoi">Description du tournoi</label>
+                <div>
+                    <textarea maxlength="255" name="descriptionTournoi" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionTournoi()"></textarea>
+                </div>
+                <span id="erreurDescriptionTournoi"> </span>
             </td>
         </tr>
     </table>
