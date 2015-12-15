@@ -12,7 +12,7 @@ class Tournoi{
 
     private $tpElimination = null;
 
-    private $dateHeurPrevu = null;
+    private $dateHeurePrevu = null;
 
     private $descriptionTournoi = null;
 
@@ -40,8 +40,18 @@ class Tournoi{
         return $this->tpElimination;
     }
 
-    public function getDateHeurPrevu(){
-        return $this->dateHeurPrevu;
+    public function getDateHeurePrevu(){
+    	$dat = substr($this->dateHeurePrevu,0);
+    	$res = substr($dat,8,2);
+    	$res.="/";
+    	$res.=substr($dat,5,2);
+    	$res.="/";
+    	$res.=substr($dat,0,4);
+    	$res.=" a ";
+    	$res.=substr($dat,11,2);
+    	$res.="h";
+    	$res.=substr($dat,14,2);
+    	return $res;
     }
 
     public function getDescriptionTournoi(){

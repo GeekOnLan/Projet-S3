@@ -107,7 +107,7 @@ function formulaire($lan)
                 <label for="adresseLAN">Adresse*</label>
                 <div>
                     <img id="ville" src="resources/img/Ville.png"/>
-                    <input name="adresseLAN" type="text" placeholder="Adresse" value="{$lan->getAdress()}" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
+                    <input name="adresseLAN" type="text" placeholder="Adresse" value="{$lan->getAdresse()}" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                 </div>
                 <span id="erreurAdresseLAN"> </span>
             </td>

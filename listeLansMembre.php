@@ -11,29 +11,43 @@ $page->appendCssUrl("style/mobile/listeLans.css", "screen and (max-width: 680px"
 
 $membre = Member::getInstance();
 $lans = $membre->getLAN();
-
-$html = <<<HTML
-
+$html="";
+if(sizeof($lans)==0){
+	$html=<<<HTML
 <table>
 	<tr>
-		<td>Nom</td>
-		<td>Date</td>
-		<td>Lieu</td>
-		<td>Description</td>
+		<th>aucune LAN crée</th>
 	</tr>
+	<tr>
+		<td><a href="creeLan.php">Crée une LAN</a></td>
+	</tr>
+</table>
 HTML;
-$i=0;
-foreach($lans as $lan) {
-	$html .= $lan;
-	$html.="<td><a href=\"updateLAN.php?idLan=".$i."\">Modifier</a></td></tr>";
-	$html.="<td><a href=\"tournoialacon.php?idLan=".$i."\">Mes Tournois</a></td></tr>";
-	$i++;
+	
 }
-
-$html .= <<<HTML
-	</table>
+else{
+	$html = <<<HTML
+	
+	<table>
+		<tr>
+			<td>Nom</td>
+			<td>Date</td>
+			<td>Lieu</td>
+			<td>Description</td>
+		</tr>
 HTML;
-
+	$i=0;
+	foreach($lans as $lan) {
+		$html .= $lan;
+		$html.="<td><a href=\"updateLAN.php?idLan=".$i."\">Modifier</a></td></tr>";
+		$html.="<td><a href=\"listeTournoisMembre.php?idLan=".$i."\">Mes Tournois</a></td></tr>";
+		$i++;
+	}
+	
+	$html .= <<<HTML
+		</table>
+HTML;
+}
 	
 
 $page->appendContent($html);
