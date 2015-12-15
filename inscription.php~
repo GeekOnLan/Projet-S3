@@ -110,7 +110,7 @@ if(verify($_POST, "pseudo") && verify($_POST, "mail") && verify($_POST, "hiddenP
 	$resPseudo = verifPseudo($pseudo);
 	$resOption = verifyOption($birthday, $firstName, $lastName);
 
-	if($res == "") {
+	if($resPseudo == "" && $resOption == "") {
 		Member::createMember($pseudo, $mail, $password, $firstName,$lastName, $birthday);
 		envoieMailValide($pseudo, $mail);
 		header('Location: message.php?message=Vous etes bien inscrit ! Vous allez recevoir un email de confirmation');

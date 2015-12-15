@@ -145,22 +145,22 @@ $html= <<<HTML
     				<span id="erreurpseudo"></span>
     			</td>
     			<td>
-    				<label for="pwd">Mot de passe*</label>
-    				<div>
-    				    <img src="resources/img/Lock.png" alt="login" />
-    				    <input id="pwd" name="pwd" type="password" placeholder="Mot de passe" onfocus="resetPWD()" onblur="verifyPassForm()">
-    				</div>
-    				<span id="erreurpass1"></span>
-    			</td>
-    		</tr>
-			<tr>
-			    <td>
     				<label for="mail">E-Mail*</label>
     				<div>
     				    <img src="resources/img/Mail.png" alt="login" />
     				    <input id="mail" name="mail" type="text" placeholder="Adresse mail" maxlength="64" onfocus="resetMail()" onblur="verifyMailForm()">
     				</div>
     				<span id="erreurmail"></span>
+    			</td>
+    		</tr>
+			<tr>
+				<td>
+					<label for="pwd">Mot de passe*</label>
+    				<div>
+    				    <img src="resources/img/Lock.png" alt="login" />
+    				    <input id="pwd" name="pwd" type="password" placeholder="Mot de passe" onfocus="resetPWD()" onblur="verifyPassForm()">
+    				</div>
+    				<span id="erreurpass1"></span>
     			</td>
 			    <td>
     				<label for="pwdVerif">Confirmer mot de passe*</label>
