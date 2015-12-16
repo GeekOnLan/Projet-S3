@@ -25,7 +25,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])){
 		$html = <<<HTML
 
 <table id="details">
-	<thead>
+	<tr>
 		<th>Nom</th>
 		<th>Date</th>
 		<th>Description</th>
@@ -35,7 +35,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])){
 		<th>Arrondissement</th>
 		<th>Code Postal</th>
 		<th>Departement</th>
-	</thead>
+	</tr>
 	<tr>
 		<td>{$lan->getLanName()}</td>
    		<td>{$lan->getLanDate()}</td>
@@ -54,7 +54,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])){
 	</tr>
 		
 HTML;
-		$page->appendContent($html);
+		$page->appendContent($html."</table>");
 		echo $page->toHTML();
 	}
 } 
