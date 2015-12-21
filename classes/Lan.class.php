@@ -104,9 +104,14 @@ class Lan {
 	 * @param int $id de la lan
 	 *
 	 * @return Lan
+	 * @throws Exception Si la lan n'existe pas
 	 */
 	public static function createFromId($id) {
-		return selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "idLan = :id")[0];
+		$res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "idLan = :id");
+		if(isset($res[0]))
+			return $res[0];
+		else
+			throw new Exception("Aucune Lan trouvée");
 	}
 
 	// TODO idem que getTournoi : rien à foutre ici et omg faites passez un tableau au lieu d'une méga liste de paramètre

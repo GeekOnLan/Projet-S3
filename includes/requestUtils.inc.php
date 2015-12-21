@@ -13,7 +13,7 @@ require_once(projectPath . "includes/myPDO.inc.php");
  * @param string $extraOptions         - Contenu extra. Ex : ORDER BY ..., LIMIT ... (inclure les mots clé)
  *
  * @return array Le résultat de la requête
- * @throws Exception Si aucun résultat n'a été trouvé
+ * @throws Exception Si une erreur s'est produite
  */
 function selectRequest($params, $fetch, $select, $from, $where, $extraOptions = "") {
     $pdo = MyPDO::getInstance();
@@ -45,7 +45,7 @@ SQL
     if(($res = $stmt->fetchAll()) !== false)
         return $res;
     else
-        throw new Exception("Aucun résultat");
+        throw new Exception("Une erreur s'est produite pendant la requête");
 }
 
 /**
