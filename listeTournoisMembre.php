@@ -37,8 +37,8 @@ HTML
 		<th>Nom</th>
 		<th>Date et heure prévu</th>
 		<th>Type Elimination</th>
-		<th>Nombre d'équipe</th>
-		<th>Nombre de personnes par equipes</th>
+		<th>Nombre d'équipes</th>
+		<th>Nombre de personnes par équipe</th>
 	</tr>
 HTML
 );

@@ -72,7 +72,7 @@ function formulaire($lan)
     <table>
         <tr>
     			<td colspan="2">
-    				<h3>Information de la LAN</h3>
+    				<h3>Informations de la LAN</h3>
     				<hr/>
     			</td>
 		</tr>
@@ -114,13 +114,13 @@ function formulaire($lan)
         </tr>
         <tr>
     			<td colspan="2">
-    				<h3>Information complémentaire</h3>
+    				<h3>Informations complémentaires</h3>
     				<hr/>
     			</td>
 		</tr>
         <tr>
             <td colspan="2" id="area">
-                <label for="descriptionLAN">Déscription de la LAN</label>
+                <label for="descriptionLAN">Description de la LAN</label>
                 <div>
                     <textarea maxlength="90" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()">{$lan->getLanDescription()}</textarea>
                 </div>
