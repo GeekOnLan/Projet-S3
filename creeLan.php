@@ -6,7 +6,7 @@ require_once('includes/utility.inc.php');
 require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
-$form = new GeekOnLanWebpage("GeekOnLan - Create - LAN");
+$form = new GeekOnLanWebpage("GeekOnLan - Création d'une LAN");
 $form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px");
 $form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
 
@@ -54,11 +54,11 @@ function formulaire(){
 $html= <<<HTML
 
 <form method="POST" name="ajoutLAN" action="creeLan.php">
-    <h2>Crée une Lan</h2>
+    <h2>Créer une Lan</h2>
     <table>
         <tr>
     			<td colspan="2">
-    				<h3>Information de la LAN</h3>
+    				<h3>Informations de la LAN</h3>
     				<hr/>
     			</td>
 		</tr>
@@ -82,7 +82,7 @@ $html= <<<HTML
         </tr>
         <tr>
             <td>
-                <label for="detaLAN">Date de lévènement *</label>
+                <label for="detaLAN">Date de l'évènement *</label>
                 <div>
                     <img src="resources/img/Birthday.png"/>
                     <input maxlength="12" name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
@@ -100,13 +100,13 @@ $html= <<<HTML
         </tr>
         <tr>
     			<td colspan="2">
-    				<h3>Information complémentaire</h3>
+    				<h3>Informations complémentaires</h3>
     				<hr/>
     			</td>
 		</tr>
         <tr>
             <td colspan="2" id="area">
-                <label for="descriptionLAN">Déscription de la LAN</label>
+                <label for="descriptionLAN">Description de la LAN</label>
                 <div>
                     <textarea maxlength="255" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                 </div>
@@ -120,7 +120,7 @@ $html= <<<HTML
     <table>
         <tr>
     			<td colspan="2">
-    				<h3>Information de votre premier tournois</h3>
+    				<h3>Informations de votre premier tournoi</h3>
     				<hr/>
     			</td>
 		</tr>
@@ -147,7 +147,7 @@ $html= <<<HTML
                 <label for="dateTournoi">Date du tournoi *</label>
                 <div>
                     <img src=""/>
-                    <input maxlength="12" name="dateTournoi" placeholder="JJ:MM:AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
+                    <input maxlength="12" name="dateTournoi" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
                 </div>
                 <span id="erreurDateTournoi"></span>
             </td>
@@ -162,7 +162,7 @@ $html= <<<HTML
         </tr>
         <tr>
             <td>
-                <label for="nbEquipeMax">Nombre maximum d équipe *</label>
+                <label for="nbEquipeMax">Nombre maximum d'équipe *</label>
                 <div>
                     <img id="nbEquipeMax" src=""/>
                     <input maxlength="6" name="nbEquipeMax" placeholder="0000" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()" type="text">
@@ -170,7 +170,7 @@ $html= <<<HTML
                 <span id="erreurNbEquipeMax"></span>
             </td>
              <td>
-                <label for="nbMembreMax">Nombre maximum de joueur par équipe *</label>
+                <label for="nbMembreMax">Nombre maximum de joueurs par équipe *</label>
                 <div>
                     <img id="nbMembreMax" src=""/>
                     <input maxlength="6" name="nbMembreMax" type="text" placeholder="0000" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
@@ -180,7 +180,7 @@ $html= <<<HTML
         </tr>
         <tr>
     			<td colspan="2">
-    				<h3>Information complémentaire</h3>
+    				<h3>Informations complémentaires</h3>
     				<hr/>
     			</td>
 		</tr>
@@ -194,7 +194,7 @@ $html= <<<HTML
             </td>
         </tr>
     </table>
-    <button type="button" onclick="verifyLAN()">Crée une Lan</button>
+    <button type="button" onclick="verifyLAN()">Créer une Lan</button>
     <p>* : champs obligatoires</p>
 </form>
 
