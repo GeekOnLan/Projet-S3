@@ -1,0 +1,55 @@
+.notif {
+    margin-left : 20%;
+    width : 60%;
+    margin-right : 20%;
+    margin-bottom: 20px;
+    background-color: #313131;
+    text-decoration-color: #3DB2E1;
+    color : white;
+    text-align: center;
+    display : inline-block;
+}
+
+.notif p {
+    text-align: center;
+    padding-left: 10px;
+}
+
+.invit {
+    margin-left : 20%;
+    width : 60%;
+    margin-right : 20%;
+    margin-bottom: 20px;
+    background-color: #313131;
+    text-decoration-color: #3DB2E1;
+    color : white;
+    text-align: center;
+    display : inline-block;
+}
+
+.invit p {
+    text-align: center;
+    padding-left: 10px;
+}
+
+.vide {
+    margin-left : 20%;
+    width : 60%;
+    height : 100px;
+    margin-right : 20%;
+    margin-bottom: 20px;
+    background-color: #313131;
+    text-decoration-color: #3DB2E1;
+    color : white;
+    text-align: center;
+    display : inline-block;
+    text-align: center;
+    font-size: 2em;
+    padding-left: 10px;
+}
+
+hr {
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-bottom : 20px;
+}

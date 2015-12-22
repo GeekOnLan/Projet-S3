@@ -106,6 +106,7 @@ HTML;
     <h2>{$m->getPseudo()}</h2>
     <ul>
         <li><a href="profil.php">Profil</a></li>
+        <li><a href="notification.php">Mes notifications</a></li>
         <li><a href="#">Participations</a></li>
         <li><a href="creeLan.php">Cree une LAN</a></li>
         <li><a href="listeLansMembre.php">Mes LAN</a></li>
