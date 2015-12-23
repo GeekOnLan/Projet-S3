@@ -52,150 +52,153 @@ echo $form->toHTML();
 // Fonction utilis� pour cr�e le formulaire d'inscription au sein de la page.
 function formulaire(){
 $html= <<<HTML
-
 <form method="POST" name="ajoutLAN" action="creeLan.php">
-    <h2>Créer une Lan</h2>
-    <table>
-        <tr>
-    			<td colspan="2">
-    				<h3>Informations de la LAN</h3>
-    				<hr/>
-    			</td>
-		</tr>
-        <tr>
-            <td>
-                <label for="nameLan">Nom de la LAN *</label>
-                <div>
-                    <img id="lanName" src="resources/img/Lan.png"/>
-                    <input maxlength="31" name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
-                </div>
-                <span id="erreurNameLAN"></span>
-            </td>
-             <td>
-                <label for="villeLAN">Ville *</label>
-                <div>
-                    <img id="ville" src="resources/img/Ville.png"/>
-                    <input maxlength="63" name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
-                </div>
-                <span id="erreurVilleLAN"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="detaLAN">Date de l'évènement *</label>
-                <div>
-                    <img src="resources/img/Birthday.png"/>
-                    <input maxlength="12" name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
-                </div>
-                <span id="erreurDateLAN"></span>
-            </td>
-             <td>
-                <label for="adresseLAN">Adresse *</label>
-                <div>
-                    <img id="ville" src="resources/img/Ville.png"/>
-                    <input maxlength="63" name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
-                </div>
-                <span id="erreurAdresseLAN"></span>
-            </td>
-        </tr>
-        <tr>
-    			<td colspan="2">
-    				<h3>Informations complémentaires</h3>
-    				<hr/>
-    			</td>
-		</tr>
-        <tr>
-            <td colspan="2" id="area">
-                <label for="descriptionLAN">Description de la LAN</label>
-                <div>
-                    <textarea maxlength="255" name="descriptionLAN" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
-                </div>
-                <span id="erreurDescriptionLAN"> </span>
-            </td>
-        </tr>
+    <table class="lanForm">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <h2>Créer une Lan</h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="nameLan">Nom de la LAN *</label>
+                    <div class="formInput">
+                        <img id="lanName" src="resources/img/Lan.png"/>
+                        <input maxlength="31" name="nameLAN" type="text"  placeholder="Nom" onfocus="resetNameLAN()" onblur="verifyNameLAN()">
+                    </div>
+                    <span id="erreurNameLAN"></span>
+                </td>
+                <td rowspan="4" id="area">
+                    <label for="descriptionLAN">Description de la LAN</label>
+                    <div class="formTextarea">
+                        <textarea maxlength="255" name="descriptionLAN" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
+                    </div>
+                    <span id="erreurDescriptionLAN"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="dateLAN">Date de l'évènement *</label>
+                    <div class="formInput">
+                        <img src="resources/img/Birthday.png"/>
+                        <input maxlength="12" name="dateLAN" placeholder="Date" onfocus="resetDateLAN()" onblur="verifyDateLAN()" type="text">
+                    </div>
+                    <span id="erreurDateLAN"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="adresseLAN">Adresse *</label>
+                    <div class="formInput">
+                        <img id="ville" src="resources/img/Ville.png"/>
+                        <input maxlength="63" name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
+                    </div>
+                    <span id="erreurAdresseLAN"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="villeLAN">Ville *</label>
+                    <div class="formInput">
+                        <img id="ville" src="resources/img/Ville.png"/>
+                        <input maxlength="63" name="villeLAN" type="text" placeholder="Ville" onfocus="resetVilleLAN()" onblur="verifyVilleLAN()">
+                    </div>
+                    <span id="erreurVilleLAN"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" id="next">Continuer</button></td>
+                <td><p>* : Champs obligatoires</p></td>
+            </tr>
+        </tbody>
     </table>
 
 
 
-    <table>
-        <tr>
-    			<td colspan="2">
-    				<h3>Informations de votre premier tournoi</h3>
-    				<hr/>
-    			</td>
-		</tr>
-        <tr>
-            <td>
-                <label for="nameTournoi">Nom du tournoi *</label>
-                <div>
-                    <img id="tournoiName" src=""/>
-                    <input maxlength="31" name="nameTournoi" type="text"  placeholder="Nom Tournoi" onfocus="resetNameTournoi()" onblur="verifyNameTournoi()">
-                </div>
-                <span id="erreurNameTournoi"></span>
-            </td>
-            <td>
-                <label for="nameJeuTournoi">Nom du jeu *</label>
-                <div>
-                    <img id="tournoiJeuName" src=""/>
-                    <input maxlength="31" name="nameJeuTournoi" type="text"  placeholder="Nom jeu" onfocus="resetNameJeuTournoi()" onblur="verifyNameJeuTournoi()">
-                </div>
-                <span id="erreurNameJeuTournoi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="dateTournoi">Date du tournoi *</label>
-                <div>
-                    <img src=""/>
-                    <input maxlength="12" name="dateTournoi" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
-                </div>
-                <span id="erreurDateTournoi"></span>
-            </td>
-             <td>
-                <label for="heureTournoi">Heure du tournoi *</label>
-                <div>
-                    <img id="tournoi" src=""/>
-                    <input maxlength="5"  name="heureTournoi" type="text" placeholder="HH:MM" onfocus="resetHeureTournoi()" onblur="verifyHeureTournoi()">
-                </div>
-                <span id="erreurHeureTournoi"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="nbEquipeMax">Nombre maximum d'équipe *</label>
-                <div>
-                    <img id="nbEquipeMax" src=""/>
-                    <input maxlength="6" name="nbEquipeMax" placeholder="0000" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()" type="text">
-                </div>
-                <span id="erreurNbEquipeMax"></span>
-            </td>
-             <td>
-                <label for="nbMembreMax">Nombre maximum de joueurs par équipe *</label>
-                <div>
-                    <img id="nbMembreMax" src=""/>
-                    <input maxlength="6" name="nbMembreMax" type="text" placeholder="0000" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
-                </div>
-                <span id="erreurNbMembreMax"></span>
-            </td>
-        </tr>
-        <tr>
-    			<td colspan="2">
-    				<h3>Informations complémentaires</h3>
-    				<hr/>
-    			</td>
-		</tr>
-        <tr>
-            <td colspan="2" id="area">
-                <label for="descriptionTournoi">Description du tournoi</label>
-                <div>
-                    <textarea maxlength="255" name="descriptionTournoi" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionTournoi()"></textarea>
-                </div>
-                <span id="erreurDescriptionTournoi"> </span>
-            </td>
-        </tr>
+    <table class="tournoiForm">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <h2>Créer un premier tournoi</h2>
+                </th>
+		    </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="nameTournoi">Nom du tournoi *</label>
+                    <div class="formInput">
+                        <img id="tournoiName" src=""/>
+                        <input maxlength="31" name="nameTournoi" type="text"  placeholder="Nom Tournoi" onfocus="resetNameTournoi()" onblur="verifyNameTournoi()">
+                    </div>
+                    <span id="erreurNameTournoi"></span>
+                </td>
+                <td>
+                    <label for="nameJeuTournoi">Nom du jeu *</label>
+                    <div class="formInput">
+                        <img id="tournoiJeuName" src=""/>
+                        <input maxlength="31" name="nameJeuTournoi" type="text"  placeholder="Nom jeu" onfocus="resetNameJeuTournoi()" onblur="verifyNameJeuTournoi()">
+                    </div>
+                    <span id="erreurNameJeuTournoi"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="dateTournoi">Date du tournoi *</label>
+                    <div class="formInput">
+                        <img src=""/>
+                        <input maxlength="12" name="dateTournoi" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
+                    </div>
+                    <span id="erreurDateTournoi"></span>
+                </td>
+                 <td>
+                    <label for="heureTournoi">Heure du tournoi *</label>
+                    <div class="formInput">
+                        <img id="tournoi" src=""/>
+                        <input maxlength="5"  name="heureTournoi" type="text" placeholder="HH:MM" onfocus="resetHeureTournoi()" onblur="verifyHeureTournoi()">
+                    </div>
+                    <span id="erreurHeureTournoi"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="nbEquipeMax">Nombre maximum d'équipe *</label>
+                    <div class="formInput">
+                        <img id="nbEquipeMax" src=""/>
+                        <input maxlength="6" name="nbEquipeMax" placeholder="0000" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()" type="text">
+                    </div>
+                    <span id="erreurNbEquipeMax"></span>
+                </td>
+                 <td>
+                    <label for="nbMembreMax">Nombre maximum de joueurs par équipe *</label>
+                    <div class="formInput">
+                        <img id="nbMembreMax" src=""/>
+                        <input maxlength="6" name="nbMembreMax" type="text" placeholder="0000" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
+                    </div>
+                    <span id="erreurNbMembreMax"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label for="descriptionTournoi">Description du tournoi</label>
+                    <div class="tournoiDesc">
+                        <textarea maxlength="255" name="descriptionTournoi" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionTournoi()"></textarea>
+                    </div>
+                    <span id="erreurDescriptionTournoi"> </span>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" onclick="verifyLAN()">Créer une Lan</button></td>
+                <td><button type="button" id="prev">Précédent</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><p>* : champs obligatoires</p></td>
+            </tr>
+        </tbody>
     </table>
-    <button type="button" onclick="verifyLAN()">Créer une Lan</button>
-    <p>* : champs obligatoires</p>
 </form>
 
 HTML;

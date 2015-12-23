@@ -1,3 +1,42 @@
+$(function() {
+	var lanForm = $(".lanForm");
+	var tournoiForm = $(".tournoiForm");
+
+	// Action pour faire passer du menu lan à tournoi
+	$("#next").click(function() {
+		lanForm.css({
+			"visibility": "hidden",
+			"transform": "translateX(10%)",
+			"opacity": "0"
+		});
+
+		window.setTimeout(function() {
+			tournoiForm.css({
+				"visibility": "visible",
+				"transform": "translateX(0px)",
+				"opacity": "1"
+			});
+		}, 300);
+	});
+
+	// Action pour faire passer du menu tournoi à lan
+	$("#prev").click(function() {
+		tournoiForm.css({
+			"visibility": "hidden",
+			"transform": "translateX(-10%)",
+			"opacity": "0"
+		});
+
+		setTimeout(function() {
+			lanForm.css({
+				"visibility": "visible",
+				"transform": "translateX(0px)",
+				"opacity": "1"
+			});
+		}, 300);
+	});
+});
+
 var xhrVille;
 if (window.XMLHttpRequest) {
 	xhrVille = new XMLHttpRequest();
