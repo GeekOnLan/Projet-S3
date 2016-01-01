@@ -70,4 +70,13 @@ SQL
 		$stmt->execute(array("id"=>$this->idEquipe));
 		return $stmt->fetchAll();
 	}
+
+	public static function createEquipe($idLan,$idTournoi,$nom,$desc="") {
+		insertRequest(array("nom" => $nom, "desc" => $desc),
+			"equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
+			"(:nom, :desc, 1)");
+		/*insertRequest(array("equipe" => $nom, "lan" => $idLan, "tournoi" => $idTournoi),
+			"participer(idEquipe, idLan, idTournoi)",
+			"(:equipe, :lan, :tournoi)");*/
+	}
 }
