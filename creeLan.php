@@ -3,55 +3,88 @@
 require_once('includes/autoload.inc.php');
 require_once('classes/Lan.class.php');
 require_once('includes/utility.inc.php');
-require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Création d'une LAN");
 $form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px");
 $form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
+$form->appendJsUrl("js/rsa.js");
+$form->appendJsUrl("js/BigInt.js");
+$form->appendJsUrl("js/creeLan.js");
 
-
+/**
+ * Vérifie que tout les champs obligatoires du formulaire son
+ * remplis
+ *
+ * @return bool true s'ils sont corrects, false sinon
+ */
 function verifyFormLAN(){
-    $res=true;
-    $res=$res&&(isset($_POST['nameLAN'])&&!empty($_POST['nameLAN']));
-    $res=$res&&(isset($_POST['dateLAN'])&&!empty($_POST['dateLAN']));
-    $res=$res&&(isset($_POST['descriptionLAN']));
-    $res=$res&&(isset($_POST['villeLAN'])&&!empty($_POST['villeLAN']));
-    $res=$res&&(isset($_POST['adresseLAN'])&&!empty($_POST['adresseLAN']));
-    return $res;
+    $res = true;
+    $toVerify = array("nameLAN", "dateLAN", "villeLAN", "adresseLAN");
+
+    foreach($toVerify as $key)
+        $res = $res && verify($_POST, $key);
+
+    return $res && isset($_POST["descriptionLAN"]);
 }
-//On regarde si l'utilisateur � d�j� ex�cut� le formulaire
+
+// TODO Modifier cette fonction pour envoyer un vrai mail confirmant la création
+/**
+ * Envois un mail confirmant la création de la Lan au membre
+ * @param $login
+ * @param $email
+ */
+function envoieMailValide($login,$email){
+    //génération aléatoire d'une clé
+    $key = md5(microtime(TRUE)*100000);
+
+    // Insertion de la clé dans la base de données
+    $dbh = myPDO::GetInstance();
+    $stmt = $dbh->prepare("UPDATE Membre SET cleMail=:key WHERE pseudo like :login");
+    $stmt->bindParam(':key', $key);
+    $stmt->bindParam(':login', $login);
+    $stmt->execute();
+
+    $destinataire = $email;
+    $sujet = "Activation de votre LAN sur geekonlan" ;
+    $entete = "From: inscription@geekonlan.com" ;
+    $key = urlencode($key);
+    $login = urlencode($login);
+    // Le lien d'activation est composé du login(login) et de la clé(key)
+    $message =<<<HTML
+Bienvenue sur GeekOnLAN,
+
+Pour activer votre LAN, veuillez cliquer sur le lien ci dessous
+ou le copier/coller dans votre navigateur internet.
+
+http://geekonlan.com/activation.php?log={$login}&key={$key}
+
+
+---------------
+Ceci est un mail automatique, Merci de ne pas y répondre
+
+HTML;
+
+    mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
+}
+
+//On regarde si l'utilisateur à déjà exécuté le formulaire
 if (verifyFormLAN()) {
     $nameLAN = $_POST['nameLAN'];
     $dateLAN = $_POST['dateLAN'];
-    $descriptionLAN = $_POST['descriptionLAN'];
+    $descriptionLAN = (empty($_POST["descriptionLAN"])) ? "" : $_POST["descriptionLAN"];
     $villeLAN = $_POST['villeLAN'];
     $adresseLAN = $_POST['adresseLAN'];
-    if(empty($descriptionLAN)){
-        try{
-            Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN);
-            header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
-        }catch(Exception $e){
-            header('Location: message.php?message=un problème est survenu');
-        }
-    }else{
-        try{
-            Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
-            header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
-        }catch(Exception $e){
-            header('Location: message.php?message=un problème est survenu');
-        }
+
+    try {
+        Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
+        header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
+    } catch(Exception $e) {
+        header('Location: message.php?message=un problème est survenu');
     }
     //envoieMailValide($pseudo, $mail);
-}else{
-    $form->appendContent(formulaire());
-}
-addJsAndCss($form);
-echo $form->toHTML();
-
-// Fonction utilis� pour cr�e le formulaire d'inscription au sein de la page.
-function formulaire(){
-$html= <<<HTML
+} else {
+    $form->appendContent(<<<HTML
 <form method="POST" name="ajoutLAN" action="creeLan.php">
     <table class="lanForm">
         <thead>
@@ -115,9 +148,6 @@ $html= <<<HTML
             </tr>
         </tbody>
     </table>
-
-
-
     <table class="tournoiForm">
         <thead>
             <tr>
@@ -200,48 +230,8 @@ $html= <<<HTML
         </tbody>
     </table>
 </form>
-
-HTML;
-    return $html;
-
-}
-// Préparation du mail contenant le lien d'activation
-function envoieMailValide($login,$email){
-    //génération aléatoire d'une clé
-    $key = md5(microtime(TRUE)*100000);
-
-    // Insertion de la clé dans la base de données
-    $dbh = myPDO::GetInstance();
-    $stmt = $dbh->prepare("UPDATE Membre SET cleMail=:key WHERE pseudo like :login");
-    $stmt->bindParam(':key', $key);
-    $stmt->bindParam(':login', $login);
-    $stmt->execute();
-
-    $destinataire = $email;
-    $sujet = "Activation de votre LAN sur geekonlan" ;
-    $entete = "From: inscription@geekonlan.com" ;
-    $key = urlencode($key);
-    $login = urlencode($login);
-    // Le lien d'activation est composé du login(login) et de la clé(key)
-    $message =<<<HTML
-Bienvenue sur GeekOnLAN,
-
-Pour activer votre LAN, veuillez cliquer sur le lien ci dessous
-ou le copier/coller dans votre navigateur internet.
-
-http://geekonlan.com/activation.php?log={$login}&key={$key}
-
-
----------------
-Ceci est un mail automatique, Merci de ne pas y répondre
-
-HTML;
-
-    mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
+HTML
+    );
 }
 
-function addJsAndCss(GeekOnLanWebpage $form){
-    $form->appendJsUrl("js/rsa.js");
-    $form->appendJsUrl("js/BigInt.js");
-    $form->appendJsUrl("js/creeLan.js");
-}
+echo $form->toHTML();

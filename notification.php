@@ -49,7 +49,7 @@ function getInvitation(){
     $pdo = myPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL
                 SELECT e.nomEquipe, e.idEquipe
-                FROM inviter i, equipe e
+                FROM Inviter i, Equipe e
                 WHERE i.idMembre = :membre AND i.idEquipe = e.idEquipe;
 SQL
     );
@@ -60,7 +60,7 @@ SQL
     foreach($lesInvits as $invit){
         $mesJoliesInvits.=<<<HTML
     <div class="invit" id="{$invit['idEquipe']}">
-        <h1>L'équipe {$invit['nomEquipe']} vous invite à la rejoindre !</h1>
+        <h1>L'ï¿½quipe {$invit['nomEquipe']} vous invite ï¿½ la rejoindre !</h1>
         <h2>Acceptez-vous cette invitation ?</h2>
         <button class="yB"> Oui </button> <button class="nB"> Non </button>
     </div>
