@@ -76,8 +76,17 @@ if (verifyFormLAN()) {
     $villeLAN = $_POST['villeLAN'];
     $adresseLAN = $_POST['adresseLAN'];
 
+	$nameTournoi = $_POST['nameTournoi'];
+	$nameJeu = $_POST['nameJeuTournoi'];
+	$dateTournoi = $_POST['dateTournoi'];
+	$heureTournoi = $_POST['heureTournoi'];
+	$nbEquipeMax = $_POST['nbEquipeMax'];
+	$nbMembreMax = $_POST['nbMembreMax'];
+	$descriptionTournoi = $_POST['descriptionTournoi'];
+
     try {
         Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
+        Lan::createLanFromName($nameLAN)->addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$description);
         header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
     } catch(Exception $e) {
         header('Location: message.php?message=un problème est survenu');
@@ -109,7 +118,7 @@ if (verifyFormLAN()) {
                     <div class="formTextarea">
                         <textarea maxlength="255" name="descriptionLAN" onfocus="resetDescriptionLAN" onblur="verifyDescriptionLAN()"></textarea>
                     </div>
-                    <span id="erreurDescriptionLAN"></span>
+                    <span id="erreurDescriptionLAN"> </span>
                 </td>
             </tr>
             <tr>
@@ -126,7 +135,7 @@ if (verifyFormLAN()) {
                 <td>
                     <label for="adresseLAN">Adresse *</label>
                     <div class="formInput">
-                        <img id="ville" src="resources/img/Ville.png"/>
+                        <img id="adresse" src="resources/img/Ville.png"/>
                         <input maxlength="63" name="adresseLAN" type="text" placeholder="Adresse" onfocus="resetAdresseLAN()" onblur="verifyAdresseLAN()">
                     </div>
                     <span id="erreurAdresseLAN"></span>
@@ -198,7 +207,7 @@ if (verifyFormLAN()) {
                     <label for="nbEquipeMax">Nombre maximum d'équipe *</label>
                     <div class="formInput">
                         <img id="nbEquipeMax" src=""/>
-                        <input maxlength="6" name="nbEquipeMax" placeholder="0000" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()" type="text">
+                        <input type="number" value="0" min="0" max="9999" name="nbEquipeMax" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()">
                     </div>
                     <span id="erreurNbEquipeMax"></span>
                 </td>
@@ -206,7 +215,7 @@ if (verifyFormLAN()) {
                     <label for="nbMembreMax">Nombre maximum de joueurs par équipe *</label>
                     <div class="formInput">
                         <img id="nbMembreMax" src=""/>
-                        <input maxlength="6" name="nbMembreMax" type="text" placeholder="0000" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
+                        <input type="number" value="0" min="0" max="9999" name="nbMembreMax" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
                     </div>
                     <span id="erreurNbMembreMax"></span>
                 </td>
