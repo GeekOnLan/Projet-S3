@@ -114,6 +114,23 @@ class Lan {
 			throw new Exception("Aucune Lan trouvée");
 	}
 
+	
+  	/**
+	 * Retourne l'instance d'une Lan à partir de son nom
+	 *
+	 * @param string $nom de la lan
+	 *
+	 * @return Lan
+	 * @throws Exception Si la lan n'existe pas
+	 */
+	public static function createFromName($nom) {
+		$res = selectRequest(array("nomLan" => $nom), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "nomLan = :nomLan");
+		if(isset($res[0]))
+			return $res[0];
+		else
+			throw new Exception("Aucune Lan trouvée");
+	}
+
 	// TODO idem que getTournoi : rien à foutre ici et omg faites passez un tableau au lieu d'une méga liste de paramètre
 	public function addTournoi($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = '') {
 		if($description == '')
@@ -121,7 +138,7 @@ class Lan {
 
 		$bigmama = array("idLan"=>$this->idLAN,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe);
 		insertRequest($bigmama, "Tournoi(idLAN, idJeu, nomTournoi, tpElimination, dateHeurePrevu, descriptionTournoi, nbEquipeMax,nbPersMaxParEquipe)",
-			"(:idLan, :idJeu, :nomTournoi, :tpElimination, STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y'), :descriptionTournoi, :nbEquipeMax, :nbPersMaxParEquipe)");
+			"(:idLan, :idJeu, :nomTournoi, :tpElimination, STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y %H:%i'), :descriptionTournoi, :nbEquipeMax, :nbPersMaxParEquipe)");
 	}
 
 	// TODO rien à foutre dans Lan cette méthode
