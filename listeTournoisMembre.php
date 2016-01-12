@@ -63,13 +63,13 @@ else {
 
 function toString(Tournoi $tournoi,$i){
 	$equipe = sizeof($tournoi->getEquipe())."/".$tournoi->getNbEquipeMax();
-	$tour=<<<HTML
+	$tour= <<<HTML
 
 	<tr>
 		<td>{$tournoi->getNomTournoi()}</td>
 		<td>{$tournoi->getDateHeurePrevu()}</td>
 		<td>{$tournoi->getTpElimination()}</td>
-		<td>{$equipe}<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Voir les équipes</a></td>
+		<td>{$equipe}<a href="listeEquipeTournoi.php?idLan={$_GET['idLan']}&idTournoi={$i}">Voir les équipes</a></td>
 		<td>{$tournoi->getNbPersMaxParEquipe()}</td>
 		<td><a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a></td>
 	</tr>

@@ -19,8 +19,37 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan']) && isset($_GET['idTournoi']
 		$tournoi = $tournois[$_GET['idTournoi']];
 	}else
 		header('Location: message.php?message=un problème est survenu');
-	
-	var_dump($tournoi->getEquipe());
+
+	$wp = new GeekOnLanWebpage("Liste Equipes du Tournois");
+
+
+	$html = <<<HTML
+	<table>
+		<tr>
+			<td>Nom</td>
+			<td>Description</td>
+			<td>Statut Inscriptions</td>
+		</tr>
+
+HTML;
+
+	foreach($tournoi->getEquipe() as $e) {
+		$ouverte = "Fermées";
+		if($e->getInscriptionOuverte()) $ouverte = "Ouvertes";
+		$html .= <<<HTML
+		<tr>
+			<td>{$e->getNomEquipe()}</td>
+			<td>{$e->getDescriptionEquipe()}</td>
+			<td>{$ouverte}</td>
+		</tr>
+HTML;
+	}
+	$html .= <<<HTML
+		</table>
+HTML;
+
+	$wp->appendContent($html);
+	echo $wp->toHTML();
 }
 else {
 	header('Location: message.php?message=un problème est survenu');

@@ -11,6 +11,7 @@ $form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
 $form->appendJsUrl("js/rsa.js");
 $form->appendJsUrl("js/BigInt.js");
 $form->appendJsUrl("js/creeLan.js");
+$form->appendJsUrl("js/creeTournoi.js");
 
 /**
  * Vérifie que tout les champs obligatoires du formulaire son
@@ -86,8 +87,8 @@ if (verifyFormLAN()) {
 
     try {
         Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
-        Lan::createLanFromName($nameLAN)->addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$description);
-        header('Location: message.php?message=Votre LAN à bien été créer ! Vous allez recevoir un email de confirmation');
+        Lan::createFromName($nameLAN)->addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$description);
+        header('Location: message.php?message=Votre LAN a bien été créée ! Vous allez recevoir un email de confirmation');
     } catch(Exception $e) {
         header('Location: message.php?message=un problème est survenu');
     }
