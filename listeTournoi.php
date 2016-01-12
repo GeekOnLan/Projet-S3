@@ -26,7 +26,7 @@ HTML
     else{
 
       $page->appendContent(<<<HTML
-              <div class="description"><h1>Description du Tournoi</h1></div>
+              <div id="description"><h1>Description du Tournoi</h1></div>
               <table>
               	<tr>
               		<th>Nom</th>
