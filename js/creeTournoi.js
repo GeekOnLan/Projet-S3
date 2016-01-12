@@ -19,6 +19,18 @@ function verifyNameTournoi(){
 
 function verifyDateTournoi(){
 	var d = document.getElementsByName('dateTournoi')[0].value;
+	
+	var b = document.getElementsByName('dateLAN')[0].value;
+	if(b!=''){
+		var j=(b.substring(0,2));
+		var m=(b.substring(3,5))-1;
+		var a=(b.substring(6));
+		m+="";
+		var b=new Date(a,m,j);
+	}else{
+		var b=new Date();
+	}
+	
 	if(d!=''){
 		var j=(d.substring(0,2));
 		var m=(d.substring(3,5))-1;
@@ -26,16 +38,8 @@ function verifyDateTournoi(){
 		m+="";
 		var d=new Date(a,m,j);
 
-		var b = document.getElementsByName('dateLAN')[0].value;
-		if(b!=''){
-			var j=(b.substring(0,2));
-			var m=(b.substring(3,5))-1;
-			var a=(b.substring(6));
-			m+="";
-			var b=new Date(a,m,j);
-		}else{
-			var b=new Date();
-		}
+		console.log(d);
+		console.log(b);
 		if(j!=""&&m!=""&&a!=""){
 			if(d<b){
 				voidRedInput('dateTournoi');
