@@ -71,6 +71,7 @@ function toString(Tournoi $tournoi,$i){
 		<td>{$tournoi->getTpElimination()}</td>
 		<td>{$equipe}<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Voir les équipes</a></td>
 		<td>{$tournoi->getNbPersMaxParEquipe()}</td>
+		<td><a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a></td>
 	</tr>
 HTML;
 	return $tour;

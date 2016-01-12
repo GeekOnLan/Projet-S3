@@ -115,8 +115,8 @@ class Tournoi{
     public function getEquipe(){
     	// TODO Cette requete vous donnera que l'identifiant de l'équipe
         return selectRequest(array("idLan" => $this->idLAN, "idTournoi" => $this->idTournoi), array(PDO::FETCH_CLASS => "Equipe"),
-            "*",
-            "Participer",
+            "e.idEquipe, e.nomEquipe, e.descriptionEquipe, e.inscriptionOuverte",
+            "Participer p INNER JOIN Equipe e ON p.idEquipe = e.idEquipe",
             "idLan = :idLan AND idTournoi = :idTournoi");
     }
 
