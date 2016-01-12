@@ -14,9 +14,8 @@ $page->appendJsUrl("js/updateLan.js");
 $lans = Member::getInstance()->getLAN();
 
 // On redirige l'utilisateur si l'identifiant de la Lan est incorrecte
-if(!verify($_GET, "idLan") || !is_numeric($_GET["idLan"]) || $_GET["idLan"] >= sizeof($lans))
+if(!isset($_GET["idLan"]) || !is_numeric($_GET["idLan"]) || $_GET["idLan"] >= sizeof($lans))
     header('Location: message.php?message=un problème est survenu');
-
 $lan = $lans[$_GET["idLan"]];
 
 // TODO Faudrait faire une vérification plus poussée ici (date, ville, etc ...)

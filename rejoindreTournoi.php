@@ -6,7 +6,9 @@ require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
 if(verify($_GET, 'idLan') && verify($_GET, 'idTournoi') && verify($_POST, 'nameEquipe')) {
-    Equipe::createEquipe($_POST['nameEquipe']);
+	if(!verify($_POST, 'descriptionEquipe'))
+		$_POST['descriptionEquipe']="";
+    Equipe::createEquipe($_GET['idLan'],$_GET['idTournoi'],$_POST['nameEquipe'],$_POST['descriptionEquipe']);
 }
 else if(verify($_GET, 'idLan') && verify($_GET, 'idTournoi')) {
     $tournoi=null;
@@ -14,7 +16,8 @@ else if(verify($_GET, 'idLan') && verify($_GET, 'idTournoi')) {
 		$tournoi = Tournoi::getTournoiFromLAN($_GET['idLan'],$_GET['idTournoi']);
 	}
 	catch(Exception $e){
-		header('Location: message.php?message=un problème est survenu');
+		echo "pronbleme";
+		//header('Location: message.php?message=un problème est survenu');
 	}
 	$form = new GeekOnLanWebpage("GeekOnLan - Rejoindre un tournoi");
     $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px");
