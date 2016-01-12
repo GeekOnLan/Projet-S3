@@ -50,7 +50,11 @@ HTML
           $page->appendContent("  <td>".sizeof($tournoi->getEquipe())."</td>");
 
           if($connecte){
-            $page->appendContent('<td><a href="" class = "bouton">Participer</a><a href="" class = "bouton" onClick="showDetails('.$tournoi->getIdTournoi().')">Details</a></td>');
+            $page->appendContent('<td>');
+            $page->appendContent('  <a href="rejoindreTournoi.php?idLan='.$_REQUEST['idLan'].'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>');
+            $page->appendContent('  <a href="" class = "bouton" onClick="showDetails('.$tournoi->getIdTournoi().')">Details</a>');
+            $page->appendContent('</td>');
+
           }
 
         }
