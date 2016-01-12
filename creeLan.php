@@ -11,6 +11,7 @@ $form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
 $form->appendJsUrl("js/rsa.js");
 $form->appendJsUrl("js/BigInt.js");
 $form->appendJsUrl("js/creeLan.js");
+$form->appendJsUrl("js/creeTournoi.js");
 
 /**
  * Vérifie que tout les champs obligatoires du formulaire son
