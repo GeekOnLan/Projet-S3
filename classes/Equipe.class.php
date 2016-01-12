@@ -79,4 +79,5 @@ SQL
 			"participer(idEquipe, idLan, idTournoi)",
 			"(:equipe, :lan, :tournoi)");*/
 	}
+
 }
