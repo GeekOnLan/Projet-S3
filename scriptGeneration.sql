@@ -74,10 +74,11 @@ CREATE TABLE IF NOT EXISTS `Jeu` (
 -- --------------------------------------------------------
 
 -- Insertion des jeux --
-INSERT INTO `Jeu`(`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES ('Pokemon', 'Jeu multi-console' ,0,'http://zupimages.net/up/15/53/gg16.jpg')
-INSERT INTO `Jeu`(`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES ('League of Legends','Le MOBA',1,'http://www.journaldugeek.com/files/2015/12/league-legends.jpg')
-INSERT INTO `Jeu`(`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES ('Minecraft', 'Jeu Cubique',0,'http://www.immanis.fr/wp-content/uploads/2015/08/minecraft01.jpg')
-INSERT INTO `Jeu`(`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES ('Counter Strike','Piou Piou Piou !',0,'http://img0.gm.gtsstatic.com/wallpapers/80f3d7ac3b8b0fd3ba27ca9d13838459_large.jpeg')
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (0,'Libre', '' ,1,null)
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (1,'Pokemon', 'Jeu multi-console' ,0,'http://zupimages.net/up/15/53/gg16.jpg')
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (2,'League of Legends','Le MOBA',1,'http://www.journaldugeek.com/files/2015/12/league-legends.jpg')
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (3,'Minecraft', 'Jeu Cubique',0,'http://www.immanis.fr/wp-content/uploads/2015/08/minecraft01.jpg')
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (4,'Counter Strike','Piou Piou Piou !',0,'http://img0.gm.gtsstatic.com/wallpapers/80f3d7ac3b8b0fd3ba27ca9d13838459_large.jpeg')
 --
 -- Structure de la table `LAN`
 --
