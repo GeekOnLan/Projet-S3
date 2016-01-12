@@ -64,10 +64,10 @@ function verifyDateTournoi(){
 function verifyDescriptionTournoi(){
 	var description = document.getElementsByName('descriptionTournoi')[0].value;
 	if(description!=""){
-		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\-\: \_]{0,30}/);
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\-\+\.\!\?\,\(\)\'\"\: \_]{0,30}/);
 		match = regex.exec(description)==description;
 		if(!match){
-			document.getElementsByName('descriptionTournoi')[0].value="Tournoi créer par";
+			document.getElementsByName('descriptionTournoi')[0].value="Tournoi créée par";
 			setError('erreurDescriptionTournoi', 'caractères non autorisé utilisé');
 		}else if(description.length>255){
 			voidRedInput('descriptionTournoi');
