@@ -3,13 +3,13 @@ require_once('includes/autoload.inc.php');
 
 
 if(isset($_REQUEST['idLan'])&&is_numeric($_REQUEST['idLan'])){
-
+$connecte = Member::isConnected();
   try{
     $lan= Lan::createFromId($_REQUEST['idLan']);
 
     $page = new GeekOnLanWebpage("GeekOnLan -".$lan->getLanName()." - Liste des tournois");
-    $page->appendCssUrl("style/regular/listeTournoisMembre.css", "screen and (min-width: 680px");
-
+    $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px");
+    $page->appendJsUrl("js/listeTournois.js");
     $tournois=$lan->getTournoi();
 
     if(sizeof($tournois)==0){
@@ -26,27 +26,33 @@ HTML
     else{
 
       $page->appendContent(<<<HTML
+              <div class="description"><h1>Description du Tournoi</h1></div>
               <table>
               	<tr>
               		<th>Nom</th>
               		<th>Date et heure prévu</th>
               		<th>Type Elimination</th>
-              		<th>Nombre d équipe</th>
-              		<th>Nombre de personnes par equipes</th>
+              		<th>Nombre d équipes Max</th>
+                  <th>Nombre de personnes par equipes</th>
+                  <th>Nombre d équipes inscrites</th>
               	</tr>
 HTML
       );
 
+
         foreach ($tournois as $tournoi){
-          $page->appendContent(toString($tournoi));
-          $page->appendContent(<<<HTML
+          $page->appendContent("<tr>");
+          $page->appendContent("  <td>".$tournoi->getNomTournoi()."</td>");
+          $page->appendContent("  <td>".$tournoi->getDateHeurePrevu()."</td>");
+          $page->appendContent("  <td>".$tournoi->getTpElimination()."</td>");
+          $page->appendContent("  <td>".$tournoi->getNbPersMaxParEquipe()."</td>");
+          $page->appendContent("  <td>".$tournoi->getNbEquipeMax()."</td>");
+          $page->appendContent("  <td>".sizeof($tournoi->getEquipe())."</td>");
 
-              <tr>
-                <td colspan=5><a href="">Participer</a></td>
-              </tr>
+          if($connecte){
+            $page->appendContent('<td><a href="" class = "bouton">Participer</a><a href="" class = "bouton" onClick="showDetails('.$tournoi->getIdTournoi().')">Details</a></td>');
+          }
 
-HTML
-          );
         }
       $page->appendContent("</table>");
     }
@@ -58,5 +64,5 @@ HTML
   }
 }
 else{
-  header('Location: message.php?message=Un probleme est surve,u');
+  header('Location: message.php?message=Un probleme est survenu');
 }

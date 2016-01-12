@@ -71,13 +71,31 @@ SQL
 		return $stmt->fetchAll();
 	}
 
-	public static function createEquipe($idLan,$idTournoi,$nom,$desc="") {
+public static function createEquipe($idLan,$idTournoi,$nom,$desc="") {
 		insertRequest(array("nom" => $nom, "desc" => $desc),
-			"equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
+			"Equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
 			"(:nom, :desc, 1)");
-		/*insertRequest(array("equipe" => $nom, "lan" => $idLan, "tournoi" => $idTournoi),
-			"participer(idEquipe, idLan, idTournoi)",
-			"(:equipe, :lan, :tournoi)");*/
+
+		$res = selectRequest(array("nom" => $nom, "desc" => $desc),array(PDO::FETCH_ASSOC => null),
+			"idEquipe",
+			"Equipe",
+			"nomEquipe=:nom
+			AND descriptionEquipe=:desc
+			AND  inscriptionOuverte=1");
+		$idEquipe = intval($res[0]['idEquipe']);
+		var_dump($idLan);
+		var_dump($idTournoi);
+		var_dump($idEquipe);
+		
+		$lol = selectRequest(array(),array(PDO::FETCH_ASSOC => null),
+				"idEquipe",
+				"Equipe",
+				"");
+		var_dump($lol);
+
+		insertRequest(array("idEquipe" => $idTournoi, "idLan" => $idLan, "idTournoi" => $idTournoi),
+		"Participer(idEquipe,idLan,idTournoi)",
+		"(:idEquipe, :idLan, :idTournoi)");
 	}
 
 }
