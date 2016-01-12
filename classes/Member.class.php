@@ -209,7 +209,7 @@ class Member {
     // TODO pas à sa place
     public function addLan($name,$date,$adress,$nom,$description = '') {
         if($description == '')
-            $description = "LAN crée par " . $this->pseudo;
+            $description = "LAN créée par " . $this->pseudo;
 
         // TODO je pense qu'il faudrait vérifier si l'id de lieu existe avant de faire la requête
         $idLieu = selectRequest(array("nom" => $nom), array(PDO::FETCH_ASSOC => null), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
