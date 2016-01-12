@@ -1,0 +1,47 @@
+.equipe {
+    background: #3a3a3a;
+    width: 80%;
+    margin: auto;
+    box-shadow: 2px 2px 0 0 #111;
+
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.equipe tr {
+    height: 50px;
+    font-size: 28px;
+    color: #acacac;
+    font-weight: normal;
+}
+
+.equipe tr:first-child {
+    border-bottom: solid 5px #D84508;
+}
+
+.equipe tr td button{
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: AgencyRegular, Arial, serif;
+}
+
+.equipe tr td a {
+    background-color: #595959;
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    font-size: 30px;
+    color: black
+}
+
+.equipe tr td a:visited{
+    text-decoration: none;
+    color: black;
+}
+.equipe tr td a:hover {
+    text-decoration: none;
+    color: black;
+}

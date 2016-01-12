@@ -24,7 +24,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan']) && isset($_GET['idTournoi']
 
 
 	$html = <<<HTML
-	<table>
+	<table class="equipe">
 		<tr>
 			<td>Nom</td>
 			<td>Description</td>
@@ -47,6 +47,8 @@ HTML;
 	$html .= <<<HTML
 		</table>
 HTML;
+
+	$wp->appendCssUrl("style/regular/listeEquipeTournoi.css");
 
 	$wp->appendContent($html);
 	echo $wp->toHTML();
