@@ -1,8 +1,11 @@
 <?php
 
-if(!isset($_REQUEST["idTournoi"])||!is_numeric($_REQUEST['idLan'])){
+require_once('../includes/autoload.inc.php');
 
+if(!isset($_REQUEST["idTournoi"])||!is_numeric($_REQUEST["idTournoi"])||!isset($_REQUEST["idLan"])||!is_numeric($_REQUEST["idLan"])){
+  header('Location: message.php?message=Un probleme est survenu');
 }
 else{
-  echo $tournoi->getDescriptionTournoi()
+  $tournoi= Tournoi::getTournoiFromLAN($_REQUEST["idLan"],$_REQUEST["idTournoi"]);
+  echo $tournoi->getDescriptionTournoi();
 }

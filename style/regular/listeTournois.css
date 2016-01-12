@@ -54,14 +54,13 @@
   border-style: solid;
 }
 
-.description{
+#description{
   position: fixed;
   left:25%;
   width:50%;
   height:50%;
-  display:none;
 }
 
-.description h1{
+#description h1{
   text-align:center;
 }
