@@ -256,7 +256,7 @@ function verifyDescriptionLAN(){
 		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\'\"\.\:\!\?\,\+\(\)\-\: \_]{0,30}/);
 		match = regex.exec(description)==description;
 		if(!match){
-			document.getElementsByName('descriptionLAN')[0].value="LAN créer par";
+			document.getElementsByName('descriptionLAN')[0].value="LAN créé par";
 			setError('erreurDescriptionLAN', 'caractères non autorisé utilisé');
 		}else if(description.length>255){
 			voidRedInput('descriptionLAN');
