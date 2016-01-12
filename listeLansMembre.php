@@ -69,7 +69,7 @@ foreach($lans as $lan) {
         	<hr/>
         	<a href="updateLAN.php?idLan=$i">Editer</a>
         	<a href="listeTournoisMembre.php?idLan=$i">Tournois</a>
-        	<a href="details.php?idLan=$i">Détails</a>
+        	<a href="detailsPerso.php?idLan=$i">Détails</a>
 		</div>
 	</div>
 HTML;

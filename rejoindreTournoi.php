@@ -5,19 +5,19 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
-if(verify($_GET, 'idLan') && verify($_GET, 'idTournoi') && verify($_POST, 'nameEquipe')) {
+if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'nameEquipe')) {
 	if(!verify($_POST, 'descriptionEquipe'))
 		$_POST['descriptionEquipe']="";
     Equipe::createEquipe($_GET['idLan'],$_GET['idTournoi'],$_POST['nameEquipe'],$_POST['descriptionEquipe']);
+    //header('Location: message.php?message=votre equipe a bien été crée');
 }
-else if(verify($_GET, 'idLan') && verify($_GET, 'idTournoi')) {
+else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi'])){
     $tournoi=null;
 	try{
 		$tournoi = Tournoi::getTournoiFromLAN($_GET['idLan'],$_GET['idTournoi']);
 	}
 	catch(Exception $e){
-		echo "pronbleme";
-		//header('Location: message.php?message=un problème est survenu');
+		header('Location: message.php?message=un problème est survenu');
 	}
 	$form = new GeekOnLanWebpage("GeekOnLan - Rejoindre un tournoi");
     $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px");
@@ -57,6 +57,12 @@ function creeEquipe(){
                         <input maxlength="31" name="nameEquipe" type="text"  placeholder="Nom">
                     </div>
                     <span id="erreurNameLAN"></span>
+                </td>
+				<td>
+                    <div class="formInput">
+                        <label><input type="radio" name="ouvert" value="true" checked>Inscription ouverte</label>
+                        <label><input type="radio" name="ouvert" value="false">Inscription fermée</label>
+                    </div>
                 </td>
                 <td rowspan="4" id="area">
                     <label for="descriptionEquipe">Description de l'equipe</label>
