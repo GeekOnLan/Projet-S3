@@ -150,7 +150,7 @@ function verifyNameJeuTournoi(){
 					}
 				}
 			}, true);
-			xhrNameJeu.open('GET', 'scriptPHP/JeuValide.php?NameJeu=' + jeu);
+			xhrNameJeu.open('GET', 'scriptPHP/jeuValide.php?NameJeu=' + jeu);
 			xhrNameJeu.send(null);
 		}
 	}

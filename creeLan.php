@@ -81,13 +81,35 @@ if (verifyFormLAN()) {
 	$nameJeu = $_POST['nameJeuTournoi'];
 	$dateTournoi = $_POST['dateTournoi'];
 	$heureTournoi = $_POST['heureTournoi'];
+	
+	$dateTournoi=(substr($dateTournoi,0,2))."/".(substr($dateTournoi,3,2))."/".(substr($dateTournoi,6));
+	$heureTournoi=(substr($heureTournoi,0,2)).":".(substr($heureTournoi,3));
+	
+	$dateTournoi = $dateTournoi." ".$heureTournoi;
+	
+	
 	$nbEquipeMax = $_POST['nbEquipeMax'];
 	$nbMembreMax = $_POST['nbMembreMax'];
 	$descriptionTournoi = $_POST['descriptionTournoi'];
 
+	
+	
     try {
         Member::getInstance()->addLan($nameLAN,$dateLAN,$adresseLAN,$villeLAN,$descriptionLAN);
-        Lan::createFromName($nameLAN)->addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$description);
+        
+        $pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idJeu
+			FROM Jeu
+			WHERE nomJeu = :nom ;
+SQL
+);
+        $stmt -> execute(array(':nom' => $nameJeu));
+        $idJeu = $stmt -> fetch()['idJeu']; 
+        $Lan = Lan::createFromName($nameLAN);
+        //var_dump($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
+	//$Lan -> addTournoi(0,"Inscription",0,9999,1,$dateTournoi,"Inscription Ouverte - Précise votre présence");
+        $Lan -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
         header('Location: message.php?message=Votre LAN a bien été créée ! Vous allez recevoir un email de confirmation');
     } catch(Exception $e) {
         header('Location: message.php?message=un problème est survenu');
