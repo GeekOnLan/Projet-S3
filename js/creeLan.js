@@ -253,7 +253,7 @@ function verifyDateLAN(){
 function verifyDescriptionLAN(){
 	var description = document.getElementsByName('descriptionLAN')[0].value;
 	if(description!=""){
-		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\-\: \_]{0,30}/);
+		var regex =new RegExp(/[a-zA-Z0-9'àâéèêôùûçïÀÂÉÈÔÙÛÇ\'\"\.\:\!\?\,\+\(\)\-\: \_]{0,30}/);
 		match = regex.exec(description)==description;
 		if(!match){
 			document.getElementsByName('descriptionLAN')[0].value="LAN créer par";
