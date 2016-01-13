@@ -1,15 +1,32 @@
-function showDetails(idTournoi, idLan){
-  window.alert(idTournoi);
-  window.alert(idLan);
+$(function() {
+    $(".details").click(function() {
+      var idTournoi= $(this).parent().parent().attr("id")
+      var idLan= $(this).parent().parent().parent().parent().attr("id")
+      showDetails(idLan,idTournoi);
+    });
+});
 
-  r = new Request({
-        url:"scriptPHP/descriptionTournoi.php?idTournoi="+idTournoi+"&idLan="+idLan,
-        handleAs:'json',
-        asynchronous:true,
-        onSuccess:function(result){
-          console.log(result);
-          document.getElementById("description").innerHTML+="<p>result</p>";
+
+var showDetails = function(idLan,idTournoi){
+    $.ajax({
+        url: 'scriptPHP/descriptionTournoi.php',
+        type: 'GET',
+        data: "idLan=" + idLan,
+        success: function (res, statut) {
+          var desc = document.getElementById("description");
+          desc.style.display="block";
+          desc.innerHTML += "<p>"+res+"</p><button onclick=\"fermer()\">fermer</button>";
+
         },
-        onError:function(){window.alert('erreur');}
-  });
+        error: function (res, statut, error) {
+            console.log(error);
+        }
+    })
+};
+
+
+function fermer(){
+  var desc = document.getElementById("description");
+  desc.innerHTML="<h1>Description du Tournoi</h1>";
+  desc.style.display="none";
 }
