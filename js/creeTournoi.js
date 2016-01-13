@@ -1,3 +1,94 @@
+
+window.addEventListener("keypress",function(even){
+	if(even.keyCode === 13)
+		verifyLAN();
+});
+
+
+var xhrNameJeu;
+if (window.XMLHttpRequest) {
+	xhrNameJeu = new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xhrNameJeu = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+var xhrDateTournoi;
+if (window.XMLHttpRequest) {
+	xhrDateTournoi = new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xhrDateTournoi = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+function getAllErrorTournoi(){
+	error=document.getElementById("erreurNameTournoi").innerHTML;
+	error+=document.getElementById("erreurNameJeuTournoi").innerHTML;
+	error+=document.getElementById("erreurDateTournoi").innerHTML;
+	error+=document.getElementById("erreurHeureTournoi").innerHTML;
+	error+=document.getElementById("erreurNbEquipeMax").innerHTML;
+	error+=document.getElementById("erreurNbMembreMax").innerHTML;
+	error+=document.getElementById("erreurDescriptionTournoi").innerHTML;
+	//"       "
+	console.log(error.length);
+	return error;
+}
+
+function verifyTournoi(){
+	//si tout est bon on envoit
+	var erreur = getAllErrorTournoi();
+	if(erreur=="       "){
+
+		var nameTournoi = document.getElementsByName('nameTournoi')[0].value;
+		var nameJeuTournoi = document.getElementsByName('nameJeuTournoi')[0].value;
+		var dateTournoi =  document.getElementsByName('dateTournoi')[0].value;
+		var heureTournoi = document.getElementsByName('heureTournoi')[0].value;
+		var nbEquipeMax = document.getElementsByName('nbEquipeMax')[0].value;
+		var nbMembreMax = document.getElementsByName('nbMembreMax')[0].value;
+
+		document.ajoutTournoi.submit();
+	}else if(erreur==" "){
+		console.log(erreur);
+		allNeadNullTournoi();
+	}
+}
+
+//mais le contour en rouge
+function voidRedInput(name){
+	document.getElementsByName(name)[0].setCustomValidity("Champ invalide");
+}
+
+//remet les coutours pas default
+function resetVoidRedInput(name){
+	document.getElementsByName(name)[0].setCustomValidity("");
+}
+
+//affiche un message d'erreur
+function setError(name,error){
+	document.getElementById(name).innerHTML = error;
+}
+//enleve les erreurs
+function resetError(name){
+	document.getElementById(name).innerHTML = '';
+}
+
+function allNeadNullTournoi(){
+
+	voidRedInput('nameTournoi');
+	setError('erreurNameTournoi',"ce champ ne peut etre vide");
+	voidRedInput('nameJeuTournoi');
+	setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
+	voidRedInput('dateTournoi');
+	setError('erreurDateTournoi', 'ce champ ne peut etre vide');
+	voidRedInput('heureTournoi');
+	setError('erreurHeureTournoi',"ce champ ne peut etre vide");
+	voidRedInput('nbEquipeMax');
+	setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
+	voidRedInput('nbMembreMax');
+	setError('erreurNbMembreMax',"ce champ ne peut etre vide");
+}
+
+
 function verifyNameTournoi(){
 	var nameTournoi = document.getElementsByName('nameTournoi')[0].value;
 	if(nameTournoi!=""){
@@ -19,18 +110,17 @@ function verifyNameTournoi(){
 
 function verifyDateTournoi(){
 	var d = document.getElementsByName('dateTournoi')[0].value;
-	
-	var b = document.getElementsByName('dateLAN')[0].value;
-	if(b!=''){
-		var j=(b.substring(0,2));
-		var m=(b.substring(3,5))-1;
-		var a=(b.substring(6));
-		m+="";
-		var b=new Date(a,m,j);
-	}else{
-		var b=new Date();
-	}
-	
+	var b = document.getElementsByName('dateLAN')[0].innerHTML;
+	console.log(b);
+		if(b!=''){
+			var j=(b.substring(0,2));
+			var m=(b.substring(3,5))-1;
+			var a=(b.substring(6));
+			m+="";
+			var b=new Date(a,m,j);
+		}else{
+			var b=new Date();
+		}
 	if(d!=''){
 		var j=(d.substring(0,2));
 		var m=(d.substring(3,5))-1;
@@ -38,8 +128,6 @@ function verifyDateTournoi(){
 		m+="";
 		var d=new Date(a,m,j);
 
-		console.log(d);
-		console.log(b);
 		if(j!=""&&m!=""&&a!=""){
 			if(d<b){
 				voidRedInput('dateTournoi');
