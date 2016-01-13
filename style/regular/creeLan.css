@@ -105,6 +105,17 @@
     box-sizing: border-box;
 }
 
+.tournoiForm span {
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: darkred;
+
+    display: block;
+    padding: 5px;
+
+    height: 10px;
+}
+
 /* ================================= */
 /* ==== Formulaire création Lan ==== */
 /* ================================= */
