@@ -90,7 +90,7 @@ class Lan {
 
 	// TODO commente moi ça je sais pas trop ce qu'elle fait
 	public function update($nom,$date,$desc,$lieu,$adress) {
-		$idLieu = selectRequest(array("nom" => $lieu), array(PDO::FETCH_ASSOC), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
+		$idLieu = selectRequest(array("nom" => $lieu), array(PDO::FETCH_ASSOC => null), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
 
 		updateRequest(array("idLan" => $this->idLAN, "nom" => $nom, "date" => $date, "desc" => $desc, "idLieu" => $idLieu, "adresse" => $adress),
 			"LAN",
@@ -114,8 +114,7 @@ class Lan {
 			throw new Exception("Aucune Lan trouvée");
 	}
 
-	
-  	/**
+	/**
 	 * Retourne l'instance d'une Lan à partir de son nom
 	 *
 	 * @param string $nom de la lan
@@ -174,9 +173,10 @@ HTML;
 	 * @return string Chemin de l'image
 	 */
 	public function getLanPicture() {
-		// TODO retourne vide pour l'instant. Prendre l'image du jeu d'un tournoi à l'avenir
-		return "";
-	}
+	$res = selectRequest(array("idLan" => $this->idLAN), array(PDO::FETCH_ASSOC => null), "imageJeu", "Jeu j, Tournoi t", "t.idLan = :idLan AND t.idTournoi = 0  AND t.idJeu = j.idJeu");
+	if(isset($res[0]) && isset($res[0]['imageJeu'])) return $res[0]['imageJeu'];
+	else return null;	
+	 }
 
 	/**
 	 * Supprime la Lan

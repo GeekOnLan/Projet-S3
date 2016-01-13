@@ -73,6 +73,12 @@ CREATE TABLE IF NOT EXISTS `Jeu` (
 
 -- --------------------------------------------------------
 
+-- Insertion des jeux --
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (0,'Libre', '' ,1,null);
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (1,'Pokemon', 'Jeu multi-console' ,0,'http://zupimages.net/up/15/53/gg16.jpg');
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (2,'League of Legends','Le MOBA',1,'http://www.journaldugeek.com/files/2015/12/league-legends.jpg');
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (3,'Minecraft', 'Jeu Cubique',0,'http://www.immanis.fr/wp-content/uploads/2015/08/minecraft01.jpg');
+INSERT INTO `Jeu`(`idJeu`,`nomJeu`, `descriptionJeu`, `estGratuit`, `imageJeu`) VALUES (4,'Counter Strike','Piou Piou Piou !',0,'http://img0.gm.gtsstatic.com/wallpapers/80f3d7ac3b8b0fd3ba27ca9d13838459_large.jpeg');
 --
 -- Structure de la table `LAN`
 --
@@ -37041,7 +37047,7 @@ MODIFY `idLAN` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `Membre`
 --
 ALTER TABLE `Membre`
-MODIFY `idMembre` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idMembre` int(11) NOT NULL AUTO_INCREMENT ;
 --
 -- AUTO_INCREMENT pour la table `Notifications`
 --
@@ -37050,8 +37056,9 @@ MODIFY `idNotification` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Tournoi`
 --
-/*ALTER TABLE `Tournoi`
-MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;*/
+ALTER TABLE `Tournoi`
+MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Contraintes pour les tables exportées
 --
@@ -37060,15 +37067,15 @@ MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;*/
 -- Contraintes pour la table `Composer`
 --
 ALTER TABLE `Composer`
-ADD CONSTRAINT `FK_Composer2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`),
-ADD CONSTRAINT `FK_Composer` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`);
+ADD CONSTRAINT `FK_Composer2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`)ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Composer` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Inviter`
 --
 ALTER TABLE `Inviter`
-ADD CONSTRAINT `FK_Inviter2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`),
-ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`);
+ADD CONSTRAINT `FK_Inviter2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`)ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `LAN`
@@ -37081,14 +37088,14 @@ ADD CONSTRAINT `FK_Place` FOREIGN KEY (`idLieu`) REFERENCES `Lieu` (`idLieu`);
 -- Contraintes pour la table `Participer`
 --
 ALTER TABLE `Participer`
-ADD CONSTRAINT `FK_Participer2` FOREIGN KEY (`idLAN`, `idTournoi`) REFERENCES `Tournoi` (`idLAN`, `idTournoi`),
-ADD CONSTRAINT `FK_Participer` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`);
+ADD CONSTRAINT `FK_Participer2` FOREIGN KEY (`idLAN`, `idTournoi`) REFERENCES `Tournoi` (`idLAN`, `idTournoi`) ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Participer` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Recevoir`
 --
 ALTER TABLE `Recevoir`
-ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`) ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE,
 ADD CONSTRAINT `FK_Recevoir` FOREIGN KEY (`idNotification`) REFERENCES `Notifications` (`idNotification`);
 
 --

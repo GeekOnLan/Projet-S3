@@ -8,8 +8,14 @@ require_once ('includes/connectedMember.inc.php');
 if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'nameEquipe')) {
 	if(!verify($_POST, 'descriptionEquipe'))
 		$_POST['descriptionEquipe']="";
-    Equipe::createEquipe($_GET['idLan'],$_GET['idTournoi'],$_POST['nameEquipe'],$_POST['descriptionEquipe']);
-    //header('Location: message.php?message=votre equipe a bien été crée');
+	
+	if($_POST['ouvert']=="true")
+		$_POST['ouvert']=0;
+	else 
+		$_POST['ouvert']=1;
+	
+    Equipe::createEquipe($_GET['idLan'],$_GET['idTournoi'],$_POST['nameEquipe'],$_POST['ouvert'],Member::getInstance()->getId(),$_POST['descriptionEquipe']);
+    header('Location: message.php?message=votre equipe a bien été crée');
 }
 else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi'])){
     $tournoi=null;
