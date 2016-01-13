@@ -16,13 +16,12 @@
     border-top: 5px solid #FF5B00;
 
     transition: all 0.5s;
-    visibility: hidden;
     left: 0;
     right: 0;
     top: 110px;
 
     transform: translateX(-10%);
-    opacity: 0;
+    opacity: 1;
 
     box-shadow: 2px 2px 0 0 #171717;
     border-radius: 5px;
@@ -105,129 +104,6 @@
     box-sizing: border-box;
 }
 
-.tournoiForm span {
-    font-family: Arial, serif;
-    font-size: 20px;
-    color: darkred;
-
-    display: block;
-    padding: 5px;
-
-    height: 10px;
-}
-
-/* ================================= */
-/* ==== Formulaire création Lan ==== */
-/* ================================= */
-
-.lanForm {
-    position: absolute;
-    margin: auto auto 15px;
-    padding: 15px 5px 5px;
-    width: 70%;
-    min-width: 800px;
-
-    table-layout: fixed;
-    border-spacing: 15px;
-
-    background: #262626;
-    border-top: 5px solid #40CFF6;
-
-    transition: all 0.5s;
-    transform-origin: 100% 50%;
-
-    left: 0;
-    right: 0;
-    top: 110px;
-
-    box-shadow: 2px 2px 0 0 #171717;
-    border-radius: 5px;
-}
-
-/* ==== Mise en page des éléments du formulaire ==== */
-
-.lanForm p {
-    font-size: 26px;
-    color: #8e8e8e;
-    text-align: center;
-}
-
-.lanForm button {
-    width: 100%;
-    font-family: AgencyRegular, Arial, serif;
-
-    color: white;
-    background: #525252;
-    font-size: 32px;
-
-    box-shadow: 2px 2px 1px 0 #111;
-    border: solid 3px #222;
-
-    margin-bottom: 15px;
-}
-
-.lanForm button:active {
-    background: #696969;
-}
-
-.lanForm label {
-    font-size: 26px;
-    color: #8e8e8e;
-    border-bottom: solid 3px #40CFF6;
-    width: 75%;
-    display: inline-block;
-    margin-bottom: 7px;
-    padding-left: 10px;
-    padding-bottom: 3px;
-}
-
-.lanForm span {
-    font-family: Arial, serif;
-    font-size: 20px;
-    color: darkred;
-
-    display: block;
-    padding: 5px;
-
-    height: 10px;
-}
-
-.lanForm h2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    background: #40CFF6;
-    color: white;
-    border-right: solid 2px black;
-    border-bottom: solid 2px black;
-    font-family: Arial, serif;
-
-    width: 200px;
-    text-align: center;
-    padding: 3px;
-}
-
-.lanForm tr:nth-child(2) td:last-child {
-    vertical-align: top;
-}
-
-/* ==== Mise en forme de la zone de texte ==== */
-
-.lanForm td[rowspan="4"] {
-    position: relative;
-}
-
-.lanForm td[rowspan="4"] span {
-    position: absolute;
-    bottom: 0;
-}
-
-.lanForm td[rowspan="4"] label {
-    position: absolute;
-    top: 0;
-}
-
 .formTextarea {
     border-collapse: collapse;
     box-shadow: 2px 2px 1px 0 #111;
@@ -296,4 +172,15 @@
 
     margin: auto;
     width: 100%;
+}
+
+.tournoiForm span {
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: darkred;
+
+    display: block;
+    padding: 5px;
+
+    height: 10px;
 }

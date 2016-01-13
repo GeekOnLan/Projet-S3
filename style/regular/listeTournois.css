@@ -59,6 +59,8 @@
   left:25%;
   width:50%;
   height:50%;
+  display:none;
+  background: #3a3a3a;
 }
 
 #description h1{

@@ -16,7 +16,7 @@ $connecte = Member::isConnected();
 
     if(sizeof($tournois)==0){
         $page->appendContent(<<<HTML
-              <table>
+              <table id="{$_REQUEST['idLan']}">
               <tr>
                 <th>Aucun tournoi prévu pour cette LAN</th>
               </tr>
@@ -29,9 +29,10 @@ HTML
 
       $page->appendContent(<<<HTML
               <div id="description"><h1>Description du Tournoi</h1></div>
-              <table>
-              	<tr>
+              <table id="{$_REQUEST['idLan']}">
+              	<tr >
               		<th>Nom</th>
+                  <th>Jeu</th>
               		<th>Date et heure prévu</th>
               		<th>Type Elimination</th>
               		<th>Nombre d équipes Max</th>
@@ -43,20 +44,22 @@ HTML
 
 
         foreach ($tournois as $tournoi){
-          $page->appendContent("<tr>");
+          $jeu = $tournoi->getJeu();
+          $page->appendContent('  <tr id="'.$tournoi->getIdTournoi().'">');
           $page->appendContent("  <td>".$tournoi->getNomTournoi()."</td>");
+          $page->appendContent("  <td>".$jeu[1]."</td>");
           $page->appendContent("  <td>".$tournoi->getDateHeurePrevu()."</td>");
           $page->appendContent("  <td>".$tournoi->getTpElimination()."</td>");
           $page->appendContent("  <td>".$tournoi->getNbPersMaxParEquipe()."</td>");
           $page->appendContent("  <td>".$tournoi->getNbEquipeMax()."</td>");
           $page->appendContent("  <td>".sizeof($tournoi->getEquipe())."</td>");
-
           $page->appendContent('<td>');
-          $page->appendContent('  <a href="" class = "bouton" onClick="showDetails('.$tournoi->getIdTournoi().','.$_REQUEST['idLan'].')">Details</a>');
+          $page->appendContent('  <button class="details">Details</button>');
           if($connecte){
             $page->appendContent('  <a href="rejoindreTournoi.php?idLan='.$_REQUEST['idLan'].'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>');
           }
           $page->appendContent('</td>');
+          $page->appendContent('</tr>');
         }
       $page->appendContent("</table>");
     }
