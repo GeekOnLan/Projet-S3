@@ -91,7 +91,7 @@ class Lan {
 	// TODO commente moi ça je sais pas trop ce qu'elle fait
 	public function update($nom,$date,$desc,$lieu,$adress) {
 		$idLieu = selectRequest(array("nom" => $lieu), array(PDO::FETCH_ASSOC => null), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
-
+		
 		updateRequest(array("idLan" => $this->idLAN, "nom" => $nom, "date" => $date, "desc" => $desc, "idLieu" => $idLieu, "adresse" => $adress),
 			"LAN",
 			"nomLAN = :nom, dateLAN = STR_TO_DATE(:date, '%d/%m/%Y'), descriptionLAN = :desc, idLieu = :idLieu, adresse = :adresse",
@@ -108,6 +108,7 @@ class Lan {
 	 */
 	public static function createFromId($id) {
 		$res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "idLan = :id");
+
 		if(isset($res[0]))
 			return $res[0];
 		else
@@ -124,6 +125,7 @@ class Lan {
 	 */
 	public static function createFromName($nom) {
 		$res = selectRequest(array("nomLan" => $nom), array(PDO::FETCH_CLASS => 'Lan'), "*", "LAN", "nomLan = :nomLan");
+
 		if(isset($res[0]))
 			return $res[0];
 		else
@@ -132,12 +134,22 @@ class Lan {
 
 	// TODO idem que getTournoi : rien à foutre ici et omg faites passez un tableau au lieu d'une méga liste de paramètre
 	public function addTournoi($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = '') {
-		if($description == '')
+		if($description == ''){
 			$description = "Tounoi crée par " . Member::getInstance()->getPseudo();
+		}
+		
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT count(idTournoi) FROM Tournoi WHERE idLAN = :idLAN ;
+SQL
+);
+		$stmt -> execute(array(':idLAN' => $this->idLAN)) ;
+		$nbTournoi=$stmt-> fetch()['count(idTournoi)'];
 
-		$bigmama = array("idLan"=>$this->idLAN,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe);
-		insertRequest($bigmama, "Tournoi(idLAN, idJeu, nomTournoi, tpElimination, dateHeurePrevu, descriptionTournoi, nbEquipeMax,nbPersMaxParEquipe)",
-			"(:idLan, :idJeu, :nomTournoi, :tpElimination, STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y %H:%i'), :descriptionTournoi, :nbEquipeMax, :nbPersMaxParEquipe)");
+		$bigmama = array("idLan"=>$this->idLAN,"idTournoi"=>$nbTournoi,"idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeurePrevu"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe);
+		insertRequest($bigmama, "Tournoi(idLAN, idTournoi, idJeu, nomTournoi, tpElimination, dateHeurePrevu, descriptionTournoi, nbEquipeMax,nbPersMaxParEquipe)",
+			"(:idLan,:idTournoi, :idJeu, :nomTournoi, :tpElimination, STR_TO_DATE(:dateHeurePrevu, '%d/%m/%Y %H:%i'), :descriptionTournoi, :nbEquipeMax, :nbPersMaxParEquipe)");
+		
 	}
 
 	// TODO rien à foutre dans Lan cette méthode
