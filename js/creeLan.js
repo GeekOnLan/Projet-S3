@@ -45,14 +45,6 @@ if (window.XMLHttpRequest) {
 	xhrVille = new ActiveXObject("Microsoft.XMLHTTP");
 }
 
-var xhrNameJeu;
-if (window.XMLHttpRequest) {
-	xhrNameJeu = new XMLHttpRequest();
-} else {
-	// code for IE6, IE5
-	xhrNameJeu = new ActiveXObject("Microsoft.XMLHTTP");
-}
-
 var xhrLan;
 if (window.XMLHttpRequest) {
 	xhrLan = new XMLHttpRequest();
@@ -66,8 +58,9 @@ window.addEventListener("keypress",function(even){
 		verifyLAN();
 });
 
-function getAllError(){
+function getAllErrorLAN(){
 	//str1.concat(str2)
+	allNeadNullLAN();
 	var error = document.getElementById("erreurNameLAN").innerHTML;
 	error+=document.getElementById("erreurDateLAN").innerHTML;
 	error+=document.getElementById("erreurDescriptionLAN").innerHTML;
@@ -88,7 +81,7 @@ function getAllError(){
 
 function verifyLAN(){
 	//si tout est bon on envoit
-	var erreur = getAllError();
+	var erreur = getAllErrorLAN();
 	if(erreur=="            "){
 		var nameLAN = document.getElementsByName('nameLAN')[0].value;
 		var dateLAN = document.getElementsByName('dateLAN')[0].value;
@@ -104,9 +97,6 @@ function verifyLAN(){
 		var nbMembreMax = document.getElementsByName('adresseLAN')[0].value;
 
 		document.ajoutLAN.submit();
-	}else if(erreur=="  "){
-		console.log(erreur);
-		allNeadNull();
 	}
 }
 
@@ -332,28 +322,46 @@ function resetAdresseLAN(){
 
 
 
-function allNeadNull(){
-	voidRedInput('villeLAN');
-	setError('erreurVilleLAN',"ce champ ne peut etre vide");
-	voidRedInput('nameLAN');
-	setError('erreurNameLAN',"ce champ ne peut etre vide");
-	voidRedInput('nameLAN');
-	setError('erreurNameLAN', 'ce champ ne peut etre vide');
-	voidRedInput('dateLAN');
-	setError('erreurDateLAN',"ce champ ne peut etre vide");
-	voidRedInput('adresseLAN');
-	setError('erreurAdresseLAN',"ce champ ne peut etre vide");
-
-	voidRedInput('nameTournoi');
-	setError('erreurNameTournoi',"ce champ ne peut etre vide");
-	voidRedInput('nameJeuTournoi');
-	setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
-	voidRedInput('dateTournoi');
-	setError('erreurDateTournoi', 'ce champ ne peut etre vide');
-	voidRedInput('heureTournoi');
-	setError('erreurHeureTournoi',"ce champ ne peut etre vide");
-	voidRedInput('nbEquipeMax');
-	setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
-	voidRedInput('nbMembreMax');
-	setError('erreurNbMembreMax',"ce champ ne peut etre vide");
+function allNeadNullLAN(){
+	console.log(document.getElementById("erreurVilleLAN").innerHTML);
+	if (document.getElementById("erreurVilleLAN").innerHTML == ""){
+		voidRedInput('villeLAN');
+		setError('erreurVilleLAN',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNameLAN").innerHTML == ""){
+		voidRedInput('nameLAN');
+		setError('erreurNameLAN',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurDateLAN").innerHTML == ""){
+		voidRedInput('dateLAN');
+		setError('erreurDateLAN',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurAdresseLAN").innerHTML == ""){
+		voidRedInput('adresseLAN');
+		setError('erreurAdresseLAN',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNameTournoi").innerHTML == ""){
+		voidRedInput('nameTournoi');
+		setError('erreurNameTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNameJeuTournoi").innerHTML == ""){
+		voidRedInput('nameJeuTournoi');
+		setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurDateTournoi").innerHTML == ""){
+		voidRedInput('dateTournoi');
+		setError('erreurDateTournoi', 'ce champ ne peut etre vide');
+	}
+	if (document.getElementById("erreurHeureTournoi").innerHTML == ""){
+		voidRedInput('heureTournoi');
+		setError('erreurHeureTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNbEquipeMax").innerHTML == ""){
+		voidRedInput('nbEquipeMax');
+		setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNbMembreMax").innerHTML == ""){
+		voidRedInput('nbMembreMax');
+		setError('erreurNbMembreMax',"ce champ ne peut etre vide");
+	}
 }
