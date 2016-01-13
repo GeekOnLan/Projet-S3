@@ -37056,8 +37056,9 @@ MODIFY `idNotification` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Tournoi`
 --
-/*ALTER TABLE `Tournoi`
-MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;*/
+ALTER TABLE `Tournoi`
+MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Contraintes pour les tables exportées
 --
