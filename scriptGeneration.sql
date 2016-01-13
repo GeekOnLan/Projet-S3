@@ -37047,7 +37047,7 @@ MODIFY `idLAN` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT pour la table `Membre`
 --
 ALTER TABLE `Membre`
-MODIFY `idMembre` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `idMembre` int(11) NOT NULL AUTO_INCREMENT ;
 --
 -- AUTO_INCREMENT pour la table `Notifications`
 --
@@ -37066,15 +37066,15 @@ MODIFY `idTournoi` int(11) NOT NULL AUTO_INCREMENT;*/
 -- Contraintes pour la table `Composer`
 --
 ALTER TABLE `Composer`
-ADD CONSTRAINT `FK_Composer2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`),
-ADD CONSTRAINT `FK_Composer` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`);
+ADD CONSTRAINT `FK_Composer2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`)ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Composer` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Inviter`
 --
 ALTER TABLE `Inviter`
-ADD CONSTRAINT `FK_Inviter2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`),
-ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`);
+ADD CONSTRAINT `FK_Inviter2` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`)ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Inviter` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `LAN`
@@ -37087,14 +37087,14 @@ ADD CONSTRAINT `FK_Place` FOREIGN KEY (`idLieu`) REFERENCES `Lieu` (`idLieu`);
 -- Contraintes pour la table `Participer`
 --
 ALTER TABLE `Participer`
-ADD CONSTRAINT `FK_Participer2` FOREIGN KEY (`idLAN`, `idTournoi`) REFERENCES `Tournoi` (`idLAN`, `idTournoi`),
-ADD CONSTRAINT `FK_Participer` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`);
+ADD CONSTRAINT `FK_Participer2` FOREIGN KEY (`idLAN`, `idTournoi`) REFERENCES `Tournoi` (`idLAN`, `idTournoi`) ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Participer` FOREIGN KEY (`idEquipe`) REFERENCES `Equipe` (`idEquipe`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `Recevoir`
 --
 ALTER TABLE `Recevoir`
-ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`) ON DELETE CASCADE,
+ADD CONSTRAINT `FK_Recevoir2` FOREIGN KEY (`idMembre`) REFERENCES `Membre` (`idMembre`)ON DELETE CASCADE,
 ADD CONSTRAINT `FK_Recevoir` FOREIGN KEY (`idNotification`) REFERENCES `Notifications` (`idNotification`);
 
 --
