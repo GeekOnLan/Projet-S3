@@ -1,0 +1,186 @@
+/* ============================ */
+/* ==== Formulaire Tournoi ==== */
+/* ============================ */
+
+.tournoiForm {
+    position: absolute;
+    margin: auto auto 15px;
+    padding: 15px 5px 5px;
+    width: 70%;
+    min-width: 800px;
+
+    table-layout: fixed;
+    border-spacing: 15px;
+
+    background: #262626;
+    border-top: 5px solid #FF5B00;
+
+    transition: all 0.5s;
+    left: 0;
+    right: 0;
+    top: 110px;
+
+    transform: translateX(-10%);
+    opacity: 1;
+
+    box-shadow: 2px 2px 0 0 #171717;
+    border-radius: 5px;
+}
+
+.tournoiForm label {
+    font-size: 26px;
+    color: #8e8e8e;
+    border-bottom: solid 3px #FF5B00;
+    width: 75%;
+    display: inline-block;
+    margin-bottom: 7px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+}
+
+.tournoiForm .formInput img {
+    background: #FF5B00;
+}
+
+.tournoiForm h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: #FF5B00;
+    color: white;
+    border-right: solid 2px black;
+    border-bottom: solid 2px black;
+    font-family: Arial, serif;
+
+    width: 300px;
+    text-align: center;
+    padding: 3px;
+}
+
+.tournoiForm p {
+    font-size: 26px;
+    color: #8e8e8e;
+    text-align: center;
+}
+
+.tournoiForm button {
+    width: 100%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: white;
+    background: #525252;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #222;
+
+    margin-bottom: 15px;
+}
+
+.tournoiForm button:active {
+    background: #696969;
+}
+
+.tournoiDesc {
+    border-collapse: collapse;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+    box-sizing: border-box;
+}
+
+.tournoiDesc textarea {
+    border: none;
+    resize : none;
+    font-size: 28px;
+    padding: 10px;
+    font-family: Arial, serif;
+
+    background: #525252;
+    color: white;
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.formTextarea {
+    border-collapse: collapse;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+    box-sizing: border-box;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    top: 45px;
+}
+
+.formTextarea textarea {
+    border: none;
+    resize : none;
+    font-size: 28px;
+    padding: 10px;
+    font-family: Arial, serif;
+
+    background: #525252;
+    color: white;
+
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* ==== Mise en forme des champs de texte ==== */
+
+.formInput input {
+    float: right;
+    border: none;
+    height: 50px;
+    resize : none;
+    font-size: 28px;
+    padding: 0 10px;
+
+    background: #525252;
+    color: white;
+
+    position: relative;
+    width: calc(100% - 70px);
+}
+
+.formInput input:invalid {
+    box-shadow: 0 0 5px 0 red inset;
+}
+
+.formInput img {
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+
+    background-color: #40CFF6;
+    box-shadow: 0 0 5px 0 #333 inset;
+}
+
+.formInput {
+    display: table;
+    border-collapse: collapse;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #1b1b1b;
+    box-sizing: border-box;
+
+    margin: auto;
+    width: 100%;
+}
+
+.tournoiForm span {
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: darkred;
+
+    display: block;
+    padding: 5px;
+
+    height: 10px;
+}
