@@ -111,6 +111,9 @@ function verifyNameTournoi(){
 function verifyDateTournoi(){
 	var d = document.getElementsByName('dateTournoi')[0].value;
 	var b = document.getElementsByName('dateLAN')[0].innerHTML;
+	if(b==""){
+		b = document.getElementsByName('dateLAN')[0].value;
+	}
 	console.log(b);
 		if(b!=''){
 			var j=(b.substring(0,2));
