@@ -198,9 +198,9 @@ HTML;
 	}
 	
 	/**
-    * Verifie si le membre est deja dans une equipe du tournoi
-    */
-    public function isInEquipeTournoi($idLAN,$idTournoi){
+	 * Verifie si le membre est deja dans une equipe du tournoi
+    	*/
+    	public function isInEquipeTournoi($idLAN,$idTournoi){
 		$pdo = MyPDO::getInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT idMembre
@@ -216,10 +216,10 @@ SQL
 		$stmt->execute(array("idLan" => $idLAN,"idTournoi" => $idTournoi));
 		$bool=false;
 		foreach ($res[0] as $joueur){
-			if($joueur==Member::getInstance()->getId()){
+			if($joueur==$this->idMembre){
 				$bool=true;
 			}
 		}
 		return $bool;
-    }
+    	}
 }
