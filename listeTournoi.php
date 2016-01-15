@@ -72,21 +72,21 @@ SQL
           $page->appendContent("  <td>".sizeof($tournoi->getEquipe())."</td>");
           $page->appendContent('<td>');
           $page->appendContent('  <button class="details">Details</button>');
-          try{
-          	$stmt->execute(array("idLan" => $_GET['idLan'],"idTournoi" => $tournoi->getIdTournoi()));
-          }
-          catch(Exception $e){
-          	//header('Location: message.php?message=Un probleme est survenu');
-          	var_dump($e);
-          }
-          $bool=TRUE;
-          $res=$stmt->fetchAll();
-          if(sizeof($res)!=0)	
-	          foreach ($res[0] as $membre)
-	          	if($membre==Member::getInstance()->getId())
-	          		$bool=FALSE;    
-	          	       
+    	       
 	      if($connecte){
+	      	try{
+	      		$stmt->execute(array("idLan" => $_GET['idLan'],"idTournoi" => $tournoi->getIdTournoi()));
+	      	}
+	      	catch(Exception $e){
+	      		//header('Location: message.php?message=Un probleme est survenu');
+	      		var_dump($e);
+	      	}
+	      	$bool=TRUE;
+	      	$res=$stmt->fetchAll();
+	      	if(sizeof($res)!=0)
+	      		foreach ($res[0] as $membre)
+	      			if($membre==Member::getInstance()->getId())
+	      				$bool=FALSE;
 	       	if($bool)
 	           	$page->appendContent('  <a href="rejoindreTournoi.php?idLan='.$_REQUEST['idLan'].'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>');
 	       	else{

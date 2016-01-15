@@ -106,9 +106,5 @@ SQL
 			AND role=0");
 		
 		$id = intval($res[0]['idMembre']);
-		
-		insertRequest(array(),
-		"Notifications(objetNotif,dateNotif,messageNotif)",
-		"(\"Nouveau membre\", SYSDATE, \"un membre a rejoindre votre equipe : ".$this->nomEquipe."\")");
 	}
 }

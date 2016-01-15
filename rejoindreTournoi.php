@@ -69,8 +69,25 @@ HTML;
        $bouton = "";
 		if($e->getInscriptionOuverte()){
 			$ouverte = "Ouvertes";
-			$bouton = "<button type=\"submit\" name=\"rejoindre\" value=\"{$e->getIdEquipe()}\">Rejoindre</button>";
-				
+
+			$pdo = MyPDO::getInstance();
+			$stmt = $pdo->prepare(<<<SQL
+			SELECT idMembre
+			FROM Composer
+			WHERE idEquipe=:idEquipe;
+SQL
+			);
+			try{
+				$stmt->execute(array("idEquipe" => $e->getIdEquipe()));
+			}
+			catch(Exception $e){
+				header('Location: message.php?message=Un probleme est survenu');
+			}
+			$res=$stmt->fetchAll();
+			if(Tournoi::getTournoiFromLAN($_GET['idLan'], $_GET['idTournoi'])->getNbPersMaxParEquipe()>sizeof($res))
+				$bouton = "<button type=\"submit\" name=\"rejoindre\" value=\"{$e->getIdEquipe()}\">Rejoindre</button>";
+			else
+				$bouton = "plein";
 		}
 		$html .= <<<HTML
 		<tr>
