@@ -2,6 +2,25 @@
 /* ==== Formulaire cr�ation equipe ==== */
 /* ================================= */
 
+.noequipe {
+    width: 400px;
+    height: 200px;
+    background: #fafafa;
+    margin: auto;
+
+    padding: 15px;
+
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+}
+
+.noequipe p {
+    font-size: 42px;
+    color: #333333;
+}
+
 h2{
 	
 

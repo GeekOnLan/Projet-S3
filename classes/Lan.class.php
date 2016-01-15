@@ -196,30 +196,4 @@ HTML;
 	public function delete() {
 		deleteRequest(array("id" => $this->idLAN), "LAN", "idLAN = :id");
 	}
-	
-	/**
-	 * Verifie si le membre est deja dans une equipe du tournoi
-    	*/
-    	public function isInEquipeTournoi($idLAN,$idTournoi){
-		$pdo = MyPDO::getInstance();
-		$stmt = $pdo->prepare(<<<SQL
-			SELECT idMembre
-			FROM Composer
-			WHERE idEquipe=(
-    			SELECT idEquipe
-    			FROM Participer
-    			WHERE idLAN=:idLan
-    			AND idTournoi=:idTournoi
-    		);
-SQL
-		);
-		$stmt->execute(array("idLan" => $idLAN,"idTournoi" => $idTournoi));
-		$bool=false;
-		foreach ($res[0] as $joueur){
-			if($joueur==$this->idMembre){
-				$bool=true;
-			}
-		}
-		return $bool;
-    	}
 }
