@@ -40,7 +40,14 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
     	
     if($tournoi->getNbEquipeMax()>sizeof($tournoi->getEquipe()))
     		$form->appendContent(creeEquipe(Lan::createFromId($_GET['idLan'])->getLanName(),$tournoi));
-    	
+    else{
+    	$form->appendContent(<<<HTML
+	<div class="noequipe">
+		<p>Les Equipes sont pleines</p>
+	</div>
+HTML
+    			);
+    }
     $equipes=$tournoi->getEquipe();
     $form->appendContent(equipe($equipes));
     
