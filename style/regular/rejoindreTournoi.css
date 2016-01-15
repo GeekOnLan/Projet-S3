@@ -1,51 +1,9 @@
 /* ================================= */
-/* ==== Formulaire création Lan ==== */
+/* ==== Formulaire crï¿½ation equipe ==== */
 /* ================================= */
 
-.equipeBox {
-    position: absolute;
-    margin: auto auto 15px;
-    padding: 15px 5px 5px;
-    width: 70%;
-    min-width: 800px;
-
-    table-layout: fixed;
-    border-spacing: 15px;
-
-    background: #262626;
-    border-top: 5px solid #40CFF6;
-
-    transition: all 0.5s;
-    transform-origin: 100% 50%;
-
-    left: 0;
-    right: 0;
-    top: 110px;
-}
-
-/* ==== Mise en page des éléments du formulaire ==== */
-
-.equipeBox p {
-    font-size: 26px;
-    color: #8e8e8e;
-    text-align: center;
-}
-
-.equipeBox label {
-    font-size: 26px;
-    color: #8e8e8e;
-    border-bottom: solid 3px #40CFF6;
-    width: 75%;
-    display: inline-block;
-    margin-bottom: 7px;
-    padding-left: 10px;
-    padding-bottom: 3px;
-}
-
-.equipeBox h2 {
-    position: absolute;
-    top: 0;
-    left: 0;
+h2{
+	
 
     background: #40CFF6;
     color: white;
@@ -53,18 +11,10 @@
     border-bottom: solid 2px black;
     font-family: Arial, serif;
 
-    width: 400px;
+    width: auto;
     text-align: center;
     padding: 3px;
 }
-
-.equipeBox tr:nth-child(2) td:last-child {
-    vertical-align: top;
-}
-
-/* ================================= */
-/* ==== Formulaire création equipe ==== */
-/* ================================= */
 
 .creeEquipeForm {
     position: absolute;
@@ -84,10 +34,10 @@
 
     left: 0;
     right: 0;
-    top: 450px;
+    top: 150px;
 }
 
-/* ==== Mise en page des éléments du formulaire ==== */
+/* ==== Mise en page des ï¿½lï¿½ments du formulaire ==== */
 
 .creeEquipeForm p {
     font-size: 26px;
@@ -146,7 +96,7 @@
     border-bottom: solid 2px black;
     font-family: Arial, serif;
 
-    width: 200px;
+    width: auto;
     text-align: center;
     padding: 3px;
 }
@@ -198,6 +148,56 @@
     height: 100%;
     box-sizing: border-box;
 }
+
+.equipe {
+    background: #3a3a3a;
+    width: 80%;
+    margin: auto;
+    margin-top: 500px;
+    box-shadow: 2px 2px 0 0 #111;
+
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.equipe tr {
+    height: 50px;
+    font-size: 28px;
+    color: #acacac;
+    font-weight: normal;
+}
+
+.equipe tr:first-child {
+    border-bottom: solid 5px #D84508;
+}
+
+.equipe tr td button{
+    width: 150px;
+    height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: AgencyRegular, Arial, serif;
+}
+
+.equipe tr td a {
+    background-color: #595959;
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    font-size: 30px;
+    color: black
+}
+
+.equipe tr td a:visited{
+    text-decoration: none;
+    color: black;
+}
+.equipe tr td a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 
 /* ==== Mise en forme des champs de texte ==== */
 

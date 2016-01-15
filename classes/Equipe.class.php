@@ -71,7 +71,7 @@ SQL
 		return $stmt->fetchAll();
 	}
 
-public static function createEquipe($idLan,$idTournoi,$nom,$ouverte,$idMembre,$desc="") {
+	public static function createEquipe($idLan,$idTournoi,$nom,$ouverte,$idMembre,$desc="") {
 		insertRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),
 			"Equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
 			"(:nom, :desc, :ouvert)");
@@ -93,5 +93,22 @@ public static function createEquipe($idLan,$idTournoi,$nom,$ouverte,$idMembre,$d
 		"Composer(idMembre,idEquipe,role)",
 		"(:idMembre, :idEquipe,0)");
 	}
-
+	
+	public function rejoindre($idMembre){
+		insertRequest(array("idMembre" => $idMembre, "idEquipe" => $this->idEquipe),
+		"Composer(idMembre,idEquipe,role)",
+		"(:idMembre, :idEquipe, 1)");
+		
+		$res = selectRequest(array("id" => $this->idEquipe),array(PDO::FETCH_ASSOC => null),
+				"idMembre",
+				"Composer",
+				"idEquipe=:id
+			AND role=0");
+		
+		$id = intval($res[0]['idMembre']);
+		
+		insertRequest(array(),
+		"Notifications(objetNotif,dateNotif,messageNotif)",
+		"(\"Nouveau membre\", SYSDATE, \"un membre a rejoindre votre equipe : ".$this->nomEquipe."\")");
+	}
 }

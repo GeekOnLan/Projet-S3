@@ -7,7 +7,7 @@ require_once('includes/utility.inc.php');
 
 if(verify($_GET,'message')){
     $webpage = new GeekOnLanWebpage("GeekOnLan - Accueil");
-    $webpage -> appendContent(addslashes($_GET['message']));
+    $webpage -> appendContent(addslashes("<p>".$_GET['message']."</p>"));
     echo $webpage->toHTML();
 }
 else

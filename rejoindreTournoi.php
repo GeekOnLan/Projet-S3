@@ -5,7 +5,16 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
-if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'nameEquipe')) {
+if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'rejoindre')) {
+	try{
+		Equipe::createFromId($_POST['rejoindre'])->rejoindre(Member::getInstance()->getId());
+	}
+	catch(Exception $e){
+		header('Location: message.php?message=Vous êtes déjà dans cette équipe');
+	}
+	header("Location: message.php?message=Vous avez bien intégré l'équipe !");
+}
+else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'nameEquipe')) {
 	if(!verify($_POST, 'descriptionEquipe'))
 		$_POST['descriptionEquipe']="";
 	
@@ -28,47 +37,79 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
 	$form = new GeekOnLanWebpage("GeekOnLan - Rejoindre un tournoi");
     $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px");
     $form->appendJsUrl("js/creeEquipe.js");
-    $form->appendContent(formulaire());
-    $form->appendContent(creeEquipe());
+    	
+    if($tournoi->getNbEquipeMax()>sizeof($tournoi->getEquipe()))
+    		$form->appendContent(creeEquipe(Lan::createFromId($_GET['idLan'])->getLanName(),$tournoi));
+    	
+    $equipes=$tournoi->getEquipe();
+    $form->appendContent(equipe($equipes));
+    
 	echo $form->toHTML();
 }
 else{
 	header('Location: message.php?message=un problème est survenu');
 }
 
-function equipe(){
-    $equipe = Tournoi::getTournoiFromLAN($_GET['idLan'],$_GET['idTournoi'])->getEquipe();
-    foreach($equipe as $e)
-        echo $e->getIdEquipe();
+function equipe($equipe){
+	if(sizeof($equipe)==0)
+		return "";
+	$html = <<<HTML
+	<form method="POST" name="rejoindreEquipe" action="rejoindreTournoi.php?idLan={$_GET['idLan']}&idTournoi={$_GET['idTournoi']}">
+	<table class="equipe">
+		<tr>
+			<td>Nom</td>
+			<td>Description</td>
+			<td>Statut Inscriptions</td>
+			<td>Rejoindre</td>
+		</tr>
+	
+HTML;
+    foreach($equipe as $e){
+       $ouverte = "Fermées";
+       $bouton = "";
+		if($e->getInscriptionOuverte()){
+			$ouverte = "Ouvertes";
+			$bouton = "<button type=\"submit\" name=\"rejoindre\" value=\"{$e->getIdEquipe()}\">Rejoindre</button>";
+				
+		}
+		$html .= <<<HTML
+		<tr>
+			<td>{$e->getNomEquipe()}</td>
+			<td>{$e->getDescriptionEquipe()}</td>
+			<td>{$ouverte}</td>
+			<td>$bouton</td>
+		</tr>
+HTML;
+	}
+	$html .= <<<HTML
+		</table></form>
+HTML;
+	return $html;
 }
 
-function creeEquipe(){
+function creeEquipe($lan,$tournoi){
     $html= <<<HTML
+    
+  <h2>$lan</h2>
 
 <form method="POST" name="creeEquipeForm" action="rejoindreTournoi.php?idLan={$_GET['idLan']}&idTournoi={$_GET['idTournoi']}">
     <table class="creeEquipeForm">
         <thead>
             <tr>
                 <th colspan="2">
-                    <h2>Créer une equipe</h2>
+                    <h2>Créer une equipe : {$tournoi->getNomTournoi()}</h2>
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>
-                    <label for="nameEquipe">Nom de l`equipe *</label>
+                    <label for="nameEquipe">Nom de l'equipe *</label>
                     <div class="formInput">
                         <img id="nameEquipe" src="resources/img/Lan.png"/>
                         <input maxlength="31" name="nameEquipe" type="text"  placeholder="Nom">
                     </div>
                     <span id="erreurNameLAN"></span>
-                </td>
-				<td>
-                    <div class="formInput">
-                        <label><input type="radio" name="ouvert" value="true" checked>Inscription ouverte</label>
-                        <label><input type="radio" name="ouvert" value="false">Inscription fermée</label>
-                    </div>
                 </td>
                 <td rowspan="4" id="area">
                     <label for="descriptionEquipe">Description de l'equipe</label>
@@ -77,6 +118,12 @@ function creeEquipe(){
                     </div>
                     <span id="erreurDescriptionEquipe"></span>
                 </td>
+            </tr>
+			<tr>
+				<td>
+	                 <label><input type="radio" name="ouvert" value="false" checked>Inscription ouverte</label>
+	                 <label><input type="radio" name="ouvert" value="true">Inscription fermée</label
+				</td>
             </tr>
             <tr>
                 <td><button type="button" onclick="creeEquipe()" >Continuer</button></td>
@@ -88,33 +135,4 @@ function creeEquipe(){
 
 HTML;
     return $html;
-}
-
-function formulaire(){
-	$html= <<<HTML
-
-<form method="POST" name="equipe">
-    <table class="equipeBox">
-        <thead>
-            <tr>
-                <th>
-                    <h2>Rejoindre un  tournoi</h2>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="formInput">
-                        <label><input type="radio" name="sex" value="male" checked>Rejoindre une equipe</label>
-                        <label><input type="radio" name="sex" value="female">Cree une equipe</label>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-
-HTML;
-	return $html;
 }
