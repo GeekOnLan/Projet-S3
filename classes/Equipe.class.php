@@ -136,10 +136,10 @@ SQL
 	/**
 	 * Supprime l'equipe
 	 */
-	public function delete($message="Votre équipe a été suprimer"){
+	public function delete($message="Votre équipe a été supprimé"){
 		$membres = $this->getMembre();
 		foreach ($membres as $membre){
-			$membre->sendNotif("annulation", $message);
+			$membre->sendNotif("Annulation", $message);
 		}
 		deleteRequest(array("idEquipe" => $this->idEquipe), "Equipe", "idEquipe = :idEquipe");
 	}

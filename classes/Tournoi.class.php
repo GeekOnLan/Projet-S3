@@ -100,7 +100,7 @@ class Tournoi{
      */
     public function delete($message=""){
     	if($message == "")
-    		$message = "Le tournoi : ".$this->getNomTournoi()." a été supprimer";
+    		$message = "Le tournoi : ".$this->getNomTournoi()." a été supprimé";
     	
     	$equipes = $this->getEquipe();
     	foreach ($equipes as $equipe)
