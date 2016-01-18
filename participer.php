@@ -5,8 +5,8 @@ require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Mes participations");
-$form->appendCssUrl("style/regular/participation.css", "screen and (min-width: 680px");
-$form->appendCssUrl("style/mobile/participation.css", "screen and (max-width: 680px");
+$form->appendCssUrl("style/regular/participer.css", "screen and (min-width: 680px)");
+$form->appendCssUrl("style/mobile/participer.css", "screen and (max-width: 680px)");
 
 
 function getTableau(){
@@ -50,55 +50,113 @@ $exemple = array(
 }
 
 $tableau=getTableau();
+
+//var_dump($tableau[0]);
+
 function getNbEquipeLAN($tableau,$i){
 	$res=0;
-	foreach($tableau[$i] as $tournoi){
+	foreach($tableau[$i] as $lan){
 		$j=1;
-		while($j<sizeof($tournoi)){
+		while($j<sizeof($lan)){
 			$res=$res+1;
 			$j=$j+1;
 		}
 	}
-	return $res;
+	//var_dump($res-1);
+	return $res-1;
 }
+
 $k=0;
 $innerTableau="";
 while($k<sizeof($tableau)){
 	
 	$nbEquipe=getNbEquipeLAN($tableau,$k);
-	$nomLan=$tableau[$k][0][0];
+	//var_dump($nbEquipe);
+	$nomLan=$tableau[$k][0][0];//substr ( string $string , int $start [, int $length ] )
+	$jL=substr($tableau[$k][0][1],0,2);
+	$mL=substr($tableau[$k][0][1],3);
+	
+	$jT=substr($tableau[$k][1][0][1],0,2);
+	$mT=substr($tableau[$k][1][0][1],3,7);
+	$hT=substr($tableau[$k][1][0][1],12);
 	$innerTableau.=<<<HTML
 	
 	<tr>
 		<td rowspan="{$nbEquipe}">
-			{$nomLan}
+			<div class="BlocksLan">
+				<div class="Date">
+					<span>{$jL}</span>
+					<span>{$mL}</span>
+				</div>
+				<div class="Info">
+					<span>{$nomLan}</span>
+					<hr/>
+				</div>
+			</div>
+			
 		</td>
 		<td>
-			{$tableau[$k][1][0][0]}
+			<div class="BlocksTournoi">
+				<span>{$hT}</span>
+				<div class="Date">
+					<span>{$jT}</span>
+					<span>{$mT}</span>
+				</div>
+				<div class="Info">
+					<span>{$tableau[$k][1][0][0]}</span>
+					<hr/>
+				</div>
+			</div>
+			
 		</td>
 		<td>
-			{$tableau[$k][1][1][0]}
+			<div class="BlocksEquipe">
+				<div class="gerer">
+					<span>{$tableau[$k][1][1][0]}</span>
+					<hr/>
+					<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][0]}">Gérer</a>
+				</div>
+			</div>
 		</td>
 		<td>
-			<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][0]}">gerer</a>
 		</td>
 	</tr>
 HTML
 ;
-	$l=2;
+	$l=1;
 	while($l<$nbEquipe){
-		
+		$jT=substr($tableau[$k][$l][0][1],0,2);
+		$mT=substr($tableau[$k][$l][0][1],3,7);
+		$hT=substr($tableau[$k][$l][0][1],12);
 		$innerTableau.=<<<HTML
 		
 	<tr>
 		<td>
-			{$tableau[$k][$l][0][0]}
+			<div class="BlocksTournoi">
+				<span>{$hT}</span>
+				<div class="Date">
+					<span>{$jT}</span>
+					<span>{$mT}</span>
+				</div>
+				<div class="Info">
+					<span>{$tableau[$k][$l][0][0]}</span>
+					<hr/>
+				</div>
+			</div>
+			
 		</td>
 		<td>
-			{$tableau[$k][$l][1][0]}
+			<div class="BlocksEquipe">
+				<div class="gerer">
+					<span>{$tableau[$k][$l][1][0]}</span>
+					<hr/>
+					<a href="gererEquipe.php?idEquipe={$tableau[$k][$l][1][1]}">Gérer</a>
+				</div>
+			</div>
+			
 		</td>
 		<td>
-			<a href="gererEquipe.php?idEquipe={$tableau[$k][$l][1][1]}">gerer</a>
+			
 		</td>
 	</tr>
 	
