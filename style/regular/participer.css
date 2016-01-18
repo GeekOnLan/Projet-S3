@@ -1,0 +1,116 @@
+.listeLans {
+    text-align: center;
+    padding: 0 5%;
+}
+
+div[class*=Blocks] {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 250px;
+    margin: 10px;
+
+    background: #fafafa;
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+
+    text-align: left;
+    overflow: hidden;
+}
+
+
+.Blocks > span {
+    position: absolute;
+    left: 115px;
+    font-size: 32px;
+    width: 180px;
+}
+
+.gerer{
+	padding: 0 10px;
+	color: #5b5b5b;
+    font-size: 36px;
+	position: absolute;
+    top: 60px;
+    width: 100%;
+}
+
+.Info {
+    position: absolute;
+    top: 110px;
+
+    width: 100%;
+}
+
+.Info hr {
+    margin-top: 3px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    width: 60%;
+}
+
+.Info span {
+    padding: 0 10px;
+}
+
+.Info span:first-child {
+    color: #5b5b5b;
+    font-size: 36px;
+}
+
+/* ==== Boutons ==== */
+
+.Info a, .noLan a, .gerer a {
+    display: block;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 2px 10px;
+    margin: 7px auto;
+
+    font-family: AgencyRegular, Arial, serif;
+    font-size: 32px;
+    text-decoration: none;
+    text-align: center;
+
+    color: #373737;
+    background: #c6c6c6;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #666666;
+}
+
+.Info a:hover, .noLan a:hover {
+    background: #dedede;
+}
+
+/* ===== Date ===== */
+
+.Date {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    z-index: 2;
+
+    width: 100px;
+    height: 100px;
+    background: #fafafa;
+    border: 5px solid #cccccc;
+    text-align: center;
+}
+
+.Date span {
+    display: block;
+}
+
+.Date span:first-child {
+    color: #40CFF6;
+    font-size: 70px;
+    margin-top: -10px;
+}
+
+.Date span:last-child {
+    font-size: 28px;
+    margin-top: -10px;
+    color: #313131;
+}
