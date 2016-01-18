@@ -5,7 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
-if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi'] && Member::getInstance()->isInEquipeTournoi($_GET['idLan'], $_GET['idTournoi']))){
+if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && Member::getInstance()->isInEquipeTournoi($_GET['idLan'], $_GET['idTournoi'])){
 	header('Location: message.php?message=Vous êtes déjà inscrit dans ce tournoi');
 }
 

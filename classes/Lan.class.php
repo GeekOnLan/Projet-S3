@@ -184,7 +184,7 @@ HTML;
 	 * Retourne le chemin de l'image associée à la Lan
 	 * @return string Chemin de l'image
 	 */
-	public function getLanPicture() {
+	public function getLanPicture(){
 	$res = selectRequest(array("idLan" => $this->idLAN), array(PDO::FETCH_ASSOC => null), "imageJeu", "Jeu j, Tournoi t", "t.idLan = :idLan AND t.idTournoi = 0  AND t.idJeu = j.idJeu");
 	if(isset($res[0]) && isset($res[0]['imageJeu'])) return $res[0]['imageJeu'];
 	else return null;	
@@ -194,6 +194,10 @@ HTML;
 	 * Supprime la Lan
 	 */
 	public function delete() {
+		$tournois = $this->getTournoi();
+		foreach ($tournois as $tournoi){
+			$tournoi->delete("La LAN : ".$this->getLanName()." a été supprimer");
+		}
 		deleteRequest(array("id" => $this->idLAN), "LAN", "idLAN = :id");
 	}
 }

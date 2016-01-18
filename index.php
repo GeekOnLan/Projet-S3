@@ -39,7 +39,7 @@ foreach($lesLans as $lan){
                         <h2>{$lan->getLanName()}</h2>
                         <hr/>
                         <p>{$lan->getLanDescription()}</p>
-                        <a href="details.php?idLan={$lan->getId()}">Lire la suite</a>
+                        <a href="detailsLan.php?idLan={$lan->getId()}">Lire la suite</a>
                     </div>
                 </td>
             </tr>

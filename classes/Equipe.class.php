@@ -66,7 +66,7 @@ class Equipe {
 			WHERE idEquipe = :id;
 SQL
 		);
-		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Membre');
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Member');
 		$stmt->execute(array("id"=>$this->idEquipe));
 		return $stmt->fetchAll();
 	}
@@ -94,17 +94,53 @@ SQL
 		"(:idMembre, :idEquipe,0)");
 	}
 	
+	public function getCreateur(){
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM Membre
+			WHERE idMembre =(
+				SELECT DISTINCT idMembre
+	    		FROM Composer
+	    		WHERE idEquipe = :idEquipe
+				AND role = 0
+				);
+SQL
+		);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Member');
+		$stmt->execute(array("idEquipe" => $this->idEquipe));
+		return $stmt->fetch();
+	}
+	
 	public function rejoindre($idMembre){
 		insertRequest(array("idMembre" => $idMembre, "idEquipe" => $this->idEquipe),
 		"Composer(idMembre,idEquipe,role)",
 		"(:idMembre, :idEquipe, 1)");
+		$createur = $this->getCreateur();
 		
-		$res = selectRequest(array("id" => $this->idEquipe),array(PDO::FETCH_ASSOC => null),
-				"idMembre",
-				"Composer",
-				"idEquipe=:id
-			AND role=0");
-		
-		$id = intval($res[0]['idMembre']);
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT *
+			FROM Membre
+			WHERE idMembre=:id
+SQL
+		);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Member');
+		$stmt->execute(array("id" => $idMembre));
+		$membre=$stmt->fetch();
+
+		$message = "Le membre ".$membre->getPseudo()." a rejoind votre equipe : ".$this->getNomEquipe();
+		$createur -> sendNotif("nouveau membre",$message);
+	}
+	
+	/**
+	 * Supprime l'equipe
+	 */
+	public function delete($message="Votre équipe a été suprimer"){
+		$membres = $this->getMembre();
+		foreach ($membres as $membre){
+			$membre->sendNotif("annulation", $message);
+		}
+		deleteRequest(array("idEquipe" => $this->idEquipe), "Equipe", "idEquipe = :idEquipe");
 	}
 }

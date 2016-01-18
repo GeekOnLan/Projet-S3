@@ -84,8 +84,8 @@ SQL
             <tr>
                 <td>
                     <label for="nameTournoi">Nom du tournoi *</label>
-                    <div class="formInput">
-                        <img id="tournoiName" src=""/>
+                    <div class="formInput">    		
+                        <img id="tournoiName" src="resources/img/Lan.png"/>
                         <input maxlength="31" name="nameTournoi" type="text"  placeholder="Nom Tournoi" onfocus="resetNameTournoi()" onblur="verifyNameTournoi()">
                     </div>
                     <span id="erreurNameTournoi"></span>
@@ -93,7 +93,7 @@ SQL
                 <td>
                     <label for="nameJeuTournoi">Nom du jeu *</label>
                     <div class="formInput">
-                        <img id="tournoiJeuName" src=""/>
+                        <img id="tournoiJeuName" src="resources/img/Lan.png"/>
                         <input maxlength="31" name="nameJeuTournoi" type="text"  placeholder="Nom jeu" onfocus="resetNameJeuTournoi()" onblur="verifyNameJeuTournoi()">
                     </div>
                     <span id="erreurNameJeuTournoi"></span>
@@ -101,9 +101,9 @@ SQL
             </tr>
             <tr>
                 <td>
-                    <label for="dateTournoi" lan={$LAN}>Date du tournoi *</label>
+                    <label for="dateTournoi">Date du tournoi *</label>
                     <div class="formInput">
-                        <img src=""/>
+                        <img src="resources/img/Birthday.png"/>
                         <input maxlength="12" name="dateTournoi" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
                     </div>
                     <span id="erreurDateTournoi"></span>
@@ -111,7 +111,7 @@ SQL
                  <td>
                     <label for="heureTournoi">Heure du tournoi *</label>
                     <div class="formInput">
-                        <img id="tournoi" src=""/>
+                        <img id="tournoi" src="resources/img/Birthday.png"/>
                         <input maxlength="5"  name="heureTournoi" type="text" placeholder="HH:MM" onfocus="resetHeureTournoi()" onblur="verifyHeureTournoi()">
                     </div>
                     <span id="erreurHeureTournoi"></span>
@@ -121,7 +121,7 @@ SQL
                 <td>
                     <label for="nbEquipeMax">Nombre maximum d'équipe *</label>
                     <div class="formInput">
-                        <img id="nbEquipeMax" src=""/>
+                        <img id="nbEquipeMax" src="resources/img/Contact.png"/>
                         <input type="number" value="0" min="0" max="9999" name="nbEquipeMax" onfocus="resetNbEquipeMax()" onblur="verifyNbEquipeMax()">
                     </div>
                     <span id="erreurNbEquipeMax"></span>
@@ -129,7 +129,7 @@ SQL
                  <td>
                     <label for="nbMembreMax">Nombre maximum de joueurs par équipe *</label>
                     <div class="formInput">
-                        <img id="nbMembreMax" src=""/>
+                        <img id="nbMembreMax" src="resources/img/Contact.png"/>
                         <input type="number" value="0" min="0" max="9999" name="nbMembreMax" onfocus="resetNbMembreMax()" onblur="verifyNbMembreMax()">
                     </div>
                     <span id="erreurNbMembreMax"></span>
@@ -145,7 +145,7 @@ SQL
                 </td>
             </tr>
             <tr>
-                <td><button type="button" onclick="verifyTournoi()">Créée le tournoi</button></td>
+                <td><button type="button" onclick="verifyTournoi()">Créer une tournoi</button></td>
                 <td><button type="button" id="prev">Précédent</button></td>
             </tr>
             <tr>

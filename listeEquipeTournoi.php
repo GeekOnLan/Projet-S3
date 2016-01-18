@@ -48,8 +48,7 @@ HTML;
 		</table>
 HTML;
 
-	$wp->appendCssUrl("style/regular/listeEquipeTournoi.css");
-
+	$wp->appendCssUrl("style/regular/listeEquipeTournoi.css", "screen and (min-width: 680px");
 	$wp->appendContent($html);
 	echo $wp->toHTML();
 }

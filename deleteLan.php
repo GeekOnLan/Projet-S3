@@ -5,7 +5,6 @@ require_once('includes/utility.inc.php');
 
 if(verify($_SERVER,'HTTP_REFERER')) {
     $member = Member::getInstance();
-
     try {
         $member->getLAN()[$_GET['idLan']]->delete();
         header('Location: message.php?message=Votre lan a bien été supprimé');

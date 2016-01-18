@@ -245,19 +245,16 @@ class Member {
     			FROM Participer
     			WHERE idLAN=:idLan
     			AND idTournoi=:idTournoi
-    		);
+    		)
+    		AND idMembre=:idMembre;
 SQL
     	);
     	
-    	$stmt->execute(array("idLan" => $idLAN,"idTournoi" => $idTournoi));
+    	$stmt->execute(array("idLan" => $idLAN,"idTournoi" => $idTournoi,"idMembre" => $this->idMembre));
     	$res=$stmt->fetchAll();
-    	$bool=false;
-    	if(sizeof($res)!=0)
-    	foreach ($res as $joueur){
-    		if($joueur['idMembre']==$this->idMembre){
-    			$bool=true;
-    		}
-    	}
+    	$bool = FALSE;
+    	if(sizeof($res)>0)
+    		$bool = TRUE;
     	return $bool;
     }
     
@@ -317,7 +314,43 @@ SQL
     	foreach($idEquipe as $id){
     		array_push($equipe,Equipe::createFromId($id['idEquipe']));
     	}
-    	var_dump($equipe);
     	return $equipe;
+    }
+    
+    public function sendNotif($objet,$message){
+    	$pdo = MyPDO::getInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			INSERT INTO Notifications (objetNotif, dateNotif, messageNotif) 
+    		VALUES (:objet, :date, :message); 
+SQL
+    	);
+    	$stmt->execute(array("objet" => $objet, "date" => date('Y-m-j H-i-s'),"message" => $message));
+    	
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT MAX(idNotification)
+    		FROM Notifications
+SQL
+    	);
+    	$stmt->execute(array("objet" => $objet, "date" => date('Y-m-j H-i-s'),"message" => $message));
+    	$idNotif = $stmt->fetch()['MAX(idNotification)'];
+    	
+    	$stmt = $pdo->prepare(<<<SQL
+			INSERT INTO Recevoir (idNotification, idMembre)
+    		VALUES (:notif, :membre);
+SQL
+    	);
+    	$stmt->execute(array("notif" => $idNotif, "membre" => $this->idMembre));
+    }
+    
+    public function getNbNotif(){
+    	$pdo = MyPDO::getInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT idNotification
+    		FROM Recevoir
+    		WHERE idMembre=:id;
+SQL
+    	);
+    	$stmt->execute(array("id" => $this->idMembre));
+    	return sizeof($stmt->fetchAll());
     }
 }
