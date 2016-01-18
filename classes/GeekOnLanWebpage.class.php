@@ -110,7 +110,7 @@ HTML;
     <ul>
         <li><a href="profil.php">Profil</a></li>
         <li><a href="notification.php">Mes notifications <div style="color : red;display : inline;">{$nbNotif}</div></a></li>
-        <li><a href="#">Participations</a></li>
+        <li><a href="participer.php">Participations</a></li>
         <li><a href="creeLan.php">Créer une LAN</a></li>
         <li><a href="listeLansMembre.php">Mes LAN</a></li>
     </ul>
