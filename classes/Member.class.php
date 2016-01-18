@@ -250,12 +250,74 @@ SQL
     	);
     	
     	$stmt->execute(array("idLan" => $idLAN,"idTournoi" => $idTournoi));
+    	$res=$stmt->fetchAll();
     	$bool=false;
-    	foreach ($res[0] as $joueur){
-    		if($joueur==$this->idMembre){
+    	if(sizeof($res)!=0)
+    	foreach ($res as $joueur){
+    		if($joueur['idMembre']==$this->idMembre){
     			$bool=true;
     		}
     	}
     	return $bool;
+    }
+    
+    public function getLanParticiper(){
+    	$pdo = MyPDO::getInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT DISTINCT idLan 
+    		FROM Participer
+    		WHERE idEquipe IN(
+    			SELECT idEquipe 
+    			FROM Composer 
+    			WHERE idMembre=:id )
+SQL
+    	);
+    	$stmt->execute(array("id" => $this->idMembre));
+    	$idLan=$stmt->fetchAll();
+    	$lan=array();
+    	foreach($idLan as $id){
+    		array_push($lan,Lan::createFromId($id['idLan']));
+    	}
+    	return $lan;
+    }
+    
+    public function getTournoiParticiperFromLan($idLan){
+    	$pdo = MyPDO::getInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT DISTINCT idTournoi
+    		FROM Participer
+    		WHERE idEquipe IN(
+    			SELECT idEquipe
+    			FROM Composer
+    			WHERE idMembre=:idMembre )
+            AND idLan=:idLan
+SQL
+    	);
+    	$stmt->execute(array("idMembre" => $this->idMembre,"idLan" => $idLan));
+    	$idTournoi=$stmt->fetchAll();
+    	$tournoi=array();
+    	foreach($idTournoi as $id){
+    		array_push($tournoi,Tournoi::getTournoiFromLAN($idLan, $id['idTournoi']));
+    	}
+    	return $tournoi;
+    }
+    
+    public function getEquipeParticiperFromLanAndTournoi($idLan,$idTournoi){
+    	$pdo = MyPDO::getInstance();
+    	$stmt = $pdo->prepare(<<<SQL
+			SELECT DISTINCT idEquipe
+    		FROM Participer
+    		WHERE idTournoi=:idTournoi
+            AND idLan=:idLan
+SQL
+    	);
+    	$stmt->execute(array("idTournoi" => $idTournoi,"idLan" => $idLan));
+    	$idEquipe=$stmt->fetchAll();
+    	$equipe=array();
+    	foreach($idEquipe as $id){
+    		array_push($equipe,Equipe::createFromId($id['idEquipe']));
+    	}
+    	var_dump($equipe);
+    	return $equipe;
     }
 }
