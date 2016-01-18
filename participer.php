@@ -25,11 +25,10 @@ $tableau = array();
 $Membre = Member::getInstance();
 
 foreach($Membre->getLanParticiper() as $LAN){
-	$nom = $LAN->getLanName();
-	array_push ( $tableau, array($nom));
+	array_push ( $tableau, array(array($LAN->getLanName(),$LAN->getLanDate())));
 	
 	foreach($Membre->getTournoiParticiperFromLan($LAN->getId()) as $Tournoi){
-		array_push ( $tableau[$i], array($Tournoi->getNomTournoi()));
+		array_push ( $tableau[$i], array(array($Tournoi->getNomTournoi(),$Tournoi->getDateHeurePrevu())));
 		foreach($Membre->getEquipeParticiperFromLanAndTournoi($LAN->getId(),$Tournoi->getIdTournoi())as $Equipe){
 			array_push ( $tableau[$i][$j], array($Equipe->getNomEquipe(),$Equipe->getIdEquipe()));
 		}
@@ -51,7 +50,6 @@ $exemple = array(
 }
 
 $tableau=getTableau();
-
 function getNbEquipeLAN($tableau,$i){
 	$res=0;
 	foreach($tableau[$i] as $tournoi){
@@ -68,7 +66,7 @@ $innerTableau="";
 while($k<sizeof($tableau)){
 	
 	$nbEquipe=getNbEquipeLAN($tableau,$k);
-	$nomLan=$tableau[$k][0];
+	$nomLan=$tableau[$k][0][0];
 	$innerTableau.=<<<HTML
 	
 	<tr>
@@ -76,25 +74,25 @@ while($k<sizeof($tableau)){
 			{$nomLan}
 		</td>
 		<td>
-			{$tableau[$k][1][0]}
+			{$tableau[$k][1][0][0]}
 		</td>
 		<td>
 			{$tableau[$k][1][1][0]}
 		</td>
 		<td>
-			<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][1]}">gerer</a>
+			<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][0]}">gerer</a>
 		</td>
 	</tr>
 HTML
 ;
 	$l=2;
-	while($l<=$nbEquipe){
+	while($l<$nbEquipe){
 		
 		$innerTableau.=<<<HTML
 		
 	<tr>
 		<td>
-			{$tableau[$k][$l][0]}
+			{$tableau[$k][$l][0][0]}
 		</td>
 		<td>
 			{$tableau[$k][$l][1][0]}
@@ -110,6 +108,7 @@ HTML
 	}
 	$k=$k+1;
 }
+
 
 $form->appendContent(<<<HTML
     <table class="lanForm">
