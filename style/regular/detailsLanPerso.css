@@ -1,0 +1,68 @@
+#mainframe article > table {
+    background: #3a3a3a;
+    width: 70%;
+    margin: auto;
+    box-shadow: 2px 2px 0 0 #111;
+
+    text-align: center;
+    border-collapse: collapse;
+}
+
+#mainframe article > table tr {
+    height: 40px;
+    font-size: 28px;
+    color: #acacac;
+    font-weight: normal;
+}
+
+#mainframe article > table tr:first-child {
+    border-bottom: solid 5px #D84508;
+}
+
+#mainframe article > table tr td button{
+	width: 150px;
+	height: 50px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: AgencyRegular, Arial, serif;
+}
+#mainframe article > table tr td a {
+    background-color: #595959;
+}
+
+#mainframe article > table tr td a {
+    width: 150px;
+    height: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black
+}
+
+#mainframe article > table tr td a:visited{
+    text-decoration: none;
+    color: black;
+}
+#mainframe article > table tr td a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.bouton {
+  display : block;
+  border:1px;
+  border-style: solid;
+}
+
+#description{
+  position: fixed;
+  left:25%;
+  width:50%;
+  height:50%;
+  display:none;
+  background: #3a3a3a;
+}
+
+#description h1{
+  text-align:center;
+}
