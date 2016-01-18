@@ -145,8 +145,7 @@ SQL
                 </td>
             </tr>
             <tr>
-                <td><button type="button" onclick="verifyTournoi()">Créer une tournoi</button></td>
-                <td><button type="button" id="prev">Précédent</button></td>
+                <td colspan="2"><button type="button" onclick="verifyTournoi()">Créer un tournoi</button></td>
             </tr>
             <tr>
                 <td colspan="2"><p>* : champs obligatoires</p></td>

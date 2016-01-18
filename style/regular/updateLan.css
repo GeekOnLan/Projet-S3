@@ -48,6 +48,10 @@
     margin-bottom: 15px;
 }
 
+.lanForm button:hover{
+	    box-shadow: 0 0 2px 2px black inset;
+}
+
 .lanForm button:active {
     background: #696969;
 }
@@ -271,3 +275,4 @@
 #myPrompt button{
     margin: 20px;
 }
+

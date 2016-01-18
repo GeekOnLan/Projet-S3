@@ -78,6 +78,10 @@
     margin-bottom: 15px;
 }
 
+.tournoiForm button:hover{
+	    box-shadow: 0 0 2px 2px black inset;
+}
+
 .tournoiForm button:active {
     background: #696969;
 }

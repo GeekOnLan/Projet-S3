@@ -19,7 +19,7 @@ function sha256modif(){
 		$("input[name='newPassHidden']").val(CryptoJS.SHA256(newPass));
 		$("input[name='lastPass']").val('');
 		$("input[name='newPass']").val('');
-		$("input[name='newPassVerify").val('');
+		$("input[name='newPassVerify']").val('');
 		document.change.submit();
 	}
 }

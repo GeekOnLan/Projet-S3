@@ -124,17 +124,19 @@
 }
 
 #mainframe form button {
-    width: 50%;
-    font-family: AgencyRegular, Arial, serif;
+    font-family: Arial, serif;
 
     color: white;
     background: #525252;
-    font-size: 32px;
+    font-size: 22px;
+    padding: 5px 40px;
 
     box-shadow: 2px 2px 1px 0 #111;
     border: solid 3px #222;
+}
 
-    margin-bottom: 15px;
+#mainframe form button:hover{
+	    box-shadow: 0 0 2px 2px black inset;
 }
 
 #mainframe form button:active {

@@ -98,13 +98,14 @@ class Tournoi{
     /**
      * Supprime le tournoi
      */
-    public function delete($message=" "){
+    public function delete($message=""){
+    	if($message == "")
+    		$message = "Le tournoi : ".$this->getNomTournoi()." a été supprimer";
+    	
     	$equipes = $this->getEquipe();
-    	foreach ($equipes as $equipe){
-    		if($message = " ")
-    			$message = "Le tournoi : ".$this->getNomTournoi()." a été supprimer";
+    	foreach ($equipes as $equipe)
     		$equipe->delete($message);
-    	}
+    	
         deleteRequest(array("lan" => $this->idLAN, "id" => $this->idTournoi), "Tournoi", "idLan = :lan AND idTournoi = :id");
 
         // On vérifie s'il reste d'autres tournois pour savoir si l'on doit aussi supprimer la Lan

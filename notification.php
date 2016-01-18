@@ -60,7 +60,7 @@ SQL
     foreach($lesInvits as $invit){
         $mesJoliesInvits.=<<<HTML
     <div class="invit" id="{$invit['idEquipe']}">
-        <h1>L'�quipe {$invit['nomEquipe']} vous invite � la rejoindre !</h1>
+        <h1>L'équipe {$invit['nomEquipe']} vous invite é la rejoindre !</h1>
         <h2>Acceptez-vous cette invitation ?</h2>
         <button class="yB"> Oui </button> <button class="nB"> Non </button>
     </div>

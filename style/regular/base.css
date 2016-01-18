@@ -125,6 +125,11 @@ body {
     background: #5b5b5b;
 }
 
+#connexionForm button:hover , #connexionForm a:hover {
+	    box-shadow: 0 0 2px 2px black inset;
+}
+
+
 #connexionForm button {
     display: table-cell;
     width: 100%;

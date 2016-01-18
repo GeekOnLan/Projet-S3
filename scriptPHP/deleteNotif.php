@@ -16,7 +16,7 @@ deleteNotif($id);
 function deleteNotif($idNotif){
     $pdo = MyPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL
-    DELETE FROM recevoir WHERE idNotification = :idnotif AND idMembre = :idmembre;
+    DELETE FROM Recevoir WHERE idNotification = :idnotif AND idMembre = :idmembre;
 SQL
     );
 

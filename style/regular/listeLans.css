@@ -127,3 +127,20 @@
     color: white;
     font-size: 22px;
 }
+
+#searchRes a{
+	font-family: Arial, serif;
+
+    color: white;
+    background: #525252;
+    font-size: 22px;
+    padding: 1px 40px;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #222;
+    text-decoration : none;
+}
+
+#searchRes a:hover{
+	    box-shadow: 0 0 2px 2px black inset;
+
+}

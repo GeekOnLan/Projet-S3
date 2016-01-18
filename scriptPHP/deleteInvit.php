@@ -7,26 +7,24 @@ require_once('../classes/MyPDO.class.php');
 $idTeam = $_GET['id'];
 $choix = $_GET['choix'];
 Member::getInstance();
-
+deleteInvit($idTeam);
 if($choix) addTeam($idTeam);
 
-var_dump($_SESSION);
-deleteInvit($idTeam);
 
 
 
-//Fonction d'ajout dans l'équipe
+//Fonction d'ajout dans l'ï¿½quipe
 function addTeam($idTeam){
     $pdo = MyPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL
-    DELETE FROM composer WHERE idMembre = :idmembre;
+    DELETE FROM Composer WHERE idMembre = :idmembre;
 SQL
     );
     $stmt->execute(array("idmembre" => $_SESSION['Member']->getId()));
     //Ajout
 
     $stmt = $pdo->prepare(<<<SQL
-    INSERT INTO `composer`(`idMembre`, `idEquipe`, `role`) VALUES (:idmembre,:idteam,1)
+    INSERT INTO `Composer`(`idMembre`, `idEquipe`, `role`) VALUES (:idmembre,:idteam,1)
 SQL
     );
     $stmt->execute(array("idteam" => $idTeam,"idmembre" => $_SESSION['Member']->getId()));
@@ -38,7 +36,7 @@ SQL
 function deleteInvit($idTeam){
     $pdo = MyPDO::getInstance();
     $stmt = $pdo->prepare(<<<SQL
-    DELETE FROM inviter WHERE idEquipe = :idinvit AND idMembre = :idmembre;
+    DELETE FROM Inviter WHERE idEquipe = :idinvit AND idMembre = :idmembre;
 SQL
     );
     $stmt->execute(array("idinvit" => $idTeam,"idmembre" => $_SESSION['Member']->getId()));
