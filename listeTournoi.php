@@ -10,7 +10,7 @@ $connecte = Member::isConnected();
   }catch(Exception $e){
     	header('Location: message.php?message=Lan inexistante');
   }
-    $page = new GeekOnLanWebpage("GeekOnLan -".$lan->getLanName()." - Liste des tournois");
+    $page = new GeekOnLanWebpage("GeekOnLan - ".$lan->getLanName()." - Liste des tournois");
     $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px");
     $page->appendJsUrl("js/listeTournois.js");
     $page->appendJsUrl("js/request.js");

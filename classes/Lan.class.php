@@ -80,6 +80,10 @@ class Lan {
 		return Lieu::createFromId($this->idLieu);
 	}
 
+	public function getCreateur(){
+		return Member::createFromId($this->idMembre);
+	}
+
 	/**
 	 * Retourne l'état de la Lan
 	 * @return bool false si la Lan est fermée, true sinon
@@ -90,6 +94,8 @@ class Lan {
 
 	// TODO commente moi ça je sais pas trop ce qu'elle fait
 	public function update($nom,$date,$desc,$lieu,$adress) {
+		$message = "La LAN ".$this->getLanName()." a ete modifier";
+		$this->send("Modification",$message);
 		$idLieu = selectRequest(array("nom" => $lieu), array(PDO::FETCH_ASSOC => null), "idLieu", "Lieu", "nomVille = :nom")[0]['idLieu'];
 		
 		updateRequest(array("idLan" => $this->idLAN, "nom" => $nom, "date" => $date, "desc" => $desc, "idLieu" => $idLieu, "adresse" => $adress),
@@ -189,6 +195,13 @@ HTML;
 	if(isset($res[0]) && isset($res[0]['imageJeu'])) return $res[0]['imageJeu'];
 	else return null;	
 	 }
+
+	public function send($objet, $message){
+		$tournois = $this->getTournoi();
+		foreach ($tournois as $tournoi){
+			$tournoi->send($objet, $message);
+		}
+	}
 
 	/**
 	 * Supprime la Lan

@@ -28,21 +28,71 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 		
 		$hour = explode('a ', $date[2]);
 		$hour = $hour[1];
-		
+		$nbEquipe = sizeof($tournoi->getEquipe());
+		$payant = "";
+		if($tournoi->getJeu()[3]==0)
+			$payant = "payant";
+		else $payant = "gratuit";
 		$html .= <<<HTML
 	<div class="tournoiBlocks">
+		<span>{$tournoi->getNomTournoi()}</span>
 		<div class="tournoiDate">
-        	<span>$hour</span>
+			<span>{$day}</span>
+			<span>{$month}</span>
         </div>
         <div class="tournoiInfo">
-        	<span>{$tournoi->getNomTournoi()}</span>
+        	<span>$hour</span>
         	<hr/>
-        	<a>Editer</a>
-        	<a>Details</a>
         	<a href="listeEquipeTournoi.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
+        	<button type="button" id="bouttonDetails{$i}">Détails</button>
+        	<a>Editer</a>
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
 		</div>
 	</div>
+
+	<div id="details{$i}">
+		<h2>{$tournoi->getNomTournoi()}</h2>
+		<div class="lanDetails">
+			<span class="title">Description :</span><br>
+			<span>{$tournoi->getDescriptionTournoi()}</span><br>
+			<span class="title">Jeu :</span><br>
+			<span>{$tournoi->getJeu()[1]} : {$payant}</span><br>
+			<span>{$tournoi->getJeu()[2]}</span><br>
+			<span class="title">Equipe :</span><br>
+			<span>Nombre d'equipe : {$nbEquipe}/{$tournoi->getNbEquipeMax()}</span><br>
+			<span>Nombre de personne par equipe : {$tournoi->getNbPersMaxParEquipe()}</span><br>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+
+	<style>
+		#details{$i}.open{$i} {
+			transform: scale3d(1, 1, 1);
+			-webkit-transform: scale3d(1, 1, 1);
+			-moz-transform: scale3d(1, 1, 1);
+		}
+
+		#details{$i}.deleteLayer{$i} {
+			visibility: visible;
+			opacity: 0.5;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(function() {
+			toggleLayer.actions.push({
+				actionClass: "deleteLayer{$i}",
+				doAction: toggleDelete{$i}
+			});
+			$("#idFermee{$i}").click(toggleDelete{$i});
+			$("#bouttonDetails{$i}").click(toggleDelete{$i});
+		});
+
+		var toggleDelete{$i} = function() {
+			$("#details{$i}").toggleClass("open{$i}");
+			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
+		};
+	</script>
 HTML;
 		$i++;
 	}

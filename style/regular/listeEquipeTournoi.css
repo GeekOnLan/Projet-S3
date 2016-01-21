@@ -1,47 +1,43 @@
-.equipe {
-    background: #3a3a3a;
-    width: 80%;
-    margin: auto;
-    box-shadow: 2px 2px 0 0 #111;
-
+.listeEquipe {
     text-align: center;
-    border-collapse: collapse;
+    padding: 0 5%;
 }
 
-.equipe tr {
-    height: 50px;
-    font-size: 28px;
-    color: #acacac;
-    font-weight: normal;
+.equipeBlocks {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 10px;
+
+    background: #fafafa;
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+
+    text-align: left;
+    overflow: hidden;
 }
 
-.equipe tr:first-child {
-    border-bottom: solid 5px #D84508;
+/* ==== Si pas d'equipe ==== */
+
+.noEquipe {
+    text-align: center;
+    width: 400px;
+    height: 100px;
+    background: #fafafa;
+    margin: 100px auto 0 auto;
+    padding: 15px;
+
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
 }
 
-.equipe tr td button{
-    width: 150px;
-    height: 50px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: AgencyRegular, Arial, serif;
+.noEquipe p {
+    font-size: 42px;
+    color: #333333;
 }
 
-.equipe tr td a {
-    background-color: #595959;
-    width: 150px;
-    height: 50px;
-    text-decoration: none;
-    font-size: 30px;
-    color: black
-}
-
-.equipe tr td a:visited{
-    text-decoration: none;
-    color: black;
-}
-.equipe tr td a:hover {
-    text-decoration: none;
-    color: black;
-}

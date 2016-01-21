@@ -70,29 +70,6 @@ SQL
 		$stmt->execute(array("id"=>$this->idEquipe));
 		return $stmt->fetchAll();
 	}
-
-	public static function createEquipe($idLan,$idTournoi,$nom,$ouverte,$idMembre,$desc="") {
-		insertRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),
-			"Equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
-			"(:nom, :desc, :ouvert)");
-
-		$res = selectRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),array(PDO::FETCH_ASSOC => null),
-			"idEquipe",
-			"Equipe",
-			"nomEquipe=:nom
-			AND descriptionEquipe=:desc
-			AND  inscriptionOuverte=:ouvert");
-		
-		$idEquipe = intval($res[0]['idEquipe']);
-		
-		insertRequest(array("idEquipe" => $idEquipe, "idLan" => $idLan, "idTournoi" => $idTournoi),
-		"Participer(idEquipe,idLan,idTournoi)",
-		"(:idEquipe, :idLan, :idTournoi)");
-		
-		insertRequest(array("idEquipe" => $idEquipe, "idMembre" => $idMembre),
-		"Composer(idMembre,idEquipe,role)",
-		"(:idMembre, :idEquipe,0)");
-	}
 	
 	public function getCreateur(){
 		$pdo = MyPDO::getInstance();
@@ -132,15 +109,19 @@ SQL
 		$message = "Le membre ".$membre->getPseudo()." a rejoind votre equipe : ".$this->getNomEquipe();
 		$createur -> sendNotif("nouveau membre",$message);
 	}
+
+	public function send($objet, $message){
+		$membres = $this->getMembre();
+		foreach ($membres as $membre){
+			$membre->sendNotif($objet, $message);
+		}
+	}
 	
 	/**
 	 * Supprime l'equipe
 	 */
 	public function delete($message="Votre équipe a été supprimé"){
-		$membres = $this->getMembre();
-		foreach ($membres as $membre){
-			$membre->sendNotif("Annulation", $message);
-		}
+		$this->send("Annulation", $message);
 		deleteRequest(array("idEquipe" => $this->idEquipe), "Equipe", "idEquipe = :idEquipe");
 	}
 }

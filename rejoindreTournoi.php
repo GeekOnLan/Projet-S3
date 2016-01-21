@@ -27,7 +27,7 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
 	else 
 		$_POST['ouvert']=1;
 	
-    Equipe::createEquipe($_GET['idLan'],$_GET['idTournoi'],$_POST['nameEquipe'],$_POST['ouvert'],Member::getInstance()->getId(),$_POST['descriptionEquipe']);
+    Tournoi::createFromId($_GET['idTournoi'])->createEquipe($_POST['nameEquipe'],$_POST['ouvert'],Member::getInstance()->getId(),$_POST['descriptionEquipe']);
     header('Location: message.php?message=votre equipe a bien été crée');
 }
 else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi'])){

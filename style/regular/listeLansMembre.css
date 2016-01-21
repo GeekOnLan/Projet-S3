@@ -73,7 +73,7 @@
 
 /* ==== Boutons ==== */
 
-.lanInfo a, .noLan a {
+.lanInfo a, .noLan a ,.lanInfo button, .noLan button {
     display: block;
     width: 90%;
     box-sizing: border-box;
@@ -91,7 +91,7 @@
     border: solid 3px #666666;
 }
 
-.lanInfo a:hover, .noLan a:hover {
+.lanInfo a:hover, .noLan a:hover ,.lanInfo button:hover, .noLan button:hover{
     background: #dedede;
 }
 
@@ -124,4 +124,85 @@
     font-size: 28px;
     margin-top: -10px;
     color: #313131;
+}
+
+/* ====================================== */
+/* ==== Affichage du menu de details ==== */
+/* ====================================== */
+
+div[id^=details] button:hover{
+    box-shadow: 0 0 2px 2px black inset;
+}
+
+div[id^=details]{
+    border-top: solid 10px #FF5B00;
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5%;
+    margin-top: -150px;
+
+    width: 25%;
+    min-width: 300px;
+    text-align: center;
+
+    background: #3a3a3a;
+    box-shadow: 2px 2px 1px 0 #333;
+
+    transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+
+    transform: scale3d(0, 0, 0);
+    -webkit-transform: scale3d(0, 0, 0);
+    -moz-transform: scale3d(0, 0, 0);
+}
+
+div[id^=details] h2 {
+    background: #FF5B00;
+    color: #b9b9b9;
+
+    border-left: solid 3px #222;
+    border-bottom: solid 3px #222;
+    border-right: solid 3px #222;
+
+    font-size: 26px;
+
+    display: block;
+
+    height: 40px;
+    width: 270px;
+
+    margin: -9px auto 0;
+}
+
+div[id^=details] button {
+    width: 90%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 2px #222;
+}
+
+div[id^=details] button:active{
+    background: #5b5b5b;
+}
+
+div[id^=details] button{
+    margin: 20px;
+}
+
+div[id^=details] .title{
+   font-size: 1.5em;
+    border-bottom: 1px solid #FF5B00;
 }

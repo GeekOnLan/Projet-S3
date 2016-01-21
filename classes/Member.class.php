@@ -124,6 +124,15 @@ class Member {
             "(:ln, :fn, :pseudo, :mail, STR_TO_DATE(:birthday, '%d/%m/%Y'), :password)");
     }
 
+    public static function createFromId($id) {
+        $res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Member'), "*", "Membre", "idMembre = :id");
+
+        if(isset($res[0]))
+            return $res[0];
+        else
+            throw new Exception("Aucun membre trouvée");
+    }
+
     /**
      * Démarre la session
      *

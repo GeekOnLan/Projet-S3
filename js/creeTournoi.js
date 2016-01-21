@@ -230,7 +230,7 @@ function verifyNameJeuTournoi(){
 			document.getElementById("tournoiJeuName").setAttribute("src","resources/gif/load.gif");
 			xhrNameJeu.addEventListener('readystatechange', function () {
 				if (xhrNameJeu.readyState === 4 && xhrNameJeu.status === 200) {
-					document.getElementById("tournoiJeuName").setAttribute("src","resources/img/Jeu.png");
+					document.getElementById("tournoiJeuName").setAttribute("src","resources/img/Lan.png");
 					var xml = xhrNameJeu.responseXML.getElementsByTagName('response').item(0).textContent;
 					if (xml == "false") {
 						voidRedInput('nameJeuTournoi');

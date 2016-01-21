@@ -30,11 +30,53 @@ foreach($lans as $lan) {
         <div class="lanInfo">
         	<span>{$lan->getLanName()}</span>
         	<hr/>
-        	<a href="updateLAN.php?idLan=$i">Editer</a>
         	<a href="listeTournoisMembre.php?idLan=$i">Tournois</a>
-        	<a href="detailsLanPerso.php?idLan=$i">Détails</a>
+        	<button type="button" id="bouttonDetails{$i}">Détails</button>
+        	<a href="updateLAN.php?idLan=$i">Editer</a>
+        	<a href="creeTournoi.php?idLan={$i}">Ajouter un tournoi</a>
 		</div>
 	</div>
+	<div id="details{$i}">
+		<h2>{$lan->getLanName()}</h2>
+		<div class="lanDetails">
+			<span class="title">Description :</span><br>
+			<span>{$lan->getLanDescription()}</span><br>
+			<span class="title">Adresse :</span><br>
+			<span>{$lan->getAdresse()}</span><br>
+			<span>{$lan->getLieu()->getCodePostal()}</span>
+			<span>{$lan->getLieu()->getNomVille()}</span>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+
+	<style>
+		#details{$i}.open{$i} {
+			transform: scale3d(1, 1, 1);
+			-webkit-transform: scale3d(1, 1, 1);
+			-moz-transform: scale3d(1, 1, 1);
+		}
+
+		#details{$i}.deleteLayer{$i} {
+			visibility: visible;
+			opacity: 0.5;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(function() {
+			toggleLayer.actions.push({
+				actionClass: "deleteLayer{$i}",
+				doAction: toggleDelete{$i}
+			});
+			$("#idFermee{$i}").click(toggleDelete{$i});
+			$("#bouttonDetails{$i}").click(toggleDelete{$i});
+		});
+
+		var toggleDelete{$i} = function() {
+			$("#details{$i}").toggleClass("open{$i}");
+			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
+		};
+	</script>
 HTML;
 	$i++;
 }
@@ -50,6 +92,7 @@ HTML;
 }
 
 $html .= "</div>";
+
 
 $page->appendContent($html);
 

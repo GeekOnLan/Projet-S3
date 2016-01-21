@@ -20,35 +20,32 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan']) && isset($_GET['idTournoi']
 	}else
 		header('Location: message.php?message=un problème est survenu');
 
-	$wp = new GeekOnLanWebpage("Liste Equipes du Tournois");
+	$wp = new GeekOnLanWebpage("GeekOnLan - Equipes");
+	$wp->appendCssUrl("style/regular/listeEquipeTournoi.css", "screen and (min-width: 680px");
+$html = "";
 
-
-	$html = <<<HTML
-	<table class="equipe">
-		<tr>
-			<td>Nom</td>
-			<td>Description</td>
-			<td>Statut Inscriptions</td>
-		</tr>
-
-HTML;
-
-	foreach($tournoi->getEquipe() as $e) {
-		$ouverte = "Fermées";
-		if($e->getInscriptionOuverte()) $ouverte = "Ouvertes";
+	$equipes = $tournoi->getEquipe();
+	if(sizeof($equipes)==0){
 		$html .= <<<HTML
-		<tr>
-			<td>{$e->getNomEquipe()}</td>
-			<td>{$e->getDescriptionEquipe()}</td>
-			<td>{$ouverte}</td>
-		</tr>
+	<div class="noEquipe">
+		<p>Aucune equipe n'a rejoind votre Tournoi</p>
+	</div>
 HTML;
 	}
-	$html .= <<<HTML
-		</table>
-HTML;
+	else{
+		$html = "<div class='listeEquipe'>";
 
-	$wp->appendCssUrl("style/regular/listeEquipeTournoi.css", "screen and (min-width: 680px");
+		foreach($equipes as $equipe){
+			$html .= <<<HTML
+	<div class="equipeBlocks">
+		<span>{$equipe->getNomEquipe()}</span>
+        <span>{$lan->getLanName()}</span>
+	</div>
+HTML;
+		}
+	}
+	$html .= "</div>";
+
 	$wp->appendContent($html);
 	echo $wp->toHTML();
 }

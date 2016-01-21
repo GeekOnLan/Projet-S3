@@ -19,8 +19,21 @@ function deleteNotif($idNotif){
     DELETE FROM Recevoir WHERE idNotification = :idnotif AND idMembre = :idmembre;
 SQL
     );
-
-    $stmt->execute(array("idnotif" => $idNotif,"idmembre" => $_SESSION['Member']->getId()));
+    $stmt->execute(array("idnotif" => $idNotif,"idmembre" => Member::getInstance()->getId()));
+    $stmt = $pdo->prepare(<<<SQL
+    SELECT idMembre FROM Recevoir WHERE idNotification = :idnotif;
+SQL
+    );
+    $stmt->execute(array("idnotif" => $idNotif));
+    $res = $stmt->fetchAll();
+    var_dump($res);
+    if(sizeof($res)==0){
+        $stmt = $pdo->prepare(<<<SQL
+    DELETE FROM Notification WHERE idNotification = :idnotif;
+SQL
+        );
+        $stmt->execute(array("idnotif" => $idNotif));
+    }
     return 0;
 }
 

@@ -95,6 +95,41 @@ class Tournoi{
         return $this->nbPersMaxParEquipe;
     }
 
+    public static function createFromId($id) {
+        $res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Tournoi'), "*", "Tournoi", "idTournoi = :id");
+
+        if(isset($res[0]))
+            return $res[0];
+        else
+            throw new Exception("Aucun tournoi trouvée");
+    }
+
+    public function createEquipe($nom,$ouverte,$idMembre,$desc="") {
+        $message = "L'equipe ".$nom." a rejoind votre tournoi ".$this->nomTournoi;
+
+        Lan::createFromId($this->idLAN)->getCreateur()->sendNotif("Nouvelle equipe",$message);
+        insertRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),
+            "Equipe(nomEquipe, descriptionEquipe, inscriptionOuverte)",
+            "(:nom, :desc, :ouvert)");
+
+        $res = selectRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),array(PDO::FETCH_ASSOC => null),
+            "idEquipe",
+            "Equipe",
+            "nomEquipe=:nom
+			AND descriptionEquipe=:desc
+			AND  inscriptionOuverte=:ouvert");
+
+        $idEquipe = intval($res[0]['idEquipe']);
+
+        insertRequest(array("idEquipe" => $idEquipe, "idLan" => $this->idLAN, "idTournoi" => $this->idTournoi),
+            "Participer(idEquipe,idLan,idTournoi)",
+            "(:idEquipe, :idLan, :idTournoi)");
+
+        insertRequest(array("idEquipe" => $idEquipe, "idMembre" => $idMembre),
+            "Composer(idMembre,idEquipe,role)",
+            "(:idMembre, :idEquipe,0)");
+    }
+
     /**
      * Supprime le tournoi
      */
