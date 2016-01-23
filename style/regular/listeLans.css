@@ -144,3 +144,25 @@
 	    box-shadow: 0 0 2px 2px black inset;
 
 }
+
+/*===========
+===Boutons===
+===========*/
+
+#nextPage, #prevPage{
+    width: 100%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: white;
+    background: #525252;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #222;
+
+    margin-bottom: 15px;
+}
+
+#nextPage:hover, #prevPage:hover{
+    box-shadow: 0 0 2px 2px black inset;
+}

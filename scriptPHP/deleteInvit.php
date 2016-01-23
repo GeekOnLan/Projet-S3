@@ -3,6 +3,9 @@ require_once('../includes/utility.inc.php');
 require_once("../includes/myPDO.inc.php");
 require_once('../classes/MyPDO.class.php');
 
+if (!verify($_SERVER, 'HTTP_REFERER'))
+    header('Location: message.php?message=un problème est survenu');
+
 //Fonction principale
 $idTeam = $_GET['id'];
 $choix = $_GET['choix'];

@@ -7,7 +7,7 @@
     display: inline-block;
     position: relative;
     width: 300px;
-    height: 430px;
+    height: 400px;
     margin: 10px;
 
     background: #fafafa;
@@ -29,7 +29,7 @@
 
 .tournoiInfo {
     position: absolute;
-    top: 130px;
+    top: 110px;
 
     width: 100%;
 }
@@ -181,6 +181,10 @@ div[id^=details] button:active{
     background: #5b5b5b;
 }
 
+div[id^=myPrompt] button:hover {
+    box-shadow: 0 0 2px 2px black inset;
+}
+
 div[id^=details] button{
     margin: 20px;
 }
@@ -188,4 +192,9 @@ div[id^=details] button{
 div[id^=details] .title{
     font-size: 1.5em;
     border-bottom: 1px solid #FF5B00;
+}
+
+#layer.hid{
+    visibility: visible;
+    opacity: 0.5;
 }

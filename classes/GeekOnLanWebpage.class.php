@@ -104,12 +104,15 @@ HTML;
     	$nbNotif=$m->getNbNotif();
     	if($nbNotif==0)
     		$nbNotif="";
+        else{
+            $nbNotif = '<div id="notifNumber">'.$nbNotif.'</div>';
+        }
         $this->sidebar = <<<HTML
 <nav id="sidebar">
     <h2>{$m->getPseudo()}</h2>
     <ul>
         <li><a href="profil.php">Profil</a></li>
-        <li><a href="notification.php">Mes notifications <div style="color : red;display : inline;">{$nbNotif}</div></a></li>
+        <li><a href="notification.php">Mes notifications {$nbNotif}</a></li>
         <li><a href="participer.php">Participations</a></li>
         <li><a href="creeLan.php">Créer une LAN</a></li>
         <li><a href="listeLansMembre.php">Mes LAN</a></li>

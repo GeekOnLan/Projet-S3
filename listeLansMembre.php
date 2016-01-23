@@ -7,6 +7,8 @@ require_once ('includes/connectedMember.inc.php');
 $page = new GeekOnLanWebpage("GeekOnLan - Mes Lans");
 $page->appendCssUrl("style/regular/listeLansMembre.css", "screen and (min-width: 680px");
 
+/*recuperation des LAN de l'utilisateur*/
+
 $membre = Member::getInstance();
 $lans = $membre->getLAN();
 $html = "<div class='listeLans'>";
@@ -14,6 +16,7 @@ $html = "<div class='listeLans'>";
 setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
 
 $i = 0;
+/*parcour de toute les LAN*/
 foreach($lans as $lan) {
 	$date = explode('/', $lan->getLanDate());
 	$day = $date[0];
@@ -36,18 +39,6 @@ foreach($lans as $lan) {
         	<a href="creeTournoi.php?idLan={$i}">Ajouter un tournoi</a>
 		</div>
 	</div>
-	<div id="details{$i}">
-		<h2>{$lan->getLanName()}</h2>
-		<div class="lanDetails">
-			<span class="title">Description :</span><br>
-			<span>{$lan->getLanDescription()}</span><br>
-			<span class="title">Adresse :</span><br>
-			<span>{$lan->getAdresse()}</span><br>
-			<span>{$lan->getLieu()->getCodePostal()}</span>
-			<span>{$lan->getLieu()->getNomVille()}</span>
-			<button type="button" id="idFermee{$i}">Fermer</button>
-		</div>
-	</div>
 
 	<style>
 		#details{$i}.open{$i} {
@@ -60,6 +51,12 @@ foreach($lans as $lan) {
 			visibility: visible;
 			opacity: 0.5;
 		}
+
+		#layer.hid{$i} {
+			 visibility: visible;
+			 opacity: 0.5;
+ 		}
+
 	</style>
 
 	<script type="text/javascript">
@@ -75,12 +72,29 @@ foreach($lans as $lan) {
 		var toggleDelete{$i} = function() {
 			$("#details{$i}").toggleClass("open{$i}");
 			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
+			$("#layer").toggleClass("hid{$i}");
 		};
 	</script>
 HTML;
+	/*ajout des details de la LAN en forground*/
+	$page->appendForeground(<<<HTML
+<div id="details{$i}">
+		<h2>{$lan->getLanName()}</h2>
+		<div class="lanDetails">
+			<span class="title">Description :</span><br>
+			<span>{$lan->getLanDescription()}</span><br>
+			<span class="title">Adresse :</span><br>
+			<span>{$lan->getAdresse()}</span><br>
+			<span>{$lan->getLieu()->getCodePostal()}</span>
+			<span>{$lan->getLieu()->getNomVille()}</span>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+HTML
+);
 	$i++;
 }
-
+/*si pas de LAN*/
 if(count($lans) == 0) {
 	$html .= <<<HTML
 	<div class="noLan">

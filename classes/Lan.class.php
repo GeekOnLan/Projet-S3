@@ -206,10 +206,9 @@ HTML;
 	/**
 	 * Supprime la Lan
 	 */
-	public function delete() {
+	public function delete($message) {
 		$tournois = $this->getTournoi();
 		foreach ($tournois as $tournoi){
-			$message = "La LAN : ".$this->getLanName()." a été supprimé";
 			$tournoi->delete($message);
 		}
 		deleteRequest(array("id" => $this->idLAN), "LAN", "idLAN = :id");

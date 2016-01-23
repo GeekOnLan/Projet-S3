@@ -4,11 +4,13 @@ require_once("../includes/myPDO.inc.php");
 require_once('../classes/MyPDO.class.php');
 
 
+if (!verify($_SERVER, 'HTTP_REFERER'))
+    header('Location: message.php?message=un problème est survenu');
+
 //Fonction principale
 
 $id = $_GET['id'];
 Member::getInstance();
-var_dump($_SESSION);
 deleteNotif($id);
 
 

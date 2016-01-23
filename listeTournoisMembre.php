@@ -43,25 +43,10 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         <div class="tournoiInfo">
         	<span>$hour</span>
         	<hr/>
-        	<a href="listeEquipeTournoi.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
+        	<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
         	<button type="button" id="bouttonDetails{$i}">Détails</button>
         	<a>Editer</a>
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
-		</div>
-	</div>
-
-	<div id="details{$i}">
-		<h2>{$tournoi->getNomTournoi()}</h2>
-		<div class="lanDetails">
-			<span class="title">Description :</span><br>
-			<span>{$tournoi->getDescriptionTournoi()}</span><br>
-			<span class="title">Jeu :</span><br>
-			<span>{$tournoi->getJeu()[1]} : {$payant}</span><br>
-			<span>{$tournoi->getJeu()[2]}</span><br>
-			<span class="title">Equipe :</span><br>
-			<span>Nombre d'equipe : {$nbEquipe}/{$tournoi->getNbEquipeMax()}</span><br>
-			<span>Nombre de personne par equipe : {$tournoi->getNbPersMaxParEquipe()}</span><br>
-			<button type="button" id="idFermee{$i}">Fermer</button>
 		</div>
 	</div>
 
@@ -91,9 +76,27 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 		var toggleDelete{$i} = function() {
 			$("#details{$i}").toggleClass("open{$i}");
 			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
+			$("#layer").toggleClass("hid");
 		};
 	</script>
 HTML;
+		$page->appendForeground(<<<HTML
+<div id="details{$i}">
+		<h2>{$tournoi->getNomTournoi()}</h2>
+		<div class="lanDetails">
+			<span class="title">Description :</span><br>
+			<span>{$tournoi->getDescriptionTournoi()}</span><br>
+			<span class="title">Jeu :</span><br>
+			<span>{$tournoi->getJeu()[1]} : {$payant}</span><br>
+			<span>{$tournoi->getJeu()[2]}</span><br>
+			<span class="title">Equipe :</span><br>
+			<span>Nombre d'equipe : {$nbEquipe}/{$tournoi->getNbEquipeMax()}</span><br>
+			<span>Nombre de personne par equipe : {$tournoi->getNbPersMaxParEquipe()}</span><br>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+HTML
+);
 		$i++;
 	}
 	

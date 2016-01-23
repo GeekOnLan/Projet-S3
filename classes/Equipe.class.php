@@ -58,19 +58,24 @@ class Equipe {
 	 * @return Member[] Les membres
 	 */
 	public function getMembre(){
-		// TODO cette requete va remplir que l'attribut id du Membre. C'est bien ce que vous voulez ?
 		$pdo = MyPDO::GetInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
+			FROM Membre
+			WHERE idMembre IN (SELECT idMembre
 			FROM Composer
-			WHERE idEquipe = :id;
+			WHERE idEquipe = :id);
 SQL
 		);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, 'Member');
 		$stmt->execute(array("id"=>$this->idEquipe));
 		return $stmt->fetchAll();
 	}
-	
+
+	/**
+	 * Retourne le createur du tournoi
+	 * @return Member
+	 */
 	public function getCreateur(){
 		$pdo = MyPDO::getInstance();
 		$stmt = $pdo->prepare(<<<SQL
@@ -88,7 +93,12 @@ SQL
 		$stmt->execute(array("idEquipe" => $this->idEquipe));
 		return $stmt->fetch();
 	}
-	
+
+	/**
+	 * ajoute un membre a l'equipe
+	 *
+	 * @param $idMembre id du membre a ajouter a l'equipe
+	 */
 	public function rejoindre($idMembre){
 		insertRequest(array("idMembre" => $idMembre, "idEquipe" => $this->idEquipe),
 		"Composer(idMembre,idEquipe,role)",
@@ -110,6 +120,12 @@ SQL
 		$createur -> sendNotif("nouveau membre",$message);
 	}
 
+	/**
+	 * envoie une notification au membre de l'equipe
+	 *
+	 * @param $objet objet de la notif a envoyer
+	 * @param $message memssage a envoyer
+	 */
 	public function send($objet, $message){
 		$membres = $this->getMembre();
 		foreach ($membres as $membre){
@@ -120,8 +136,13 @@ SQL
 	/**
 	 * Supprime l'equipe
 	 */
-	public function delete($message="Votre équipe a été supprimé"){
+	public function delete($message){
 		$this->send("Annulation", $message);
 		deleteRequest(array("idEquipe" => $this->idEquipe), "Equipe", "idEquipe = :idEquipe");
+	}
+
+	public function removeMember($idMembre,$message){
+		$this->send("Annulation", $message);
+		deleteRequest(array("idEquipe" => $this->idEquipe,"idMembre" => $idMembre), "Composer", "idEquipe = :idEquipe AND idMembre = :idMembre");
 	}
 }

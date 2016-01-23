@@ -58,7 +58,7 @@ SQL
         $idJeu = $stmt -> fetch()['idJeu']; 
         
         $LAN -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
-        header('Location: message.php?message=Votre LAN a bien été créée ! Vous allez recevoir un email de confirmation');
+        header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
     } catch(Exception $e) {
     var_dump($e);
     var_dump($LAN);
@@ -67,16 +67,16 @@ SQL
     //envoieMailValide($pseudo, $mail);
 } else {
 	$LAN = Member::getInstance()-> getLAN() [$_GET['idLan']];
-	$LAN = $LAN->getLanDate();
+	$date = $LAN->getLanDate();
 	
     $form->appendContent(<<<HTML
-    <div name="dateLAN" style="display:none">{$LAN}</div>
+    <div name="dateLAN" style="display:none">{$date}</div>
 <form method="POST" name="ajoutTournoi" action="creeTournoi.php?idLan={$_GET['idLan']}">
     <table class="tournoiForm">
         <thead>
             <tr>
                 <th colspan="2">
-                    <h2>Créer un tournoi</h2>
+                    <h2>Créer un tournoi : {$LAN->getLanName()}</h2>
                 </th>
 		    </tr>
         </thead>
