@@ -1,68 +1,213 @@
-#mainframe article > table {
-    background: #3a3a3a;
-    width: 70%;
-    margin: auto;
-    box-shadow: 2px 2px 0 0 #111;
-
+.listeTournois {
     text-align: center;
-    border-collapse: collapse;
+    padding: 0 5%;
 }
 
-#mainframe article > table tr {
-    height: 40px;
-    font-size: 28px;
-    color: #acacac;
-    font-weight: normal;
+.tournoiBlocks {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+
+    background: #fafafa;
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+
+    text-align: left;
+    overflow: hidden;
 }
 
-#mainframe article > table tr:first-child {
-    border-bottom: solid 5px #D84508;
+.tournoiBlocks > span {
+    position: absolute;
+    left: 115px;
+    font-size: 32px;
+    width: 180px;
 }
 
-#mainframe article > table tr td button{
-	width: 150px;
-	height: 50px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
+.tournoiInfo {
+    position: absolute;
+    top: 110px;
+
+    width: 100%;
+}
+
+.tournoiInfo hr {
+    margin-top: 3px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    width: 60%;
+}
+
+.tournoiInfo span {
+    padding: 0 10px;
+}
+
+.tournoiInfo span:first-child {
+    color: #5b5b5b;
+    font-size: 36px;
+}
+
+.tournoiInfo span:last-child{
+    display: block;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 2px 10px;
+    margin: 7px auto;
+
     font-family: AgencyRegular, Arial, serif;
-}
-#mainframe article > table tr td a {
-    background-color: #595959;
-}
-
-#mainframe article > table tr td a {
-    width: 150px;
-    height: 50px;
+    font-size: 32px;
     text-decoration: none;
-    font-size: 20px;
-    color: black
+    text-align: center;
+
+    color: #373737;
+    background: #c6c6c6;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #666666;
 }
 
-#mainframe article > table tr td a:visited{
+/* ==== Boutons ==== */
+
+.tournoiInfo a, .tournoiInfo button{
+    display: block;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 2px 10px;
+    margin: 7px auto;
+
+    font-family: AgencyRegular, Arial, serif;
+    font-size: 32px;
     text-decoration: none;
-    color: black;
-}
-#mainframe article > table tr td a:hover {
-    text-decoration: none;
-    color: black;
+    text-align: center;
+
+    color: #373737;
+    background: #c6c6c6;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #666666;
 }
 
-.bouton {
-  display : block;
-  border:1px;
-  border-style: solid;
+.tournoiInfo a:hover, .tournoiInfo button:hover{
+    background: #dedede;
 }
 
-#description{
-  position: fixed;
-  left:25%;
-  width:50%;
-  height:50%;
-  display:none;
-  background: #3a3a3a;
+/* ===== Date ===== */
+
+.tournoiDate {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    z-index: 2;
+
+    width: 100px;
+    height: 100px;
+    background: #fafafa;
+    border: 5px solid #cccccc;
+    text-align: center;
 }
 
-#description h1{
-  text-align:center;
+.tournoiDate span {
+    display: block;
+}
+
+.tournoiDate span:first-child {
+    color: #40CFF6;
+    font-size: 70px;
+    margin-top: -10px;
+}
+
+.tournoiDate span:last-child {
+    font-size: 28px;
+    margin-top: -10px;
+    color: #313131;
+}
+/* ====================================== */
+/* ==== Affichage du menu de details ==== */
+/* ====================================== */
+
+div[id^=details] button:hover{
+    box-shadow: 0 0 2px 2px black inset;
+}
+
+div[id^=details]{
+    border-top: solid 10px #FF5B00;
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5%;
+    margin-top: -150px;
+
+    width: 25%;
+    min-width: 300px;
+    text-align: center;
+
+    background: #3a3a3a;
+    box-shadow: 2px 2px 1px 0 #333;
+
+    transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+
+    transform: scale3d(0, 0, 0);
+    -webkit-transform: scale3d(0, 0, 0);
+    -moz-transform: scale3d(0, 0, 0);
+}
+
+div[id^=details] h2 {
+    background: #FF5B00;
+    color: #b9b9b9;
+
+    border-left: solid 3px #222;
+    border-bottom: solid 3px #222;
+    border-right: solid 3px #222;
+
+    font-size: 26px;
+
+    display: block;
+
+    height: 40px;
+    width: 270px;
+
+    margin: -9px auto 0;
+}
+
+div[id^=details] button {
+    width: 90%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 2px #222;
+}
+
+div[id^=details] button:active{
+    background: #5b5b5b;
+}
+
+div[id^=myPrompt] button:hover {
+    box-shadow: 0 0 2px 2px black inset;
+}
+
+div[id^=details] button{
+    margin: 20px;
+}
+
+div[id^=details] .title{
+    font-size: 1.5em;
+    border-bottom: 1px solid #FF5B00;
+}
+
+#layer.hid{
+    visibility: visible;
+    opacity: 0.5;
 }

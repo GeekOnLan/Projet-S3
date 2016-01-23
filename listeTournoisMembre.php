@@ -83,7 +83,7 @@ HTML;
         $page->appendForeground(<<<HTML
 <div id="details{$i}">
 		<h2>{$tournoi->getNomTournoi()}</h2>
-		<div class="lanDetails">
+		<div class="tournoiDetails">
 			<span class="title">Description :</span><br>
 			<span>{$tournoi->getDescriptionTournoi()}</span><br>
 			<span class="title">Jeu :</span><br>

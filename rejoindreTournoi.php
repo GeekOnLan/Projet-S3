@@ -61,6 +61,7 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
     	$form->appendContent(<<<HTML
 	<div class="noequipe">
 		<p>Les Equipes sont pleines</p>
+		<p>Mais vous pouvez en rejoindre une !</p>
 	</div>
 HTML
     			);
