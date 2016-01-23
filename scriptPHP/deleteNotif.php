@@ -5,7 +5,7 @@ require_once('../classes/MyPDO.class.php');
 
 
 if (!verify($_SERVER, 'HTTP_REFERER'))
-    header('Location: message.php?message=un problème est survenu');
+    header('Location: ../message.php?message=un problème est survenu');
 
 //Fonction principale
 
@@ -31,7 +31,7 @@ SQL
     var_dump($res);
     if(sizeof($res)==0){
         $stmt = $pdo->prepare(<<<SQL
-    DELETE FROM Notification WHERE idNotification = :idnotif;
+    DELETE FROM Notifications WHERE idNotification = :idnotif;
 SQL
         );
         $stmt->execute(array("idnotif" => $idNotif));

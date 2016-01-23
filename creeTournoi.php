@@ -60,13 +60,21 @@ SQL
         $LAN -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
         header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
     } catch(Exception $e) {
-    var_dump($e);
-    var_dump($LAN);
-       // header('Location: message.php?message=un problème est survenu');
+       header('Location: message.php?message=un problème est survenu');
     }
-    //envoieMailValide($pseudo, $mail);
-} else {
-	$LAN = Member::getInstance()-> getLAN() [$_GET['idLan']];
+} elseif(isset($_GET['idLan']) && is_numeric($_GET['idLan'])) {
+    $LAN = null;
+    try {
+        $LAN = Member::getInstance()->getLAN();
+    }
+    catch(Exception $e){
+        header('Location: message.php?message=un problème est survenu');
+    }
+
+    if($_GET['idLan']>sizeof($LAN) || $_GET['idLan']<0)
+        header('Location: message.php?message=un problème est survenu');
+
+    $LAN=$LAN[$_GET['idLan']];
 	$date = $LAN->getLanDate();
 	
     $form->appendContent(<<<HTML
@@ -104,7 +112,7 @@ SQL
                     <label for="dateTournoi">Date du tournoi *</label>
                     <div class="formInput">
                         <img src="resources/img/Birthday.png"/>
-                        <input maxlength="12" name="dateTournoi" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
+                        <input maxlength="12" name="dateTournoi" value="{$LAN->getLanDate()}" placeholder="JJ/MM/AAAA" onfocus="resetDateTournoi()" onblur="verifyDateTournoi()" type="text">
                     </div>
                     <span id="erreurDateTournoi"></span>
                 </td>
@@ -156,5 +164,7 @@ SQL
 HTML
     );
 }
+else
+   header('Location: message.php?message=un problème est survenu');
 
 echo $form->toHTML();

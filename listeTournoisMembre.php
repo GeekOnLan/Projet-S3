@@ -5,35 +5,35 @@ require_once('includes/myPDO.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
 if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
-	setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-	
-	$lans = Member::getInstance()->getLAN();
-	$lan = null;
-	if ($_GET['idLan'] <= sizeof($lans) - 1) {
-		$lan = $lans[$_GET['idLan']];
-	}else
-		header('Location: message.php?message=un problÃ¨me est survenu');
+    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
 
-	$tournois=$lan->getTournoi();
-	$page = new GeekOnLanWebpage("GeekOnLan - Tournois");
-	$page->appendCssUrl("style/regular/listeTournoisMembre.css", "screen and (min-width: 680px");
-	
-	$html = "<div class='listeTournois'>";
-	
-	$i=0;
-	foreach($tournois as $tournoi) {
-		$date = explode('/', $tournoi->getDateHeurePrevu());
-		$day = $date[0];
-		$month = ucfirst(strftime('%B', mktime(0, 0, 0, $date[1])));
-		
-		$hour = explode('a ', $date[2]);
-		$hour = $hour[1];
-		$nbEquipe = sizeof($tournoi->getEquipe());
-		$payant = "";
-		if($tournoi->getJeu()[3]==0)
-			$payant = "payant";
-		else $payant = "gratuit";
-		$html .= <<<HTML
+    $lans = Member::getInstance()->getLAN();
+    $lan = null;
+    if ($_GET['idLan'] <= sizeof($lans) - 1) {
+        $lan = $lans[$_GET['idLan']];
+    }else
+        header('Location: message.php?message=un problème est survenu');
+
+    $tournois=$lan->getTournoi();
+    $page = new GeekOnLanWebpage("GeekOnLan - Tournois");
+    $page->appendCssUrl("style/regular/listeTournoisMembre.css", "screen and (min-width: 680px");
+
+    $html = "<div class='listeTournois'>";
+
+    $i=0;
+    foreach($tournois as $tournoi) {
+        $date = explode('/', $tournoi->getDateHeurePrevu());
+        $day = $date[0];
+        $month = ucfirst(strftime('%B', mktime(0, 0, 0, $date[1])));
+
+        $hour = explode('a ', $date[2]);
+        $hour = $hour[1];
+        $nbEquipe = sizeof($tournoi->getEquipe());
+        $payant = "";
+        if($tournoi->getJeu()[3]==0)
+            $payant = "payant";
+        else $payant = "gratuit";
+        $html .= <<<HTML
 	<div class="tournoiBlocks">
 		<span>{$tournoi->getNomTournoi()}</span>
 		<div class="tournoiDate">
@@ -44,7 +44,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         	<span>$hour</span>
         	<hr/>
         	<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
-        	<button type="button" id="bouttonDetails{$i}">DÃ©tails</button>
+        	<button type="button" id="bouttonDetails{$i}">Détails</button>
         	<a>Editer</a>
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
 		</div>
@@ -80,7 +80,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 		};
 	</script>
 HTML;
-		$page->appendForeground(<<<HTML
+        $page->appendForeground(<<<HTML
 <div id="details{$i}">
 		<h2>{$tournoi->getNomTournoi()}</h2>
 		<div class="lanDetails">
@@ -96,24 +96,17 @@ HTML;
 		</div>
 	</div>
 HTML
-);
-		$i++;
-	}
-	
-	$html .= "</div>";
-	
+        );
+        $i++;
+    }
 
-	$html.=<<<HTML
-	<div class="ajout">
-		<a href="creeTournoi.php?idLan={$_GET['idLan']}">Ajouter un tournoi</a>
-	</div>
-HTML;
-	
-	$page->appendContent($html);
-	
-	echo $page->toHTML();
+    $html .= "</div>";
+
+    $page->appendContent($html);
+
+    echo $page->toHTML();
 
 }
 else {
-	header('Location: message.php?message=un problÃ¨me est survenu');
+    header('Location: message.php?message=un problème est survenu');
 }

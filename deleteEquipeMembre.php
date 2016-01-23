@@ -20,7 +20,7 @@ if(isset($_GET['idMembre']) && is_numeric($_GET['idMembre']) && isset($_GET['idE
 elseif(isset($_GET['idEquipe']) && is_numeric($_GET['idEquipe'])) {
     try {
         $equipe = Equipe::createFromId($_GET['idEquipe']);
-        $equipe->delete("votre equipe ".$equipe->getNomEquipe()." a ete exclue par le gerant de la LAN");
+        $equipe->delete("votre equipe '".$equipe->getNomEquipe()."' a ete exclue par le gerant de la LAN");
         header("Location: message.php?message=L'equipe a bien ete exclue");
     } catch (Exception $e) {
         header('Location: message.php?message=un problème est survenu');

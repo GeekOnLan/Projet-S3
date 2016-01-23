@@ -9,13 +9,13 @@ $webpage->appendJsUrl("js/notification.js");
 $webpage->appendJsUrl("js/inscriptionNotif.js");
 
 
-if(getNotification() != null)$webpage->appendContent(getNotification());
-else $webpage->appendContent("<p class=\"vide\"> Pas de nouvelles notifications.</p>");
+if(getNotification() != null)$webpage->appendContent(getNotification()."<p style=\"display : none\" id=\"notification\" class=\"vide\">Pas de nouvelles notifications.</p>");
+else $webpage->appendContent("<p class=\"vide\">Pas de nouvelles notifications.</p>");
 
 $webpage->appendContent("<hr>");
 
 if(getInvitation() != null)$webpage->appendContent(getInvitation());
-else $webpage->appendContent("<p class=\"vide\"> Pas de nouvelles invitations.</p>");
+else $webpage->appendContent("<p class=\"vide\">Pas de nouvelles invitations.</p>");
 
 echo $webpage->toHTML();
 

@@ -107,14 +107,11 @@ SQL
         $stmt -> execute(array(':nom' => $nameJeu));
         $idJeu = $stmt -> fetch()['idJeu']; 
         $Lan = Lan::createFromName($nameLAN);
-        //var_dump($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
-	//$Lan -> addTournoi(0,"Inscription",0,9999,1,$dateTournoi,"Inscription Ouverte - Précise votre présence");
         $Lan -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
-        header('Location: message.php?message=Votre LAN a bien été créée ! Vous allez recevoir un email de confirmation');
+        header('Location: message.php?message=Votre LAN a bien été créée !');
     } catch(Exception $e) {
         header('Location: message.php?message=un problème est survenu');
     }
-    //envoieMailValide($pseudo, $mail);
 } else {
     $form->appendContent(<<<HTML
 <form method="POST" name="ajoutLAN" action="creeLan.php">

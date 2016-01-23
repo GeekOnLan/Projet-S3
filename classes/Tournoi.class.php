@@ -95,8 +95,8 @@ class Tournoi{
         return $this->nbPersMaxParEquipe;
     }
 
-    public static function createFromId($id) {
-        $res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => 'Tournoi'), "*", "Tournoi", "idTournoi = :id");
+    public static function createFromId($idLan,$idTournoi){
+        $res = selectRequest(array("id" => $idTournoi,"idLan" => $idLan), array(PDO::FETCH_CLASS => 'Tournoi'), "*", "Tournoi", "idTournoi = :id AND idLAN = :idLan");
 
         if(isset($res[0]))
             return $res[0];
@@ -105,7 +105,7 @@ class Tournoi{
     }
 
     public function createEquipe($nom,$ouverte,$idMembre,$desc="") {
-        $message = "L'equipe ".$nom." a rejoind votre tournoi ".$this->nomTournoi;
+        $message = "L'equipe '".$nom."' a rejoind votre tournoi '".$this->nomTournoi."'";
 
         Lan::createFromId($this->idLAN)->getCreateur()->sendNotif("Nouvelle equipe",$message);
         insertRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),
@@ -113,13 +113,13 @@ class Tournoi{
             "(:nom, :desc, :ouvert)");
 
         $res = selectRequest(array("nom" => $nom, "desc" => $desc,"ouvert"=>$ouverte),array(PDO::FETCH_ASSOC => null),
-            "idEquipe",
+            "MAX(idEquipe)",
             "Equipe",
             "nomEquipe=:nom
 			AND descriptionEquipe=:desc
 			AND  inscriptionOuverte=:ouvert");
 
-        $idEquipe = intval($res[0]['idEquipe']);
+        $idEquipe = intval($res[0]['MAX(idEquipe)']);
 
         insertRequest(array("idEquipe" => $idEquipe, "idLan" => $this->idLAN, "idTournoi" => $this->idTournoi),
             "Participer(idEquipe,idLan,idTournoi)",
@@ -128,6 +128,24 @@ class Tournoi{
         insertRequest(array("idEquipe" => $idEquipe, "idMembre" => $idMembre),
             "Composer(idMembre,idEquipe,role)",
             "(:idMembre, :idEquipe,0)");
+    }
+
+    public function isFullOfEquipe(){
+        $max = $this->nbEquipeMax;
+        $bnEquipe = sizeof($this->getEquipe());
+        return ($bnEquipe>=$max);
+    }
+
+    public function isFull(){
+        if(!$this->isFullOfEquipe())
+            return false;
+
+        foreach($this->getEquipe() as $equipe){
+            if(!$equipe->isFull())
+                return false;
+        }
+
+        return true;
     }
 
     /**

@@ -12,7 +12,6 @@ $connecte = Member::isConnected();
   }
     $page = new GeekOnLanWebpage("GeekOnLan - ".$lan->getLanName()." - Liste des tournois");
     $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px");
-    $page->appendJsUrl("js/listeTournois.js");
     $page->appendJsUrl("js/request.js");
 
     $tournois=$lan->getTournoi();
@@ -71,7 +70,7 @@ SQL
           $page->appendContent("  <td>".$tournoi->getNbPersMaxParEquipe()."</td>");
           $page->appendContent("  <td>".sizeof($tournoi->getEquipe())."</td>");
           $page->appendContent('<td>');
-          $page->appendContent('  <button class="details">Details</button>');
+          $page->appendContent('<button class="details">Details</button>');
     	       
 	      if($connecte){
 	      	try{
@@ -86,11 +85,14 @@ SQL
 	      		foreach ($res as $membre)
 	      			if($membre['idMembre']==Member::getInstance()->getId())
 	      				$bool=FALSE;
-	       	if($bool)
-	           	$page->appendContent('  <a href="rejoindreTournoi.php?idLan='.$_REQUEST['idLan'].'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>');
+	       	if(!$bool)
+                $page->appendContent('  <a href="" class = "bouton">Gérer</a>');
 	       	else{
-	          	$page->appendContent('  <a href="" class = "bouton">Gérer</a>');
-	       	}
+                if(!$tournoi->isFull())
+                    $page->appendContent('<a href="rejoindreTournoi.php?idLan='.$_REQUEST['idLan'].'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>');
+                else
+                    $page->appendContent('<span>Plein</span>');
+            }
 	      }
           $page->appendContent('</td>');
           $page->appendContent('</tr>');

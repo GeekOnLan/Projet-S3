@@ -52,7 +52,7 @@
 
 /* ==== Boutons ==== */
 
-.tournoiInfo a, .ajout a, .tournoiInfo button{
+.tournoiInfo a, .tournoiInfo button{
     display: block;
     width: 90%;
     box-sizing: border-box;
@@ -70,11 +70,7 @@
     border: solid 3px #666666;
 }
 
-.ajout a{
-    width: 500px;
-}
-
-.tournoiInfo a:hover, .ajout a:hover, .tournoiInfo button:hover{
+.tournoiInfo a:hover, .tournoiInfo button:hover{
     background: #dedede;
 }
 

@@ -6,7 +6,12 @@ $(function() {
 
 //Vide la div contenant la notification
 var deleteDivNotif = function(id){
-    $("#"+id).empty();
+    $("#"+id).remove();
+    $("#notifNumber").html($("#notifNumber").html()-1);
+    if($("#notifNumber").html()<=0)
+        $("#notifNumber").remove();
+    if($(".sB")[0]==null)
+        $("#notification").css('display','block');
 }
 var deleteNotif = function(id){
     $.ajax({

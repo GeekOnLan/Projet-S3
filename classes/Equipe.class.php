@@ -72,6 +72,27 @@ SQL
 		return $stmt->fetchAll();
 	}
 
+	public function isFull(){
+		if($this->inscriptionOuverte==0)
+			return true;
+
+		$nbPer = sizeOf($this->getMembre());
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idLAN, idTournoi
+			FROM Participer
+			WHERE idEquipe = :idEquipe;
+SQL
+		);
+		$stmt->execute(array("idEquipe"=>$this->idEquipe));
+		$res = $stmt->fetchAll();
+		$idLan = $res[0]['idLAN'];
+		$idTournoi = $res[0]['idTournoi'];
+		$max = Tournoi::createFromId($idLan,$idTournoi )->getNbPersMaxParEquipe();
+
+		return ($nbPer>=$max);
+	}
+
 	/**
 	 * Retourne le createur du tournoi
 	 * @return Member
@@ -116,7 +137,7 @@ SQL
 		$stmt->execute(array("id" => $idMembre));
 		$membre=$stmt->fetch();
 
-		$message = "Le membre ".$membre->getPseudo()." a rejoind votre equipe : ".$this->getNomEquipe();
+		$message = "Le membre '".$membre->getPseudo()."' a rejoind votre equipe : ".$this->getNomEquipe();
 		$createur -> sendNotif("nouveau membre",$message);
 	}
 

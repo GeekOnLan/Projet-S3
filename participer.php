@@ -6,8 +6,6 @@ require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Mes participations");
 $form->appendCssUrl("style/regular/participer.css", "screen and (min-width: 680px)");
-$form->appendCssUrl("style/mobile/participer.css", "screen and (max-width: 680px)");
-
 
 function getTableau(){
 

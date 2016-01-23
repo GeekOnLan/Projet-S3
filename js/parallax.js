@@ -1,40 +1,10 @@
-/**
- * Created by PandarkMeow on 04/11/2015.
- */
-/*var stopParallax = false;
-
-$(function() {
-    var bottom = $("#parallax .bottom");
-    var middle = $("#parallax .middle");
-    var front = $("#parallax .front");
-
-    $("body").mousemove(function(e) {
-        if(stopParallax) return;
-
-        //mouvement de la couche bottom
-       var mouseXBot = (e.pageX - ($(window).width() / 2)) * 0.01;
-        var mouseYBot = (e.pageY - ($(window).height() / 2)) * 0.01;
-
-        bottom.css('transform', 'translate3d(' + mouseXBot + 'px,' + mouseYBot + 'px, 0px)');
-
-        //mouvement de la couche middle
-        var mouseXMid = (e.pageX - ($(window).width() / 2)) * 0.03;
-        var mouseYMid = (e.pageY - ($(window).height() / 2)) * 0.03;
-
-        middle.css('transform', 'translate3d(' + mouseXMid + 'px,' + mouseYMid + 'px, 0px)');
-
-        //mouvement de la couche front
-        var mouseXTop = (e.pageX - ($(window).width() / 2)) * 0.09;
-        var mouseYTop = (e.pageY - ($(window).height() / 2)) * 0.09;
-
-        front.css('transform', 'translate3d(' + mouseXTop + 'px,' + mouseYTop + 'px, 0px)');
-    });
-});*/
+var stopParallax = false;
 
 $(function() {
 	var parallax = new Parallax(7);
 	$("body").mousemove(function(e) {
-		parallax.moveLayer(e);
+		if(!stopParallax)
+			parallax.moveLayer(e);
 	});
 });
 

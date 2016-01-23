@@ -36,7 +36,6 @@ h2{
 }
 
 .creeEquipeForm {
-    position: absolute;
     margin: auto auto 15px;
     padding: 15px 5px 5px;
     width: 70%;
@@ -169,10 +168,11 @@ h2{
 }
 
 .equipe {
+    position: relative;
     background: #3a3a3a;
     width: 80%;
     margin: auto;
-    margin-top: 500px;
+    margin-top: 10px;
     box-shadow: 2px 2px 0 0 #111;
 
     text-align: center;

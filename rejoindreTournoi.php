@@ -11,12 +11,18 @@ if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan
 
 if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'rejoindre')) {
 	try{
-		Equipe::createFromId($_POST['rejoindre'])->rejoindre(Member::getInstance()->getId());
+		$equipe = Equipe::createFromId($_POST['rejoindre']);
+		if($equipe->isFull()) {
+			header("Location: message.php?message=L'équipe et pleine !");
+		}
+		else {
+			$equipe->rejoindre(Member::getInstance()->getId());
+			header("Location: message.php?message=Vous avez bien intégré l'équipe !");
+		}
 	}
 	catch(Exception $e){
 		header('Location: message.php?message=Vous êtes déjà dans cette équipe');
 	}
-	header("Location: message.php?message=Vous avez bien intégré l'équipe !");
 }
 else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi']) && verify($_POST, 'nameEquipe')) {
 	if(!verify($_POST, 'descriptionEquipe'))
@@ -27,22 +33,29 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
 	else 
 		$_POST['ouvert']=1;
 	
-    Tournoi::createFromId($_GET['idTournoi'])->createEquipe($_POST['nameEquipe'],$_POST['ouvert'],Member::getInstance()->getId(),$_POST['descriptionEquipe']);
-    header('Location: message.php?message=votre equipe a bien été crée');
+    $tournoi = Tournoi::createFromId($_GET['idLan'],$_GET['idTournoi']);
+	if($tournoi->isFullOfEquipe())
+		header('Location: message.php?message=Le tournoi est plein');
+	else{
+		$tournoi->createEquipe($_POST['nameEquipe'],$_POST['ouvert'],Member::getInstance()->getId(),$_POST['descriptionEquipe']);
+		header('Location: message.php?message=Votre equipe a bien été crée');
+	}
 }
 else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan']) && is_numeric($_GET['idTournoi'])){
-    $tournoi=null;
+	$tournoi=null;
 	try{
 		$tournoi = Tournoi::getTournoiFromLAN($_GET['idLan'],$_GET['idTournoi']);
 	}
 	catch(Exception $e){
 		header('Location: message.php?message=un problème est survenu');
 	}
+	if($tournoi->isFull())
+		header('Location: message.php?message=Le tournoi est plein');
 	$form = new GeekOnLanWebpage("GeekOnLan - Rejoindre un tournoi");
     $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px");
     $form->appendJsUrl("js/creeEquipe.js");
     	
-    if($tournoi->getNbEquipeMax()>sizeof($tournoi->getEquipe()))
+    if(!$tournoi->isFullOfEquipe())
     		$form->appendContent(creeEquipe(Lan::createFromId($_GET['idLan'])->getLanName(),$tournoi));
     else{
     	$form->appendContent(<<<HTML
