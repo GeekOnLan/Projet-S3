@@ -5,8 +5,8 @@ require_once('includes/connectedMember.inc.php');
 require_once('includes/utility.inc.php');
 
 $page = new GeekOnLanWebpage("GeekOnLan - Modification de LAN");
-$page->appendCssUrl("style/regular/updateLan.css", "screen and (min-width: 680px");
-$page->appendCssUrl("style/mobile/updateLan.css", "screen and (max-width: 680px");
+$page->appendCssUrl("style/regular/updateLan.css", "screen and (min-width: 680px)");
+$page->appendCssUrl("style/mobile/updateLan.css", "screen and (max-width: 680px)");
 $page->appendJsUrl("js/creeLan.js");
 $page->appendJsUrl("js/deleteLan.js");
 $page->appendJsUrl("js/updateLan.js");

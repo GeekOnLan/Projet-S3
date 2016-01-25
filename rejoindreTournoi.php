@@ -52,7 +52,7 @@ else if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['
 	if($tournoi->isFull())
 		header('Location: message.php?message=Le tournoi est plein');
 	$form = new GeekOnLanWebpage("GeekOnLan - Rejoindre un tournoi");
-    $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px");
+    $form->appendCssUrl("style/regular/rejoindreTournoi.css", "screen and (min-width: 680px)");
     $form->appendJsUrl("js/creeEquipe.js");
     	
     if(!$tournoi->isFullOfEquipe())

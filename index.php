@@ -3,7 +3,7 @@
 require_once('includes/autoload.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - Accueil");
-$webpage->appendCssUrl("style/regular/accueil.css");
+$webpage->appendCssUrl("style/regular/accueil.css", "screen and (min-width: 680px)");
 
 $lesLans = Lan::getRecentLan();
 $news = "";
@@ -11,6 +11,7 @@ $news = "";
 // Pour les mois écrit en français
 setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
 
+$i = 0;
 foreach($lesLans as $lan){
     $img = $lan->getLanPicture();
 
@@ -39,13 +40,72 @@ foreach($lesLans as $lan){
                         <h2>{$lan->getLanName()}</h2>
                         <hr/>
                         <p>{$lan->getLanDescription()}</p>
-                        <a href="detailsLan.php?idLan={$lan->getId()}">Lire la suite</a>
+                        <a href="listeTournoi.php?idLan={$lan->getId()}">Tournoi</a>
+                        <button type="button" id="bouttonDetails{$i}">Details</button>
                     </div>
                 </td>
             </tr>
         </table>
-
 HTML;
+
+    $webpage->appendToHead(<<<HTML
+	<style>
+		#details{$i}.open{$i} {
+			transform: scale3d(1, 1, 1);
+			-webkit-transform: scale3d(1, 1, 1);
+			-moz-transform: scale3d(1, 1, 1);
+		}
+
+		#details{$i}.deleteLayer{$i} {
+			visibility: visible;
+			opacity: 0.5;
+		}
+
+		#layer.hid{$i} {
+			 visibility: visible;
+			 opacity: 0.5;
+ 		}
+
+	</style>
+HTML
+    );
+
+    $webpage->appendToHead(<<<HTML
+	<script type="text/javascript">
+		$(function() {
+			toggleLayer.actions.push({
+				actionClass: "deleteLayer{$i}",
+				doAction: toggleDelete{$i}
+			});
+			$("#idFermee{$i}").click(toggleDelete{$i});
+			$("#bouttonDetails{$i}").click(toggleDelete{$i});
+		});
+
+		var toggleDelete{$i} = function() {
+			$("#details{$i}").toggleClass("open{$i}");
+			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
+			$("#layer").toggleClass("hid{$i}");
+		};
+	</script>
+HTML
+    );
+    /*ajout des details de la LAN en forground*/
+    $webpage->appendForeground(<<<HTML
+<div id="details{$i}">
+		<h2>{$lan->getLanName()}</h2>
+		<div class="lanDetails">
+			<span class="title">Description :</span><br>
+			<span>{$lan->getLanDescription()}</span><br>
+			<span class="title">Adresse :</span><br>
+			<span>{$lan->getAdresse()}</span><br>
+			<span>{$lan->getLieu()->getCodePostal()}</span>
+			<span>{$lan->getLieu()->getNomVille()}</span>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+HTML
+    );
+    $i++;
 }
 
 $webpage -> appendContent($news);

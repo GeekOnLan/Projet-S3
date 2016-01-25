@@ -57,7 +57,7 @@ class GeekOnLanWebpage extends Webpage {
      * Ajoute le css et le javascript de base
      */
     private function appendBasicCSSAndJS(){
-        $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px");
+        $this->appendCssUrl("style/regular/base.css", "screen and (min-width: 680px)");
         $this->appendCssUrl("style/mobile/base.css", "screen and (max-width: 680px)");
         $this->appendCssUrl("style/regular/parallax.css");
         $this->appendJsUrl("http://code.jquery.com/jquery-2.1.4.min.js");

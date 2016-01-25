@@ -128,7 +128,7 @@
     font-size: 22px;
 }
 
-#searchRes a{
+#searchRes a, #searchRes button{
 	font-family: Arial, serif;
 
     color: white;
@@ -140,7 +140,7 @@
     text-decoration : none;
 }
 
-#searchRes a:hover{
+#searchRes a:hover, #searchRes button:hover{
 	    box-shadow: 0 0 2px 2px black inset;
 
 }

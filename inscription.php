@@ -122,8 +122,8 @@ $page = new GeekOnLanWebpage("GeekOnLan - Inscription");
 $page->appendJsUrl("js/rsa.js");
 $page->appendJsUrl("js/BigInt.js");
 $page->appendJsUrl("js/inscription.js");
-$page->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px");
-$page->appendCssUrl("style/mobile/inscription.css", "screen and (max-width: 680px");
+$page->appendCssUrl("style/regular/inscription.css", "screen and (min-width: 680px)");
+$page->appendCssUrl("style/mobile/inscription.css", "screen and (max-width: 680px)");
 
 $html= <<<HTML
 	<form method="POST" name="inscription" action="inscription.php">

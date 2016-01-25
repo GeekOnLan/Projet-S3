@@ -6,8 +6,8 @@ require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Création d'une LAN");
-$form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px");
-$form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px");
+$form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px)");
+$form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px)");
 $form->appendJsUrl("js/rsa.js");
 $form->appendJsUrl("js/BigInt.js");
 $form->appendJsUrl("js/creeLan.js");

@@ -16,7 +16,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 
     $tournois=$lan->getTournoi();
     $page = new GeekOnLanWebpage("GeekOnLan - Tournois");
-    $page->appendCssUrl("style/regular/listeTournoisMembre.css", "screen and (min-width: 680px");
+    $page->appendCssUrl("style/regular/listeTournoisMembre.css", "screen and (min-width: 680px)");
 
     $html = "<div class='listeTournois'>";
 
@@ -49,7 +49,8 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
 		</div>
 	</div>
-
+HTML;
+		$page->appendToHead(<<<HTML
 	<style>
 		#details{$i}.open{$i} {
 			transform: scale3d(1, 1, 1);
@@ -62,7 +63,10 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 			opacity: 0.5;
 		}
 	</style>
+HTML
+		);
 
+		$page->appendToHead(<<<HTML
 	<script type="text/javascript">
 		$(function() {
 			toggleLayer.actions.push({
@@ -79,7 +83,8 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 			$("#layer").toggleClass("hid");
 		};
 	</script>
-HTML;
+HTML
+	);
         $page->appendForeground(<<<HTML
 <div id="details{$i}">
 		<h2>{$tournoi->getNomTournoi()}</h2>

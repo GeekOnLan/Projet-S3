@@ -27,7 +27,7 @@ var show = function(res) {
     resTable.empty();
 
 	for(var i in res) {
-        resTable.append("<tr><td>" + res[i].name + "</td><td>" + res[i].date + "</td><td>" + res[i].lieu + "</td><td><a href='detailsLan.php?idLan=" + res[i].id + "'>Détails</a></td></tr>");
+        resTable.append("<tr><td>" + res[i].name + "</td><td>" + res[i].date + "</td><td>" + res[i].lieu + "</td><td><a href='listeTournoi.php?idLan=" + res[i].id + "'>Tournoi</a></td><td><button type='button'>Details</button></td></tr>");
 	}
 };
 

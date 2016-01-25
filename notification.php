@@ -4,7 +4,7 @@ require_once('includes/autoload.inc.php');
 require_once('includes/connectedMember.inc.php');
 
 $webpage = new GeekOnLanWebpage("GeekOnLan - Notification");
-$webpage->appendCssUrl("style/regular/notification.css");
+$webpage->appendCssUrl("style/regular/notification.css" , "screen and (min-width: 680px)");
 $webpage->appendJsUrl("js/notification.js");
 $webpage->appendJsUrl("js/inscriptionNotif.js");
 

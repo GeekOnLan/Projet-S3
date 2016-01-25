@@ -44,8 +44,8 @@ $webpage = new GeekOnLanWebpage("GeekOnLan - Profil");
 $webpage->appendJsUrl("js/deleteAccount.js");
 $webpage->appendJsUrl("js/inscription.js");
 $webpage->appendJsUrl("http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js");
-$webpage->appendCssUrl("style/regular/profil.css", "screen and (min-width: 680px");
-$webpage->appendCssUrl("style/mobile/profil.css", "screen and (max-width: 680px");
+$webpage->appendCssUrl("style/regular/profil.css", "screen and (min-width: 680px)");
+$webpage->appendCssUrl("style/mobile/profil.css", "screen and (max-width: 680px)");
 
 $html = <<<HTML
 <table id="profilTable">

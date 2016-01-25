@@ -49,7 +49,12 @@ class Equipe {
 	 * @return Equipe L'instance créée
 	 */
 	public static function createFromId($id){
-		return selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => "Equipe"), "*", "Equipe", "idEquipe = :id")[0];
+		$res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => "Equipe"), "*", "Equipe", "idEquipe = :id")[0];
+
+		if(isset($res))
+			return $res;
+		else
+			throw new Exception("Aucune Equipe trouvée");
 	}
 
 	/**
@@ -162,8 +167,19 @@ SQL
 		deleteRequest(array("idEquipe" => $this->idEquipe), "Equipe", "idEquipe = :idEquipe");
 	}
 
+	/**
+	 * @param $idMembre id du membre a enlever de l'equipe
+	 * @param $message message a lui envoyer
+	 */
 	public function removeMember($idMembre,$message){
 		$this->send("Annulation", $message);
 		deleteRequest(array("idEquipe" => $this->idEquipe,"idMembre" => $idMembre), "Composer", "idEquipe = :idEquipe AND idMembre = :idMembre");
+	}
+
+	public function isInEquipe($idMembre){
+		foreach($this->getMembre() as $member)
+			if($member->getId() == $idMembre)
+				return true;
+		return false;
 	}
 }

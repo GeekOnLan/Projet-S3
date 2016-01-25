@@ -5,7 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once('includes/utility.inc.php');
 
 $page = new GeekOnLanWebpage("GeekOnLan - Recherche");
-$page->appendCssUrl("style/regular/listeLans.css", "screen and (min-width: 680px");
+$page->appendCssUrl("style/regular/listeLans.css", "screen and (min-width: 680px)");
 $page->appendJsUrl("js/listeLans.js");
 
 $page->appendContent(<<<HTML

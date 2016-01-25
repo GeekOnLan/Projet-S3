@@ -5,7 +5,7 @@ require_once('includes/myPDO.inc.php');
 require_once ('includes/connectedMember.inc.php');
 
 $page = new GeekOnLanWebpage("GeekOnLan - Mes Lans");
-$page->appendCssUrl("style/regular/listeLansMembre.css", "screen and (min-width: 680px");
+$page->appendCssUrl("style/regular/listeLansMembre.css", "screen and (min-width: 680px)");
 
 /*recuperation des LAN de l'utilisateur*/
 
@@ -33,13 +33,15 @@ foreach($lans as $lan) {
         <div class="lanInfo">
         	<span>{$lan->getLanName()}</span>
         	<hr/>
-        	<a href="listeTournoisMembre.php?idLan=$i">Tournois</a>
+        	<a href="listeTournoiMembre.php?idLan=$i">Tournois</a>
         	<button type="button" id="bouttonDetails{$i}">Détails</button>
         	<a href="updateLAN.php?idLan=$i">Editer</a>
         	<a href="creeTournoi.php?idLan={$i}">Ajouter un tournoi</a>
 		</div>
 	</div>
+HTML;
 
+	$page->appendToHead(<<<HTML
 	<style>
 		#details{$i}.open{$i} {
 			transform: scale3d(1, 1, 1);
@@ -58,7 +60,10 @@ foreach($lans as $lan) {
  		}
 
 	</style>
+HTML
+	);
 
+	$page->appendToHead(<<<HTML
 	<script type="text/javascript">
 		$(function() {
 			toggleLayer.actions.push({
@@ -75,7 +80,8 @@ foreach($lans as $lan) {
 			$("#layer").toggleClass("hid{$i}");
 		};
 	</script>
-HTML;
+HTML
+	);
 	/*ajout des details de la LAN en forground*/
 	$page->appendForeground(<<<HTML
 <div id="details{$i}">

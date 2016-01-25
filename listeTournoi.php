@@ -11,7 +11,7 @@ $connecte = Member::isConnected();
     	header('Location: message.php?message=Lan inexistante');
   }
     $page = new GeekOnLanWebpage("GeekOnLan - ".$lan->getLanName()." - Liste des tournois");
-    $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px");
+    $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px)");
     $page->appendJsUrl("js/request.js");
 
     $tournois=$lan->getTournoi();
@@ -96,7 +96,8 @@ HTML;
         	{$button}
 		</div>
 	</div>
-
+HTML;
+            $page->appendToHead(<<<HTML
 	<style>
 		#details{$i}.open{$i} {
 			transform: scale3d(1, 1, 1);
@@ -109,7 +110,10 @@ HTML;
 			opacity: 0.5;
 		}
 	</style>
+HTML
+            );
 
+            $page->appendToHead(<<<HTML
 	<script type="text/javascript">
 		$(function() {
 			toggleLayer.actions.push({
@@ -126,7 +130,25 @@ HTML;
 			$("#layer").toggleClass("hid");
 		};
 	</script>
-HTML;
+HTML
+            );
+            $page->appendForeground(<<<HTML
+<div id="details{$i}">
+		<h2>{$tournoi->getNomTournoi()}</h2>
+		<div class="tournoiDetails">
+			<span class="title">Description :</span><br>
+			<span>{$tournoi->getDescriptionTournoi()}</span><br>
+			<span class="title">Jeu :</span><br>
+			<span>{$tournoi->getJeu()[1]} : {$payant}</span><br>
+			<span>{$tournoi->getJeu()[2]}</span><br>
+			<span class="title">Equipe :</span><br>
+			<span>Nombre d'equipe : {$nbEquipe}/{$tournoi->getNbEquipeMax()}</span><br>
+			<span>Nombre de personne par equipe : {$tournoi->getNbPersMaxParEquipe()}</span><br>
+			<button type="button" id="idFermee{$i}">Fermer</button>
+		</div>
+	</div>
+HTML
+            );
             $page->appendForeground(<<<HTML
 <div id="details{$i}">
 		<h2>{$tournoi->getNomTournoi()}</h2>

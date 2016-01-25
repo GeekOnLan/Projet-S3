@@ -328,6 +328,7 @@ SQL
     
     public function sendNotif($objet,$message){
     	$pdo = MyPDO::getInstance();
+
     	$stmt = $pdo->prepare(<<<SQL
 			INSERT INTO Notifications (objetNotif, dateNotif, messageNotif) 
     		VALUES (:objet, :date, :message); 

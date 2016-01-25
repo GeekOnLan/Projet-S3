@@ -24,7 +24,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan']) && isset($_GET['idTournoi']
 
 	//on cree la webPage
 	$wp = new GeekOnLanWebpage("GeekOnLan - Equipes");
-	$wp->appendCssUrl("style/regular/listeEquipeMembre.css", "screen and (min-width: 680px");
+	$wp->appendCssUrl("style/regular/listeEquipeMembre.css", "screen and (min-width: 680px)");
 
 	$html = "";
 
@@ -67,7 +67,7 @@ HTML
 					);
 
 					//ajout du css particulier au membre pour l'exclusion
-					$html .= <<<HTML
+					$wp->appendToHead(<<<HTML
 <style type="text/css">
 	#exclure{$i}.open{$i} {
 		transform: scale3d(1, 1, 1);
@@ -80,10 +80,11 @@ HTML
 		opacity: 0.5;
 	}
 </style>
-HTML;
+HTML
+					);
 
 					//ajout du javascript particulier au membre pour l'excusion
-					$html .= <<<HTML
+					$wp->appendToHead(<<<HTML
 <script type="text/javascript">
 		$(function() {
 			toggleLayer.actions.push({
@@ -103,13 +104,14 @@ HTML;
 			$("#layer").toggleClass("hid");
 		};
 </script>
-HTML;
+HTML
+					);
 				}
 			}
 			//fin de la boucle pour les membre de l'equipe
 			$i++;
 
-			$html .= <<<HTML
+			$html.=<<<HTML
 <div class="equipeBlocks">
 	<div class="title">
 		<span>{$equipe->getNomEquipe()}</span>
@@ -140,7 +142,7 @@ HTML
 			);
 
 			//ajout du css particulier a l'equipe pour l'exclusion
-			$html.=<<<HTML
+			$wp->appendToHead(<<<HTML
 <style type="text/css">
 	#myPrompt{$i}.open{$i} {
 		transform: scale3d(1, 1, 1);
@@ -153,10 +155,11 @@ HTML
 		opacity: 0.5;
 	}
 </style>
-HTML;
+HTML
+			);
 
 			//ajout du javascript particulier a l'equipe pour l'excusion
-			$html.=<<<HTML
+			$wp->appendToHead(<<<HTML
 <script type="text/javascript">
 		$(function() {
 			toggleLayer.actions.push({
@@ -176,7 +179,8 @@ HTML;
 			$("#layer").toggleClass("hid");
 		};
 </script>
-HTML;
+HTML
+			);
 		}
 		$html .= "</div>";
 	}
