@@ -142,7 +142,7 @@ SQL
 		$stmt->execute(array("id" => $idMembre));
 		$membre=$stmt->fetch();
 
-		$message = "Le membre '".$membre->getPseudo()."' a rejoind votre equipe : ".$this->getNomEquipe();
+		$message = "Le membre '".$membre->getPseudo()."' a rejoind votre equipe '".$this->getNomEquipe()."'";
 		$createur -> sendNotif("nouveau membre",$message);
 	}
 
@@ -171,8 +171,15 @@ SQL
 	 * @param $idMembre id du membre a enlever de l'equipe
 	 * @param $message message a lui envoyer
 	 */
-	public function removeMember($idMembre,$message){
-		$this->send("Annulation", $message);
+	public function removeMember($idMembre,$message,$messageOther){
+		if($idMembre==$this->getCreateur()->getId())
+			new Exception("impossible d'exclure le createur, vous devez supprimer l'equipe entiere !");
+		Member::createFromId($idMembre)->sendNotif("Annulation",$message);
+		$membres = $this->getMembre();
+		foreach ($membres as $membre){
+			if($membre->getId()!=$idMembre)
+				$membre->sendNotif("Annulation", $messageOther);
+		}
 		deleteRequest(array("idEquipe" => $this->idEquipe,"idMembre" => $idMembre), "Composer", "idEquipe = :idEquipe AND idMembre = :idMembre");
 	}
 
