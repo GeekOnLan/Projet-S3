@@ -119,7 +119,7 @@ HTML
 	</div>
 	<div class="info">
 		<span>Description :</span>
-		<span>{$lan->getLanName()}</span><br>
+		<span>{$equipe->getDescriptionEquipe()}</span><br>
 		<button type="button" id="boutonSup{$i}">Exclure cette equipe</button>
 	</div>
 	<hr>

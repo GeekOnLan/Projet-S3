@@ -130,7 +130,7 @@ SQL
 		"Composer(idMembre,idEquipe,role)",
 		"(:idMembre, :idEquipe, 1)");
 		$createur = $this->getCreateur();
-		
+		var_dump($createur);
 		$pdo = MyPDO::getInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
@@ -188,5 +188,37 @@ SQL
 			if($member->getId() == $idMembre)
 				return true;
 		return false;
+	}
+
+	public function isFromLanMember($idMembre){
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idEquipe
+			FROM Participer
+			WHERE idLAN IN (
+				SELECT idLan
+				FROM Lan
+				WHERE idMembre = :idMembre
+			)
+SQL
+		);
+		 $stmt->execute(array("idMembre" => $idMembre));
+		 return (!$stmt->fetchAll()==null);
+	}
+
+	public function isFromMember($idMembre){
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idEquipe
+			FROM Participer
+			WHERE idLAN IN (
+				SELECT idLan
+				FROM Lan
+				WHERE idMembre = :idMembre
+			)
+SQL
+		);
+		$stmt->execute(array("idMembre" => $idMembre));
+		return (!$stmt->fetchAll()==null);
 	}
 }

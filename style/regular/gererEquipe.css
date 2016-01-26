@@ -1,0 +1,185 @@
+.equipe {
+    text-align: center;
+    padding: 0 5%;
+}
+
+.equipeBlocks {
+    display: inline-block;
+    position: relative;
+    width: 350px;
+    height: 100%;
+    margin: 10px;
+
+    background: #fafafa;
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+
+    text-align: left;
+    overflow: hidden;
+}
+
+.equipeBlocks .title{
+    text-align: center;
+    font-size: 2em;
+}
+
+.equipeBlocks hr{
+    border-color : #40CFF6;
+    border-width: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.equipeBlocks .info span:first-child{
+    text-align: left;
+    margin-left: 10px;
+    font-size: 1.5em;
+}
+
+.equipeBlocks .createur{
+    font-size: 1.2em;
+}
+
+.equipeBlocks .info button {
+    display: block;
+    width: 85%;
+    box-sizing: border-box;
+    padding: 2px 10px;
+    margin: 7px auto;
+
+    font-family: AgencyRegular, Arial, serif;
+    font-size: 32px;
+    text-decoration: none;
+    text-align: center;
+
+    color: #373737;
+    background: #c6c6c6;
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #666666;
+    transition: color 0.3s, border 0.3s;
+}
+
+.equipeBlocks .info button:hover, .equipeBlocks .membres button:hover{
+    color: red;
+    border: solid 3px red;
+}
+
+.equipeBlocks .membres .membre{
+    display: inline-block;
+}
+
+.equipeBlocks .membres button{
+    font-family: AgencyRegular, Arial, serif;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #373737;
+    background: #c6c6c6;
+    font-size: 1em;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 3px #666666;
+
+    transition: color 0.3s, border 0.3s;
+    display: inline-block;
+    float: right;
+}
+/* ==== Si pas d'equipe ==== */
+
+.noEquipe {
+    text-align: center;
+    width: 400px;
+    height: 100px;
+    background: #fafafa;
+    margin: 100px auto 0 auto;
+    padding: 15px;
+
+    border: 5px solid #fafafa;
+    border-right-color: #cdcdcd;
+    border-bottom-color: #cdcdcd;
+    box-shadow: 1px 1px 1px 1px #282828;
+}
+
+.noEquipe p {
+    font-size: 42px;
+    color: #333333;
+}
+
+/*menu d'exclusion d'equipe*/
+
+div[id^=myPrompt], div[id^=exclure]{
+    border-top: solid 10px #FF5B00;
+    position: fixed;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin-left: -12.5%;
+    margin-top: -150px;
+
+    width: 25%;
+    min-width: 400px;
+    text-align: center;
+
+    background: #3a3a3a;
+    box-shadow: 2px 2px 1px 0 #333;
+
+    transition: transform 0.3s;
+    -webkit-transition: transform 0.3s;
+    -moz-transition: transform 0.3s;
+    -o-transition: transform 0.3s;
+
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+
+    transform: scale3d(0, 0, 0);
+    -webkit-transform: scale3d(0, 0, 0);
+    -moz-transform: scale3d(0, 0, 0);
+}
+
+div[id^=myPrompt] h2, div[id^=exclure] h2{
+    background: #FF5B00;
+    color: #b9b9b9;
+
+    border-left: solid 3px #222;
+    border-bottom: solid 3px #222;
+    border-right: solid 3px #222;
+
+    font-size: 26px;
+
+    display: block;
+
+    height: 40px;
+    width: 300px;
+
+    margin: -9px auto 0;
+}
+
+div[id^=myPrompt] button, div[id^=exclure] button{
+    width: 90%;
+    font-family: AgencyRegular, Arial, serif;
+
+    color: #b9b9b9;
+    background: #3f3f3f;
+    font-size: 32px;
+
+    box-shadow: 2px 2px 1px 0 #111;
+    border: solid 2px #222;
+    margin: 20px;
+
+}
+
+div[id^=myPrompt] button:hover, div[id^=exclure] button:hover{
+    box-shadow: 0 0 2px 2px black inset;
+}
+
+div[id^=myPrompt] button:active, div[id^=exclure] button:active{
+    background: #5b5b5b;
+}
+
+#layer.hid{
+    visibility: visible;
+    opacity: 0.5;
+}
+
