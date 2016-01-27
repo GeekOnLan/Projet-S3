@@ -161,8 +161,10 @@ class Tournoi{
         // On vérifie s'il reste d'autres tournois pour savoir si l'on doit aussi supprimer la Lan
         $res = selectRequest(array("id" => $this->idLAN), array(PDO::FETCH_ASSOC => null), "*", "Tournoi", "idLan = :id");
 
-        if(count($res) <= 0)
-            Lan::createFromId($this->idLAN)->delete();
+        if(count($res) <= 0){
+        	$lan = Lan::createFromId($this->idLAN);
+            Lan::createFromId($this->idLAN)->delete("Tous les tournois de la LAN '".$lan->getLanName()."' on été supprimé. Cette LAN a donc été supprimé aussi");
+        }
     }
 
     /**
