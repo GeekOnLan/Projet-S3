@@ -31,7 +31,7 @@ function getAllErrorTournoi(){
 	error+=document.getElementById("erreurNbMembreMax").innerHTML;
 	error+=document.getElementById("erreurDescriptionTournoi").innerHTML;
 	//"       "
-	console.log(error.length);
+	console.log(error);
 	return error;
 }
 
