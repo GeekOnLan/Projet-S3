@@ -4,9 +4,9 @@ require_once("../includes/myPDO.inc.php");
 require_once('../classes/MyPDO.class.php');
 
 if (!verify($_SERVER, 'HTTP_REFERER'))
-    header('Location: message.php?message=un problème est survenu');
+    header('Location: ../message.php?message=un problème est survenu');
 
-if (!isset($_GET['id']) || !empty($_GET['id']) || !isset($_GET['choix']) || !empty($_GET['choix']))
+if (!isset($_GET['id']) || empty($_GET['id']) || !isset($_GET['choix']) || empty($_GET['choix']))
     header('Location: ../message.php?message=un problème est survenu');
 
 //Fonction principale
@@ -14,7 +14,7 @@ $idTeam = $_GET['id'];
 $choix = $_GET['choix'];
 Member::getInstance();
 deleteInvit($idTeam);
-if($choix){
+if($choix=="true"){
     addTeam($idTeam);
 }
 
@@ -23,7 +23,7 @@ function addTeam($idTeam){
     try {
         Equipe::createFromId($idTeam)->rejoindre(Member::getInstance()->getId());
     }catch (Exception $e){
-        header('Location: message.php?message=Vous ete deja dans cette equipe');
+        header('Location: ../message.php?message=Vous ete deja dans cette equipe');
     }
     return 0;
 }

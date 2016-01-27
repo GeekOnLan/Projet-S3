@@ -23,6 +23,7 @@ var deleteInvit = function(id,choix){
         type: 'GET',
         data: { id: id, choix : choix},
         success: function (res, statut) {
+                console.log(res);
                 deleteDiv(id)
         },
         error: function (res, statut, error) {
