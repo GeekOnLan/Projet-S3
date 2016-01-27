@@ -45,7 +45,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         	<hr/>
         	<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
         	<button type="button" id="bouttonDetails{$i}">Détails</button>
-        	<a>Editer</a>
+        	<a href="updateTournoi.php?idLan={$_GET['idLan']}&idTournoi={$i}">Editer</a>
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
 		</div>
 	</div>

@@ -6,11 +6,12 @@ require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Création d'une LAN");
-$form->appendCssUrl("style/regular/creeTournoi.css", "screen and (min-width: 680px)");
-$form->appendCssUrl("style/mobile/creeTournoi.css", "screen and (max-width: 680px)");
+$form->appendCssUrl("style/regular/updateTournoi.css", "screen and (min-width: 680px)");
 $form->appendJsUrl("js/rsa.js");
 $form->appendJsUrl("js/BigInt.js");
+$form->appendJsUrl("js/updateTournoi.js");
 $form->appendJsUrl("js/creeTournoi.js");
+$form->appendJsUrl("js/deleteTournoi.js");
 
 /**
  * Vérifie que tout les champs obligatoires du formulaire son
@@ -44,7 +45,7 @@ if (verifyFormTournoi()) {
 	$descriptionTournoi = $_POST['descriptionTournoi'];
 	
     try {
-        $LAN = Member::getInstance()-> getLAN() [$_GET['idLan']];
+        $Tournoi = Tournoi::createFromId($idLan,$idTournoi);
         //var_dump($_GET['idLan']);
         
         $pdo = MyPDO::getInstance();
@@ -58,11 +59,11 @@ SQL
         $idJeu = $stmt -> fetch()['idJeu']; 
         
         $LAN -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
-        header('Location: message.php?message=Votre Tournoi a bien été ajouté !');
+        header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
     } catch(Exception $e) {
        header('Location: message.php?message=Un problème est survenu');
     }
-} elseif(isset($_GET['idLan']) && is_numeric($_GET['idLan'])) {
+} elseif(isset($_GET['idLan']) && is_numeric($_GET['idTournoi']) && isset($_GET['idTournoi']) && is_numeric($_GET['idTournoi'])) {
     $LAN = null;
     try {
         $LAN = Member::getInstance()->getLAN();
@@ -77,9 +78,19 @@ SQL
     $LAN=$LAN[$_GET['idLan']];
 	$date = $LAN->getLanDate();
 	
+	$prompt = <<<HTML
+		<div id="myPrompt">
+			<h2>Supprimer ce Tournoi ? ?</h2>
+			<form id="formDelete" name="delete" method="POST" action="deleteTournoi.php?idLan={$_REQUEST['idLan']}&idTournoi={$_REQUEST['idTournoi']}">
+				<button type="button" id="idConfirmer" value="Confirmer" >Confirmer</button>
+				<button type="button" id="idAnnuler" value="Annuler">Annuler</button>
+		 	</form>
+		</div>
+HTML;
+	
     $form->appendContent(<<<HTML
     <div name="dateLAN" style="display:none">{$date}</div>
-<form method="POST" name="ajoutTournoi" action="creeTournoi.php?idLan={$_GET['idLan']}">
+<form method="POST" name="ajoutTournoi" action="updateTournoi.php?idLan={$_GET['idLan']}&idTournoi={$_GET['idTournoi']}">
     <table class="tournoiForm">
         <thead>
             <tr>
@@ -153,7 +164,8 @@ SQL
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><button type="button" onclick="verifyTournoi()">Créer un tournoi</button></td>
+                <td><button type="button" onclick="verifyUpdate()">Créer un tournoi</button></td>
+            	<td><button type="button" id="buttonDelete">Supprimer le Tournoi</button></td>
             </tr>
             <tr>
                 <td colspan="2"><p>* : champs obligatoires</p></td>
@@ -163,6 +175,7 @@ SQL
 </form>
 HTML
     );
+	$form->appendForeground($prompt);
 }
 else
    header('Location: message.php?message=Un problème est survenu');

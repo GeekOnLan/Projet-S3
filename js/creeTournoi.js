@@ -70,21 +70,6 @@ function resetError(name){
 	document.getElementById(name).innerHTML = '';
 }
 
-function allNeadNullTournoi(){
-
-	voidRedInput('nameTournoi');
-	setError('erreurNameTournoi',"ce champ ne peut etre vide");
-	voidRedInput('nameJeuTournoi');
-	setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
-	voidRedInput('dateTournoi');
-	setError('erreurDateTournoi', 'ce champ ne peut etre vide');
-	voidRedInput('heureTournoi');
-	setError('erreurHeureTournoi',"ce champ ne peut etre vide");
-	voidRedInput('nbEquipeMax');
-	setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
-	voidRedInput('nbMembreMax');
-	setError('erreurNbMembreMax',"ce champ ne peut etre vide");
-}
 
 
 function verifyNameTournoi(){
@@ -273,7 +258,7 @@ function resetNbMembreMax(){
 	resetVoidRedInput('nbMembreMax');resetError('erreurNbMembreMax');
 }
 
-function allNeadNullLAN(){
+function allNeadNullTournoi(){
 	if (document.getElementById("erreurNameTournoi").innerHTML == ""){
 		voidRedInput('nameTournoi');
 		setError('erreurNameTournoi',"ce champ ne peut etre vide");

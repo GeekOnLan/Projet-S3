@@ -7,9 +7,9 @@ if (window.XMLHttpRequest) {
 }
 function verifyUpdate(){
 	//si tout est bon on envoit
-	var erreur = getAllErrorLAN();
+	var erreur = getAllErrorTournoi();
 	if(erreur=="     "){
-		document.modifLAN.submit();
+		document.modifTournoi.submit();
 	}
 }
 
@@ -47,12 +47,12 @@ function verifyNameLANUpdate() {
 							}
 						}
 					}, true);
-					xhrLan.open('GET', 'scriptPHP/LANValide.php?LANName=' + nameLAN);
+					xhrLan.open('GET', 'scriptPHP/TournoiValide.php?LANName=' + nameLAN);
 					xhrLan.send(null);
 				}
 			}else{
 				voidRedInput('nameLAN');
-				setError('erreurNameLAN', 'nom de LAN trop petit');
+				setError('erreurNameLAN', 'nom de Tournoi trop petit');
 			}
 		}
 	}
