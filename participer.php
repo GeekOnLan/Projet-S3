@@ -6,6 +6,8 @@ require_once('includes/connectedMember.inc.php');
 
 $form = new GeekOnLanWebpage("GeekOnLan - Mes participations");
 $form->appendCssUrl("style/regular/participer.css", "screen and (min-width: 680px)");
+$form->appendCssUrl("style/mobile/participer.css", "screen and (max-width: 680px)");
+
 
 function getTableau(){
 
@@ -77,11 +79,12 @@ while($k<sizeof($tableau)){
 	$jT=substr($tableau[$k][1][0][1],0,2);
 	$mT=substr($tableau[$k][1][0][1],3,7);
 	$hT=substr($tableau[$k][1][0][1],12);
+	$taille=$nbEquipe*250;
 	$innerTableau.=<<<HTML
-	
+	<tbody>
 	<tr>
 		<td rowspan="{$nbEquipe}">
-			<div class="BlocksLan">
+			<div class="BlocksLan" style="height:{$taille}px">
 				<div class="Date">
 					<span>{$jL}</span>
 					<span>{$mL}</span>
@@ -116,13 +119,11 @@ while($k<sizeof($tableau)){
 				</div>
 			</div>
 		</td>
-		<td>
-		</td>
 	</tr>
 HTML
 ;
-	$l=1;
-	while($l<$nbEquipe){
+	$l=2;
+	while($l<=$nbEquipe){
 		$jT=substr($tableau[$k][$l][0][1],0,2);
 		$mT=substr($tableau[$k][$l][0][1],3,7);
 		$hT=substr($tableau[$k][$l][0][1],12);
@@ -153,27 +154,28 @@ HTML
 			</div>
 			
 		</td>
-		<td>
-			
-		</td>
 	</tr>
-	
+
 HTML
 ;
+
 		$l=$l+1;
 	}
+	$innerTableau.="</tbody>";
 	$k=$k+1;
 }
 
 
 $form->appendContent(<<<HTML
-    <table class="lanForm">
+
+	<div class="listeParticiper">
+    <table class="participer">
         <thead>
         </thead>
-        <tbody>
             {$innerTableau}
-        </tbody>
     </table>
+	</div>
+	
 HTML
 );
 
