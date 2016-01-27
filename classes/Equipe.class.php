@@ -101,6 +101,24 @@ SQL
 		return ($nbPer>=$max);
 	}
 
+	public function isFullOfMember(){
+		$nbPer = sizeOf($this->getMembre());
+		$pdo = MyPDO::GetInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			SELECT idLAN, idTournoi
+			FROM Participer
+			WHERE idEquipe = :idEquipe;
+SQL
+		);
+		$stmt->execute(array("idEquipe"=>$this->idEquipe));
+		$res = $stmt->fetchAll();
+		$idLan = $res[0]['idLAN'];
+		$idTournoi = $res[0]['idTournoi'];
+		$max = Tournoi::createFromId($idLan,$idTournoi )->getNbPersMaxParEquipe();
+
+		return ($nbPer>=$max);
+	}
+
 	/**
 	 * Retourne le createur du tournoi
 	 * @return Member
@@ -129,6 +147,10 @@ SQL
 	 * @param $idMembre id du membre a ajouter a l'equipe
 	 */
 	public function rejoindre($idMembre){
+		if($this->isFromMember()){
+			throw new Exception('equipe pleine');
+		}
+
 		insertRequest(array("idMembre" => $idMembre, "idEquipe" => $this->idEquipe),
 		"Composer(idMembre,idEquipe,role)",
 		"(:idMembre, :idEquipe, 1)");

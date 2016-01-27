@@ -103,6 +103,11 @@ HTML
     //fin de la boucle pour les membre de l'equipe
     $i++;
 
+	$inviter = "";
+	if(!$equipe->isFullOfMember()){
+		$inviter="<button type='button' id='boutonInvite'>Inviter un membre</button>";
+	}
+
     $html .= <<<HTML
 <div class="equipeBlocks">
 	<div class="title">
@@ -113,7 +118,7 @@ HTML
 		<span>Description :</span>
 		<span>{$equipe->getDescriptionEquipe()}</span><br>
 		<button type="button" id="boutonSup">Supprimer votre equipe</button>
-		<button type="button" id="boutonInvite">Inviter un membre</button>
+		{$inviter}
 	</div>
 	<hr>
 	<div class="membres">
