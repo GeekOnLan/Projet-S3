@@ -8,7 +8,7 @@ $connecte = Member::isConnected();
   try{
     $lan= Lan::createFromId($_REQUEST['idLan']);
   }catch(Exception $e){
-    	header('Location: message.php?message=Lan inexistante');
+    header('Location: message.php?message=Lan inexistante');
   }
     $page = new GeekOnLanWebpage("GeekOnLan - ".$lan->getLanName()." - Liste des tournois");
     $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px)");
@@ -32,7 +32,7 @@ HTML
         $stmt = $pdo->prepare(<<<SQL
 			SELECT idMembre, idEquipe
 			FROM Composer
-			WHERE idEquipe=(
+			WHERE idEquipe IN (
     			SELECT idEquipe
     			FROM Participer
     			WHERE idLAN=:idLan
@@ -55,13 +55,16 @@ SQL
                 }
                 $bool=TRUE;
                 $res=$stmt->fetchAll();
+                $id = "";
                 if(sizeof($res)!=0)
                     foreach ($res as $membre)
-                        if($membre['idMembre']==Member::getInstance()->getId())
+                        if($membre['idMembre']==Member::getInstance()->getId()){
                             $bool=FALSE;
+                            $id = $membre['idEquipe'];
+                    }
                 if(!$bool)
                     $button = <<<HTML
-<a href="gererEquipe.php?idEquipe={$membre['idEquipe']}" class="bouton">Gérer</a>
+<a href="gererEquipe.php?idEquipe={$id}" class="bouton">Gérer</a>
 HTML;
                 else{
                     if(!$tournoi->isFull())

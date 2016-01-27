@@ -8,12 +8,12 @@ if(verify($_SERVER,'HTTP_REFERER')) {
     $member = Member::getInstance();
     try {
         $lan =  $member->getLAN()[$_GET['idLan']];
-        $lan->delete("le createur de la LAN ".$lan->getLanName()." la supprimer");
-        header('Location: message.php?message=Votre lan a bien été supprimé');
+        $lan->delete("le createur de la LAN ".$lan->getLanName()." l'a supprimée");
+        header('Location: message.php?message=Votre lan a bien été supprimée');
     }
     catch(Exception $e){
-        header('Location: message.php?message=un problème est survenu');
+        header('Location: message.php?message=Un problème est survenu');
     }
 }
 else
-    header('Location: message.php?message=un problème est survenu');
+    header('Location: message.php?message=Un problème est survenu');

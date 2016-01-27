@@ -22,6 +22,7 @@ if (window.XMLHttpRequest) {
 }
 
 function getAllErrorTournoi(){
+	allNeadNullTournoi();
 	error=document.getElementById("erreurNameTournoi").innerHTML;
 	error+=document.getElementById("erreurNameJeuTournoi").innerHTML;
 	error+=document.getElementById("erreurDateTournoi").innerHTML;
@@ -47,9 +48,6 @@ function verifyTournoi(){
 		var nbMembreMax = document.getElementsByName('nbMembreMax')[0].value;
 
 		document.ajoutTournoi.submit();
-	}else if(erreur==" "){
-		console.log(erreur);
-		allNeadNullTournoi();
 	}
 }
 
@@ -273,4 +271,31 @@ function resetNbEquipeMax(){
 
 function resetNbMembreMax(){
 	resetVoidRedInput('nbMembreMax');resetError('erreurNbMembreMax');
+}
+
+function allNeadNullLAN(){
+	if (document.getElementById("erreurNameTournoi").innerHTML == ""){
+		voidRedInput('nameTournoi');
+		setError('erreurNameTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNameJeuTournoi").innerHTML == ""){
+		voidRedInput('nameJeuTournoi');
+		setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurDateTournoi").innerHTML == ""){
+		voidRedInput('dateTournoi');
+		setError('erreurDateTournoi', 'ce champ ne peut etre vide');
+	}
+	if (document.getElementById("erreurHeureTournoi").innerHTML == ""){
+		voidRedInput('heureTournoi');
+		setError('erreurHeureTournoi',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNbEquipeMax").innerHTML == ""){
+		voidRedInput('nbEquipeMax');
+		setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
+	}
+	if (document.getElementById("erreurNbMembreMax").innerHTML == ""){
+		voidRedInput('nbMembreMax');
+		setError('erreurNbMembreMax',"ce champ ne peut etre vide");
+	}
 }

@@ -20,7 +20,7 @@ if(verify($_POST, 'lastPassHidden') && verify($_POST, 'newPassHidden')) {
 		updateRequest(array("id" => $member->getId(), "lastPass" => $lastPass, "pass" => $newPass), "Membre", "password = :pass", "idMembre = :id AND password = :lastPass");
 
 		Member::disconnect();
-		header('Location: message.php?message=votre mot de passe a bien ete modifier');
+		header('Location: message.php?message=Votre mot de passe a bien été modifié');
 	} else
 		$wrongPass = "Mot de passe incorrecte";
 }

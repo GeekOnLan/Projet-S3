@@ -13,14 +13,14 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan']) && isset($_GET['idTournoi']
 	if ($_GET['idLan'] <= sizeof($lans) - 1)
 		$lan = $lans[$_GET['idLan']];
 	else
-		header('Location: message.php?message=un problème est survenu');
+		header('Location: message.php?message=Un problème est survenu');
 	
 	$tournois=$lan->getTournoi();
 	$tournoi = null;
 	if ($_GET['idTournoi'] <= sizeof($tournois) - 1)
 		$tournoi = $tournois[$_GET['idTournoi']];
 	else
-		header('Location: message.php?message=un problème est survenu');
+		header('Location: message.php?message=Un problème est survenu');
 
 	//on cree la webPage
 	$wp = new GeekOnLanWebpage("GeekOnLan - Equipes");
@@ -189,5 +189,5 @@ HTML
 	echo $wp->toHTML();
 }
 else {
-	header('Location: message.php?message=un problème est survenu');
+	header('Location: message.php?message=Un problème est survenu');
 }

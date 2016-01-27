@@ -66,15 +66,7 @@ function getAllErrorLAN(){
 	error+=document.getElementById("erreurDescriptionLAN").innerHTML;
 	error+=document.getElementById("erreurVilleLAN").innerHTML;
 	error+=document.getElementById("erreurAdresseLAN").innerHTML;
-	//"     "
-	error+=document.getElementById("erreurNameTournoi").innerHTML;
-	error+=document.getElementById("erreurNameJeuTournoi").innerHTML;
-	error+=document.getElementById("erreurDateTournoi").innerHTML;
-	error+=document.getElementById("erreurHeureTournoi").innerHTML;
-	error+=document.getElementById("erreurNbEquipeMax").innerHTML;
-	error+=document.getElementById("erreurNbMembreMax").innerHTML;
-	error+=document.getElementById("erreurDescriptionTournoi").innerHTML;
-	//"       "
+
 	console.log(error.length);
 	return error;
 }
@@ -82,6 +74,7 @@ function getAllErrorLAN(){
 function verifyLAN(){
 	//si tout est bon on envoit
 	var erreur = getAllErrorLAN();
+	erreur += getAllErrorTournoi();
 	if(erreur=="            "){
 		var nameLAN = document.getElementsByName('nameLAN')[0].value;
 		var dateLAN = document.getElementsByName('dateLAN')[0].value;
@@ -339,29 +332,5 @@ function allNeadNullLAN(){
 	if (document.getElementById("erreurAdresseLAN").innerHTML == ""){
 		voidRedInput('adresseLAN');
 		setError('erreurAdresseLAN',"ce champ ne peut etre vide");
-	}
-	if (document.getElementById("erreurNameTournoi").innerHTML == ""){
-		voidRedInput('nameTournoi');
-		setError('erreurNameTournoi',"ce champ ne peut etre vide");
-	}
-	if (document.getElementById("erreurNameJeuTournoi").innerHTML == ""){
-		voidRedInput('nameJeuTournoi');
-		setError('erreurNameJeuTournoi',"ce champ ne peut etre vide");
-	}
-	if (document.getElementById("erreurDateTournoi").innerHTML == ""){
-		voidRedInput('dateTournoi');
-		setError('erreurDateTournoi', 'ce champ ne peut etre vide');
-	}
-	if (document.getElementById("erreurHeureTournoi").innerHTML == ""){
-		voidRedInput('heureTournoi');
-		setError('erreurHeureTournoi',"ce champ ne peut etre vide");
-	}
-	if (document.getElementById("erreurNbEquipeMax").innerHTML == ""){
-		voidRedInput('nbEquipeMax');
-		setError('erreurNbEquipeMax',"ce champ ne peut etre vide");
-	}
-	if (document.getElementById("erreurNbMembreMax").innerHTML == ""){
-		voidRedInput('nbMembreMax');
-		setError('erreurNbMembreMax',"ce champ ne peut etre vide");
 	}
 }

@@ -15,7 +15,7 @@ if(!Member::isConnected()) {
 			header('Location: index.php');
 			exit();
 		} catch (Exception $e) {
-			header('Location: message.php?message=login ou mot de passe incorecte');
+			header('Location: message.php?message=Login ou mot de passe incorecte');
 		}
 	}
 }

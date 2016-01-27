@@ -13,11 +13,11 @@ if(isset($_GET['idLan']) && isset($_GET['idTournoi']) && is_numeric($_GET['idLan
 	try{
 		$equipe = Equipe::createFromId($_POST['rejoindre']);
 		if($equipe->isFull()) {
-			header("Location: message.php?message=L'équipe et pleine !");
+			header("Location: message.php?message=Cette équipe et pleine !");
 		}
 		else {
 			$equipe->rejoindre(Member::getInstance()->getId());
-			header("Location: message.php?message=Vous avez bien intégré l'équipe !");
+			header("Location: message.php?message=Vous avez bien intégré cette équipe !");
 		}
 	}
 	catch(Exception $e){
@@ -72,7 +72,7 @@ HTML
 	echo $form->toHTML();
 }
 else{
-	header('Location: message.php?message=un problème est survenu');
+	header('Location: message.php?message=Un problème est survenu');
 }
 
 function equipe($equipe){

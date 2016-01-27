@@ -60,7 +60,7 @@ SQL
         $LAN -> addTournoi($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
         header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
     } catch(Exception $e) {
-       header('Location: message.php?message=un problème est survenu');
+       header('Location: message.php?message=Un problème est survenu');
     }
 } elseif(isset($_GET['idLan']) && is_numeric($_GET['idLan'])) {
     $LAN = null;
@@ -68,11 +68,11 @@ SQL
         $LAN = Member::getInstance()->getLAN();
     }
     catch(Exception $e){
-        header('Location: message.php?message=un problème est survenu');
+        header('Location: message.php?message=Un problème est survenu');
     }
 
     if($_GET['idLan']>sizeof($LAN) || $_GET['idLan']<0)
-        header('Location: message.php?message=un problème est survenu');
+        header('Location: message.php?message=Un problème est survenu');
 
     $LAN=$LAN[$_GET['idLan']];
 	$date = $LAN->getLanDate();
@@ -165,6 +165,6 @@ HTML
     );
 }
 else
-   header('Location: message.php?message=un problème est survenu');
+   header('Location: message.php?message=Un problème est survenu');
 
 echo $form->toHTML();

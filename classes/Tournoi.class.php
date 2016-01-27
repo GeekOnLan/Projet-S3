@@ -196,4 +196,11 @@ class Tournoi{
         else
             throw new Exception("Ce tournoi n'existe pas");
     }
+    
+    public function send($objet, $message){
+    	$equipes = $this->getEquipe();
+    	foreach ($equipes as $equipe){
+    		$equipe->send($objet, $message);
+    	}
+    }
 }

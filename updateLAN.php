@@ -24,7 +24,7 @@ if(isset($_POST['nameLAN']) || isset($_POST['dateLAN']) || isset($_POST['descrip
         $date=$lan->getLanDate();
         $desc=$lan->getLanDescription();
         $lieu=$lan->getLieu()->getSlug();
-        $adresse=$lan->getAdress();
+        $adresse=$lan->getAdresse();
     	if(!empty($_POST['nameLAN']))
             $nom=$_POST['nameLAN'];
         if(!empty($_POST['dateLAN']))
@@ -36,7 +36,7 @@ if(isset($_POST['nameLAN']) || isset($_POST['dateLAN']) || isset($_POST['descrip
         if(!empty($_POST['adresseLAN']))
             $adresse=$_POST['adresseLAN'];
         $lan->update($nom,$date,$desc,$lieu,$adresse);
-        $page->appendContent("<p>Votre LAN a bien ete modifiee.</p>");
+        header('Location: message.php?message=Votre LAN a bien été modifiée');
 } else {
     $prompt = <<<HTML
 		<div id="myPrompt">

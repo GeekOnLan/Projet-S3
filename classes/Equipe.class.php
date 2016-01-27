@@ -49,8 +49,11 @@ class Equipe {
 	 * @return Equipe L'instance créée
 	 */
 	public static function createFromId($id){
-		$res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => "Equipe"), "*", "Equipe", "idEquipe = :id")[0];
-
+		$res = selectRequest(array("id" => $id), array(PDO::FETCH_CLASS => "Equipe"), "*", "Equipe", "idEquipe = :id");
+		if(sizeof($res)==0)
+			throw new Exception("Aucune Equipe trouvée");
+				
+		$res = $res[0];
 		if(isset($res))
 			return $res;
 		else
@@ -130,7 +133,6 @@ SQL
 		"Composer(idMembre,idEquipe,role)",
 		"(:idMembre, :idEquipe, 1)");
 		$createur = $this->getCreateur();
-		var_dump($createur);
 		$pdo = MyPDO::getInstance();
 		$stmt = $pdo->prepare(<<<SQL
 			SELECT *
@@ -197,7 +199,7 @@ SQL
 			FROM Participer
 			WHERE idLAN IN (
 				SELECT idLan
-				FROM Lan
+				FROM LAN
 				WHERE idMembre = :idMembre
 			)
 SQL

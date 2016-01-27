@@ -5,15 +5,13 @@ require_once('includes/utility.inc.php');
 require_once('includes/requestUtils.inc.php');
 require_once('includes/connectedMember.inc.php');
 
-//TODO verifier les redirection a la fin du programme
 
 //recuperation du membre
 $membre = Member::getInstance();
 
 //verification des information pour l'equipe
 if(!isset($_GET['idEquipe']) || !is_numeric($_GET['idEquipe']))
-    echo "<div style='font-size : 5em'>Probleme parametre</div>";
-    //header('Location: message.php?message=Un problème est survenu');
+    header('Location: message.php?message=Un problÃ¨me est survenu');
 
 //creation de l'equipe
 $equipe = null;
@@ -21,17 +19,12 @@ try{
     $equipe = Equipe::createFromId($_GET['idEquipe']);
 }
 catch (Exception $e){
-    echo "<div style='font-size : 5em'>Probleme creation tournoi</div>";
-    echo $e;
-    //header('Location: message.php?message=Un problème est survenu');
+    header('Location: message.php?message=Un problÃ¨me est survenu');
 }
 
 //on verifi que le membre fait bien parti de l'equipe
 if(!$equipe->isInEquipe($membre->getId()))
-    echo "<div style='font-size : 5em'>Membre pas dans equipe</div>";
-    //header('Location: message.php?message=Vous ne faite pas partie de cette equipe');
-
-//TODO Fin de verification
+    header('Location: message.php?message=Vous ne faite pas partie de cette Ã©quipe');
 
 //on cree la webpage
 $webPage = new GeekOnLanWebpage("GeekOnLan - gestion de l'equipe");
@@ -50,15 +43,15 @@ if($equipe->getCreateur()->getId() == $membre->getId()) {
     foreach ($equipe->getMembre() as $membre) {
         $i++;
         if ($createur->getId() != $membre->getId()) {
-            $membres .= "<span class='membre'>" . $membre->getPseudo() . "</span><button type='button' id='boutonExclure'>Exclure</button><br>";
+            $membres .= "<span class='membre'>" . $membre->getPseudo() . "</span><button type='button' id='boutonExclure{$i}'>Exclure</button><br>";
 
             //ajout du menue d'exclusion du membre en forground
             $webPage->appendForeground(<<<HTML
-<div id="exclure">
+<div id="exclure{$i}">
 		<h2>Exclure {$membre->getPseudo()} ? ?</h2>
-		<form id="formExclure" name="exclureMembre" method="POST" action="deleteEquipe.php?idEquipe={$equipe->getIdEquipe()}&&idMembre={$membre->getId()}">
-			<button type="button" id="idConfirme" value="Confirme" >Confirmer</button>
-			<button type="button" id="idAnnule" value="Annule">Annuler</button>
+		<form id="formExclure{$i}" name="exclureMembre{$i}" method="POST" action="deleteEquipe.php?idEquipe={$equipe->getIdEquipe()}&&idMembre={$membre->getId()}">
+			<button type="button" id="idConfirme{$i}" value="Confirme" >Confirmer</button>
+			<button type="button" id="idAnnule{$i}" value="Annule">Annuler</button>
 		</form>
 	</div>
 HTML
@@ -67,13 +60,13 @@ HTML
             //ajout du css particulier au membre pour l'exclusion
             $webPage->appendToHead(<<<HTML
 <style type="text/css">
-	#exclure.open {
+	#exclure{$i}.open{$i} {
 		transform: scale3d(1, 1, 1);
 		-webkit-transform: scale3d(1, 1, 1);
 		-moz-transform: scale3d(1, 1, 1);
 	}
 
-	#exclure.deleteLayer {
+	#exclure{$i}.deleteLayer{$i} {
 		visibility: visible;
 		opacity: 0.5;
 	}
@@ -89,16 +82,16 @@ HTML
 				actionClass: "deleteLayer",
 				doAction: toggleDelete
 			});
-			$("#idAnnule").click(toggleDelete);
-			document.getElementById("idConfirme").onclick = function(){
-				document.exclureMembre.submit();
+			$("#idAnnule{$i}").click(toggleDelete{$i});
+			document.getElementById("idConfirme{$i}").onclick = function(){
+				document.exclureMembre{$i}.submit();
 			}
-			$("#boutonExclure").click(toggleDelete);
+			$("#boutonExclure{$i}").click(toggleDelete{$i});
 		});
 
-		var toggleDelete = function() {
-			$("#exclure").toggleClass("open");
-			$("body > div[id='layer']").toggleClass("deleteLayer");
+		var toggleDelete{$i} = function() {
+			$("#exclure{$i}").toggleClass("open{$i}");
+			$("body > div[id='layer']").toggleClass("deleteLayer{$i}");
 			$("#layer").toggleClass("hid");
 		};
 </script>

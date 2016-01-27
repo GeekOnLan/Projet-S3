@@ -12,7 +12,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
     if ($_GET['idLan'] <= sizeof($lans) - 1) {
         $lan = $lans[$_GET['idLan']];
     }else
-        header('Location: message.php?message=un problème est survenu');
+        header('Location: message.php?message=un problÃ©me est survenu');
 
     $tournois=$lan->getTournoi();
     $page = new GeekOnLanWebpage("GeekOnLan - Tournois");
@@ -44,7 +44,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         	<span>$hour</span>
         	<hr/>
         	<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
-        	<button type="button" id="bouttonDetails{$i}">Détails</button>
+        	<button type="button" id="bouttonDetails{$i}">DÃ©tails</button>
         	<a>Editer</a>
         	<a href="lancer.php?idLan={$_GET['idLan']}&idTournoi={$i}">Lancer le tournoi</a>
 		</div>
@@ -113,5 +113,5 @@ HTML
 
 }
 else {
-    header('Location: message.php?message=un problème est survenu');
+    header('Location: message.php?message=un problÃ©me est survenu');
 }

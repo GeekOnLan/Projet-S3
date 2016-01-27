@@ -8,9 +8,10 @@ if (verify($_SERVER, 'HTTP_REFERER')) {
     $member = Member::getInstance();
     try {
         $member->deleteAccount();
-        header('Location: message.php?message=Votre compte a bien été supprimé');
+        header('Location: message.php?message=Votre compte a bien Ã©tÃ© supprimÃ©');
     } catch (Exception $e) {
-        header('Location: message.php?message=un problème est survenu');
+        header('Location: message.php?message=Un problÃ¨me est survenu');
     }
 } else
-    header('Location: message.php?message=un problème est survenu');
+    header('Location: message.php?message=Un problÃ¨me est survenu');
+

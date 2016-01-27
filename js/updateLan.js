@@ -7,7 +7,7 @@ if (window.XMLHttpRequest) {
 }
 function verifyUpdate(){
 	//si tout est bon on envoit
-	var erreur = getAllError();
+	var erreur = getAllErrorLAN();
 	if(erreur=="     "){
 		var nameLAN = document.getElementsByName('nameLAN')[0].value;
 		var dateLAN = document.getElementsByName('dateLAN')[0].value;

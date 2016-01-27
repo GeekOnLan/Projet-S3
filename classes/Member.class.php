@@ -249,7 +249,7 @@ class Member {
     	$stmt = $pdo->prepare(<<<SQL
 			SELECT idMembre
 			FROM Composer
-			WHERE idEquipe=(
+			WHERE idEquipe IN (
     			SELECT idEquipe
     			FROM Participer
     			WHERE idLAN=:idLan
