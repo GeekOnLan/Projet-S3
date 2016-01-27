@@ -61,9 +61,13 @@
     transition: color 0.3s, border 0.3s;
 }
 
-.equipeBlocks .info button:hover, .equipeBlocks .membres button:hover{
+.equipeBlocks #boutonSup:hover, .equipeBlocks .membres button:hover{
     color: red;
     border: solid 3px red;
+}
+
+.equipeBlocks #boutonInvite:hover{
+    background: #dedede;
 }
 
 .equipeBlocks .membres .membre{
@@ -182,4 +186,48 @@ div[id^=myPrompt] button:active, div[id^=exclure] button:active{
     visibility: visible;
     opacity: 0.5;
 }
+
+/*input de l'invitation'*/
+#formInvite div{
+    margin: 10px 10px 10px 10px;
+}
+
+#formInvite button{
+    width: 35%;
+}
+
+#formInvite img{
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+
+    background-color: #FF5B00;
+    box-shadow: 0 0 5px 0 #333 inset;
+}
+
+#formInvite input {
+    float: right;
+    border: none;
+    height: 50px;
+
+    font-size: 22px;
+    padding: 0 10px;
+
+    background: #525252;
+    color: white;
+
+    position: relative;
+    width: calc(100% - 70px);
+}
+
+#formInvite input:invalid {
+    box-shadow: 0 0 5px 0 red inset;
+}
+
+#formInvite span{
+    display: inline-block;
+    color: red;
+}
+
 

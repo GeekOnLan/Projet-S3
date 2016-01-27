@@ -9,7 +9,12 @@ $(function() {
 
 //Vide la div contenant l'invitation
 var deleteDiv = function(id){
-    $("#"+id).empty();
+    $("#"+id).remove();
+    $("#notifNumber").html($("#notifNumber").html()-1);
+    if($("#notifNumber").html()<=0)
+        $("#notifNumber").remove();
+    if($(".yB")[0]==null)
+        $("#invitation").css('display','block');
 }
 
 var deleteInvit = function(id,choix){

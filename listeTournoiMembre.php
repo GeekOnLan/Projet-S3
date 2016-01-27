@@ -20,9 +20,51 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
 
     $html = "<div class='listeTournois'>";
 
+	$pdo = MyPDO::getInstance();
+	$stmt = $pdo->prepare(<<<SQL
+			SELECT idMembre, idEquipe
+			FROM Composer
+			WHERE idEquipe IN (
+    			SELECT idEquipe
+    			FROM Participer
+    			WHERE idLAN=:idLan
+    			AND idTournoi=:idTournoi
+    		);
+SQL
+	);
+
     $i=0;
     foreach($tournois as $tournoi) {
-        $date = explode('/', $tournoi->getDateHeurePrevu());
+		$button = "";
+
+		try{
+			$stmt->execute(array("idLan" => $lan->getId(),"idTournoi" => $tournoi->getIdTournoi()));
+		}
+		catch(Exception $e){
+			header('Location: message.php?message=Un probleme est survenu');
+		}
+		$res=$stmt->fetchAll();
+
+		$bool=TRUE;
+		$id = "";
+		if(sizeof($res)!=0)
+			foreach ($res as $membre)
+				if($membre['idMembre']==Member::getInstance()->getId()){
+					$bool=FALSE;
+					$id = $membre['idEquipe'];
+				}
+		if(!$bool)
+			$button = <<<HTML
+<a href="gererEquipe.php?idEquipe={$id}" class="bouton">Gérer</a>
+HTML;
+		else{
+			if(!$tournoi->isFull())
+				$button = '<a href="rejoindreTournoi.php?idLan='.$lan->getId().'&idTournoi='.$tournoi->getIdTournoi().'" class = "bouton">Participer</a>';
+			else
+				$button = '<span>Plein</span>';
+		}
+
+		$date = explode('/', $tournoi->getDateHeurePrevu());
         $day = $date[0];
         $month = ucfirst(strftime('%B', mktime(0, 0, 0, $date[1])));
 
@@ -43,6 +85,7 @@ if(isset($_GET['idLan'])&&is_numeric($_GET['idLan'])) {
         <div class="tournoiInfo">
         	<span>$hour</span>
         	<hr/>
+        	{$button}
         	<a href="listeEquipeMembre.php?idLan={$_GET['idLan']}&idTournoi={$i}">Equipe</a>
         	<button type="button" id="bouttonDetails{$i}">Détails</button>
         	<a href="updateTournoi.php?idLan={$_GET['idLan']}&idTournoi={$i}">Editer</a>

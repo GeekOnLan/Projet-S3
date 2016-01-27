@@ -176,13 +176,18 @@ SQL
 	public function removeMember($idMembre,$message,$messageOther){
 		if($idMembre==$this->getCreateur()->getId())
 			new Exception("impossible d'exclure le createur, vous devez supprimer l'equipe entiere !");
-		Member::createFromId($idMembre)->sendNotif("Annulation",$message);
-		$membres = $this->getMembre();
-		foreach ($membres as $membre){
-			if($membre->getId()!=$idMembre)
-				$membre->sendNotif("Annulation", $messageOther);
+		try{
+			deleteRequest(array("idEquipe" => $this->idEquipe,"idMembre" => $idMembre), "Composer", "idEquipe = :idEquipe AND idMembre = :idMembre");
+			Member::createFromId($idMembre)->sendNotif("Annulation",$message);
+			$membres = $this->getMembre();
+			foreach ($membres as $membre){
+				if($membre->getId()!=$idMembre)
+					$membre->sendNotif("Annulation", $messageOther);
+			}
 		}
-		deleteRequest(array("idEquipe" => $this->idEquipe,"idMembre" => $idMembre), "Composer", "idEquipe = :idEquipe AND idMembre = :idMembre");
+		catch(Exception $e){
+			throw new Exception($e);
+		}
 	}
 
 	public function isInEquipe($idMembre){
@@ -222,5 +227,20 @@ SQL
 		);
 		$stmt->execute(array("idMembre" => $idMembre));
 		return (!$stmt->fetchAll()==null);
+	}
+
+	public function inviteMember($idMembre){
+		$pdo = MyPDO::getInstance();
+		$stmt = $pdo->prepare(<<<SQL
+			INSERT INTO Inviter (idMembre, idEquipe)
+    		VALUES (:membre, :equipe);
+SQL
+		);
+		try {
+			$stmt->execute(array("membre" => $idMembre, "equipe" => $this->idEquipe));
+		}
+		catch(Exception $e){
+			throw new Exception($e);
+		}
 	}
 }

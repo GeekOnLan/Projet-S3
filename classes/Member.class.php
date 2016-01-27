@@ -133,6 +133,15 @@ class Member {
             throw new Exception("Aucun membre trouvée");
     }
 
+    public static function createFromPseudo($pseudo) {
+        $res = selectRequest(array("pseudo" => $pseudo), array(PDO::FETCH_CLASS => 'Member'), "*", "Membre", "pseudo = :pseudo");
+
+        if(isset($res[0]))
+            return $res[0];
+        else
+            throw new Exception("Aucun membre trouvée");
+    }
+
     /**
      * Démarre la session
      *
@@ -361,6 +370,16 @@ SQL
 SQL
     	);
     	$stmt->execute(array("id" => $this->idMembre));
-    	return sizeof($stmt->fetchAll());
+        $res1 = $stmt->fetchAll();
+
+        $stmt = $pdo->prepare(<<<SQL
+			SELECT idEquipe
+    		FROM Inviter
+    		WHERE idMembre=:id;
+SQL
+        );
+        $stmt->execute(array("id" => $this->idMembre));
+        $res2 = $stmt->fetchAll();
+    	return sizeof($res1)+sizeof($res2);
     }
 }

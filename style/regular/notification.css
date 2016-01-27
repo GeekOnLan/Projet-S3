@@ -1,4 +1,4 @@
-.notif {
+.notif ,.invit{
     margin-left : 20%;
     width : 60%;
     margin-right : 20%;
@@ -11,8 +11,8 @@
     border-radius: 5px;
 }
 
-.sB {
-   box-shadow: 2px 2px 1px 0 #111;
+.sB ,.yB, .nB{
+    box-shadow: 2px 2px 1px 0 #111;
     border: solid 3px #1b1b1b;
 
     font-size: 22px;
@@ -25,31 +25,12 @@
     transition: all 0.3s;
 }
 
-.sB:hover {
+.sB:hover ,.yB:hover ,.nB:hover{
      color: red;
     border: solid 3px red;
 }
-}
 
 .notif p {
-    text-align: center;
-    padding-left: 10px;
-}
-
-.invit {
-    margin-left : 20%;
-    width : 60%;
-    margin-right : 20%;
-    margin-bottom: 20px;
-    background-color: #313131;
-    text-decoration-color: #3DB2E1;
-    color : white;
-    text-align: center;
-    display : inline-block;
-    border-radius: 5px;
-}
-
-.invit p {
     text-align: center;
     padding-left: 10px;
 }

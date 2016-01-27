@@ -6,32 +6,25 @@ require_once('../classes/MyPDO.class.php');
 if (!verify($_SERVER, 'HTTP_REFERER'))
     header('Location: message.php?message=un problème est survenu');
 
+if (!isset($_GET['id']) || !empty($_GET['id']) || !isset($_GET['choix']) || !empty($_GET['choix']))
+    header('Location: ../message.php?message=un problème est survenu');
+
 //Fonction principale
 $idTeam = $_GET['id'];
 $choix = $_GET['choix'];
 Member::getInstance();
 deleteInvit($idTeam);
-if($choix) addTeam($idTeam);
-
-
-
+if($choix){
+    addTeam($idTeam);
+}
 
 //Fonction d'ajout dans l'�quipe
 function addTeam($idTeam){
-    $pdo = MyPDO::getInstance();
-    $stmt = $pdo->prepare(<<<SQL
-    DELETE FROM Composer WHERE idMembre = :idmembre;
-SQL
-    );
-    $stmt->execute(array("idmembre" => $_SESSION['Member']->getId()));
-    //Ajout
-
-    $stmt = $pdo->prepare(<<<SQL
-    INSERT INTO `Composer`(`idMembre`, `idEquipe`, `role`) VALUES (:idmembre,:idteam,1)
-SQL
-    );
-    $stmt->execute(array("idteam" => $idTeam,"idmembre" => $_SESSION['Member']->getId()));
-
+    try {
+        Equipe::createFromId($idTeam)->rejoindre(Member::getInstance()->getId());
+    }catch (Exception $e){
+        header('Location: message.php?message=Vous ete deja dans cette equipe');
+    }
     return 0;
 }
 
@@ -42,7 +35,7 @@ function deleteInvit($idTeam){
     DELETE FROM Inviter WHERE idEquipe = :idinvit AND idMembre = :idmembre;
 SQL
     );
-    $stmt->execute(array("idinvit" => $idTeam,"idmembre" => $_SESSION['Member']->getId()));
+    $stmt->execute(array("idinvit" => $idTeam,"idmembre" => Member::getInstance()->getId()));
     return 0;
 }
 

@@ -10,24 +10,25 @@ $connecte = Member::isConnected();
   }catch(Exception $e){
     header('Location: message.php?message=Lan inexistante');
   }
+    //si le membre est le createur on le redirige vers ca page
+    $membre = Member::getInstance();
+    if($connecte && $lan->getCreateur()->getId()==$membre->getId()) {
+        $i=0;
+        foreach($membre->getLAN() as $lanMembre) {
+            if ($lanMembre->getId() == $lan->getId()) {
+                header('Location: listeTournoiMembre.php?idLan=' . $i);
+            }
+            $i++;
+        }
+    }
+
+
     $page = new GeekOnLanWebpage("GeekOnLan - ".$lan->getLanName()." - Liste des tournois");
     $page->appendCssUrl("style/regular/listeTournois.css", "screen and (min-width: 680px)");
     $page->appendJsUrl("js/request.js");
 
     $tournois=$lan->getTournoi();
 
-    if(sizeof($tournois)==0){
-        $page->appendContent(<<<HTML
-              <table id="{$_REQUEST['idLan']}">
-              <tr>
-                <th>Aucun tournoi prévu pour cette LAN</th>
-              </tr>
-
-              </table>
-HTML
-        );
-    }
-    else{
         $pdo = MyPDO::getInstance();
         $stmt = $pdo->prepare(<<<SQL
 			SELECT idMembre, idEquipe
@@ -175,7 +176,6 @@ HTML
         $html .= "</div>";
 
         $page->appendContent($html);
-    }
 
     echo $page->toHTML();
 }

@@ -28,12 +28,13 @@ elseif(isset($_GET['idEquipe']) && is_numeric($_GET['idEquipe'])) {
         $equipe = Equipe::createFromId($_GET['idEquipe']);
 
         if(!$equipe->getCreateur()->getId() != Member::getInstance()->getId()){
-            header('Location: message.php?message=un problème est survenu');
+           // header('Location: message.php?message=un problème est survenu');
         }
 
         $equipe->delete("votre equipe '".$equipe->getNomEquipe()."' a été supprimée par son gérant");
         header("Location: message.php?message=votre equipe a bien été supprimée");
     } catch (Exception $e) {
-        header('Location: message.php?message=un problème est survenu');
+        echo $e;
+        //header('Location: message.php?message=un problème est survenu');
     }
 }

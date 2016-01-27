@@ -132,17 +132,10 @@ HTML;
 function creeEquipe($lan,$tournoi){
     $html= <<<HTML
     
-  <h2>$lan</h2>
+  <h2>Rejoindre le tournoi '{$tournoi->getNomTournoi()}' de la LAN '{$lan}'</h2>
 
 <form method="POST" name="creeEquipeForm" action="rejoindreTournoi.php?idLan={$_GET['idLan']}&idTournoi={$_GET['idTournoi']}">
     <table class="creeEquipeForm">
-        <thead>
-            <tr>
-                <th colspan="2">
-                    <h2>Créer une equipe : {$tournoi->getNomTournoi()}</h2>
-                </th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <td>

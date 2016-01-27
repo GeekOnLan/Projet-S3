@@ -7,6 +7,9 @@ require_once('../classes/MyPDO.class.php');
 if (!verify($_SERVER, 'HTTP_REFERER'))
     header('Location: ../message.php?message=un problème est survenu');
 
+if (!isset($_GET['id']) || !empty($_GET['id']))
+    header('Location: ../message.php?message=un problème est survenu');
+
 //Fonction principale
 
 $id = $_GET['id'];

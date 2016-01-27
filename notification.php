@@ -14,7 +14,7 @@ else $webpage->appendContent("<p class=\"vide\">Pas de nouvelles notifications.<
 
 $webpage->appendContent("<hr>");
 
-if(getInvitation() != null)$webpage->appendContent(getInvitation());
+if(getInvitation() != null)$webpage->appendContent(getInvitation()."<p style=\"display : none\" id=\"invitation\" class=\"vide\">Pas de nouvelles notifications.</p>");
 else $webpage->appendContent("<p class=\"vide\">Pas de nouvelles invitations.</p>");
 
 echo $webpage->toHTML();
@@ -60,8 +60,8 @@ SQL
     foreach($lesInvits as $invit){
         $mesJoliesInvits.=<<<HTML
     <div class="invit" id="{$invit['idEquipe']}">
-        <h1>L'équipe {$invit['nomEquipe']} vous invite é la rejoindre !</h1>
-        <h2>Acceptez-vous cette invitation ?</h2>
+        <h1>L'équipe {$invit['nomEquipe']} vous invite a la rejoindre !</h1>
+        <p>Acceptez-vous cette invitation ?</p>
         <button class="yB"> Oui </button> <button class="nB"> Non </button>
     </div>
 

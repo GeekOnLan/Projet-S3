@@ -205,4 +205,8 @@ class Tournoi{
     		$equipe->send($objet, $message);
     	}
     }
+
+    public function getCreateur(){
+        return Lan::createFromId($this->idLAN)->getCreateur();
+    }
 }

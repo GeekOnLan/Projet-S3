@@ -22,15 +22,16 @@
 }
 
 h2{
-	
 
     background: #40CFF6;
     color: white;
     border-right: solid 2px black;
     border-bottom: solid 2px black;
-    font-family: Arial, serif;
+    width:50%;
+    margin: auto;
+    margin-bottom: 10px;
 
-    width: auto;
+    font-family: Arial, serif;
     text-align: center;
     padding: 3px;
 }

@@ -29,6 +29,7 @@ if(!$equipe->isInEquipe($membre->getId()))
 //on cree la webpage
 $webPage = new GeekOnLanWebpage("GeekOnLan - gestion de l'equipe");
 $webPage->appendCssUrl("style/regular/gererEquipe.css", "screen and (min-width: 680px)");
+$webPage->appendJsUrl("js/inviteMember.js");
 
 //on regarde si le membre est le createur
 if($equipe->getCreateur()->getId() == $membre->getId()) {
@@ -111,7 +112,8 @@ HTML
 	<div class="info">
 		<span>Description :</span>
 		<span>{$equipe->getDescriptionEquipe()}</span><br>
-		<button type="button" id="boutonSup">supprimer votre equipe</button>
+		<button type="button" id="boutonSup">Supprimer votre equipe</button>
+		<button type="button" id="boutonInvite">Inviter un membre</button>
 	</div>
 	<hr>
 	<div class="membres">
@@ -128,7 +130,19 @@ HTML;
 			<button type="button" id="idConfirmer" value="Confirmer" >Confirmer</button>
 			<button type="button" id="idAnnuler" value="Annuler">Annuler</button>
 		</form>
-	</div>
+</div>
+<div id="myPromptInvite">
+		<h2>Inviter un membre</h2>
+		<form id="formInvite" name="formInvite" method="POST" action="inviteMember.php?idEquipe={$equipe->getIdEquipe()}">
+		    <span id="erreurpseudo"></span>
+			<div>
+    			<img id="pseudoLogo" src="resources/img/Contact.png" alt="login" />
+    		    <input id="pseudo" name="pseudo" type="text" placeholder="Pseudo" maxlength="31" onfocus="resetPseudo()" onblur="verifiPseudo()">
+    		</div>
+			<button type="button" id="idInviter" value="inviter" >Inviter</button>
+			<button type="button" id="idRefuser" value="refuser">Annuler</button>
+		</form>
+</div>
 HTML
     );
 
@@ -142,6 +156,16 @@ HTML
 	}
 
 	#myPrompt.deleteLayer {
+		visibility: visible;
+		opacity: 0.5;
+	}
+	#myPromptInvite.openInviter {
+		transform: scale3d(1, 1, 1);
+		-webkit-transform: scale3d(1, 1, 1);
+		-moz-transform: scale3d(1, 1, 1);
+	}
+
+	#myPromptInvite.deleteLayerInviter {
 		visibility: visible;
 		opacity: 0.5;
 	}
@@ -162,11 +186,27 @@ HTML
 				document.deleteEquipe.submit();
 			}
 			$("#boutonSup").click(toggleDelete);
+
+			toggleLayer.actions.push({
+				actionClass: "deleteLayerInvier",
+				doAction: toggleDeleteInviter
+			});
+			$("#idRefuser").click(toggleDeleteInviter);
+			document.getElementById("idInviter").onclick = function(){
+				envoyerInvite();
+			}
+			$("#boutonInvite").click(toggleDeleteInviter);
 		});
 
 		var toggleDelete = function() {
 			$("#myPrompt").toggleClass("open");
 			$("body > div[id='layer']").toggleClass("deleteLayer");
+			$("#layer").toggleClass("hid");
+		};
+
+		var toggleDeleteInviter = function() {
+			$("#myPromptInvite").toggleClass("openInviter");
+			$("body > div[id='layer']").toggleClass("deleteLayerInviter");
 			$("#layer").toggleClass("hid");
 		};
 </script>
@@ -255,6 +295,7 @@ HTML
 	<div class="info">
 		<span>Description :</span>
 		<span>{$equipe->getDescriptionEquipe()}</span><br>
+		<button type="button" id="boutonInvite">Inviter un membre</button>
 	</div>
 	<hr>
 	<div class="membres">

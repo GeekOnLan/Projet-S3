@@ -23,15 +23,6 @@ div[class*=Blocks] {
 		height: 250px;
 }
 
-tbody{
-	background: #383838;
-    border: 5px solid #fafafa;
-    border-right-color: #cdcdcd;
-    border-bottom-color: #cdcdcd;
-    box-shadow: 1px 1px 0px 1px #282828;
-	border-collapse:collapse;
-}
-
 table{
 	border-collapse:collapse;
 	border:0;
