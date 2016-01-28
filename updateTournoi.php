@@ -67,7 +67,7 @@ SQL
        header('Location: message.php?message=Un problème est survenu');
     }
 	try{
-		$LAN[$_GET['idLan']] -> update($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
+		$tournoi-> update($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
 		header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
 	}catch(Exception $e){
 		header('Location: message.php?message=Un problème est survenu lors de la mise à jour');
