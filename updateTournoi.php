@@ -49,7 +49,7 @@ if (verifyFormTournoi()) {
 	try{
 		$tournoi = Tournoi::createFromId($LAN[$_GET['idLan']]->getId(),$_GET['idTournoi']);
 	}catch(Exception $e){
-		header('Location: message.php?message=get tournoi erreur');
+		header('Location: message.php?message=Un problème est survenu');
 	}
 	
     try {
@@ -68,25 +68,28 @@ SQL
     }
 	try{
 		$tournoi-> update($idJeu,$nameTournoi,1,$nbEquipeMax,$nbMembreMax,$dateTournoi,$descriptionTournoi);
-		header('Location: message.php?message=Votre Tournoi a bien été ajouter !');
+		header('Location: message.php?message=Votre Tournoi a bien été modifier !');
 	}catch(Exception $e){
 		header('Location: message.php?message=Un problème est survenu lors de la mise à jour');
 	}
 } elseif(isset($_GET['idLan']) && is_numeric($_GET['idTournoi']) && isset($_GET['idTournoi']) && is_numeric($_GET['idTournoi'])) {
     $LAN = null;
-    try {
-        $LAN = Member::getInstance()->getLAN();
-    }
-    catch(Exception $e){
-        header('Location: message.php?message=Un problème est survenu recup lan');
-    }
+    
+    $LAN = Member::getInstance()->getLAN();
 
-    if($_GET['idLan']>sizeof($LAN) || $_GET['idLan']<0)
+    if($_GET['idLan']>=sizeof($LAN) || $_GET['idLan']<0){
         header('Location: message.php?message=Un problème est survenu');
-
+    }
+    
     $LAN=$LAN[$_GET['idLan']];
-	
-	$tournoi = Tournoi::createFromId($LAN->getId(),$_GET['idTournoi']);
+    $tournoi = $LAN->getTournoi();
+    
+    if($_GET['idTournoi']>=sizeof($tournoi) || $_GET['idTournoi']<0){
+    	header('Location: message.php?message=Un problème est survenu');
+    }
+   
+    $tournoi = $tournoi[$_GET['idTournoi']];
+    	
 	$heureTournoi = substr($tournoi->getDateHeurePrevu(),13,5);
 	$jeu=$tournoi->getJeu()['nomJeu'];
 	$date = $LAN->getLanDate();
@@ -171,7 +174,7 @@ HTML;
                 <td colspan="2">
                     <label for="descriptionTournoi">Description du tournoi</label>
                     <div class="tournoiDesc">
-                        <textarea maxlength="255" name="descriptionTournoi" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionTournoi()"></textarea>
+                        <textarea maxlength="255" name="descriptionTournoi" type="text" onfocus="resetDescriptionLAN" onblur="verifyDescriptionTournoi()">{$tournoi->getDescriptionTournoi()}</textarea>
                     </div>
                     <span id="erreurDescriptionTournoi"> </span>
                 </td>

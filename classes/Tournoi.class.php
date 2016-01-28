@@ -11,6 +11,17 @@ class Tournoi{
     private $descriptionTournoi = null;
     private $nbEquipeMax = null;
     private $nbPersMaxParEquipe = null;
+        
+    public function update($idJeu,$nom,$type,$nbEquipeMax,$nbPersMaxParEquipe,$datePrevu = null,$description = '') {
+    	if($description == ''){
+    		$description = "Tounoi crée par " . Member::getInstance()->getPseudo();
+    	}
+    	$bigmama = array("idJeu"=>$idJeu,"nomTournoi"=>$nom,"tpElimination"=>$type,"dateHeure"=>$datePrevu,"descriptionTournoi"=>$description,"nbEquipeMax"=>$nbEquipeMax,"nbPersMaxParEquipe"=>$nbPersMaxParEquipe,"idTournoi" => $this->idTournoi,"idLan" => $this->idLAN);
+    	updateRequest($bigmama,
+    	"Tournoi",
+    	"idJeu=:idJeu, nomTournoi=:nomTournoi, tpElimination=:tpElimination, dateHeurePrevu=STR_TO_DATE(:dateHeure, '%d/%m/%Y %H:%i'), descriptionTournoi=:descriptionTournoi, nbEquipeMax=:nbEquipeMax, nbPersMaxParEquipe=:nbPersMaxParEquipe",
+    	"idTournoi=:idTournoi AND idLAN=:idLan");
+    }
 
     /**
      * Retourne l'identifiant de la Lan du Tournoi

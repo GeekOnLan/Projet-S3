@@ -104,7 +104,7 @@ body {
     border: solid 2px #222;
 }
 
-#connexionForm a:nth-child(2) {
+#connexionForm a:nth-child(1) {
 	background: #FF5B00;
 	box-shadow: none;
 	

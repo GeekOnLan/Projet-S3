@@ -115,7 +115,7 @@ while($k<sizeof($tableau)){
 				<div class="gerer">
 					<span>{$tableau[$k][1][1][0]}</span>
 					<hr/>
-					<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][0]}">Gérer</a>
+					<a href="gererEquipe.php?idEquipe={$tableau[$k][1][1][1]}">Gérer</a>
 				</div>
 			</div>
 		</td>

@@ -116,7 +116,6 @@ function updateRequest($params, $update, $set, $where) {
         WHERE $where ;
 SQL
 );
-
     // On ajoute tout les paramètres de la requête
     foreach($params as $key => $value) {
         $type = PDO::PARAM_STR;
@@ -125,6 +124,5 @@ SQL
 
         $stmt->bindValue(":" . $key, $value, $type);
     }
-
     $stmt->execute();
 }

@@ -90,8 +90,8 @@ class GeekOnLanWebpage extends Webpage {
             <input type="hidden" name="hiddenCrypt" value={$challenge}>
 
             <div>
+            	<button type="button" onclick="sha256()">Confirmer</button>
                 <a href="inscription.php">S'inscrire</a>
-                <button type="button" onclick="sha256()">Confirmer</button>
             </div>
 		</form>
 HTML;

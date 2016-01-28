@@ -147,7 +147,7 @@ SQL
 	 * @param $idMembre id du membre a ajouter a l'equipe
 	 */
 	public function rejoindre($idMembre){
-		if($this->isFromMember()){
+		if($this->isFullOfMember()){
 			throw new Exception('equipe pleine');
 		}
 
