@@ -5,6 +5,8 @@ require_once('classes/Lan.class.php');
 require_once('includes/utility.inc.php');
 require_once('includes/connectedMember.inc.php');
 
+header('Location: message.php?message=Dans le cadre de l\'infoLan vous ne pouvez pas crée de LAN');
+
 $form = new GeekOnLanWebpage("GeekOnLan - Création d'une LAN");
 $form->appendCssUrl("style/regular/creeLan.css", "screen and (min-width: 680px)");
 $form->appendCssUrl("style/mobile/creeLan.css", "screen and (max-width: 680px)");
