@@ -223,7 +223,7 @@ function verifyFirst(){
 
 //teste prenom et nom
 function name(name){
-	var re = /^[a-zA-Z]{1,20}$/;
+	var re = /^[a-zA-ZàâéèêôùûçïÀÂÉÈÔÙÛÇ\ \-]{1,20}$/;
 	return re.test(name);
 }
 
